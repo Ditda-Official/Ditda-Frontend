@@ -1,1 +1,159 @@
 @import "tailwindcss";
+
+@font-face {
+  font-family: "Pretendard Variable";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/fonts/PretendardVariable.woff2") format("woff2");
+}
+
+@theme {
+  /* =========================
+    Color Tokens
+    ========================= */
+  /* Main */
+  --color-main-main: #874fff;
+  --color-main-bright: #dcccff;
+  --color-main-dark: #4314a8;
+
+  /* Purple */
+  --color-purple-5: #f6f5fc;
+  --color-purple-10: #f3edff;
+  --color-purple-20: #e0d2ff;
+  --color-purple-30: #c1a5ff;
+  --color-purple-40: #a379fc;
+  --color-purple-50: var(--color-main-main);
+  --color-purple-60: #662ae6;
+  --color-purple-70: #440db9;
+  --color-purple-80: #2e0c77;
+  --color-purple-90: #23085d;
+
+  /* GrayScale */
+  --color-gray-10: #f3f5f7;
+  --color-gray-20: #eef1f5;
+  --color-gray-30: #e4e7eb;
+  --color-gray-40: #d0d4db;
+  --color-gray-50: #b4b9c2;
+  --color-gray-60: #959ca6;
+  --color-gray-70: #636973;
+  --color-gray-80: #464950;
+  --color-gray-90: #282c33;
+
+  /* B/W */
+  --color-white: #ffffff;
+  --color-black: #191919;
+
+  /* =========================
+    Typography
+    ========================= */
+  --font-sans: "Pretendard Variable", ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  /* Title/01_B */
+  --text-title1-b: 1.75rem;
+  --text-title1-b--line-height: 2.45rem;
+  --text-title1-b--letter-spacing: -0.02em;
+  --text-title1-b--font-weight: 700;
+
+  /* Title/02_B */
+  --text-title2-b: 1.5rem;
+  --text-title2-b--line-height: 2.1rem;
+  --text-title2-b--letter-spacing: -0.02em;
+  --text-title2-b--font-weight: 700;
+
+  /* Title/02_SB */
+  --text-title2-sb: 1.5rem;
+  --text-title2-sb--line-height: 2.1rem;
+  --text-title2-sb--letter-spacing: -0.02em;
+  --text-title2-sb--font-weight: 600;
+
+  /* Heading/01_SB */
+  --text-heading1-sb: 1.25rem;
+  --text-heading1-sb--line-height: 1.75rem;
+  --text-heading1-sb--letter-spacing: -0.02em;
+  --text-heading1-sb--font-weight: 600;
+
+  /* Heading/02_SB */
+  --text-heading2-sb: 1.125rem;
+  --text-heading2-sb--line-height: 1.575rem;
+  --text-heading2-sb--letter-spacing: -0.02em;
+  --text-heading2-sb--font-weight: 600;
+
+  /* Heading/02_M */
+  --text-heading2-m: 1.125rem;
+  --text-heading2-m--line-height: 1.575rem;
+  --text-heading2-m--letter-spacing: -0.02em;
+  --text-heading2-m--font-weight: 500;
+
+  /* Heading/03_SB */
+  --text-heading3-sb: 1rem;
+  --text-heading3-sb--line-height: 1.4rem;
+  --text-heading3-sb--letter-spacing: -0.02em;
+  --text-heading3-sb--font-weight: 600;
+
+  /* Heading/03_M */
+  --text-heading3-m: 1rem;
+  --text-heading3-m--line-height: 1.4rem;
+  --text-heading3-m--letter-spacing: -0.02em;
+  --text-heading3-m--font-weight: 500;
+
+  /* Body/01_SB */
+  --text-body1-sb: 0.9375rem;
+  --text-body1-sb--line-height: 1.5rem;
+  --text-body1-sb--letter-spacing: -0.02em;
+  --text-body1-sb--font-weight: 600;
+
+  /* Body/01_M */
+  --text-body1-m: 0.9375rem;
+  --text-body1-m--line-height: 1.5rem;
+  --text-body1-m--letter-spacing: -0.02em;
+  --text-body1-m--font-weight: 500;
+
+  /* Body/02_SB */
+  --text-body2-sb: 0.875rem;
+  --text-body2-sb--line-height: 1.4rem;
+  --text-body2-sb--letter-spacing: -0.02em;
+  --text-body2-sb--font-weight: 600;
+
+  /* Body/02_M */
+  --text-body2-m: 0.875rem;
+  --text-body2-m--line-height: 1.4rem;
+  --text-body2-m--letter-spacing: -0.02em;
+  --text-body2-m--font-weight: 500;
+
+  /* Body/02_R */
+  --text-body2-r: 0.875rem;
+  --text-body2-r--line-height: 1.4rem;
+  --text-body2-r--letter-spacing: -0.02em;
+  --text-body2-r--font-weight: 400;
+
+  /* Caption/01_SB */
+  --text-caption1-sb: 0.8125rem;
+  --text-caption1-sb--line-height: 1.1375rem;
+  --text-caption1-sb--letter-spacing: -0.02em;
+  --text-caption1-sb--font-weight: 600;
+
+  /* Caption/01_M */
+  --text-caption1-m: 0.8125rem;
+  --text-caption1-m--line-height: 1.1375rem;
+  --text-caption1-m--letter-spacing: -0.02em;
+  --text-caption1-m--font-weight: 500;
+
+  /* Caption/01_R */
+  --text-caption1-r: 0.8125rem;
+  --text-caption1-r--line-height: 1.1375rem;
+  --text-caption1-r--letter-spacing: -0.02em;
+  --text-caption1-r--font-weight: 400;
+
+  /* Caption/02_SB */
+  --text-caption2-sb: 0.75rem;
+  --text-caption2-sb--line-height: 1.05rem;
+  --text-caption2-sb--letter-spacing: -0.02em;
+  --text-caption2-sb--font-weight: 600;
+
+  /* Caption/02_M */
+  --text-caption2-m: 0.75rem;
+  --text-caption2-m--line-height: 1.05rem;
+  --text-caption2-m--letter-spacing: -0.02em;
+  --text-caption2-m--font-weight: 500;
+}
