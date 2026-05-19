@@ -170,10 +170,10 @@
   --text-caption2-m--font-weight: 500;
 
   /* =========================
-    Radius Token
+    Radius Tokens
     ========================= */
-  --rounded-4: 4px;
-  --rounded-8: 8px;
-  --rounded-12: 12px;
-  --rounded-full: 9999px;
+  --radius-4: 4px;
+  --radius-8: 8px;
+  --radius-12: 12px;
+  --radius-full: 9999px;
 }
