@@ -44,6 +44,18 @@
   --color-white: #ffffff;
   --color-black: #191919;
 
+  /* Red */
+  --color-red-bright: #fff2f5;
+  --color-red-main: #ff3064;
+
+  /* Green */
+  --color-green-bright: #e2ffe0;
+  --color-green-main: #20a608;
+
+  /* Blue */
+  --color-blue-bright: #e0eeff;
+  --color-blue-main: #0248c2;
+
   /* =========================
     Typography
     ========================= */
@@ -156,4 +168,12 @@
   --text-caption2-m--line-height: 1.05rem;
   --text-caption2-m--letter-spacing: -0.02em;
   --text-caption2-m--font-weight: 500;
+
+  /* =========================
+    Radius Tokens
+    ========================= */
+  --radius-4: 4px;
+  --radius-8: 8px;
+  --radius-12: 12px;
+  --radius-full: 9999px;
 }
