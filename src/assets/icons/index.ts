@@ -23,3 +23,4 @@ export { default as ProfileCircleIcon } from "@/assets/icons/icon_profile_circle
 export { default as ProfileCircleBoldIcon } from "@/assets/icons/icon_profile_circle_bold.svg";
 export { default as SearchIcon } from "@/assets/icons/icon_search.svg";
 export { default as SearchBoldIcon } from "@/assets/icons/icon_search_bold.svg";
+export { default as ShareIcon } from "@/assets/icons/icon_share.svg";
