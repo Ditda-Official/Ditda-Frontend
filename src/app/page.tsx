@@ -1,3 +1,4 @@
+import { ArrowDownIcon } from "@/assets/icons";
 import Button from "@/components/common/Button";
 
 const page = () => {
@@ -15,6 +16,11 @@ const page = () => {
       <Button variant="large_disabled">로그인</Button>
       <Button variant="certification_primary">인증하기</Button>
       <Button variant="certification_disabled">인증하기</Button>
+      <Button variant="xsmall_primary">로그인</Button>
+      <Button variant="xsmall_primary">
+        <ArrowDownIcon />
+        로그인
+      </Button>
     </div>
   );
 };
