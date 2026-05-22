@@ -11,6 +11,8 @@ const page = () => {
       <Button variant="medium_secondary">로그인</Button>
       <Button variant="medium_tertiary">로그인</Button>
       <Button variant="medium_disabled">로그인</Button>
+      <Button variant="large_primary">로그인</Button>
+      <Button variant="large_disabled">로그인</Button>
     </div>
   );
 };
