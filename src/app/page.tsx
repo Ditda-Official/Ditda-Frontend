@@ -7,6 +7,10 @@ const page = () => {
       <Button variant="small_secondary">로그인</Button>
       <Button variant="small_tertiary">로그인</Button>
       <Button variant="small_disabled">로그인</Button>
+      <Button variant="medium_primary">로그인</Button>
+      <Button variant="medium_secondary">로그인</Button>
+      <Button variant="medium_tertiary">로그인</Button>
+      <Button variant="medium_disabled">로그인</Button>
     </div>
   );
 };

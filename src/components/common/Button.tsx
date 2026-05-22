@@ -1,6 +1,14 @@
 import { ButtonHTMLAttributes } from "react";
 
-type ButtonVariant = "small_primary" | "small_secondary" | "small_tertiary" | "small_disabled";
+type ButtonVariant =
+  | "small_primary"
+  | "small_secondary"
+  | "small_tertiary"
+  | "small_disabled"
+  | "medium_primary"
+  | "medium_secondary"
+  | "medium_tertiary"
+  | "medium_disabled";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant: ButtonVariant;
@@ -8,21 +16,28 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variantStyles: Record<ButtonVariant, string> = {
   small_disabled:
-    "rounded-8 bg-gray-10 text-gray-60 cursor-not-allowed text-body1-sb pointer-events-none",
+    "px-3.5 py-1.5 rounded-8 bg-gray-10 text-gray-60 cursor-not-allowed text-body1-sb pointer-events-none",
   small_primary:
-    "rounded-8 bg-main-main text-white hover:bg-main-dark text-body1-sb hover:text-gray-50",
+    "px-3.5 py-1.5 rounded-8 bg-main-main text-white hover:bg-main-dark text-body1-sb hover:text-gray-20",
   small_secondary:
-    "rounded-8 border border-purple-10 bg-purple-5 hover:border-transparent hover:bg-gray-30 text-purple-60 text-body1-m",
+    "px-3.5 py-1.5 rounded-8 border border-purple-10 bg-purple-5 hover:border-transparent hover:bg-gray-30 text-purple-60 text-body1-m",
   small_tertiary:
-    "rounded-8 text-body1-sb text-gray-60 bg-gray-20 border border-transparent hover:bg-gray-40 active:bg-gray-20 active:text-main-main active:border-purple-30 cursor-not-allowed",
+    "px-3.5 py-1.5 rounded-8 text-body1-sb text-gray-60 bg-gray-20 border border-transparent hover:bg-gray-40 active:bg-gray-20 active:text-main-main active:border-purple-30 cursor-not-allowed",
+  medium_primary:
+    "px-8 py-3 rounded-12 bg-main-main text-white hover:bg-main-dark hover:text-gray-20 text-heading3-sb",
+  medium_secondary:
+    "px-8 py-3 rounded-12 bg-white text-heading3-sb text-gray-70 border border-gray-30 hover:bg-gray-30",
+  medium_tertiary: "px-8 py-3 rounded-12 bg-gray-30 hover:bg-gray-50 text-gray-70 text-heading3-sb",
+  medium_disabled:
+    "px-8 py-3 rounded-12 bg-gray-30 text-gray-60 text-heading3-sb pointer-events-none",
 };
 
 const Button = ({ variant, children, className, ...props }: ButtonProps) => {
-  const isDisabled = variant === "small_disabled";
+  const isDisabled = variant === "small_disabled" || variant === "medium_disabled";
 
   return (
     <button
-      className={`inline-flex w-full cursor-pointer items-center justify-center px-3.5 py-1.5 transition-colors ${variantStyles[variant]} ${className ?? ""}`}
+      className={`inline-flex w-full cursor-pointer items-center justify-center transition-colors ${variantStyles[variant]} ${className ?? ""}`}
       disabled={isDisabled || props.disabled}
       {...props}
     >
