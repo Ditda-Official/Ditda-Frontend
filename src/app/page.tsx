@@ -13,6 +13,8 @@ const page = () => {
       <Button variant="medium_disabled">로그인</Button>
       <Button variant="large_primary">로그인</Button>
       <Button variant="large_disabled">로그인</Button>
+      <Button variant="certification_primary">인증하기</Button>
+      <Button variant="certification_disabled">인증하기</Button>
     </div>
   );
 };

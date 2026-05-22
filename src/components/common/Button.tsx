@@ -10,7 +10,9 @@ type ButtonVariant =
   | "medium_tertiary"
   | "medium_disabled"
   | "large_primary"
-  | "large_disabled";
+  | "large_disabled"
+  | "certification_primary"
+  | "certification_disabled";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant: ButtonVariant;
@@ -36,11 +38,18 @@ const variantStyles: Record<ButtonVariant, string> = {
     "px-7 py-4 rounded-12 bg-main-main text-heading2-sb hover:bg-main-dark hover:text-gray-20 text-white",
   large_disabled:
     "px-7 py-4 pointer-events-none bg-gray-30 rounded-12 text-heading2-sb text-gray-60",
+  certification_primary:
+    "rounded-8 px-6 py-4 bg-main-main text-heading3-m text-white hover:text-gray-20 hover:bg-main-dark",
+  certification_disabled:
+    "rounded-8 px-6 py-4 text-gray-60 text-heading3-sb pointer-events-none bg-gray-30",
 };
 
 const Button = ({ variant, children, className, ...props }: ButtonProps) => {
   const isDisabled =
-    variant === "small_disabled" || variant === "medium_disabled" || variant === "large_disabled";
+    variant === "small_disabled" ||
+    variant === "medium_disabled" ||
+    variant === "large_disabled" ||
+    variant === "certification_disabled";
 
   return (
     <button
