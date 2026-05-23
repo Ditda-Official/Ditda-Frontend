@@ -17,26 +17,28 @@ const Header = () => {
         <p>FAQ</p>
       </div>
       {isLoggedIn ? (
-        <div
+        <button
+          type="button"
           className="flex cursor-pointer flex-row items-center gap-2"
           onClick={() => setIsLoggedIn(false)}
         >
           <ProfileCircleIcon className="text-gray-70 hover:text-gray-80 size-8" />
-          <p className="text-body2-m text-gray-80 hover:text-gray-90">내 계정</p>
-        </div>
+          <span className="text-body2-m text-gray-80 hover:text-gray-90">내 계정</span>
+        </button>
       ) : (
         <div className="flex flex-row gap-8">
-          <div
+          <button
+            type="button"
             className="flex cursor-pointer flex-row items-center gap-1"
             onClick={() => setIsLoggedIn(true)}
           >
             <ProfileCircleIcon className="text-gray-70 hover:text-gray-80 size-6" />
-            <p className="text-body2-m text-gray-80 hover:text-gray-90">로그인</p>
-          </div>
-          <div className="flex cursor-pointer flex-row items-center gap-1">
+            <span className="text-body2-m text-gray-80 hover:text-gray-90">로그인</span>
+          </button>
+          <button type="button" className="flex cursor-pointer flex-row items-center gap-1">
             <EnterIcon className="text-gray-70 hover:text-gray-80 size-6" />
-            <p className="text-body2-m text-gray-80 hover:text-gray-90">회원가입</p>
-          </div>
+            <span className="text-body2-m text-gray-80 hover:text-gray-90">회원가입</span>
+          </button>
         </div>
       )}
     </header>
