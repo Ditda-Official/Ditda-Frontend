@@ -22,6 +22,7 @@ const SidebarMenu = ({ label }: SidebarMenuProps) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
+      {/* TODO: 추후 SELECTED 상태까지 포함 */}
       <div className="text-gray-80 flex flex-row items-center gap-2">
         {icons &&
           (isActive ? (
