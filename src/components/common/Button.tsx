@@ -1,5 +1,7 @@
 import { ButtonHTMLAttributes } from "react";
 
+import { cn } from "@/lib/utils/cn";
+
 type ButtonVariant =
   | "small_primary"
   | "small_secondary"
@@ -56,7 +58,11 @@ const Button = ({ variant, children, className, ...props }: ButtonProps) => {
 
   return (
     <button
-      className={`inline-flex w-full cursor-pointer items-center justify-center transition-colors ${variantStyles[variant]} ${className ?? ""}`}
+      className={cn(
+        "inline-flex w-full cursor-pointer items-center justify-center transition-colors",
+        variantStyles[variant],
+        className,
+      )}
       disabled={isDisabled || props.disabled}
       {...props}
     >
