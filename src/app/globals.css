@@ -178,3 +178,10 @@
   --radius-12: 12px;
   --radius-full: 9999px;
 }
+
+@utility scrollbar-hide {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

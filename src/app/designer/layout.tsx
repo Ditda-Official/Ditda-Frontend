@@ -14,7 +14,7 @@ const DesignerLayout = ({ children }: { children: ReactNode }) => {
           <SidebarMenu label="외주 찾기" />
           <SidebarMenu label="마이페이지" />
         </Sidebar>
-        <main className="flex-1 overflow-y-auto">{children}</main>
+        <main className="scrollbar-hide flex-1 overflow-y-auto">{children}</main>
       </div>
     </div>
   );
