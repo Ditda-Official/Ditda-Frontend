@@ -1,5 +1,3 @@
-import React from "react";
-
 import { WRITE_STEPS, WriteStep } from "@/constants/writeSteps";
 
 interface ProgressBarProps {

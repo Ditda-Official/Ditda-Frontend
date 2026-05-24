@@ -1,10 +1,13 @@
 import StepHeader from "@/components/instructor/write/StepHeader";
+import CategorySection from "@/container/instructor/write/CategorySection";
 
 const page = () => {
   return (
-    <div className="bg-gray-10">
+    <div className="bg-gray-10 min-h-screen">
       <StepHeader />
-      내용
+      <div className="flex flex-col gap-10 pt-15 pr-30 pl-29">
+        <CategorySection />
+      </div>
     </div>
   );
 };
