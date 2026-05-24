@@ -60,7 +60,7 @@ const InputField = ({
     hasPasswordToggle;
 
   return (
-    <div className={cn("flex w-full flex-col", wrapperClassName)}>
+    <div className={cn("flex w-full flex-col gap-2", wrapperClassName)}>
       {label != null && (
         <label className="text-body2-r text-gray-70" htmlFor={inputId}>
           {label}

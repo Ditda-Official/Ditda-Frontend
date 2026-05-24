@@ -1,6 +1,7 @@
 "use client";
 
 import type { ChangeEventHandler, ComponentPropsWithoutRef } from "react";
+import { useState } from "react";
 
 import { cn } from "@/lib/utils/cn";
 
@@ -8,16 +9,18 @@ const DEFAULT_TEXT_FIELD_MAX_LENGTH = 300;
 
 export type TextFieldProps = Omit<
   ComponentPropsWithoutRef<"textarea">,
-  "children" | "defaultValue" | "disabled" | "maxLength" | "onChange" | "rows" | "value"
+  "children" | "disabled" | "maxLength" | "onChange" | "rows" | "value"
 > & {
+  defaultValue?: string;
   maxLength?: number;
-  onChange: ChangeEventHandler<HTMLTextAreaElement>;
-  value: string;
+  onChange?: ChangeEventHandler<HTMLTextAreaElement>;
+  value?: string;
   variant?: "gray" | "white";
 };
 
 const TextField = ({
   className,
+  defaultValue = "",
   maxLength = DEFAULT_TEXT_FIELD_MAX_LENGTH,
   onChange,
   value,
@@ -25,8 +28,20 @@ const TextField = ({
   ...props
 }: TextFieldProps) => {
   const characterLimit = Math.max(0, maxLength);
-  const textValue = value.slice(0, characterLimit);
+  const [uncontrolledValue, setUncontrolledValue] = useState(() =>
+    defaultValue.slice(0, characterLimit),
+  );
+  const isControlled = value != null;
+  const textValue = (isControlled ? value : uncontrolledValue).slice(0, characterLimit);
   const hasValue = textValue.length > 0;
+
+  const handleChange: ChangeEventHandler<HTMLTextAreaElement> = event => {
+    if (!isControlled) {
+      setUncontrolledValue(event.target.value.slice(0, characterLimit));
+    }
+
+    onChange?.(event);
+  };
 
   return (
     <div
@@ -45,7 +60,7 @@ const TextField = ({
           className,
         )}
         maxLength={characterLimit}
-        onChange={onChange}
+        onChange={handleChange}
         value={textValue}
       />
       <div className="text-caption1-m text-gray-60 self-end">
