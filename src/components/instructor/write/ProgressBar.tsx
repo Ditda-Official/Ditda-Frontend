@@ -18,7 +18,7 @@ export const ProgressBar = ({ currentStep = 1 }: ProgressBarProps) => {
                 {label}
               </p>
             </div>
-            <div className={`h-1 w-36 rounded-full ${isActive ? "bg-main-main" : "bg-gray-50"}`} />
+            <div className={`h-1 w-36 ${isActive ? "bg-main-main" : "bg-gray-50"}`} />
           </div>
         );
       })}
