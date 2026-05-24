@@ -4,20 +4,37 @@ import { useState } from "react";
 
 import AccordionMenu from "@/components/common/AccordionMenu";
 import Radio from "@/components/common/Radio";
-
-const CATEGORIES = [
-  { label: "홍보물", items: ["교재 외지/내지", "대봉투"] },
-  { label: "유인물", items: [] },
-  { label: "퍼스널 브랜딩", items: [] },
-];
+import { CATEGORIES } from "@/constants/categories";
 
 const CategorySection = () => {
-  const [selected, setSelected] = useState<number | null>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [selection, setSelection] = useState<{ categoryIndex: number; item: string } | null>(null);
+
+  const handleCategoryClick = (index: number) => {
+    if (CATEGORIES[index].items.length === 0) return;
+    if (openIndex === index) {
+      setOpenIndex(null);
+    } else {
+      setOpenIndex(index);
+      if (selection?.categoryIndex !== index) setSelection(null);
+    }
+  };
+
+  const selectedLabel = selection
+    ? `${CATEGORIES[selection.categoryIndex].label} > ${selection.item}`
+    : null;
 
   return (
-    <div className="rounded-12 flex flex-col gap-8 bg-white p-6">
+    <div className="rounded-12 focus-within:border-purple-40 flex flex-col gap-8 border border-transparent bg-white p-6">
       <div>
-        <h1 className="text-gray-90 text-heading1-sb pb-2">카테고리</h1>
+        <div className="flex flex-row items-center justify-between pb-2">
+          <h1 className="text-gray-90 text-heading1-sb">카테고리</h1>
+          {selectedLabel && (
+            <div className="rounded-4 bg-purple-10 flex h-7 items-center px-2">
+              <span className="text-body2-m text-gray-90">{selectedLabel}</span>
+            </div>
+          )}
+        </div>
         <h2 className="text-gray-70 text-body2-m">원하는 작업물의 종류를 선택해주세요</h2>
       </div>
       <div>
@@ -26,22 +43,26 @@ const CategorySection = () => {
             <AccordionMenu
               key={category.label}
               label={category.label}
-              selected={selected === index}
-              onClick={() =>
-                category.items.length > 0 && setSelected(selected === index ? null : index)
-              }
+              selected={openIndex === index}
+              onClick={() => handleCategoryClick(index)}
             />
           ))}
         </div>
         <div
-          className={`grid transition-all duration-300 ease-in-out ${selected !== null ? "grid-rows-[1fr] pt-4" : "grid-rows-[0fr] pt-0"}`}
+          className={`grid transition-all duration-300 ease-in-out ${openIndex !== null ? "grid-rows-[1fr] pt-4" : "grid-rows-[0fr] pt-0"}`}
         >
           <div className="overflow-hidden">
             <hr className="border-gray-10" />
             <div className="flex flex-row gap-6 px-4 pt-6">
-              {selected !== null &&
-                CATEGORIES[selected].items.map(item => (
-                  <Radio key={item} name="category-item" value={item}>
+              {openIndex !== null &&
+                CATEGORIES[openIndex].items.map(item => (
+                  <Radio
+                    key={item}
+                    name="category-item"
+                    value={item}
+                    checked={selection?.item === item}
+                    onChange={() => setSelection({ categoryIndex: openIndex, item })}
+                  >
                     {item}
                   </Radio>
                 ))}
