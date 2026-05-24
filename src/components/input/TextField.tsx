@@ -41,7 +41,7 @@ const TextField = ({
       <textarea
         {...props}
         className={cn(
-          "text-body2-m text-gray-80 placeholder:text-body2-m placeholder:text-gray-60 h-[98px] w-full resize-none bg-transparent outline-none",
+          "scrollbar-hide text-body2-m text-gray-80 placeholder:text-body2-m placeholder:text-gray-60 h-[98px] w-full resize-none bg-transparent outline-none",
           className,
         )}
         maxLength={characterLimit}

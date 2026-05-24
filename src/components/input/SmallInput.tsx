@@ -20,7 +20,7 @@ const SmallInput = ({
     <input
       {...props}
       className={cn(
-        "text-body2-m text-gray-80 placeholder:text-gray-60 rounded-8 border-gray-40 h-[46px] w-full max-w-full border bg-white px-3 py-3 transition-colors outline-none",
+        "text-body2-m text-gray-80 placeholder:text-gray-60 rounded-8 border-gray-40 h-11.5 w-full max-w-full border bg-white p-3 transition-colors outline-none",
         "focus:border-gray-60",
         className,
       )}
