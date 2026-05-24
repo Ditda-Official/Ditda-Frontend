@@ -10,7 +10,7 @@ const InstructorLayout = ({ children }: { children: ReactNode }) => {
       <Header />
       <div className="flex flex-1 overflow-hidden">
         <Sidebar bottom={<SidebarMenu label="로그아웃" />}>
-          <SidebarMenu label="새 외주 작성" />
+          <SidebarMenu label="새 외주 작성" href="/instructor/apply" />
           <SidebarMenu label="진행 중 외주" />
           <SidebarMenu label="마이페이지" />
         </Sidebar>
