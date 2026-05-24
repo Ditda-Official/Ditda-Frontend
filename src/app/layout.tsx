@@ -3,8 +3,11 @@ import "@/app/globals.css";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Ditda",
-  description: "Ditda",
+  title: "ditda",
+  description: "ditda",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
