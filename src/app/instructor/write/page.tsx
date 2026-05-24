@@ -1,5 +1,12 @@
+import StepHeader from "@/components/instructor/write/StepHeader";
+
 const page = () => {
-  return <div>새 외주 작성</div>;
+  return (
+    <div className="bg-gray-10">
+      <StepHeader />
+      내용
+    </div>
+  );
 };
 
 export default page;
