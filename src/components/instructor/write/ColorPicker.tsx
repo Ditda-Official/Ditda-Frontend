@@ -3,33 +3,16 @@
 import { useState } from "react";
 import { RgbaColorPicker } from "react-colorful";
 
-interface RgbaColor {
-  r: number;
-  g: number;
-  b: number;
-  a: number;
-}
-
-const toHex = ({ r, g, b }: RgbaColor) =>
-  "#" + [r, g, b].map(v => v.toString(16).padStart(2, "0").toUpperCase()).join("");
-
-const hexToRgb = (hex: string): Pick<RgbaColor, "r" | "g" | "b"> | null => {
-  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return result
-    ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16),
-      }
-    : null;
-};
-
-const clamp = (val: number, min: number, max: number) => Math.min(max, Math.max(min, val));
+import type { RgbaColor } from "@/lib/utils/color";
+import { clamp, hexToRgb, toHex } from "@/lib/utils/color";
 
 interface ColorPickerProps {
   value?: RgbaColor;
   onChange?: (color: RgbaColor) => void;
 }
+
+const inputBase =
+  "w-full rounded-4 border border-gray-30 bg-gray-10 px-2 py-1.5 text-center text-body2-m text-gray-90 outline-none focus:border-purple-40 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none";
 
 const ColorPicker = ({ value, onChange }: ColorPickerProps) => {
   const [internal, setInternal] = useState<RgbaColor>({ r: 0, g: 0, b: 0, a: 100 });
@@ -57,15 +40,12 @@ const ColorPicker = ({ value, onChange }: ColorPickerProps) => {
     setColor({ ...color, [key]: clamp(num, 0, max) });
   };
 
-  const inputBase =
-    "w-full rounded-md border border-gray-30 bg-gray-10 px-2 py-1.5 text-center text-body2-m text-gray-90 outline-none focus:border-purple-40 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none";
-
   return (
     <div className="rounded-12 flex w-79.25 flex-col gap-3 border border-black p-4">
       <RgbaColorPicker
+        className="h-60! w-full!"
         color={{ ...color, a: color.a / 100 }}
         onChange={c => setColor({ ...c, a: Math.round(c.a * 100) })}
-        style={{ width: "100%", height: "240px" }}
       />
       <div className="flex gap-1.5">
         {/* Hex */}
