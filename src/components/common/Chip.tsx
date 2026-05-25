@@ -31,6 +31,7 @@ const Chip = ({
         className="bg-main-main rounded-100 inline-flex cursor-pointer items-center justify-center gap-1 py-1.5 pr-2 pl-3 text-white"
         onClick={onRemove}
         role={onRemove != null ? "button" : undefined}
+        tabIndex={onRemove != null ? 0 : undefined}
         aria-label={onRemove != null ? (removeAriaLabel ?? `${label} 삭제`) : undefined}
       >
         <span className="text-body2-m">{label}</span>
@@ -57,6 +58,7 @@ const Chip = ({
       )}
       onClick={onClick}
       role={onClick != null ? "button" : undefined}
+      tabIndex={onClick != null ? 0 : undefined}
     >
       <span className={spanColor}>{label}</span>
     </div>
