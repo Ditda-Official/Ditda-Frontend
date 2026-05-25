@@ -1,6 +1,10 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+
 import Button from "@/components/common/Button";
+import Modal from "@/components/common/Modal";
 import StepHeader from "@/components/instructor/write/StepHeader";
 import CategorySection from "@/container/instructor/write/CategorySection";
 import ColorChooseSection from "@/container/instructor/write/ColorChooseSection";
@@ -33,7 +37,27 @@ const WritePageContent = () => {
   );
 };
 
-const page = () => {
+const Page = () => {
+  const router = useRouter();
+  const [showLeaveModal, setShowLeaveModal] = useState(false);
+
+  useEffect(() => {
+    history.pushState(null, "", window.location.href);
+
+    const handlePopState = () => {
+      history.pushState(null, "", window.location.href);
+      setShowLeaveModal(true);
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
+  const handleConfirmLeave = () => {
+    setShowLeaveModal(false);
+    router.push("/instructor");
+  };
+
   return (
     <div className="bg-gray-10 min-h-screen pt-16">
       <div className="sticky top-0 z-10">
@@ -42,8 +66,19 @@ const page = () => {
       <WriteFormProvider>
         <WritePageContent />
       </WriteFormProvider>
+      <Modal
+        isOpen={showLeaveModal}
+        type="double"
+        title={"현재 페이지에서 이탈하시겠습니까?"}
+        description={"페이지를 이탈하면 작성된 정보는\n저장되지 않습니다."}
+        confirmLabel="확인"
+        cancelLabel="취소"
+        onConfirm={handleConfirmLeave}
+        onCancel={() => setShowLeaveModal(false)}
+        onClose={() => setShowLeaveModal(false)}
+      />
     </div>
   );
 };
 
-export default page;
+export default Page;
