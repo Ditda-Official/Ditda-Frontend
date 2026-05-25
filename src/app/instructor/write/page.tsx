@@ -1,5 +1,6 @@
 import StepHeader from "@/components/instructor/write/StepHeader";
 import CategorySection from "@/container/instructor/write/CategorySection";
+import ColorChooseSection from "@/container/instructor/write/ColorChooseSection";
 import DesignConceptSection from "@/container/instructor/write/DesignConceptSection";
 import SizeSection from "@/container/instructor/write/SizeSection";
 import { WriteFormProvider } from "@/context/WriteFormContext";
@@ -15,6 +16,7 @@ const page = () => {
           <CategorySection />
           <SizeSection />
           <DesignConceptSection />
+          <ColorChooseSection />
         </div>
       </WriteFormProvider>
     </div>
