@@ -1,29 +1,24 @@
 "use client";
 
-import { useState } from "react";
-
 import Chip from "@/components/common/Chip";
 import TextField from "@/components/input/TextField";
 import { CONCEPT_CATEGORIES, MAX_CONCEPT_SELECT } from "@/constants/write";
 import ConceptKeywordCard from "@/container/instructor/write/ConceptKeywordCard";
+import { useWriteForm } from "@/context/WriteFormContext";
 
 const DesignConceptSection = () => {
-  const [selectedKeywords, setSelectedKeywords] = useState<string[]>([]);
+  const { selectedKeywords, setSelectedKeywords } = useWriteForm();
 
   const handleSelect = (keyword: string) => {
-    setSelectedKeywords(prev => {
-      if (prev.includes(keyword)) {
-        return prev.filter(k => k !== keyword);
-      }
-      if (prev.length >= MAX_CONCEPT_SELECT) {
-        return prev;
-      }
-      return [...prev, keyword];
-    });
+    if (selectedKeywords.includes(keyword)) {
+      setSelectedKeywords(selectedKeywords.filter(k => k !== keyword));
+    } else if (selectedKeywords.length < MAX_CONCEPT_SELECT) {
+      setSelectedKeywords([...selectedKeywords, keyword]);
+    }
   };
 
   const handleRemove = (keyword: string) => {
-    setSelectedKeywords(prev => prev.filter(k => k !== keyword));
+    setSelectedKeywords(selectedKeywords.filter(k => k !== keyword));
   };
 
   return (

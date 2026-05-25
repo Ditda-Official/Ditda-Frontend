@@ -72,7 +72,7 @@ const ColorChooseCard = ({
       <div
         className={cn(
           "rounded-8 ml-7 size-19.5",
-          !hasColor && "border-gray-40 bg-gray-20 border border-dashed",
+          !hasColor && "border-gray-40 bg-gray-10 border border-dashed",
         )}
         style={
           hasColor

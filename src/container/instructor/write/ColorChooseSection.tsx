@@ -4,18 +4,16 @@ import { useEffect, useRef, useState } from "react";
 
 import Toggle from "@/components/common/Toggle";
 import ColorPicker from "@/components/instructor/write/ColorPicker";
+import { useWriteForm } from "@/context/WriteFormContext";
 import { cn } from "@/lib/utils/cn";
 import type { RgbaColor } from "@/lib/utils/color";
 
 import ColorChooseCard from "./ColorChooseCard";
 
-type ColorMode = "designer" | "custom";
-
 const ColorChooseSection = () => {
-  const [colorMode, setColorMode] = useState<ColorMode>("custom");
+  const { colorMode, setColorMode, colors, setColors } = useWriteForm();
   const [mainIndex, setMainIndex] = useState(0);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const [colors, setColors] = useState<(RgbaColor | null)[]>([null, null, null]);
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -29,7 +27,7 @@ const ColorChooseSection = () => {
   }, []);
 
   const handleColorChange = (index: number, color: RgbaColor) => {
-    setColors(prev => prev.map((c, i) => (i === index ? color : c)));
+    setColors(colors.map((c, i) => (i === index ? color : c)));
   };
 
   return (
