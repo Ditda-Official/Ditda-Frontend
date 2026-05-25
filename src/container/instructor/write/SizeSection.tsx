@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 import SizeRecommendedCard from "@/components/instructor/write/SizeRecommendedCard";
-import { SIZE_OPTIONS } from "@/constants/sizeOptions";
+import { SIZE_OPTIONS } from "@/constants/write";
 import PaperSizeCard from "@/container/instructor/write/PaperSizeCard";
 import { useWriteForm } from "@/context/WriteFormContext";
 

@@ -4,17 +4,8 @@ import { useState } from "react";
 
 import Chip from "@/components/common/Chip";
 import TextField from "@/components/input/TextField";
+import { CONCEPT_CATEGORIES, MAX_CONCEPT_SELECT } from "@/constants/write";
 import ConceptKeywordCard from "@/container/instructor/write/ConceptKeywordCard";
-
-const CONCEPT_CATEGORIES = [
-  { title: "밝은", keywords: ["귀여운", "경쾌한", "맑은"] },
-  { title: "부드러운", keywords: ["내츄럴한", "은은한", "온화한"] },
-  { title: "고급스러운", keywords: ["우아한", "고상한", "모던한"] },
-  { title: "강렬한", keywords: ["화려한", "다이나믹한"] },
-  { title: "단정한", keywords: ["점잖은"] },
-];
-
-const MAX_SELECT = 2;
 
 const DesignConceptSection = () => {
   const [selectedKeywords, setSelectedKeywords] = useState<string[]>([]);
@@ -24,7 +15,7 @@ const DesignConceptSection = () => {
       if (prev.includes(keyword)) {
         return prev.filter(k => k !== keyword);
       }
-      if (prev.length >= MAX_SELECT) {
+      if (prev.length >= MAX_CONCEPT_SELECT) {
         return prev;
       }
       return [...prev, keyword];
@@ -46,7 +37,7 @@ const DesignConceptSection = () => {
       <div className="bg-gray-10 rounded-48 flex h-13.5 items-center justify-center gap-2 px-8 py-2">
         <span className="text-gray-80 text-body1-m shrink-0">작업물이</span>
         <div className="flex items-center gap-2">
-          {Array.from({ length: MAX_SELECT }).map((_, i) => {
+          {Array.from({ length: MAX_CONCEPT_SELECT }).map((_, i) => {
             const keyword = selectedKeywords[i];
             return keyword != null ? (
               <Chip

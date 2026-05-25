@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import AccordionMenu from "@/components/common/AccordionMenu";
 import Radio from "@/components/common/Radio";
-import { CATEGORIES } from "@/constants/categories";
+import { CATEGORIES } from "@/constants/write";
 import { useWriteForm } from "@/context/WriteFormContext";
 
 const CategorySection = () => {
