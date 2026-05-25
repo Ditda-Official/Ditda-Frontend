@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import Toggle from "@/components/common/Toggle";
+import ColorPicker from "@/components/instructor/write/ColorPicker";
 
 type ColorMode = "designer" | "custom";
 
@@ -24,10 +25,12 @@ const ColorChooseSection = () => {
           onChange={setColorMode}
         />
       </div>
-      {colorMode === "designer" && (
+      {colorMode === "designer" ? (
         <h3 className="text-body2-sb text-gray-60">
           디자이너가 외주 시작 후, 자유롭게 색상을 선택하여 디자인하게 됩니다.
         </h3>
+      ) : (
+        <ColorPicker />
       )}
     </div>
   );
