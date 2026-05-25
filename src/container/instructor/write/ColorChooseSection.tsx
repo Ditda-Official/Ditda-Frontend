@@ -7,8 +7,7 @@ import Toggle from "@/components/common/Toggle";
 type ColorMode = "designer" | "custom";
 
 const ColorChooseSection = () => {
-  const [colorMode, setColorMode] = useState<ColorMode>("designer");
-
+  const [colorMode, setColorMode] = useState<ColorMode>("custom");
   return (
     <div className="rounded-12 focus-within:border-purple-40 flex flex-col gap-8 border border-transparent bg-white p-6">
       <div className="flex items-center justify-between">
@@ -25,6 +24,11 @@ const ColorChooseSection = () => {
           onChange={setColorMode}
         />
       </div>
+      {colorMode === "designer" && (
+        <h3 className="text-body2-sb text-gray-60">
+          디자이너가 외주 시작 후, 자유롭게 색상을 선택하여 디자인하게 됩니다.
+        </h3>
+      )}
     </div>
   );
 };
