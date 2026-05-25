@@ -5,10 +5,11 @@ import { useState } from "react";
 import AccordionMenu from "@/components/common/AccordionMenu";
 import Radio from "@/components/common/Radio";
 import { CATEGORIES } from "@/constants/categories";
+import { useWriteForm } from "@/context/WriteFormContext";
 
 const CategorySection = () => {
+  const { selectedCategory, setSelectedCategory } = useWriteForm();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const [selection, setSelection] = useState<{ categoryIndex: number; item: string } | null>(null);
 
   const handleCategoryClick = (index: number) => {
     if (CATEGORIES[index].items.length === 0) return;
@@ -16,12 +17,12 @@ const CategorySection = () => {
       setOpenIndex(null);
     } else {
       setOpenIndex(index);
-      if (selection?.categoryIndex !== index) setSelection(null);
+      if (selectedCategory?.categoryIndex !== index) setSelectedCategory(null);
     }
   };
 
-  const selectedLabel = selection
-    ? `${CATEGORIES[selection.categoryIndex].label} > ${selection.item}`
+  const selectedLabel = selectedCategory
+    ? `${CATEGORIES[selectedCategory.categoryIndex].label} > ${selectedCategory.item}`
     : null;
 
   return (
@@ -60,8 +61,8 @@ const CategorySection = () => {
                     key={item}
                     name="category-item"
                     value={item}
-                    checked={selection?.item === item}
-                    onChange={() => setSelection({ categoryIndex: openIndex, item })}
+                    checked={selectedCategory?.item === item}
+                    onChange={() => setSelectedCategory({ categoryIndex: openIndex, item })}
                   >
                     {item}
                   </Radio>
