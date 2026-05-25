@@ -40,12 +40,15 @@ const WritePageContent = () => {
 const Page = () => {
   const router = useRouter();
   const [showLeaveModal, setShowLeaveModal] = useState(false);
+  const [pendingHref, setPendingHref] = useState<string | null>(null);
 
+  // 브라우저 뒤로가기 가로채기
   useEffect(() => {
     history.pushState(null, "", window.location.href);
 
     const handlePopState = () => {
       history.pushState(null, "", window.location.href);
+      setPendingHref("/instructor");
       setShowLeaveModal(true);
     };
 
@@ -53,9 +56,33 @@ const Page = () => {
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
 
+  // 사이드바 등 링크 클릭 가로채기
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      const anchor = (e.target as HTMLElement).closest("a");
+      if (!anchor) return;
+      const href = anchor.getAttribute("href");
+      if (!href || href === "/instructor/write") return;
+
+      e.preventDefault();
+      e.stopPropagation();
+      setPendingHref(href);
+      setShowLeaveModal(true);
+    };
+
+    document.addEventListener("click", handleClick, true);
+    return () => document.removeEventListener("click", handleClick, true);
+  }, []);
+
   const handleConfirmLeave = () => {
     setShowLeaveModal(false);
-    router.push("/instructor");
+    if (pendingHref) router.push(pendingHref);
+    setPendingHref(null);
+  };
+
+  const handleCancelLeave = () => {
+    setShowLeaveModal(false);
+    setPendingHref(null);
   };
 
   return (
@@ -74,8 +101,8 @@ const Page = () => {
         confirmLabel="확인"
         cancelLabel="취소"
         onConfirm={handleConfirmLeave}
-        onCancel={() => setShowLeaveModal(false)}
-        onClose={() => setShowLeaveModal(false)}
+        onCancel={handleCancelLeave}
+        onClose={handleCancelLeave}
       />
     </div>
   );
