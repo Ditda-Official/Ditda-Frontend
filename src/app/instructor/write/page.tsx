@@ -1,5 +1,6 @@
 import StepHeader from "@/components/instructor/write/StepHeader";
 import CategorySection from "@/container/instructor/write/CategorySection";
+import DesignConceptSection from "@/container/instructor/write/DesignConceptSection";
 import SizeSection from "@/container/instructor/write/SizeSection";
 import { WriteFormProvider } from "@/context/WriteFormContext";
 
@@ -11,6 +12,7 @@ const page = () => {
         <div className="flex flex-col gap-10 pt-15 pr-30 pl-29">
           <CategorySection />
           <SizeSection />
+          <DesignConceptSection />
         </div>
       </WriteFormProvider>
     </div>
