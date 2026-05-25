@@ -6,10 +6,12 @@ import { WriteFormProvider } from "@/context/WriteFormContext";
 
 const page = () => {
   return (
-    <div className="bg-gray-10 min-h-screen">
-      <StepHeader />
+    <div className="bg-gray-10 min-h-screen pt-16">
+      <div className="sticky top-0 z-10">
+        <StepHeader />
+      </div>
       <WriteFormProvider>
-        <div className="flex flex-col gap-10 pt-15 pr-30 pl-29">
+        <div className="flex flex-col gap-10 pt-15 pr-30 pb-30 pl-29">
           <CategorySection />
           <SizeSection />
           <DesignConceptSection />
