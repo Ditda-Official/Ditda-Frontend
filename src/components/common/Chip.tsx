@@ -25,7 +25,7 @@ const Chip = ({
     const icon = <CloseIcon aria-hidden="true" className="text-gray-20 size-full" />;
 
     return (
-      <div className="bg-main-main rounded-100 inline-flex cursor-pointer items-center justify-center gap-1 py-[6px] pr-2 pl-3 text-white">
+      <div className="bg-main-main rounded-100 inline-flex cursor-pointer items-center justify-center gap-1 py-1.5 pr-2 pl-3 text-white">
         <span className="text-body2-m">{label}</span>
         {onRemove != null ? (
           <button
@@ -47,9 +47,9 @@ const Chip = ({
   }
 
   const baseStyles =
-    "group rounded-100 inline-flex h-[34px] cursor-pointer items-center justify-center px-3 py-[6px]";
-  const selectedStyles = "border-main-main bg-purple-10 border";
-  const defaultStyles = "bg-gray-10 hover:bg-gray-40";
+    "group rounded-100 inline-flex h-[34px] cursor-pointer items-center justify-center border px-3 py-[6px]";
+  const selectedStyles = "border-main-main bg-purple-10";
+  const defaultStyles = "border-transparent bg-gray-10 hover:bg-gray-40";
 
   const spanColor = isSelected
     ? "text-body2-sb text-main-main"
