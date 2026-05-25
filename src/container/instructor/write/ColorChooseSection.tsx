@@ -1,16 +1,45 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import Toggle from "@/components/common/Toggle";
 import ColorPicker from "@/components/instructor/write/ColorPicker";
+import { cn } from "@/lib/utils/cn";
+import type { RgbaColor } from "@/lib/utils/color";
+
+import ColorChooseCard from "./ColorChooseCard";
 
 type ColorMode = "designer" | "custom";
 
 const ColorChooseSection = () => {
   const [colorMode, setColorMode] = useState<ColorMode>("custom");
+  const [mainIndex, setMainIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [colors, setColors] = useState<(RgbaColor | null)[]>([null, null, null]);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (sectionRef.current && !sectionRef.current.contains(e.target as Node)) {
+        setActiveIndex(null);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleColorChange = (index: number, color: RgbaColor) => {
+    setColors(prev => prev.map((c, i) => (i === index ? color : c)));
+  };
+
   return (
-    <div className="rounded-12 focus-within:border-purple-40 flex flex-col gap-8 border border-transparent bg-white p-6">
+    <div
+      ref={sectionRef}
+      className={cn(
+        "rounded-12 flex flex-col gap-8 border bg-white p-6",
+        activeIndex !== null ? "border-purple-40" : "border-transparent",
+      )}
+    >
       <div className="flex items-center justify-between">
         <div className="flex flex-col gap-2">
           <h1 className="text-gray-90 text-heading1-sb">색상 선택</h1>
@@ -30,7 +59,26 @@ const ColorChooseSection = () => {
           디자이너가 외주 시작 후, 자유롭게 색상을 선택하여 디자인하게 됩니다.
         </h3>
       ) : (
-        <ColorPicker />
+        <div className="flex flex-row gap-4">
+          <div className="flex flex-col gap-2">
+            {colors.map((color, i) => (
+              <ColorChooseCard
+                key={i}
+                color={color}
+                index={i + 1}
+                isMain={mainIndex === i}
+                isSelected={activeIndex === i}
+                onCardClick={() => setActiveIndex(i)}
+                onRadioChange={() => setMainIndex(i)}
+                onColorChange={c => handleColorChange(i, c)}
+              />
+            ))}
+          </div>
+          <ColorPicker
+            value={activeIndex !== null ? (colors[activeIndex] ?? undefined) : undefined}
+            onChange={c => activeIndex !== null && handleColorChange(activeIndex, c)}
+          />
+        </div>
       )}
     </div>
   );
