@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import Chip from "@/components/common/Chip";
+
 import ConceptKeywordCard from "./ConceptKeywordCard";
 
 const CONCEPT_CATEGORIES = [
@@ -29,6 +31,10 @@ const DesignConceptSection = () => {
     });
   };
 
+  const handleRemove = (keyword: string) => {
+    setSelectedKeywords(prev => prev.filter(k => k !== keyword));
+  };
+
   return (
     <div className="rounded-12 flex flex-col gap-8 border border-transparent bg-white p-6">
       <div>
@@ -37,10 +43,26 @@ const DesignConceptSection = () => {
           원하는 컨셉의 태그를 두가지 선택하거나 직접 작성해주세요
         </h2>
       </div>
-      <div className="bg-gray-10 text-gray-80 text-body1-m rounded-48 px-8 py-2 text-center">
-        작업물이 컨셉으로 되면 좋겠어요
+      <div className="bg-gray-10 rounded-48 flex h-13.5 items-center justify-center gap-2 px-8 py-2">
+        <span className="text-gray-80 text-body1-m shrink-0">작업물이</span>
+        <div className="flex items-center gap-2">
+          {Array.from({ length: MAX_SELECT }).map((_, i) => {
+            const keyword = selectedKeywords[i];
+            return keyword != null ? (
+              <Chip
+                key={keyword}
+                label={keyword}
+                variant="removable"
+                onRemove={() => handleRemove(keyword)}
+              />
+            ) : (
+              <div key={i} className="rounded-100 h-9.5 w-14.5 bg-white" />
+            );
+          })}
+        </div>
+        <span className="text-gray-80 text-body1-m shrink-0">컨셉으로 되면 좋겠어요</span>
       </div>
-      <div className="flex flex-row gap-6">
+      <div className="flex flex-row justify-center gap-6">
         {CONCEPT_CATEGORIES.map(({ title, keywords }) => (
           <ConceptKeywordCard
             key={title}

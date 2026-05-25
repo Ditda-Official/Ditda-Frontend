@@ -18,9 +18,12 @@ const ConceptKeywordCard = ({
       <h1 className="text-gray-80 text-body2-sb">{title}</h1>
       <div className="flex w-full flex-col items-start gap-2">
         {keywords.map(keyword => (
-          <button key={keyword} type="button" onClick={() => onSelect(keyword)}>
-            <Chip label={keyword} isSelected={selectedKeywords.includes(keyword)} />
-          </button>
+          <Chip
+            key={keyword}
+            label={keyword}
+            isSelected={selectedKeywords.includes(keyword)}
+            onClick={() => onSelect(keyword)}
+          />
         ))}
       </div>
     </div>

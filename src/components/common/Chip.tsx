@@ -8,6 +8,7 @@ interface ChipProps {
   isSelected?: boolean;
   isHoverPreview?: boolean;
   onRemove?: () => void;
+  onClick?: () => void;
   removeAriaLabel?: string;
   variant?: ChipVariant;
 }
@@ -17,6 +18,7 @@ const Chip = ({
   isSelected = false,
   isHoverPreview = false,
   onRemove,
+  onClick,
   removeAriaLabel,
   variant = "selectable",
 }: ChipProps) => {
@@ -25,23 +27,14 @@ const Chip = ({
     const icon = <CloseIcon aria-hidden="true" className="text-gray-20 size-full" />;
 
     return (
-      <div className="bg-main-main rounded-100 inline-flex cursor-pointer items-center justify-center gap-1 py-1.5 pr-2 pl-3 text-white">
+      <div
+        className="bg-main-main rounded-100 inline-flex cursor-pointer items-center justify-center gap-1 py-1.5 pr-2 pl-3 text-white"
+        onClick={onRemove}
+        role={onRemove != null ? "button" : undefined}
+        aria-label={onRemove != null ? (removeAriaLabel ?? `${label} 삭제`) : undefined}
+      >
         <span className="text-body2-m">{label}</span>
-        {onRemove != null ? (
-          <button
-            aria-label={removeAriaLabel ?? `${label} 삭제`}
-            className={cn(
-              iconWrapperStyles,
-              "focus-visible:outline-purple-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2",
-            )}
-            onClick={onRemove}
-            type="button"
-          >
-            {icon}
-          </button>
-        ) : (
-          <span className={iconWrapperStyles}>{icon}</span>
-        )}
+        <span className={iconWrapperStyles}>{icon}</span>
       </div>
     );
   }
@@ -62,6 +55,8 @@ const Chip = ({
         isSelected ? selectedStyles : defaultStyles,
         isHoverPreview && !isSelected && "bg-gray-40",
       )}
+      onClick={onClick}
+      role={onClick != null ? "button" : undefined}
     >
       <span className={spanColor}>{label}</span>
     </div>
