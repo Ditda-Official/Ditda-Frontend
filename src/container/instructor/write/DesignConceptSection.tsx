@@ -3,8 +3,8 @@
 import { useState } from "react";
 
 import Chip from "@/components/common/Chip";
-
-import ConceptKeywordCard from "./ConceptKeywordCard";
+import TextField from "@/components/input/TextField";
+import ConceptKeywordCard from "@/container/instructor/write/ConceptKeywordCard";
 
 const CONCEPT_CATEGORIES = [
   { title: "밝은", keywords: ["귀여운", "경쾌한", "맑은"] },
@@ -72,6 +72,10 @@ const DesignConceptSection = () => {
             onSelect={handleSelect}
           />
         ))}
+      </div>
+      <div className="flex flex-col gap-2">
+        <h3 className="text-gray-70 text-body1-sb">컨셉 추가 요청</h3>
+        <TextField placeholder="원하는 컨셉이 있다면 적어주세요. (선택사항)" />
       </div>
     </div>
   );
