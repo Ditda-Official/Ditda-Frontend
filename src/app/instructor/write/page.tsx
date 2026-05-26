@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Button from "@/components/common/Button";
 import Modal from "@/components/common/Modal";
 import StepHeader from "@/components/instructor/write/StepHeader";
+import AttachFileSection from "@/container/instructor/write/AttachFileSection";
 import BasicInfoTypingSection from "@/container/instructor/write/BasicInfoTypingSection";
 import CategorySection from "@/container/instructor/write/CategorySection";
 import ColorChooseSection from "@/container/instructor/write/ColorChooseSection";
@@ -55,6 +56,7 @@ const Step2Content = () => {
     <div className="flex flex-col gap-10 pt-15 pr-30 pb-30 pl-29">
       <BasicInfoTypingSection />
       <NecessaryPageChooseSection />
+      <AttachFileSection />
       <div className="flex justify-between">
         <Button variant="medium_secondary" className="w-fit" onClick={() => setCurrentStep(1)}>
           이전
