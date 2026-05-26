@@ -21,9 +21,9 @@ const BasicInfoTypingSection = () => {
       <div className="flex w-120 flex-col gap-5 p-2">
         {BASIC_INFO_FIELDS.map(({ label, placeholder }) => (
           <div key={label} className="flex flex-row justify-between">
-            <div className="flex items-center whitespace-nowrap">
+            <div className="flex items-start self-center whitespace-nowrap">
               <span className="text-gray-80 text-body1-sb">{label}</span>
-              <span className="text-red-main text-caption1-m items-start">*</span>
+              <span className="text-red-main text-caption1-m self-start">*</span>
             </div>
             <SmallInput
               className="w-87"
