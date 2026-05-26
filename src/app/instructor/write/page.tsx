@@ -48,10 +48,15 @@ const Step1Content = () => {
 };
 
 const Step2Content = () => {
+  const { setCurrentStep } = useWriteForm();
+
   return (
     <div className="flex flex-col gap-10 pt-15 pr-30 pb-30 pl-29">
       <BasicInfoTypingSection />
-      <div className="flex justify-end">
+      <div className="flex justify-between">
+        <Button variant="medium_secondary" className="w-fit" onClick={() => setCurrentStep(1)}>
+          이전
+        </Button>
         <Button variant="medium_primary" className="w-fit">
           다음
         </Button>

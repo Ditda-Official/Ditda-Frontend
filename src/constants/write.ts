@@ -12,6 +12,9 @@ export const WRITE_STEPS: {
   { step: 3, label: "결제 정보", Icon: ThreeCircleIcon },
 ];
 
+/* =========================
+    STEP1
+    ========================= */
 export const CATEGORIES = [
   { label: "유인물", items: ["교재 외지/내지", "대봉투"] },
   { label: "홍보물", items: [] },
@@ -55,3 +58,12 @@ export const CONCEPT_CATEGORIES = [
 ];
 
 export const MAX_CONCEPT_SELECT = 2;
+
+/* =========================
+    STEP2
+    ========================= */
+export const BASIC_INFO_FIELDS = [
+  { label: "교재명", placeholder: "교재명을 작성해주세요" },
+  { label: "강사명", placeholder: "강사명을 작성해주세요" },
+  { label: "과목명", placeholder: "과목명을 작성해주세요" },
+];
