@@ -8,8 +8,8 @@ const DeadlineChooseSection = () => {
         <h2 className="text-gray-70 text-body2-m">시안을 수령할 날짜를 선택해주세요</h2>
       </div>
       <div className="flex flex-row gap-6">
-        <DropdownBox />
-        <DropdownBox />
+        <DropdownBox label="1차 시안 수령일" placeholder="0000년 00월 00일" />
+        <DropdownBox label="최종 시안 수령일" placeholder="0000년 00월 00일" />
       </div>
     </div>
   );
