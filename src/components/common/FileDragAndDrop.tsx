@@ -4,15 +4,19 @@ import { DragEvent, useRef, useState } from "react";
 
 import { FolderAddIcon } from "@/assets/icons";
 import Button from "@/components/common/Button";
+import { cn } from "@/lib/utils/cn";
 
-const FileDragAndDrop = () => {
+interface FileDragAndDropProps {
+  onFilesAdded: (files: File[]) => void;
+}
+
+const FileDragAndDrop = ({ onFilesAdded }: FileDragAndDropProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [, setFiles] = useState<File[]>([]);
   const [isDragging, setIsDragging] = useState(false);
 
-  const addFiles = (incoming: FileList | null) => {
-    if (!incoming) return;
-    setFiles(prev => [...prev, ...Array.from(incoming)]);
+  const handleFiles = (fileList: FileList | null) => {
+    if (!fileList) return;
+    onFilesAdded(Array.from(fileList));
   };
 
   const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
@@ -29,7 +33,7 @@ const FileDragAndDrop = () => {
   const handleDrop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setIsDragging(false);
-    addFiles(e.dataTransfer.files);
+    handleFiles(e.dataTransfer.files);
   };
 
   return (
@@ -54,11 +58,14 @@ const FileDragAndDrop = () => {
             type="file"
             multiple
             className="hidden"
-            onChange={e => addFiles(e.target.files)}
+            onChange={e => handleFiles(e.target.files)}
           />
           <Button
             variant="xsmall_primary"
-            className="group-hover:bg-purple-40 w-fit group-hover:text-white"
+            className={cn(
+              "group-hover:bg-purple-40 w-fit group-hover:text-white",
+              isDragging && "bg-purple-40 text-white",
+            )}
             onClick={() => inputRef.current?.click()}
           >
             <FolderAddIcon />

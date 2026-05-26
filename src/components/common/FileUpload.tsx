@@ -1,10 +1,17 @@
 import { CheckCircleFillIcon, CloseCircleFillIcon, LoadingIcon } from "@/assets/icons";
 
 interface FileUploadProps {
-  isUploading?: boolean;
+  fileName: string;
+  fileSize: string;
+  isUploading: boolean;
+  onRemove: () => void;
 }
 
-const FileUpload = ({ isUploading = false }: FileUploadProps) => {
+const FileUpload = ({ fileName, fileSize, isUploading, onRemove }: FileUploadProps) => {
+  const dotIndex = fileName.lastIndexOf(".");
+  const nameWithoutExt = dotIndex !== -1 ? fileName.slice(0, dotIndex) : fileName;
+  const ext = dotIndex !== -1 ? fileName.slice(dotIndex + 1).toLowerCase() : "";
+
   return (
     <div className="rounded-8 border-gray-40 hover:bg-gray-10 flex w-full justify-between border bg-white p-4">
       <div className="flex flex-row items-center gap-2">
@@ -13,9 +20,11 @@ const FileUpload = ({ isUploading = false }: FileUploadProps) => {
         ) : (
           <CheckCircleFillIcon className="text-main-main size-6" />
         )}
-        <p className="text-gray-80 text-caption1-m">수학의 정석 레퍼런스 파일 [pdf, 20.9MB]</p>
+        <p className="text-gray-80 text-caption1-m">
+          {nameWithoutExt} [{ext}, {fileSize}]
+        </p>
       </div>
-      <CloseCircleFillIcon className="size-6 cursor-pointer" />
+      <CloseCircleFillIcon className="size-6 cursor-pointer" onClick={onRemove} />
     </div>
   );
 };
