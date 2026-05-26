@@ -3,12 +3,11 @@
 import { useEffect, useRef, useState } from "react";
 
 import Toggle from "@/components/common/Toggle";
+import ColorChooseCard from "@/components/instructor/write/ColorChooseCard";
 import ColorPicker from "@/components/instructor/write/ColorPicker";
 import { useWriteForm } from "@/context/WriteFormContext";
 import { cn } from "@/lib/utils/cn";
 import type { RgbaColor } from "@/lib/utils/color";
-
-import ColorChooseCard from "./ColorChooseCard";
 
 const ColorChooseSection = () => {
   const { colorMode, setColorMode, colors, setColors } = useWriteForm();

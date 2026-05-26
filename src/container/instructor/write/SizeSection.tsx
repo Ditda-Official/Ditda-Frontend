@@ -1,8 +1,8 @@
 "use client";
 
+import PaperSizeCard from "@/components/instructor/write/PaperSizeCard";
 import SizeRecommendedCard from "@/components/instructor/write/SizeRecommendedCard";
 import { SIZE_OPTIONS } from "@/constants/write";
-import PaperSizeCard from "@/container/instructor/write/PaperSizeCard";
 import { useWriteForm } from "@/context/WriteFormContext";
 
 const SizeSection = () => {
