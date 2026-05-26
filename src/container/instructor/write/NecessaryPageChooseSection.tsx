@@ -1,0 +1,69 @@
+"use client";
+
+import { useState } from "react";
+
+import Chip from "@/components/common/Chip";
+import TextField from "@/components/input/TextField";
+import { PAGE_OPTIONS } from "@/constants/write";
+
+const NecessaryPageChooseSection = () => {
+  const [selectedPages, setSelectedPages] = useState<Set<string>>(new Set());
+
+  const togglePage = (label: string) => {
+    setSelectedPages(prev => {
+      const next = new Set(prev);
+      if (next.has(label)) next.delete(label);
+      else next.add(label);
+      return next;
+    });
+  };
+
+  const hasSelected = selectedPages.size > 0;
+
+  return (
+    <div className="rounded-12 focus-within:border-purple-40 flex flex-col gap-8 border border-transparent bg-white p-6">
+      <div className="flex flex-col gap-2">
+        <div className="flex flex-row items-center gap-2">
+          <h1 className="text-heading1-sb text-gray-90">필수 페이지 선택하기</h1>
+          <p className="text-gray-60 text-body2-m">복수 선택</p>
+        </div>
+        <h2 className="text-body2-m text-gray-70">
+          작업물에 필수적으로 들어갈 페이지를 선택해주세요
+        </h2>
+      </div>
+      <div className="flex w-fit flex-row gap-4">
+        {PAGE_OPTIONS.map(label => (
+          <Chip
+            key={label}
+            label={label}
+            isSelected={selectedPages.has(label)}
+            onClick={() => togglePage(label)}
+          />
+        ))}
+      </div>
+      <hr className="border-gray-20 w-full border-t" />
+      <div className="flex flex-col gap-2">
+        <h1 className="text-heading1-sb text-gray-90">레이아웃 및 디자인 요청사항 (선택)</h1>
+        {!hasSelected && (
+          <h2 className="text-body2-m text-gray-70">
+            선택한 필수 페이지에 대한 디자인 요청 사항과 레이아웃이 있다면 작성해주세요
+          </h2>
+        )}
+      </div>
+      {hasSelected ? (
+        <div className="grid grid-cols-2 gap-6">
+          {PAGE_OPTIONS.filter(label => selectedPages.has(label)).map(label => (
+            <div key={label} className="flex flex-col gap-2">
+              <p className="text-body1-sb text-gray-80">{label}</p>
+              <TextField maxLength={150} placeholder="예) 2단으로 구성해주세요" variant="white" />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p className="text-gray-60 text-body1-sb py-4">상단에서 필수페이지를 우선 선택해주세요</p>
+      )}
+    </div>
+  );
+};
+
+export default NecessaryPageChooseSection;

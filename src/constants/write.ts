@@ -67,3 +67,15 @@ export const BASIC_INFO_FIELDS = [
   { label: "강사명", placeholder: "강사명을 작성해주세요" },
   { label: "과목명", placeholder: "과목명을 작성해주세요" },
 ];
+
+export const PAGE_OPTIONS = [
+  "강사 프로필",
+  "저자의 말",
+  "목차",
+  "단원 시작 간지",
+  "개념 설명",
+  "대표 유형",
+  "문제 풀이",
+  "노트",
+  "표지",
+] as const;

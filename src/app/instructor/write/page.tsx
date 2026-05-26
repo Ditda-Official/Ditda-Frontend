@@ -10,6 +10,7 @@ import BasicInfoTypingSection from "@/container/instructor/write/BasicInfoTyping
 import CategorySection from "@/container/instructor/write/CategorySection";
 import ColorChooseSection from "@/container/instructor/write/ColorChooseSection";
 import DesignConceptSection from "@/container/instructor/write/DesignConceptSection";
+import NecessaryPageChooseSection from "@/container/instructor/write/NecessaryPageChooseSection";
 import SizeSection from "@/container/instructor/write/SizeSection";
 import { useWriteForm, WriteFormProvider } from "@/context/WriteFormContext";
 
@@ -53,6 +54,7 @@ const Step2Content = () => {
   return (
     <div className="flex flex-col gap-10 pt-15 pr-30 pb-30 pl-29">
       <BasicInfoTypingSection />
+      <NecessaryPageChooseSection />
       <div className="flex justify-between">
         <Button variant="medium_secondary" className="w-fit" onClick={() => setCurrentStep(1)}>
           이전
