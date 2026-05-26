@@ -8,6 +8,7 @@ interface ChipProps {
   isSelected?: boolean;
   isHoverPreview?: boolean;
   onRemove?: () => void;
+  onClick?: () => void;
   removeAriaLabel?: string;
   variant?: ChipVariant;
 }
@@ -17,6 +18,7 @@ const Chip = ({
   isSelected = false,
   isHoverPreview = false,
   onRemove,
+  onClick,
   removeAriaLabel,
   variant = "selectable",
 }: ChipProps) => {
@@ -25,31 +27,23 @@ const Chip = ({
     const icon = <CloseIcon aria-hidden="true" className="text-gray-20 size-full" />;
 
     return (
-      <div className="bg-main-main rounded-100 inline-flex cursor-pointer items-center justify-center gap-1 py-[6px] pr-2 pl-3 text-white">
+      <div
+        className="bg-main-main rounded-100 inline-flex cursor-pointer items-center justify-center gap-1 py-1.5 pr-2 pl-3 text-white"
+        onClick={onRemove}
+        role={onRemove != null ? "button" : undefined}
+        tabIndex={onRemove != null ? 0 : undefined}
+        aria-label={onRemove != null ? (removeAriaLabel ?? `${label} 삭제`) : undefined}
+      >
         <span className="text-body2-m">{label}</span>
-        {onRemove != null ? (
-          <button
-            aria-label={removeAriaLabel ?? `${label} 삭제`}
-            className={cn(
-              iconWrapperStyles,
-              "focus-visible:outline-purple-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2",
-            )}
-            onClick={onRemove}
-            type="button"
-          >
-            {icon}
-          </button>
-        ) : (
-          <span className={iconWrapperStyles}>{icon}</span>
-        )}
+        <span className={iconWrapperStyles}>{icon}</span>
       </div>
     );
   }
 
   const baseStyles =
-    "group rounded-100 inline-flex h-[34px] cursor-pointer items-center justify-center px-3 py-[6px]";
-  const selectedStyles = "border-main-main bg-purple-10 border";
-  const defaultStyles = "bg-gray-10 hover:bg-gray-40";
+    "group rounded-100 inline-flex h-[34px] cursor-pointer items-center justify-center border px-3 py-[6px]";
+  const selectedStyles = "border-main-main bg-purple-10";
+  const defaultStyles = "border-transparent bg-gray-10 hover:bg-gray-40";
 
   const spanColor = isSelected
     ? "text-body2-sb text-main-main"
@@ -62,6 +56,9 @@ const Chip = ({
         isSelected ? selectedStyles : defaultStyles,
         isHoverPreview && !isSelected && "bg-gray-40",
       )}
+      onClick={onClick}
+      role={onClick != null ? "button" : undefined}
+      tabIndex={onClick != null ? 0 : undefined}
     >
       <span className={spanColor}>{label}</span>
     </div>
