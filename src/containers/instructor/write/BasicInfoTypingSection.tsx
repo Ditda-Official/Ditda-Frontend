@@ -1,6 +1,6 @@
 "use client";
 
-import SmallInput from "@/components/input/SmallInput";
+import SmallInput from "@/components/common/input/SmallInput";
 import { BASIC_INFO_FIELDS } from "@/constants/write";
 import type { BasicInfo } from "@/context/WriteFormContext";
 import { useWriteForm } from "@/context/WriteFormContext";

@@ -6,15 +6,16 @@ import { useEffect, useState } from "react";
 import Button from "@/components/common/Button";
 import Modal from "@/components/common/Modal";
 import StepHeader from "@/components/instructor/write/StepHeader";
-import AttachFileSection from "@/container/instructor/write/AttachFileSection";
-import BasicInfoTypingSection from "@/container/instructor/write/BasicInfoTypingSection";
-import CategorySection from "@/container/instructor/write/CategorySection";
-import ColorChooseSection from "@/container/instructor/write/ColorChooseSection";
-import DesignConceptSection from "@/container/instructor/write/DesignConceptSection";
-import NecessaryPageChooseSection from "@/container/instructor/write/NecessaryPageChooseSection";
-import PlanChooseSection from "@/container/instructor/write/PlanChooseSection";
-import ReferenceSection from "@/container/instructor/write/ReferenceSection";
-import SizeSection from "@/container/instructor/write/SizeSection";
+import AttachFileSection from "@/containers/instructor/write/AttachFileSection";
+import BasicInfoTypingSection from "@/containers/instructor/write/BasicInfoTypingSection";
+import CategorySection from "@/containers/instructor/write/CategorySection";
+import ColorChooseSection from "@/containers/instructor/write/ColorChooseSection";
+import DeadlineChooseSection from "@/containers/instructor/write/DeadlineChooseSection";
+import DesignConceptSection from "@/containers/instructor/write/DesignConceptSection";
+import NecessaryPageChooseSection from "@/containers/instructor/write/NecessaryPageChooseSection";
+import PlanChooseSection from "@/containers/instructor/write/PlanChooseSection";
+import ReferenceSection from "@/containers/instructor/write/ReferenceSection";
+import SizeSection from "@/containers/instructor/write/SizeSection";
 import { useWriteForm, WriteFormProvider } from "@/context/WriteFormContext";
 
 const Step1Content = () => {
@@ -87,6 +88,7 @@ const Step3Content = () => {
   return (
     <div className="flex flex-col gap-10 pt-15 pb-30">
       <PlanChooseSection />
+      <DeadlineChooseSection />
       <div className="flex justify-between">
         <Button variant="medium_secondary" className="w-fit" onClick={() => setCurrentStep(2)}>
           이전

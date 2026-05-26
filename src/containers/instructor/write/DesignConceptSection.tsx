@@ -1,7 +1,7 @@
 "use client";
 
 import Chip from "@/components/common/Chip";
-import TextField from "@/components/input/TextField";
+import TextField from "@/components/common/input/TextField";
 import ConceptKeywordCard from "@/components/instructor/write/ConceptKeywordCard";
 import { CONCEPT_CATEGORIES, MAX_CONCEPT_SELECT } from "@/constants/write";
 import { useWriteForm } from "@/context/WriteFormContext";

@@ -2,7 +2,7 @@
 
 import FileDragAndDrop from "@/components/common/FileDragAndDrop";
 import FileUpload from "@/components/common/FileUpload";
-import TextField from "@/components/input/TextField";
+import TextField from "@/components/common/input/TextField";
 import { useUploadedFiles } from "@/lib/hooks/useUploadedFiles";
 
 const AttachFileSection = () => {

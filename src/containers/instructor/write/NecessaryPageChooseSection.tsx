@@ -1,7 +1,7 @@
 "use client";
 
 import Chip from "@/components/common/Chip";
-import TextField from "@/components/input/TextField";
+import TextField from "@/components/common/input/TextField";
 import { PAGE_OPTIONS } from "@/constants/write";
 import { useWriteForm } from "@/context/WriteFormContext";
 
