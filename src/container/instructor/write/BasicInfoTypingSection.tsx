@@ -1,7 +1,17 @@
+"use client";
+
 import SmallInput from "@/components/input/SmallInput";
 import { BASIC_INFO_FIELDS } from "@/constants/write";
+import type { BasicInfo } from "@/context/WriteFormContext";
+import { useWriteForm } from "@/context/WriteFormContext";
 
 const BasicInfoTypingSection = () => {
+  const { basicInfo, setBasicInfo } = useWriteForm();
+
+  const handleChange = (label: string, value: string) => {
+    setBasicInfo({ ...basicInfo, [label]: value } as BasicInfo);
+  };
+
   return (
     <div className="rounded-12 focus-within:border-purple-40 flex flex-col gap-8 border border-transparent bg-white p-6">
       <div className="flex flex-col gap-2">
@@ -15,7 +25,12 @@ const BasicInfoTypingSection = () => {
               <span className="text-gray-80 text-body1-sb">{label}</span>
               <span className="text-red-main text-caption1-m items-start">*</span>
             </div>
-            <SmallInput className="w-87" placeholder={placeholder} />
+            <SmallInput
+              className="w-87"
+              placeholder={placeholder}
+              value={basicInfo[label as keyof BasicInfo]}
+              onChange={e => handleChange(label, e.target.value)}
+            />
           </div>
         ))}
       </div>

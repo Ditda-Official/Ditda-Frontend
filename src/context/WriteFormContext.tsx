@@ -12,6 +12,12 @@ interface CategorySelection {
 
 type ColorMode = "designer" | "custom";
 
+export interface BasicInfo {
+  교재명: string;
+  강사명: string;
+  과목명: string;
+}
+
 interface WriteFormContextType {
   currentStep: WriteStep;
   setCurrentStep: (value: WriteStep) => void;
@@ -25,6 +31,10 @@ interface WriteFormContextType {
   setColorMode: (value: ColorMode) => void;
   colors: (RgbaColor | null)[];
   setColors: (value: (RgbaColor | null)[]) => void;
+  basicInfo: BasicInfo;
+  setBasicInfo: (value: BasicInfo) => void;
+  selectedPages: string[];
+  setSelectedPages: (value: string[]) => void;
 }
 
 const WriteFormContext = createContext<WriteFormContextType | null>(null);
@@ -36,6 +46,8 @@ export const WriteFormProvider = ({ children }: { children: ReactNode }) => {
   const [selectedKeywords, setSelectedKeywords] = useState<string[]>([]);
   const [colorMode, setColorMode] = useState<ColorMode>("custom");
   const [colors, setColors] = useState<(RgbaColor | null)[]>([null, null, null]);
+  const [basicInfo, setBasicInfo] = useState<BasicInfo>({ 교재명: "", 강사명: "", 과목명: "" });
+  const [selectedPages, setSelectedPages] = useState<string[]>([]);
 
   return (
     <WriteFormContext.Provider
@@ -52,6 +64,10 @@ export const WriteFormProvider = ({ children }: { children: ReactNode }) => {
         setColorMode,
         colors,
         setColors,
+        basicInfo,
+        setBasicInfo,
+        selectedPages,
+        setSelectedPages,
       }}
     >
       {children}

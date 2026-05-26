@@ -1,24 +1,22 @@
 "use client";
 
-import { useState } from "react";
-
 import Chip from "@/components/common/Chip";
 import TextField from "@/components/input/TextField";
 import { PAGE_OPTIONS } from "@/constants/write";
+import { useWriteForm } from "@/context/WriteFormContext";
 
 const NecessaryPageChooseSection = () => {
-  const [selectedPages, setSelectedPages] = useState<Set<string>>(new Set());
+  const { selectedPages, setSelectedPages } = useWriteForm();
 
   const togglePage = (label: string) => {
-    setSelectedPages(prev => {
-      const next = new Set(prev);
-      if (next.has(label)) next.delete(label);
-      else next.add(label);
-      return next;
-    });
+    if (selectedPages.includes(label)) {
+      setSelectedPages(selectedPages.filter(p => p !== label));
+    } else {
+      setSelectedPages([...selectedPages, label]);
+    }
   };
 
-  const hasSelected = selectedPages.size > 0;
+  const hasSelected = selectedPages.length > 0;
 
   return (
     <div className="rounded-12 focus-within:border-purple-40 flex flex-col gap-8 border border-transparent bg-white p-6">
@@ -36,7 +34,7 @@ const NecessaryPageChooseSection = () => {
           <Chip
             key={label}
             label={label}
-            isSelected={selectedPages.has(label)}
+            isSelected={selectedPages.includes(label)}
             onClick={() => togglePage(label)}
           />
         ))}
@@ -52,7 +50,7 @@ const NecessaryPageChooseSection = () => {
       </div>
       {hasSelected ? (
         <div className="grid grid-cols-2 gap-6">
-          {PAGE_OPTIONS.filter(label => selectedPages.has(label)).map(label => (
+          {PAGE_OPTIONS.filter(label => selectedPages.includes(label)).map(label => (
             <div key={label} className="flex flex-col gap-2">
               <p className="text-body1-sb text-gray-80">{label}</p>
               <TextField maxLength={150} placeholder="예) 2단으로 구성해주세요" variant="white" />
