@@ -2,6 +2,7 @@
 
 import { createContext, ReactNode, useContext, useState } from "react";
 
+import type { WriteStep } from "@/constants/write";
 import type { RgbaColor } from "@/lib/utils/color";
 
 interface CategorySelection {
@@ -12,6 +13,8 @@ interface CategorySelection {
 type ColorMode = "designer" | "custom";
 
 interface WriteFormContextType {
+  currentStep: WriteStep;
+  setCurrentStep: (value: WriteStep) => void;
   selectedCategory: CategorySelection | null;
   setSelectedCategory: (value: CategorySelection | null) => void;
   selectedSize: string | null;
@@ -27,6 +30,7 @@ interface WriteFormContextType {
 const WriteFormContext = createContext<WriteFormContextType | null>(null);
 
 export const WriteFormProvider = ({ children }: { children: ReactNode }) => {
+  const [currentStep, setCurrentStep] = useState<WriteStep>(1);
   const [selectedCategory, setSelectedCategory] = useState<CategorySelection | null>(null);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [selectedKeywords, setSelectedKeywords] = useState<string[]>([]);
@@ -36,6 +40,8 @@ export const WriteFormProvider = ({ children }: { children: ReactNode }) => {
   return (
     <WriteFormContext.Provider
       value={{
+        currentStep,
+        setCurrentStep,
         selectedCategory,
         setSelectedCategory,
         selectedSize,

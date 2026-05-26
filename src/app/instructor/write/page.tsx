@@ -6,14 +6,16 @@ import { useEffect, useState } from "react";
 import Button from "@/components/common/Button";
 import Modal from "@/components/common/Modal";
 import StepHeader from "@/components/instructor/write/StepHeader";
+import BasicInfoTypingSection from "@/container/instructor/write/BasicInfoTypingSection";
 import CategorySection from "@/container/instructor/write/CategorySection";
 import ColorChooseSection from "@/container/instructor/write/ColorChooseSection";
 import DesignConceptSection from "@/container/instructor/write/DesignConceptSection";
 import SizeSection from "@/container/instructor/write/SizeSection";
 import { useWriteForm, WriteFormProvider } from "@/context/WriteFormContext";
 
-const WritePageContent = () => {
-  const { selectedCategory, selectedSize, selectedKeywords, colorMode, colors } = useWriteForm();
+const Step1Content = () => {
+  const { selectedCategory, selectedSize, selectedKeywords, colorMode, colors, setCurrentStep } =
+    useWriteForm();
 
   const isColorReady = colorMode === "designer" || colors.every(c => c !== null);
   const isAllSelected =
@@ -29,12 +31,46 @@ const WritePageContent = () => {
       <DesignConceptSection />
       <ColorChooseSection />
       <div className="flex justify-end">
-        <Button variant={isAllSelected ? "medium_primary" : "medium_disabled"} className="w-fit">
+        <Button
+          variant={isAllSelected ? "medium_primary" : "medium_disabled"}
+          className="w-fit"
+          onClick={() => {
+            if (isAllSelected) {
+              setCurrentStep(2);
+            }
+          }}
+        >
           다음
         </Button>
       </div>
     </div>
   );
+};
+
+const Step2Content = () => {
+  return (
+    <div className="flex flex-col gap-10 pt-15 pr-30 pb-30 pl-29">
+      <BasicInfoTypingSection />
+      <div className="flex justify-end">
+        <Button variant="medium_primary" className="w-fit">
+          다음
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+const WritePageContent = () => {
+  const { currentStep } = useWriteForm();
+
+  useEffect(() => {
+    const main = document.querySelector("main");
+    if (main) main.scrollTop = 0;
+  }, [currentStep]);
+
+  if (currentStep === 1) return <Step1Content />;
+  if (currentStep === 2) return <Step2Content />;
+  return null;
 };
 
 const Page = () => {
@@ -86,25 +122,25 @@ const Page = () => {
   };
 
   return (
-    <div className="bg-gray-10 min-h-screen pt-16">
-      <div className="sticky top-0 z-10">
-        <StepHeader />
-      </div>
-      <WriteFormProvider>
+    <WriteFormProvider>
+      <div className="bg-gray-10 min-h-screen pt-16">
+        <div className="sticky top-0 z-10">
+          <StepHeader />
+        </div>
         <WritePageContent />
-      </WriteFormProvider>
-      <Modal
-        isOpen={showLeaveModal}
-        type="double"
-        title={"현재 페이지에서 이탈하시겠습니까?"}
-        description={"페이지를 이탈하면 작성된 정보는\n저장되지 않습니다."}
-        confirmLabel="확인"
-        cancelLabel="취소"
-        onConfirm={handleConfirmLeave}
-        onCancel={handleCancelLeave}
-        onClose={handleCancelLeave}
-      />
-    </div>
+        <Modal
+          isOpen={showLeaveModal}
+          type="double"
+          title={"현재 페이지에서 이탈하시겠습니까?"}
+          description={"페이지를 이탈하면 작성된 정보는\n저장되지 않습니다."}
+          confirmLabel="확인"
+          cancelLabel="취소"
+          onConfirm={handleConfirmLeave}
+          onCancel={handleCancelLeave}
+          onClose={handleCancelLeave}
+        />
+      </div>
+    </WriteFormProvider>
   );
 };
 
