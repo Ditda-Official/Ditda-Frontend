@@ -17,7 +17,7 @@ const SizeSection = () => {
         )}
       </div>
       {selectedCategory ? (
-        <div className="flex flex-row gap-4">
+        <div className="flex flex-row justify-between">
           <PaperSizeCard />
           <div className="grid h-fit grid-cols-2 gap-3">
             {SIZE_OPTIONS.map(option => (

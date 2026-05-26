@@ -41,7 +41,7 @@ const ColorPicker = ({ value, onChange }: ColorPickerProps) => {
   };
 
   return (
-    <div className="rounded-12 flex w-79.25 flex-col gap-3 border border-black p-4">
+    <div className="rounded-12 border-gray-30 flex w-79.25 flex-col gap-3 border p-4">
       <RgbaColorPicker
         className="h-60! w-full!"
         color={{ ...color, a: color.a / 100 }}

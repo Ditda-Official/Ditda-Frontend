@@ -60,7 +60,7 @@ const ColorChooseSection = () => {
           디자이너가 외주 시작 후, 자유롭게 색상을 선택하여 디자인하게 됩니다.
         </h3>
       ) : (
-        <div className="flex flex-row gap-4">
+        <div className="flex flex-row gap-6">
           <div className="flex flex-col gap-2">
             {colors.map((color, i) => (
               <ColorChooseCard
