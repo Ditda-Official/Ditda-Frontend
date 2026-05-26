@@ -12,6 +12,7 @@ import CategorySection from "@/container/instructor/write/CategorySection";
 import ColorChooseSection from "@/container/instructor/write/ColorChooseSection";
 import DesignConceptSection from "@/container/instructor/write/DesignConceptSection";
 import NecessaryPageChooseSection from "@/container/instructor/write/NecessaryPageChooseSection";
+import ReferenceSection from "@/container/instructor/write/ReferenceSection";
 import SizeSection from "@/container/instructor/write/SizeSection";
 import { useWriteForm, WriteFormProvider } from "@/context/WriteFormContext";
 
@@ -57,6 +58,7 @@ const Step2Content = () => {
       <BasicInfoTypingSection />
       <NecessaryPageChooseSection />
       <AttachFileSection />
+      <ReferenceSection />
       <div className="flex justify-between">
         <Button variant="medium_secondary" className="w-fit" onClick={() => setCurrentStep(1)}>
           이전
