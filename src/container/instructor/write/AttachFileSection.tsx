@@ -1,4 +1,5 @@
 import FileDragAndDrop from "@/components/common/FileDragAndDrop";
+import FileUpload from "@/components/common/FileUpload";
 import TextField from "@/components/input/TextField";
 
 const AttachFileSection = () => {
@@ -17,6 +18,7 @@ const AttachFileSection = () => {
         <div className="flex flex-col gap-2">
           <p className="text-gray-70 text-body1-sb">첨부 자료 참고사항</p>
           <TextField placeholder="ex) img.04는 강사 프로필에 들어가는 이미지입니다." />
+          <FileUpload />
         </div>
       </div>
     </div>
