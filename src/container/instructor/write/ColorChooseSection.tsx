@@ -41,7 +41,11 @@ const ColorChooseSection = () => {
       <div className="flex items-center justify-between">
         <div className="flex flex-col gap-2">
           <h1 className="text-gray-90 text-heading1-sb">색상 선택</h1>
-          <h2 className="text-gray-70 text-body2-m">작업물의 컬러 3가지를 선택해주세요</h2>
+          <h2 className="text-gray-70 text-body2-m">
+            {colorMode === "designer"
+              ? "디자이너에게 색상을 맡겨보세요"
+              : "작업물의 컬러 3가지를 선택해주세요"}
+          </h2>
         </div>
         <Toggle
           options={[
