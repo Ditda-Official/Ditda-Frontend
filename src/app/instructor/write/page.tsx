@@ -28,7 +28,7 @@ const Step1Content = () => {
     isColorReady;
 
   return (
-    <div className="flex flex-col gap-10 pt-15 pr-30 pb-30 pl-29">
+    <div className="flex flex-col gap-10 pt-15 pb-30">
       <CategorySection />
       <SizeSection />
       <DesignConceptSection />
@@ -54,7 +54,7 @@ const Step2Content = () => {
   const { setCurrentStep } = useWriteForm();
 
   return (
-    <div className="flex flex-col gap-10 pt-15 pr-30 pb-30 pl-29">
+    <div className="flex flex-col gap-10 pt-15 pb-30">
       <BasicInfoTypingSection />
       <NecessaryPageChooseSection />
       <AttachFileSection />
@@ -135,10 +135,12 @@ const Page = () => {
   return (
     <WriteFormProvider>
       <div className="bg-gray-10 min-h-screen pt-16">
-        <div className="sticky top-0 z-10">
-          <StepHeader />
+        <div className="mx-auto w-235">
+          <div className="sticky top-0 z-10">
+            <StepHeader />
+          </div>
+          <WritePageContent />
         </div>
-        <WritePageContent />
         <Modal
           isOpen={showLeaveModal}
           type="double"
