@@ -18,6 +18,8 @@ export interface BasicInfo {
   과목명: string;
 }
 
+export type PlanType = "기본" | "플러스" | "맥스";
+
 interface WriteFormContextType {
   currentStep: WriteStep;
   setCurrentStep: (value: WriteStep) => void;
@@ -35,6 +37,12 @@ interface WriteFormContextType {
   setBasicInfo: (value: BasicInfo) => void;
   selectedPages: string[];
   setSelectedPages: (value: string[]) => void;
+  selectedPlan: PlanType | null;
+  setSelectedPlan: (value: PlanType | null) => void;
+  firstDate: Date | null;
+  setFirstDate: (value: Date | null) => void;
+  finalDate: Date | null;
+  setFinalDate: (value: Date | null) => void;
 }
 
 const WriteFormContext = createContext<WriteFormContextType | null>(null);
@@ -48,6 +56,9 @@ export const WriteFormProvider = ({ children }: { children: ReactNode }) => {
   const [colors, setColors] = useState<(RgbaColor | null)[]>([null, null, null]);
   const [basicInfo, setBasicInfo] = useState<BasicInfo>({ 교재명: "", 강사명: "", 과목명: "" });
   const [selectedPages, setSelectedPages] = useState<string[]>([]);
+  const [selectedPlan, setSelectedPlan] = useState<PlanType | null>(null);
+  const [firstDate, setFirstDate] = useState<Date | null>(null);
+  const [finalDate, setFinalDate] = useState<Date | null>(null);
 
   return (
     <WriteFormContext.Provider
@@ -68,6 +79,12 @@ export const WriteFormProvider = ({ children }: { children: ReactNode }) => {
         setBasicInfo,
         selectedPages,
         setSelectedPages,
+        selectedPlan,
+        setSelectedPlan,
+        firstDate,
+        setFirstDate,
+        finalDate,
+        setFinalDate,
       }}
     >
       {children}

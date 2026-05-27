@@ -4,11 +4,11 @@ import { useEffect, useRef, useState } from "react";
 
 import DateDropdownBox from "@/components/common/dropdown/DateDropdownBox";
 import DateDropdownMenu from "@/components/common/dropdown/DateDropdownMenu";
+import { useWriteForm } from "@/context/WriteFormContext";
 import { formatDate, getYesterday } from "@/lib/utils/date";
 
 const DeadlineChooseSection = () => {
-  const [firstDate, setFirstDate] = useState<Date | null>(null);
-  const [finalDate, setFinalDate] = useState<Date | null>(null);
+  const { firstDate, setFirstDate, finalDate, setFinalDate } = useWriteForm();
   const [openMenu, setOpenMenu] = useState<"first" | "final" | null>(null);
 
   const yesterday = getYesterday();

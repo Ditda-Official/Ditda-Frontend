@@ -1,15 +1,13 @@
 "use client";
 
-import { useState } from "react";
-
 import PlanChooseCard from "@/components/instructor/write/PlanChooseCard";
-
-type PlanType = "기본" | "플러스" | "맥스";
+import type { PlanType } from "@/context/WriteFormContext";
+import { useWriteForm } from "@/context/WriteFormContext";
 
 const PLANS: PlanType[] = ["기본", "플러스", "맥스"];
 
 const PlanChooseSection = () => {
-  const [selectedPlan, setSelectedPlan] = useState<PlanType | null>(null);
+  const { selectedPlan, setSelectedPlan } = useWriteForm();
 
   return (
     <div className="rounded-12 focus-within:border-purple-40 flex flex-col gap-8 border border-transparent bg-white p-6">

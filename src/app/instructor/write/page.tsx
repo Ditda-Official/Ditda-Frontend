@@ -57,7 +57,7 @@ const Step2Content = () => {
     basicInfo.교재명.trim() !== "" &&
     basicInfo.강사명.trim() !== "" &&
     basicInfo.과목명.trim() !== "" &&
-    selectedPages.length >= 1;
+    selectedPages.length >= 2;
 
   return (
     <div className="flex flex-col gap-10 pt-15 pb-30">
@@ -70,7 +70,7 @@ const Step2Content = () => {
           이전
         </Button>
         <Button
-          variant="medium_primary"
+          variant={isAllFilled ? "medium_primary" : "medium_disabled"}
           className="w-fit"
           disabled={!isAllFilled}
           onClick={() => setCurrentStep(3)}
@@ -83,7 +83,9 @@ const Step2Content = () => {
 };
 
 const Step3Content = () => {
-  const { setCurrentStep } = useWriteForm();
+  const { setCurrentStep, selectedPlan, firstDate, finalDate } = useWriteForm();
+
+  const isAllReady = selectedPlan !== null && firstDate !== null && finalDate !== null;
 
   return (
     <div className="flex flex-col gap-10 pt-15 pb-50">
@@ -93,7 +95,11 @@ const Step3Content = () => {
         <Button variant="medium_secondary" className="w-fit" onClick={() => setCurrentStep(2)}>
           이전
         </Button>
-        <Button variant="medium_primary" className="w-fit">
+        <Button
+          variant={isAllReady ? "medium_primary" : "medium_disabled"}
+          className="w-fit"
+          disabled={!isAllReady}
+        >
           결제하기
         </Button>
       </div>
