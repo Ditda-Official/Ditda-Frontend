@@ -105,10 +105,18 @@ const PaymentModal = ({ isOpen, onClose }: { isOpen?: boolean; onClose?: () => v
                       <div className="flex flex-col gap-3 overflow-hidden">
                         {TERMS_CONTENT.map((term, i) => (
                           <div key={i} className="flex flex-col gap-1">
-                            <p className="text-gray-90 text-body1-m pt-2.5">{term.title}</p>
+                            <p className="text-gray-90 text-body1-sb pt-2.5">{term.title}</p>
                             <p className="text-gray-90 text-body2-r whitespace-pre-wrap">
                               {term.body}
                             </p>
+                            {term.sections?.map((section, j) => (
+                              <div key={j} className="flex flex-col gap-0.5 pt-1.5">
+                                <p className="text-gray-90 text-body2-m">{section.subtitle}</p>
+                                <p className="text-gray-90 text-body2-r whitespace-pre-wrap">
+                                  {section.body}
+                                </p>
+                              </div>
+                            ))}
                           </div>
                         ))}
                       </div>
