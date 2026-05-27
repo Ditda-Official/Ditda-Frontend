@@ -49,7 +49,7 @@ const PaymentModal = ({ isOpen, onClose }: { isOpen?: boolean; onClose?: () => v
             <CloseIcon className="text-gray-90 size-6 cursor-pointer" onClick={onClose} />
           </div>
           <hr className="border-gray-20 border-t" />
-          <div className="scrollbar-hide h-146.25 overflow-y-auto py-6">
+          <div className="scrollbar-hide h-139.5 overflow-y-auto pt-6">
             <div className="flex flex-col gap-6">
               <div className="flex flex-col gap-5">
                 <InfoRow label="카테고리" value="교재" />
@@ -127,7 +127,7 @@ const PaymentModal = ({ isOpen, onClose }: { isOpen?: boolean; onClose?: () => v
             </div>
           </div>
         </div>
-        <div className="flex flex-row items-center justify-between pb-8">
+        <div className="flex flex-row items-center justify-between pt-6 pb-8">
           <h3 className="text-heading3-sb text-gray-70">최종 금액</h3>
           <p className="text-gray-90 text-title2-sb">480,000원</p>
         </div>
