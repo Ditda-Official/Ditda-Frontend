@@ -1,4 +1,5 @@
 import DropdownBox from "@/components/common/dropdown/DropdownBox";
+import DropdownMenu from "@/components/common/dropdown/DropdownMenu";
 
 const DeadlineChooseSection = () => {
   return (
@@ -11,6 +12,7 @@ const DeadlineChooseSection = () => {
         <DropdownBox label="1차 시안 수령일" placeholder="0000년 00월 00일" />
         <DropdownBox label="최종 시안 수령일" placeholder="0000년 00월 00일" />
       </div>
+      <DropdownMenu />
     </div>
   );
 };
