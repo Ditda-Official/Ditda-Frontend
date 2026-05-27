@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import { ArrowDownIcon, CloseIcon } from "@/assets/icons";
+import { ArrowDownIcon, CheckboxFillIcon, CheckboxGrayIcon, CloseIcon } from "@/assets/icons";
 import Button from "@/components/common/Button";
 import Chip from "@/components/common/Chip";
 
@@ -24,6 +24,7 @@ const InfoRow = ({
 
 const PaymentModal = ({ isOpen, onClose }: { isOpen?: boolean; onClose?: () => void }) => {
   const [isTermsOpen, setIsTermsOpen] = useState(false);
+  const [isAgreed, setIsAgreed] = useState(false);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -71,19 +72,31 @@ const PaymentModal = ({ isOpen, onClose }: { isOpen?: boolean; onClose?: () => v
               </div>
               <hr className="border-gray-20 border-t" />
               <div className="flex flex-col gap-2">
-                <h2>약관동의</h2>
+                <h2 className="text-gray-90 text-body2-m">약관동의</h2>
                 <div className="bg-gray-20 rounded-10 flex flex-col gap-2.5 px-5 py-4">
                   <p className="text-gray-90 text-body2-r">결제·환불 정책</p>
                   <div className="flex flex-col">
-                    {/* 체크박스 */}
-                    <div
-                      className="flex cursor-pointer flex-row gap-1"
-                      onClick={() => setIsTermsOpen(prev => !prev)}
-                    >
-                      <p className="text-gray-90 text-body2-r">[필수] 모두 동의</p>
-                      <ArrowDownIcon
-                        className={`text-gray-80 size-6 transition-transform duration-200 ${isTermsOpen ? "rotate-180" : ""}`}
-                      />
+                    <div className="flex flex-row items-center gap-2">
+                      {isAgreed ? (
+                        <CheckboxFillIcon
+                          className="size-4.5 cursor-pointer"
+                          onClick={() => setIsAgreed(false)}
+                        />
+                      ) : (
+                        <CheckboxGrayIcon
+                          className="size-4.5 cursor-pointer"
+                          onClick={() => setIsAgreed(true)}
+                        />
+                      )}
+                      <div
+                        className="flex cursor-pointer flex-row gap-1"
+                        onClick={() => setIsTermsOpen(prev => !prev)}
+                      >
+                        <p className="text-gray-90 text-body2-r">[필수] 모두 동의</p>
+                        <ArrowDownIcon
+                          className={`text-gray-80 size-6 transition-transform duration-200 ${isTermsOpen ? "rotate-180" : ""}`}
+                        />
+                      </div>
                     </div>
                     <div
                       className={`grid transition-[grid-template-rows] duration-300 ease-in-out ${isTermsOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
@@ -102,7 +115,9 @@ const PaymentModal = ({ isOpen, onClose }: { isOpen?: boolean; onClose?: () => v
           <h3 className="text-heading3-sb text-gray-70">최종 금액</h3>
           <p className="text-gray-90 text-title2-sb">480,000원</p>
         </div>
-        <Button variant="large_disabled">결제하기</Button>
+        <Button variant={isAgreed ? "large_primary" : "large_disabled"} disabled={!isAgreed}>
+          결제하기
+        </Button>
       </div>
     </div>
   );
