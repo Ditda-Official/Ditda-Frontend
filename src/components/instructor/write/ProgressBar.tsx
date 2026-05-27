@@ -4,7 +4,7 @@ interface ProgressBarProps {
   currentStep?: WriteStep;
 }
 
-export const ProgressBar = ({ currentStep = 1 }: ProgressBarProps) => {
+const ProgressBar = ({ currentStep = 1 }: ProgressBarProps) => {
   return (
     <div className="flex flex-row gap-3">
       {WRITE_STEPS.map(({ step, label, Icon }) => {

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 import Button from "@/components/common/Button";
 import Modal from "@/components/common/Modal";
-import PaymentModal from "@/components/instructor/write/PaymentModal";
+import PaymentModal from "@/components/instructor/write/PaymentModal/PaymentModal";
 import StepHeader from "@/components/instructor/write/StepHeader";
 import AttachFileSection from "@/containers/instructor/write/AttachFileSection";
 import BasicInfoTypingSection from "@/containers/instructor/write/BasicInfoTypingSection";
