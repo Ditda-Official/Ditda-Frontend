@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 
 import { EnterIcon, ProfileCircleIcon } from "@/assets/icons";
@@ -27,18 +28,14 @@ const Header = () => {
         </button>
       ) : (
         <div className="flex flex-row gap-8">
-          <button
-            type="button"
-            className="flex cursor-pointer flex-row items-center gap-1"
-            onClick={() => setIsLoggedIn(true)}
-          >
+          <Link href="/login" className="flex cursor-pointer flex-row items-center gap-1">
             <ProfileCircleIcon className="text-gray-70 hover:text-gray-80 size-6" />
             <span className="text-body2-m text-gray-80 hover:text-gray-90">로그인</span>
-          </button>
-          <button type="button" className="flex cursor-pointer flex-row items-center gap-1">
+          </Link>
+          <Link href="/signup" className="flex cursor-pointer flex-row items-center gap-1">
             <EnterIcon className="text-gray-70 hover:text-gray-80 size-6" />
             <span className="text-body2-m text-gray-80 hover:text-gray-90">회원가입</span>
-          </button>
+          </Link>
         </div>
       )}
     </header>
