@@ -31,3 +31,5 @@ export { default as ProfileCircleBoldIcon } from "@/assets/icons/icon_profile_ci
 export { default as SearchIcon } from "@/assets/icons/icon_search.svg";
 export { default as SearchBoldIcon } from "@/assets/icons/icon_search_bold.svg";
 export { default as ShareIcon } from "@/assets/icons/icon_share.svg";
+export { default as UserTypeDesignerIcon } from "@/assets/icons/icon_user_type_designer.svg";
+export { default as UserTypeInstructorIcon } from "@/assets/icons/icon_user_type_instructor.svg";
