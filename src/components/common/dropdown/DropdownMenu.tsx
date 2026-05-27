@@ -104,6 +104,14 @@ const WheelColumn = ({ items, selectedIndex, onSelect, itemClassName = "" }: Whe
   }, [scrollToIndex, selectedIndex]);
 
   useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const preventScroll = (e: Event) => e.preventDefault();
+    el.addEventListener("wheel", preventScroll, { passive: false });
+    return () => el.removeEventListener("wheel", preventScroll);
+  }, []);
+
+  useEffect(() => {
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
       if (wheelTimeoutRef.current) clearTimeout(wheelTimeoutRef.current);
