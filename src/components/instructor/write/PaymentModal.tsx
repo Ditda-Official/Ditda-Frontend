@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { ArrowDownIcon, CheckboxFillIcon, CheckboxGrayIcon, CloseIcon } from "@/assets/icons";
 import Button from "@/components/common/Button";
 import Chip from "@/components/common/Chip";
+import { TERMS_CONTENT } from "@/constants/write";
 
 const InfoRow = ({
   label,
@@ -101,8 +102,15 @@ const PaymentModal = ({ isOpen, onClose }: { isOpen?: boolean; onClose?: () => v
                     <div
                       className={`grid transition-[grid-template-rows] duration-300 ease-in-out ${isTermsOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
                     >
-                      <div className="overflow-hidden">
-                        <p className="text-gray-90 text-body2-r pt-2.5">약관 내용</p>
+                      <div className="flex flex-col gap-3 overflow-hidden">
+                        {TERMS_CONTENT.map((term, i) => (
+                          <div key={i} className="flex flex-col gap-1">
+                            <p className="text-gray-90 text-body1-m pt-2.5">{term.title}</p>
+                            <p className="text-gray-90 text-body2-r whitespace-pre-wrap">
+                              {term.body}
+                            </p>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </div>
