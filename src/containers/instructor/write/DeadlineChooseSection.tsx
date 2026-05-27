@@ -4,22 +4,14 @@ import { useEffect, useRef, useState } from "react";
 
 import DateDropdownBox from "@/components/common/dropdown/DateDropdownBox";
 import DateDropdownMenu from "@/components/common/dropdown/DateDropdownMenu";
-
-const formatDate = (date: Date) => {
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-  return `${year}년 ${month}월 ${day}일`;
-};
+import { formatDate, getYesterday } from "@/lib/utils/date";
 
 const DeadlineChooseSection = () => {
   const [firstDate, setFirstDate] = useState<Date | null>(null);
   const [finalDate, setFinalDate] = useState<Date | null>(null);
   const [openMenu, setOpenMenu] = useState<"first" | "final" | null>(null);
 
-  const yesterday = new Date();
-  yesterday.setDate(yesterday.getDate() - 1);
-  yesterday.setHours(0, 0, 0, 0);
+  const yesterday = getYesterday();
 
   const containerRef = useRef<HTMLDivElement>(null);
 
