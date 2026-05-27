@@ -1,24 +1,24 @@
-import { useState } from "react";
-
 import { ArrowDownIcon } from "@/assets/icons";
 
 interface DropdownBoxProps {
   label: string;
   placeholder?: string;
   selectedValue?: string;
+  isOpen?: boolean;
+  onClick?: () => void;
 }
 
-const DropdownBox = ({
+const DateDropdownBox = ({
   label,
   placeholder = "0000년 00월 00일",
   selectedValue,
+  isOpen = false,
+  onClick,
 }: DropdownBoxProps) => {
-  const [isOpen, setIsOpen] = useState(false);
-
   return (
     <div
       className="rounded-12 border-gray-40 hover:border-purple-40 cursor-pointer border bg-white py-2 pr-2 pl-5 transition-all duration-150"
-      onClick={() => setIsOpen(prev => !prev)}
+      onClick={onClick}
     >
       <div className="flex flex-row gap-2">
         <p className="text-gray-80 text-body2-m self-center text-center">{label}</p>
@@ -35,4 +35,4 @@ const DropdownBox = ({
   );
 };
 
-export default DropdownBox;
+export default DateDropdownBox;

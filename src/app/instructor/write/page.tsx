@@ -86,7 +86,7 @@ const Step3Content = () => {
   const { setCurrentStep } = useWriteForm();
 
   return (
-    <div className="flex flex-col gap-10 pt-15 pb-30">
+    <div className="flex flex-col gap-10 pt-15 pb-50">
       <PlanChooseSection />
       <DeadlineChooseSection />
       <div className="flex justify-between">

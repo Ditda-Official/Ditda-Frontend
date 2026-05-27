@@ -23,6 +23,9 @@ import {
 
 interface DropdownMenuProps {
   onConfirm?: (date: Date) => void;
+  minDate?: Date;
+  defaultDate?: Date;
+  invalidMessage?: string;
 }
 
 interface WheelColumnProps {
@@ -199,16 +202,24 @@ const WheelColumn = ({ items, selectedIndex, onSelect, itemClassName = "" }: Whe
   );
 };
 
-const DropdownMenu = ({ onConfirm }: DropdownMenuProps) => {
-  const [initialDate] = useState(() => new Date());
-  const baseYear = initialDate.getFullYear();
-  const initialMonthIndex = initialDate.getMonth();
-  const initialDayIndex = initialDate.getDate() - 1;
+const DateDropdownMenu = ({
+  onConfirm,
+  minDate,
+  defaultDate,
+  invalidMessage,
+}: DropdownMenuProps) => {
+  const [today] = useState(() => new Date());
+  const baseYear = today.getFullYear();
+
+  const initDate = defaultDate ?? today;
+  const initialYearIndex = Math.min(Math.max(initDate.getFullYear() - baseYear, 0), YEAR_RANGE - 1);
+  const initialMonthIndex = initDate.getMonth();
+  const initialDayIndex = initDate.getDate() - 1;
 
   const years = Array.from({ length: YEAR_RANGE }, (_, index) => `${baseYear + index}년`);
   const months = Array.from({ length: 12 }, (_, index) => `${index + 1}월`);
 
-  const [yearIndex, setYearIndex] = useState(0);
+  const [yearIndex, setYearIndex] = useState(initialYearIndex);
   const [monthIndex, setMonthIndex] = useState(initialMonthIndex);
   const [dayIndex, setDayIndex] = useState(initialDayIndex);
 
@@ -216,6 +227,9 @@ const DropdownMenu = ({ onConfirm }: DropdownMenuProps) => {
   const daysInMonth = getDaysInMonth(selectedYear, monthIndex);
   const days = Array.from({ length: daysInMonth }, (_, index) => `${index + 1}일`);
   const safeDayIndex = Math.min(dayIndex, daysInMonth - 1);
+
+  const selectedDate = new Date(selectedYear, monthIndex, safeDayIndex + 1);
+  const isInvalid = minDate != null && selectedDate <= minDate;
 
   const handleYearSelect = useCallback(
     (nextYearIndex: number) => {
@@ -268,13 +282,23 @@ const DropdownMenu = ({ onConfirm }: DropdownMenuProps) => {
         </div>
       </div>
       <button
-        className="text-gray-80 text-body1-sb border-t-gray-10 hover:bg-gray-30 rounded-b-8 w-full cursor-pointer border-t px-3 py-2 transition-colors duration-150"
-        onClick={() => onConfirm?.(new Date(selectedYear, monthIndex, safeDayIndex + 1))}
+        disabled={isInvalid}
+        className={cn(
+          "text-body1-sb border-t-gray-10 rounded-b-8 w-full border-t px-3 py-2 transition-colors duration-150",
+          isInvalid
+            ? "text-gray-40 cursor-not-allowed"
+            : "text-gray-80 hover:bg-gray-30 cursor-pointer",
+        )}
+        onClick={() => {
+          if (!isInvalid) onConfirm?.(selectedDate);
+        }}
       >
-        선택하기
+        <span className={cn(isInvalid && "whitespace-pre-line")}>
+          {isInvalid ? (invalidMessage ?? "1차 시안 수령일\n이후 날짜를 선택해주세요") : "선택하기"}
+        </span>
       </button>
     </div>
   );
 };
 
-export default DropdownMenu;
+export default DateDropdownMenu;

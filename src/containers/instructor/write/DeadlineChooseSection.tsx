@@ -1,18 +1,96 @@
-import DropdownBox from "@/components/common/dropdown/DropdownBox";
-import DropdownMenu from "@/components/common/dropdown/DropdownMenu";
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+
+import DateDropdownBox from "@/components/common/dropdown/DateDropdownBox";
+import DateDropdownMenu from "@/components/common/dropdown/DateDropdownMenu";
+
+const formatDate = (date: Date) => {
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  return `${year}년 ${month}월 ${day}일`;
+};
 
 const DeadlineChooseSection = () => {
+  const [firstDate, setFirstDate] = useState<Date | null>(null);
+  const [finalDate, setFinalDate] = useState<Date | null>(null);
+  const [openMenu, setOpenMenu] = useState<"first" | "final" | null>(null);
+
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  yesterday.setHours(0, 0, 0, 0);
+
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setOpenMenu(null);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleFirstConfirm = (date: Date) => {
+    setFirstDate(date);
+    if (finalDate && finalDate <= date) {
+      setFinalDate(null);
+    }
+    setOpenMenu(null);
+  };
+
+  const handleFinalConfirm = (date: Date) => {
+    setFinalDate(date);
+    setOpenMenu(null);
+  };
+
   return (
     <div className="rounded-12 focus-within:border-purple-40 flex flex-col gap-8 border border-transparent bg-white p-6">
       <div className="flex flex-col gap-2">
         <h1 className="text-gray-90 text-heading1-sb">마감 기한 선택</h1>
         <h2 className="text-gray-70 text-body2-m">시안을 수령할 날짜를 선택해주세요</h2>
       </div>
-      <div className="flex flex-row gap-6">
-        <DropdownBox label="1차 시안 수령일" placeholder="0000년 00월 00일" />
-        <DropdownBox label="최종 시안 수령일" placeholder="0000년 00월 00일" />
+      <div ref={containerRef} className="flex flex-row gap-6">
+        <div className="relative">
+          <DateDropdownBox
+            label="1차 시안 수령일"
+            placeholder="0000년 00월 00일"
+            selectedValue={firstDate ? formatDate(firstDate) : undefined}
+            isOpen={openMenu === "first"}
+            onClick={() => setOpenMenu(openMenu === "first" ? null : "first")}
+          />
+          {openMenu === "first" && (
+            <div className="absolute top-full right-0 z-50 mt-1">
+              <DateDropdownMenu
+                onConfirm={handleFirstConfirm}
+                minDate={yesterday}
+                invalidMessage={"오늘 이후 날짜를\n선택해주세요"}
+                defaultDate={firstDate ?? undefined}
+              />
+            </div>
+          )}
+        </div>
+        <div className="relative">
+          <DateDropdownBox
+            label="최종 시안 수령일"
+            placeholder="0000년 00월 00일"
+            selectedValue={finalDate ? formatDate(finalDate) : undefined}
+            isOpen={openMenu === "final"}
+            onClick={() => setOpenMenu(openMenu === "final" ? null : "final")}
+          />
+          {openMenu === "final" && (
+            <div className="absolute top-full right-0 z-50 mt-1">
+              <DateDropdownMenu
+                onConfirm={handleFinalConfirm}
+                minDate={firstDate ?? undefined}
+                defaultDate={finalDate ?? undefined}
+              />
+            </div>
+          )}
+        </div>
       </div>
-      <DropdownMenu />
     </div>
   );
 };
