@@ -38,7 +38,8 @@ const PlanChooseCard = ({ plan, isSelected = false, onClick }: PlanChooseCardPro
   return (
     <div
       onClick={onClick}
-      className={`rounded-14 w-full cursor-pointer border p-6 transition-colors duration-150 ${
+      tabIndex={0}
+      className={`rounded-14 w-full cursor-pointer border p-6 transition-colors duration-150 outline-none ${
         isSelected
           ? "border-main-main bg-purple-5"
           : "border-gray-40 hover:bg-gray-10 bg-white hover:border-transparent"

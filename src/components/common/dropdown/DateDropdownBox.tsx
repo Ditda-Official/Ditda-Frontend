@@ -17,8 +17,9 @@ const DateDropdownBox = ({
 }: DropdownBoxProps) => {
   return (
     <div
-      className="rounded-12 border-gray-40 hover:border-purple-40 cursor-pointer border bg-white py-2 pr-2 pl-5 transition-all duration-150"
+      className="rounded-12 border-gray-40 hover:border-purple-40 cursor-pointer border bg-white py-2 pr-2 pl-5 transition-all duration-150 outline-none"
       onClick={onClick}
+      tabIndex={0}
     >
       <div className="flex flex-row gap-2">
         <p className="text-gray-80 text-body2-m self-center text-center">{label}</p>
