@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 import Button from "@/components/common/Button";
 import Modal from "@/components/common/Modal";
+import PaymentModal from "@/components/instructor/write/PaymentModal";
 import StepHeader from "@/components/instructor/write/StepHeader";
 import AttachFileSection from "@/containers/instructor/write/AttachFileSection";
 import BasicInfoTypingSection from "@/containers/instructor/write/BasicInfoTypingSection";
@@ -84,26 +85,31 @@ const Step2Content = () => {
 
 const Step3Content = () => {
   const { setCurrentStep, selectedPlan, firstDate, finalDate } = useWriteForm();
+  const [isPaymentOpen, setIsPaymentOpen] = useState(false);
 
   const isAllReady = selectedPlan !== null && firstDate !== null && finalDate !== null;
 
   return (
-    <div className="flex flex-col gap-10 pt-15 pb-50">
-      <PlanChooseSection />
-      <DeadlineChooseSection />
-      <div className="flex justify-between">
-        <Button variant="medium_secondary" className="w-fit" onClick={() => setCurrentStep(2)}>
-          이전
-        </Button>
-        <Button
-          variant={isAllReady ? "medium_primary" : "medium_disabled"}
-          className="w-fit"
-          disabled={!isAllReady}
-        >
-          결제하기
-        </Button>
+    <>
+      <div className="flex flex-col gap-10 pt-15 pb-50">
+        <PlanChooseSection />
+        <DeadlineChooseSection />
+        <div className="flex justify-between">
+          <Button variant="medium_secondary" className="w-fit" onClick={() => setCurrentStep(2)}>
+            이전
+          </Button>
+          <Button
+            variant={isAllReady ? "medium_primary" : "medium_disabled"}
+            className="w-fit"
+            disabled={!isAllReady}
+            onClick={() => setIsPaymentOpen(true)}
+          >
+            결제하기
+          </Button>
+        </div>
       </div>
-    </div>
+      <PaymentModal isOpen={isPaymentOpen} onClose={() => setIsPaymentOpen(false)} />
+    </>
   );
 };
 
