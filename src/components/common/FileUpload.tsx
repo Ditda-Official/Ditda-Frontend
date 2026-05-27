@@ -13,7 +13,7 @@ const FileUpload = ({ fileName, fileSize, isUploading, onRemove }: FileUploadPro
   const ext = dotIndex !== -1 ? fileName.slice(dotIndex + 1).toLowerCase() : "";
 
   return (
-    <div className="rounded-8 border-gray-40 hover:bg-gray-10 flex w-full justify-between border bg-white p-4">
+    <div className="rounded-8 border-gray-40 hover:bg-gray-10 flex w-full justify-between border bg-white p-4 transition-colors duration-150">
       <div className="flex flex-row items-center gap-2">
         {isUploading ? (
           <LoadingIcon className="text-main-main size-6 animate-spin" />
