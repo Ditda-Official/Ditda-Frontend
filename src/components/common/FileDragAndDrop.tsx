@@ -8,9 +8,10 @@ import { cn } from "@/lib/utils/cn";
 
 interface FileDragAndDropProps {
   onFilesAdded: (files: File[]) => void;
+  isPortfolio?: boolean;
 }
 
-const FileDragAndDrop = ({ onFilesAdded }: FileDragAndDropProps) => {
+const FileDragAndDrop = ({ onFilesAdded, isPortfolio = false }: FileDragAndDropProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isDragging, setIsDragging] = useState(false);
 
@@ -49,8 +50,9 @@ const FileDragAndDrop = ({ onFilesAdded }: FileDragAndDropProps) => {
     >
       <div className="flex flex-col gap-5">
         <p className="text-gray-70 text-body2-r text-center">
-          첨부할 파일을 여기에 끌어다 놓거나, 파일 선택 버튼을 눌러 파일을 직접 선택해 주세요. (30MB
-          이하)
+          {isPortfolio
+            ? "첨부할 파일을 여기에 끌어다 놓거나, 파일 선택 버튼을 눌러 파일을 직접 선택해 주세요. (.pdf, .png 파일만 제출 가능, 각 파일 크기 30MB 이하)"
+            : "첨부할 파일을 여기에 끌어다 놓거나, 파일 선택 버튼을 눌러 파일을 직접 선택해 주세요. (.png 파일만 제출 가능, 각 파일 크기 30MB 이하)"}
         </p>
         <div className="flex justify-center">
           <input
