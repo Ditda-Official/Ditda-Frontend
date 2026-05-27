@@ -7,6 +7,7 @@ interface ChipProps {
   label: string;
   isSelected?: boolean;
   isHoverPreview?: boolean;
+  disableHover?: boolean;
   onRemove?: () => void;
   onClick?: () => void;
   removeAriaLabel?: string;
@@ -17,6 +18,7 @@ const Chip = ({
   label,
   isSelected = false,
   isHoverPreview = false,
+  disableHover = false,
   onRemove,
   onClick,
   removeAriaLabel,
@@ -28,7 +30,7 @@ const Chip = ({
 
     return (
       <div
-        className="bg-main-main rounded-100 inline-flex cursor-pointer items-center justify-center gap-1 py-1.5 pr-2 pl-3 text-white"
+        className="bg-main-main rounded-100 inline-flex cursor-pointer items-center justify-center gap-1 py-1.5 pr-2 pl-3 text-white transition-colors duration-150"
         onClick={onRemove}
         role={onRemove != null ? "button" : undefined}
         tabIndex={onRemove != null ? 0 : undefined}
@@ -40,10 +42,12 @@ const Chip = ({
     );
   }
 
-  const baseStyles =
-    "group rounded-100 inline-flex h-[34px] cursor-pointer items-center justify-center border px-3 py-[6px]";
+  const baseStyles = cn(
+    "group rounded-100 inline-flex h-[34px] items-center justify-center border px-3 py-[6px] transition-colors duration-150",
+    disableHover ? "cursor-default" : "cursor-pointer",
+  );
   const selectedStyles = "border-main-main bg-purple-10";
-  const defaultStyles = "border-transparent bg-gray-10 hover:bg-gray-40";
+  const defaultStyles = `border-transparent bg-gray-10 ${disableHover ? "" : "hover:bg-gray-40"}`;
 
   const spanColor = isSelected
     ? "text-body2-sb text-main-main"

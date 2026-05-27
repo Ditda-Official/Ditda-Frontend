@@ -32,7 +32,7 @@ const SidebarMenu = ({ label, href }: SidebarMenuProps) => {
   );
 
   const className =
-    "bg-gray-5 rounded-8 hover:bg-gray-20 group w-58 cursor-pointer px-5 py-3 block" +
+    "bg-gray-5 rounded-8 hover:bg-gray-20 group w-58 cursor-pointer px-5 py-3 block transition-colors duration-150" +
     (isSelected ? " bg-gray-20" : "");
 
   return href ? (

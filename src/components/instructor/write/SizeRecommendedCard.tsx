@@ -21,7 +21,7 @@ const SizeRecommendedCard = ({
     <div
       onClick={onClick}
       tabIndex={0}
-      className={`rounded-8 w-49.25 cursor-pointer border px-4 py-3 ${isSelected ? "border-main-main bg-purple-10" : "border-gray-20 hover:bg-gray-10 bg-white"}`}
+      className={`rounded-8 w-49.25 cursor-pointer border px-4 py-3 transition-colors duration-150 ${isSelected ? "border-main-main bg-purple-10" : "border-gray-20 hover:bg-gray-10 bg-white"}`}
     >
       <div className="flex flex-col gap-1">
         <div className="flex flex-row items-center justify-between">

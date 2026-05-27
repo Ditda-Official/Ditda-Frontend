@@ -4,15 +4,20 @@ import { DragEvent, useRef, useState } from "react";
 
 import { FolderAddIcon } from "@/assets/icons";
 import Button from "@/components/common/Button";
+import { cn } from "@/lib/utils/cn";
 
-const FileDragAndDrop = () => {
+interface FileDragAndDropProps {
+  onFilesAdded: (files: File[]) => void;
+  isPortfolio?: boolean;
+}
+
+const FileDragAndDrop = ({ onFilesAdded, isPortfolio = false }: FileDragAndDropProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [, setFiles] = useState<File[]>([]);
   const [isDragging, setIsDragging] = useState(false);
 
-  const addFiles = (incoming: FileList | null) => {
-    if (!incoming) return;
-    setFiles(prev => [...prev, ...Array.from(incoming)]);
+  const handleFiles = (fileList: FileList | null) => {
+    if (!fileList) return;
+    onFilesAdded(Array.from(fileList));
   };
 
   const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
@@ -29,7 +34,7 @@ const FileDragAndDrop = () => {
   const handleDrop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setIsDragging(false);
-    addFiles(e.dataTransfer.files);
+    handleFiles(e.dataTransfer.files);
   };
 
   return (
@@ -45,8 +50,9 @@ const FileDragAndDrop = () => {
     >
       <div className="flex flex-col gap-5">
         <p className="text-gray-70 text-body2-r text-center">
-          첨부할 파일을 여기에 끌어다 놓거나, 파일 선택 버튼을 눌러 파일을 직접 선택해 주세요. (30MB
-          이하)
+          {isPortfolio
+            ? "첨부할 파일을 여기에 끌어다 놓거나, 파일 선택 버튼을 눌러 파일을 직접 선택해 주세요. (.pdf, .png 파일만 제출 가능, 각 파일 크기 30MB 이하)"
+            : "첨부할 파일을 여기에 끌어다 놓거나, 파일 선택 버튼을 눌러 파일을 직접 선택해 주세요. (.png 파일만 제출 가능, 각 파일 크기 30MB 이하)"}
         </p>
         <div className="flex justify-center">
           <input
@@ -54,11 +60,14 @@ const FileDragAndDrop = () => {
             type="file"
             multiple
             className="hidden"
-            onChange={e => addFiles(e.target.files)}
+            onChange={e => handleFiles(e.target.files)}
           />
           <Button
             variant="xsmall_primary"
-            className="group-hover:bg-purple-40 w-fit group-hover:text-white"
+            className={cn(
+              "group-hover:bg-purple-40 w-fit group-hover:text-white",
+              isDragging && "bg-purple-40 text-white",
+            )}
             onClick={() => inputRef.current?.click()}
           >
             <FolderAddIcon />

@@ -171,11 +171,19 @@
   --text-caption2-m--font-weight: 500;
 
   /* =========================
+    Shadow Tokens
+    ========================= */
+  --shadow-dropdown: 0 0 20px 4px rgba(0, 0, 0, 0.05);
+
+  /* =========================
     Radius Tokens
     ========================= */
   --radius-4: 4px;
+  --radius-7: 7px;
   --radius-8: 8px;
+  --radius-10: 10px;
   --radius-12: 12px;
+  --radius-14: 14px;
   --radius-20: 20px;
   --radius-48: 48px;
   --radius-100: 100px;

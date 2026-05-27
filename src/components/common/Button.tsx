@@ -59,7 +59,7 @@ const Button = ({ variant, children, className, ...props }: ButtonProps) => {
   return (
     <button
       className={cn(
-        "inline-flex w-full cursor-pointer items-center justify-center transition-colors",
+        "inline-flex w-full cursor-pointer items-center justify-center transition-colors duration-150",
         variantStyles[variant],
         className,
       )}

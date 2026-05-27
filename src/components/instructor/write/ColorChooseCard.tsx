@@ -56,7 +56,7 @@ const ColorChooseCard = ({
   return (
     <div
       className={cn(
-        "rounded-12 relative flex w-138 cursor-pointer items-center border bg-white py-3 pr-4 pl-4 transition-colors",
+        "rounded-12 relative flex w-138 cursor-pointer items-center border bg-white py-3 pr-4 pl-4 transition-colors duration-150",
         isSelected ? "border-main-main" : "border-gray-30",
       )}
       onClick={onCardClick}
