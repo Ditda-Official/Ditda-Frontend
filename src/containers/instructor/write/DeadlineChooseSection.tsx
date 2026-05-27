@@ -25,9 +25,15 @@ const DeadlineChooseSection = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const getMinFinalDate = (date: Date) => {
+    const minFinal = new Date(date);
+    minFinal.setDate(minFinal.getDate() + 14);
+    return minFinal;
+  };
+
   const handleFirstConfirm = (date: Date) => {
     setFirstDate(date);
-    if (finalDate && finalDate <= date) {
+    if (finalDate && finalDate < getMinFinalDate(date)) {
       setFinalDate(null);
     }
     setOpenMenu(null);
@@ -76,7 +82,8 @@ const DeadlineChooseSection = () => {
             <div className="absolute top-full right-0 z-50 mt-1">
               <DateDropdownMenu
                 onConfirm={handleFinalConfirm}
-                minDate={firstDate ?? undefined}
+                minDate={firstDate ? getMinFinalDate(firstDate) : undefined}
+                invalidMessage={"1차 시안 수령일로부터\n최소 2주 이후 날짜를\n선택해주세요"}
                 defaultDate={finalDate ?? undefined}
               />
             </div>

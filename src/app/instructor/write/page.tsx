@@ -91,7 +91,7 @@ const Step3Content = () => {
 
   return (
     <>
-      <div className="flex flex-col gap-10 pt-15 pb-50">
+      <div className="flex flex-col gap-10 pt-15 pb-60">
         <PlanChooseSection />
         <DeadlineChooseSection />
         <div className="flex justify-between">
