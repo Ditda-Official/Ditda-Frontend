@@ -60,8 +60,11 @@ const PaymentModal = ({ isOpen, onClose }: { isOpen?: boolean; onClose?: () => v
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/60"
       onClick={onClose}
     >
-      <div className="rounded-20 w-130 bg-white p-6" onClick={e => e.stopPropagation()}>
-        <div className="flex flex-col gap-2">
+      <div
+        className="rounded-20 flex h-202.75 w-130 flex-col bg-white p-6"
+        onClick={e => e.stopPropagation()}
+      >
+        <div className="flex shrink-0 flex-col gap-2">
           <div className="flex flex-row justify-between py-2">
             <h1 className="text-gray-90 text-heading2-sb">YBM 영어학원 홍보물 디자인 외주</h1>
             <CloseIcon className="text-gray-90 size-6 cursor-pointer" onClick={onClose} />
@@ -71,7 +74,7 @@ const PaymentModal = ({ isOpen, onClose }: { isOpen?: boolean; onClose?: () => v
 
         {step === 1 ? (
           <>
-            <div className="scrollbar-hide h-139.6 overflow-y-auto pt-8">
+            <div className="scrollbar-hide min-h-0 flex-1 overflow-y-auto pt-8">
               <div className="flex flex-col gap-6">
                 <div className="flex flex-col gap-5">
                   <InfoRow label="카테고리" value="교재" />
