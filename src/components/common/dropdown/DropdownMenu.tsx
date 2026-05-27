@@ -2,6 +2,25 @@
 
 import { useCallback, useEffect, useRef, useState, type WheelEvent } from "react";
 
+import {
+  ITEM_GAP,
+  LIST_H,
+  PAD_BOTTOM,
+  PAD_TOP,
+  SCROLL_ANIMATION_MS,
+  SNAP_DELAY,
+  STEP,
+  WHEEL_COOLDOWN,
+  YEAR_RANGE,
+} from "@/constants/dropdown";
+import { cn } from "@/lib/utils/cn";
+import {
+  easeOutCubic,
+  getDaysInMonth,
+  getNearestIndex,
+  getScrollTopForIndex,
+} from "@/lib/utils/dropdown";
+
 interface DropdownMenuProps {
   onConfirm?: (date: Date) => void;
 }
@@ -12,42 +31,6 @@ interface WheelColumnProps {
   onSelect: (index: number) => void;
   itemClassName?: string;
 }
-
-const ITEM_H = 22;
-const SELECTED_H = 38;
-const ITEM_GAP = 12;
-const STEP = ITEM_H + ITEM_GAP;
-const LIST_H = 208;
-const PAD_TOP = 2 * STEP;
-const PAD_BOTTOM = LIST_H - PAD_TOP - SELECTED_H;
-const SNAP_DELAY = 100;
-const WHEEL_COOLDOWN = 240;
-const SCROLL_ANIMATION_MS = 250;
-const YEAR_RANGE = 10;
-const SELECTED_EXTRA = SELECTED_H - ITEM_H;
-
-const easeOutCubic = (progress: number) => 1 - (1 - progress) ** 3;
-
-const getDaysInMonth = (year: number, monthIndex: number) =>
-  new Date(year, monthIndex + 1, 0).getDate();
-
-const getScrollTopForIndex = (index: number, selectedIndex: number) =>
-  index * STEP + (index > selectedIndex ? SELECTED_EXTRA : 0);
-
-const getNearestIndex = (scrollTop: number, selectedIndex: number, itemCount: number) => {
-  let nearestIndex = 0;
-  let minDistance = Number.POSITIVE_INFINITY;
-
-  for (let index = 0; index < itemCount; index += 1) {
-    const distance = Math.abs(scrollTop - getScrollTopForIndex(index, selectedIndex));
-    if (distance < minDistance) {
-      minDistance = distance;
-      nearestIndex = index;
-    }
-  }
-
-  return nearestIndex;
-};
 
 const WheelColumn = ({ items, selectedIndex, onSelect, itemClassName = "" }: WheelColumnProps) => {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -185,14 +168,17 @@ const WheelColumn = ({ items, selectedIndex, onSelect, itemClassName = "" }: Whe
             style={{
               marginBottom: index === items.length - 1 ? 0 : ITEM_GAP,
             }}
-            className={`flex snap-start snap-always items-center justify-end ${
-              index === selectedIndex ? "h-9.5" : "h-5.5"
-            }`}
+            className={cn(
+              "flex snap-start snap-always items-center justify-end",
+              index === selectedIndex ? "h-9.5" : "h-5.5",
+            )}
           >
             <p
-              className={`text-heading3-m leading-none whitespace-nowrap ${
-                index === selectedIndex ? "text-gray-90" : "text-gray-50"
-              } ${itemClassName} transition-colors duration-200 ease-out`}
+              className={cn(
+                "text-heading3-m leading-none whitespace-nowrap transition-colors duration-200 ease-out",
+                index === selectedIndex ? "text-gray-90" : "text-gray-50",
+                itemClassName,
+              )}
             >
               {label}
             </p>
