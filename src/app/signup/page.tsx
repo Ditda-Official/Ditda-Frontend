@@ -17,7 +17,7 @@ const Page = () => {
   const handleNextClick = () => {
     if (selectedType == null) return;
 
-    router.push(`/signup/${selectedType}`);
+    router.push(`/signup/${selectedType}/step1`);
   };
 
   return (
