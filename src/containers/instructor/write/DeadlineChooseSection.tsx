@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 import DateDropdownBox from "@/components/common/dropdown/DateDropdownBox";
 import DateDropdownMenu from "@/components/common/dropdown/DateDropdownMenu";
-import { formatDate, getYesterday } from "@/lib/utils/date";
+import { formatDate, getMinFinalDate, getYesterday } from "@/lib/utils/date";
 import { useWriteFormStore } from "@/store/writeFormStore";
 
 const DeadlineChooseSection = () => {
@@ -24,12 +24,6 @@ const DeadlineChooseSection = () => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
-  const getMinFinalDate = (date: Date) => {
-    const minFinal = new Date(date);
-    minFinal.setDate(minFinal.getDate() + 14);
-    return minFinal;
-  };
 
   const handleFirstConfirm = (date: Date) => {
     setFirstDate(date);

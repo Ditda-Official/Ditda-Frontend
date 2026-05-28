@@ -12,6 +12,12 @@ export const getYesterday = () => {
   return yesterday;
 };
 
+export const getMinFinalDate = (date: Date) => {
+  const minFinal = new Date(date);
+  minFinal.setDate(minFinal.getDate() + 14);
+  return minFinal;
+};
+
 export const toApiDate = (date: Date) => {
   const y = date.getFullYear();
   const m = String(date.getMonth() + 1).padStart(2, "0");
