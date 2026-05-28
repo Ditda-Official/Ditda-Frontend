@@ -23,7 +23,7 @@ const PaymentModalContent = ({ onClose }: { onClose?: () => void }) => {
       onClick={onClose}
     >
       <div
-        className="rounded-20 flex h-202.75 w-130 flex-col bg-white p-6"
+        className="rounded-20 flex h-203 w-130 flex-col bg-white p-6"
         onClick={e => e.stopPropagation()}
       >
         <div className="flex shrink-0 flex-col gap-2">
