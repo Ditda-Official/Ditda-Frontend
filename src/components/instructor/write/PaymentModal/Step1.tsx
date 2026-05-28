@@ -104,7 +104,7 @@ const TermsSection = ({
    Step1
 ───────────────────────────────────────────── */
 
-const Step1 = ({ onNext }: { onNext: () => void }) => {
+const Step1 = ({ onNext, errorMessage }: { onNext: () => void; errorMessage?: string | null }) => {
   const {
     selectedCategory,
     selectedSize,
@@ -162,20 +162,26 @@ const Step1 = ({ onNext }: { onNext: () => void }) => {
           <TermsSection isTermsAgreed={isTermsAgreed} setIsTermsAgreed={setIsTermsAgreed} />
         </div>
       </div>
-
-      <div className="flex flex-row items-center justify-between pt-6 pb-8">
-        <h3 className="text-heading3-sb text-gray-70">최종 금액</h3>
-        <p className="text-gray-90 text-title2-sb">
-          {selectedPlan ? PLAN_MAP[selectedPlan].price : "-"}
-        </p>
+      <div className="relative">
+        <div className="flex flex-row items-center justify-between pt-6 pb-8">
+          <h3 className="text-heading3-sb text-gray-70">최종 금액</h3>
+          <p className="text-gray-90 text-title2-sb">
+            {selectedPlan ? PLAN_MAP[selectedPlan].price : "-"}
+          </p>
+        </div>
+        {errorMessage && (
+          <p className="text-red-main text-caption2-m absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap">
+            {errorMessage}
+          </p>
+        )}
+        <Button
+          variant={isTermsAgreed && !errorMessage ? "large_primary" : "large_disabled"}
+          disabled={!isTermsAgreed || !!errorMessage}
+          onClick={onNext}
+        >
+          결제하기
+        </Button>
       </div>
-      <Button
-        variant={isTermsAgreed ? "large_primary" : "large_disabled"}
-        disabled={!isTermsAgreed}
-        onClick={onNext}
-      >
-        결제하기
-      </Button>
     </>
   );
 };

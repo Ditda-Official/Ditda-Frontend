@@ -126,7 +126,7 @@ const buildOrderRequest = (state: WriteFormState): WriteOrderRequest => {
     subject: state.basicInfo.과목명,
     requiredPages: state.selectedPages.map(page => ({
       pageType: PAGE_API_MAP[page],
-      description: state.pageDescriptions[page] ?? null,
+      description: state.pageDescriptions[page] || null,
     })),
     ...(state.materialNote ? { materialNote: state.materialNote } : {}),
     ...(state.referenceNote ? { referenceNote: state.referenceNote } : {}),
