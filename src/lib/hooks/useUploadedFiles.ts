@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { formatFileSize } from "@/lib/utils/file";
 import { UploadedFile } from "@/types/file";
@@ -8,12 +8,16 @@ export const useUploadedFiles = (
   setExternalFiles?: (files: UploadedFile[]) => void,
 ) => {
   const [localFiles, setLocalFiles] = useState<UploadedFile[]>([]);
+  const externalFilesRef = useRef(externalFiles);
+  useEffect(() => {
+    externalFilesRef.current = externalFiles;
+  });
 
   const uploadedFiles = externalFiles ?? localFiles;
 
   const setFiles = (updater: (prev: UploadedFile[]) => UploadedFile[]) => {
     if (setExternalFiles) {
-      setExternalFiles(updater(externalFiles ?? []));
+      setExternalFiles(updater(externalFilesRef.current ?? []));
     } else {
       setLocalFiles(updater);
     }
