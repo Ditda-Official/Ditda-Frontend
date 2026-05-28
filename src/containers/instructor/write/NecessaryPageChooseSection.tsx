@@ -3,10 +3,11 @@
 import Chip from "@/components/common/Chip";
 import TextField from "@/components/common/input/TextField";
 import { PAGE_OPTIONS } from "@/constants/write";
-import { useWriteForm } from "@/context/WriteFormContext";
+import { useWriteFormStore } from "@/store/writeFormStore";
 
 const NecessaryPageChooseSection = () => {
-  const { selectedPages, setSelectedPages, pageDescriptions, setPageDescription } = useWriteForm();
+  const { selectedPages, setSelectedPages, pageDescriptions, setPageDescription } =
+    useWriteFormStore();
 
   const togglePage = (label: string) => {
     if (selectedPages.includes(label)) {

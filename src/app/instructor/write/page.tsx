@@ -7,10 +7,10 @@ import Modal from "@/components/common/Modal";
 import Step1Content from "@/containers/instructor/write/Steps/Step1Content";
 import Step2Content from "@/containers/instructor/write/Steps/Step2Content";
 import Step3Content from "@/containers/instructor/write/Steps/Step3Content";
-import { useWriteForm } from "@/context/WriteFormContext";
+import { useWriteFormStore } from "@/store/writeFormStore";
 
 const WritePageContent = () => {
-  const { currentStep } = useWriteForm();
+  const { currentStep } = useWriteFormStore();
 
   useEffect(() => {
     const main = document.querySelector("main");
@@ -25,7 +25,7 @@ const WritePageContent = () => {
 
 const Page = () => {
   const router = useRouter();
-  const { currentStep, setCurrentStep } = useWriteForm();
+  const { currentStep, setCurrentStep } = useWriteFormStore();
   const [showLeaveModal, setShowLeaveModal] = useState(false);
   const [pendingHref, setPendingHref] = useState<string | null>(null);
 

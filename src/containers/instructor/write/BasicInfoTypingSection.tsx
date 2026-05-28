@@ -2,11 +2,10 @@
 
 import SmallInput from "@/components/common/input/SmallInput";
 import { BASIC_INFO_FIELDS } from "@/constants/write";
-import type { BasicInfo } from "@/context/WriteFormContext";
-import { useWriteForm } from "@/context/WriteFormContext";
+import { type BasicInfo, useWriteFormStore } from "@/store/writeFormStore";
 
 const BasicInfoTypingSection = () => {
-  const { basicInfo, setBasicInfo } = useWriteForm();
+  const { basicInfo, setBasicInfo } = useWriteFormStore();
 
   const handleChange = (label: string, value: string) => {
     setBasicInfo({ ...basicInfo, [label]: value } as BasicInfo);

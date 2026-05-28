@@ -5,10 +5,10 @@ import { useState } from "react";
 import AccordionMenu from "@/components/common/AccordionMenu";
 import Radio from "@/components/common/Radio";
 import { CATEGORIES } from "@/constants/write";
-import { useWriteForm } from "@/context/WriteFormContext";
+import { useWriteFormStore } from "@/store/writeFormStore";
 
 const CategorySection = () => {
-  const { selectedCategory, setSelectedCategory } = useWriteForm();
+  const { selectedCategory, setSelectedCategory } = useWriteFormStore();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const handleCategoryClick = (index: number) => {

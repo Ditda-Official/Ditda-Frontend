@@ -5,11 +5,11 @@ import { useEffect, useState } from "react";
 import { CloseIcon } from "@/assets/icons";
 import Step1 from "@/components/instructor/write/PaymentModal/Step1";
 import Step2 from "@/components/instructor/write/PaymentModal/Step2";
-import { useWriteForm } from "@/context/WriteFormContext";
+import { useWriteFormStore } from "@/store/writeFormStore";
 
 const PaymentModalContent = ({ onClose }: { onClose?: () => void }) => {
   const [step, setStep] = useState<1 | 2>(1);
-  const { basicInfo } = useWriteForm();
+  const { basicInfo } = useWriteFormStore();
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {

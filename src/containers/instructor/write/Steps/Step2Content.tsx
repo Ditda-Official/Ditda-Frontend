@@ -5,10 +5,10 @@ import AttachFileSection from "@/containers/instructor/write/AttachFileSection";
 import BasicInfoTypingSection from "@/containers/instructor/write/BasicInfoTypingSection";
 import NecessaryPageChooseSection from "@/containers/instructor/write/NecessaryPageChooseSection";
 import ReferenceSection from "@/containers/instructor/write/ReferenceSection";
-import { useWriteForm } from "@/context/WriteFormContext";
+import { useWriteFormStore } from "@/store/writeFormStore";
 
 const Step2Content = () => {
-  const { basicInfo, selectedPages, setCurrentStep } = useWriteForm();
+  const { basicInfo, selectedPages, setCurrentStep } = useWriteFormStore();
 
   const isAllFilled =
     basicInfo.교재명.trim() !== "" &&

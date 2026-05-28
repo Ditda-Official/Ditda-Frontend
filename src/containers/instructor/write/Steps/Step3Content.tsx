@@ -6,10 +6,10 @@ import Button from "@/components/common/Button";
 import PaymentModal from "@/components/instructor/write/PaymentModal/PaymentModal";
 import DeadlineChooseSection from "@/containers/instructor/write/DeadlineChooseSection";
 import PlanChooseSection from "@/containers/instructor/write/PlanChooseSection";
-import { useWriteForm } from "@/context/WriteFormContext";
+import { useWriteFormStore } from "@/store/writeFormStore";
 
 const Step3Content = () => {
-  const { setCurrentStep, selectedPlan, firstDate, finalDate } = useWriteForm();
+  const { setCurrentStep, selectedPlan, firstDate, finalDate } = useWriteFormStore();
   const [isPaymentOpen, setIsPaymentOpen] = useState(false);
 
   const isAllReady = selectedPlan !== null && firstDate !== null && finalDate !== null;

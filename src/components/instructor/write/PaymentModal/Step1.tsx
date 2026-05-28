@@ -4,8 +4,8 @@ import { ArrowDownIcon, CheckboxFillIcon, CheckboxGrayIcon } from "@/assets/icon
 import Button from "@/components/common/Button";
 import Chip from "@/components/common/Chip";
 import { PLAN_MAP, SIZE_DISPLAY_MAP, TERMS_CONTENT } from "@/constants/write";
-import { useWriteForm } from "@/context/WriteFormContext";
 import { formatDate } from "@/lib/utils/date";
+import { useWriteFormStore } from "@/store/writeFormStore";
 
 /* ─────────────────────────────────────────────
    InfoRow
@@ -38,11 +38,11 @@ const InfoRow = ({
 ───────────────────────────────────────────── */
 
 const TermsSection = ({
-  isAgreed,
-  setIsAgreed,
+  isTermsAgreed,
+  setIsTermsAgreed,
 }: {
-  isAgreed: boolean;
-  setIsAgreed: (v: boolean) => void;
+  isTermsAgreed: boolean;
+  setIsTermsAgreed: (v: boolean) => void;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -53,15 +53,15 @@ const TermsSection = ({
         <p className="text-gray-90 text-body2-r">결제·환불 정책</p>
         <div className="flex flex-col">
           <div className="flex flex-row items-center gap-2">
-            {isAgreed ? (
+            {isTermsAgreed ? (
               <CheckboxFillIcon
                 className="size-4.5 cursor-pointer"
-                onClick={() => setIsAgreed(false)}
+                onClick={() => setIsTermsAgreed(false)}
               />
             ) : (
               <CheckboxGrayIcon
                 className="size-4.5 cursor-pointer"
-                onClick={() => setIsAgreed(true)}
+                onClick={() => setIsTermsAgreed(true)}
               />
             )}
             <div
@@ -105,7 +105,6 @@ const TermsSection = ({
 ───────────────────────────────────────────── */
 
 const Step1 = ({ onNext }: { onNext: () => void }) => {
-  const form = useWriteForm();
   const {
     selectedCategory,
     selectedSize,
@@ -116,9 +115,9 @@ const Step1 = ({ onNext }: { onNext: () => void }) => {
     selectedPlan,
     firstDate,
     finalDate,
-  } = form;
-
-  const [isAgreed, setIsAgreed] = useState(false);
+    isTermsAgreed,
+    setIsTermsAgreed,
+  } = useWriteFormStore();
 
   return (
     <>
@@ -160,7 +159,7 @@ const Step1 = ({ onNext }: { onNext: () => void }) => {
             {finalDate && <InfoRow label="최종 수령 일시" value={formatDate(finalDate)} />}
           </div>
           <hr className="border-gray-20 border-t" />
-          <TermsSection isAgreed={isAgreed} setIsAgreed={setIsAgreed} />
+          <TermsSection isTermsAgreed={isTermsAgreed} setIsTermsAgreed={setIsTermsAgreed} />
         </div>
       </div>
 
@@ -171,8 +170,8 @@ const Step1 = ({ onNext }: { onNext: () => void }) => {
         </p>
       </div>
       <Button
-        variant={isAgreed ? "large_primary" : "large_disabled"}
-        disabled={!isAgreed}
+        variant={isTermsAgreed ? "large_primary" : "large_disabled"}
+        disabled={!isTermsAgreed}
         onClick={onNext}
       >
         결제하기

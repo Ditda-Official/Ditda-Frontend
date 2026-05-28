@@ -1,10 +1,10 @@
 "use client";
 
 import ProgressBar from "@/components/instructor/write/ProgressBar";
-import { useWriteForm } from "@/context/WriteFormContext";
+import { useWriteFormStore } from "@/store/writeFormStore";
 
 const StepHeader = () => {
-  const { currentStep } = useWriteForm();
+  const { currentStep } = useWriteFormStore();
 
   return (
     <header className="bg-gray-10 flex w-full justify-between py-4">

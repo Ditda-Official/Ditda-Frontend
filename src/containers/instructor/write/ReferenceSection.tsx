@@ -3,11 +3,12 @@
 import FileDragAndDrop from "@/components/common/FileDragAndDrop";
 import FileUpload from "@/components/common/FileUpload";
 import TextField from "@/components/common/input/TextField";
-import { useWriteForm } from "@/context/WriteFormContext";
 import { useUploadedFiles } from "@/lib/hooks/useUploadedFiles";
+import { useWriteFormStore } from "@/store/writeFormStore";
 
 const ReferenceSection = () => {
-  const { referenceFiles, setReferenceFiles, referenceNote, setReferenceNote } = useWriteForm();
+  const { referenceFiles, setReferenceFiles, referenceNote, setReferenceNote } =
+    useWriteFormStore();
   const { uploadedFiles, handleFilesAdded, handleRemove } = useUploadedFiles(
     referenceFiles,
     setReferenceFiles,

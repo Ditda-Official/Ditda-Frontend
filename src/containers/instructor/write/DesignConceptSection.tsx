@@ -4,11 +4,11 @@ import Chip from "@/components/common/Chip";
 import TextField from "@/components/common/input/TextField";
 import ConceptKeywordCard from "@/components/instructor/write/ConceptKeywordCard";
 import { CONCEPT_CATEGORIES, MAX_CONCEPT_SELECT } from "@/constants/write";
-import { useWriteForm } from "@/context/WriteFormContext";
+import { useWriteFormStore } from "@/store/writeFormStore";
 
 const DesignConceptSection = () => {
   const { selectedKeywords, setSelectedKeywords, additionalConcept, setAdditionalConcept } =
-    useWriteForm();
+    useWriteFormStore();
 
   const handleSelect = (keyword: string) => {
     if (selectedKeywords.includes(keyword)) {

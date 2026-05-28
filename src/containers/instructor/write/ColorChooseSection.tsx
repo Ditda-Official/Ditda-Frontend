@@ -5,13 +5,13 @@ import { useEffect, useRef, useState } from "react";
 import Toggle from "@/components/common/Toggle";
 import ColorChooseCard from "@/components/instructor/write/ColorChooseCard";
 import ColorPicker from "@/components/instructor/write/ColorPicker";
-import { useWriteForm } from "@/context/WriteFormContext";
 import { cn } from "@/lib/utils/cn";
 import type { RgbaColor } from "@/lib/utils/color";
+import { useWriteFormStore } from "@/store/writeFormStore";
 
 const ColorChooseSection = () => {
-  const { colorMode, setColorMode, colors, setColors } = useWriteForm();
-  const [mainIndex, setMainIndex] = useState(0);
+  const { colorMode, setColorMode, colors, setColors, mainColorIndex, setMainColorIndex } =
+    useWriteFormStore();
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
 
@@ -67,10 +67,10 @@ const ColorChooseSection = () => {
                 key={i}
                 color={color}
                 index={i + 1}
-                isMain={mainIndex === i}
+                isMain={mainColorIndex === i}
                 isSelected={activeIndex === i}
                 onCardClick={() => setActiveIndex(i)}
-                onRadioChange={() => setMainIndex(i)}
+                onRadioChange={() => setMainColorIndex(i)}
                 onColorChange={c => handleColorChange(i, c)}
               />
             ))}

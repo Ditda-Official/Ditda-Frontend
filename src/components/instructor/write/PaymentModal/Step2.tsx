@@ -5,11 +5,11 @@ import { useRouter } from "next/navigation";
 import { ArrowLeftIcon, ExclamationMarkCircleIcon } from "@/assets/icons";
 import Button from "@/components/common/Button";
 import { PLAN_MAP } from "@/constants/write";
-import { useWriteForm } from "@/context/WriteFormContext";
+import { useWriteFormStore } from "@/store/writeFormStore";
 
 const Step2 = ({ onBack }: { onBack: () => void }) => {
   const router = useRouter();
-  const { selectedPlan } = useWriteForm();
+  const { selectedPlan } = useWriteFormStore();
   return (
     <div className="flex h-178.25 flex-col justify-between">
       <div>

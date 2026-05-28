@@ -1,13 +1,13 @@
 "use client";
 
 import PlanChooseCard from "@/components/instructor/write/PlanChooseCard";
-import type { PlanType } from "@/context/WriteFormContext";
-import { useWriteForm } from "@/context/WriteFormContext";
+import type { PlanType } from "@/constants/write";
+import { useWriteFormStore } from "@/store/writeFormStore";
 
 const PLANS: PlanType[] = ["기본", "플러스", "맥스"];
 
 const PlanChooseSection = () => {
-  const { selectedPlan, setSelectedPlan } = useWriteForm();
+  const { selectedPlan, setSelectedPlan } = useWriteFormStore();
 
   return (
     <div className="rounded-12 focus-within:border-purple-40 flex flex-col gap-8 border border-transparent bg-white p-6">
