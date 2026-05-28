@@ -9,10 +9,11 @@ import Header from "@/components/common/Header";
 import InputField from "@/components/common/input/InputField";
 import {
   INSTRUCTOR_TERMS,
-  type InstructorTermsId,
   SIGNUP_MAX_NAME_LENGTH,
   SIGNUP_MAX_PHONE_NUMBER_LENGTH,
 } from "@/constants/signup";
+
+type InstructorTermsId = (typeof INSTRUCTOR_TERMS)[number]["id"];
 
 const CheckIcon = ({ isChecked }: { isChecked: boolean }) => {
   const Icon = isChecked ? CheckboxFillIcon : CheckboxGrayIcon;
@@ -140,8 +141,9 @@ const Page = () => {
               </div>
             </div>
 
-            <div className="flex w-full gap-2">
+            <div className="flex w-full items-start justify-between">
               <Button
+                className="w-[232px]"
                 variant="medium_secondary"
                 type="button"
                 onClick={() => router.push("/signup")}
@@ -149,6 +151,7 @@ const Page = () => {
                 이전
               </Button>
               <Button
+                className="w-[232px]"
                 variant={isNextEnabled ? "medium_primary" : "medium_disabled"}
                 type="button"
                 onClick={() => {

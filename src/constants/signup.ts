@@ -3,13 +3,25 @@
     ========================= */
 export const SIGNUP_MAX_NAME_LENGTH = 5;
 export const SIGNUP_MAX_PHONE_NUMBER_LENGTH = 11;
-
-export type SignupTermsItem = {
-  id: string;
-  label: string;
-  modalTitle: string;
-  content: string;
-};
+export const SIGNUP_MIN_ID_LENGTH = 6;
+export const SIGNUP_MAX_ID_LENGTH = 20;
+export const SIGNUP_ID_LENGTH_ERROR_MESSAGE = "6~20자로 아이디를 입력해주세요";
+export const SIGNUP_MIN_PASSWORD_LENGTH = 8;
+export const SIGNUP_MAX_PASSWORD_LENGTH = 20;
+export const SIGNUP_PASSWORD_ERROR_MESSAGE =
+  "8~20자의 영문,숫자를 모두 포함한 비밀번호를 입력해주세요";
+export const SIGNUP_PASSWORD_CONFIRM_ERROR_MESSAGE = "비밀번호가 일치하지 않습니다";
+export const SIGNUP_ID_DUPLICATED_ERROR_MESSAGE = "이미 존재하는 아이디입니다";
+export const SIGNUP_ID_AVAILABLE_MESSAGE = "사용 가능한 아이디입니다";
+export const SIGNUP_EMAIL_ERROR_MESSAGE = "형식이 올바르지 않습니다";
+export const SIGNUP_EMAIL_VERIFICATION_CODE_ERROR_MESSAGE = "인증번호가 일치하지 않습니다";
+export const SIGNUP_EMAIL_VERIFICATION_LIMIT_SECONDS = 5 * 60;
+export const SIGNUP_MOCK_EMAIL_VERIFICATION_CODE = "1234";
+export const SIGNUP_MOCK_ACCOUNT = {
+  id: "test1234",
+  password: "test1234",
+} as const;
+export const SIGNUP_EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /* =========================
     디자이너 약관
@@ -39,9 +51,7 @@ export const DESIGNER_TERMS = [
     modalTitle: "약관 제목 4",
     content: "디자이너약관4디자이너약관4디자이너약관4디자이너약관4디자이너약관4",
   },
-] as const satisfies readonly SignupTermsItem[];
-
-export type DesignerTermsId = (typeof DESIGNER_TERMS)[number]["id"];
+] as const;
 
 /* =========================
     강사 약관
@@ -72,6 +82,4 @@ export const INSTRUCTOR_TERMS = [
     modalTitle: "강사 약관 제목 4",
     content: "강사약관4강사약관4강사약관4강사약관4강사약관4강사약관4강사약관4강사약관4강사약관4",
   },
-] as const satisfies readonly SignupTermsItem[];
-
-export type InstructorTermsId = (typeof INSTRUCTOR_TERMS)[number]["id"];
+] as const;
