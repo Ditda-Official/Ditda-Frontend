@@ -24,6 +24,38 @@ export const SIGNUP_MOCK_ACCOUNT = {
 export const SIGNUP_EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /* =========================
+    은행 선택
+    ========================= */
+export const BANK_DROPDOWN_VISIBLE_COUNT = 5;
+export const BANK_DROPDOWN_OPTION_HEIGHT = 56;
+export const BANK_DROPDOWN_MAX_HEIGHT = BANK_DROPDOWN_VISIBLE_COUNT * BANK_DROPDOWN_OPTION_HEIGHT;
+
+export const BANK_OPTIONS = [
+  { code: "TOSS", name: "토스뱅크" },
+  { code: "KAKAO", name: "카카오뱅크" },
+  { code: "KOOKMIN", name: "국민은행" },
+  { code: "IBK", name: "기업은행" },
+  { code: "NH", name: "농협은행" },
+  { code: "SHINHAN", name: "신한은행" },
+  { code: "IM", name: "iM뱅크" },
+  { code: "WOORI", name: "우리은행" },
+  { code: "CITI", name: "한국시티은행" },
+  { code: "HANA", name: "하나은행" },
+  { code: "SAVINGS", name: "저축은행" },
+  { code: "SAEMAUL", name: "새마을금고" },
+  { code: "SHINHYUP", name: "신협" },
+  { code: "POST_OFFICE", name: "우체국" },
+] as const;
+
+export type BankOption = (typeof BANK_OPTIONS)[number];
+export type BankCode = BankOption["code"];
+export type BankName = BankOption["name"];
+
+export const BANK_API_MAP = Object.fromEntries(
+  BANK_OPTIONS.map(({ code, name }) => [name, code]),
+) as Record<BankName, BankCode>;
+
+/* =========================
     디자이너 약관
     ========================= */
 export const DESIGNER_TERMS = [
