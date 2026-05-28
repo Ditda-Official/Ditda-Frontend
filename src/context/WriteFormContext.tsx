@@ -2,8 +2,9 @@
 
 import { createContext, ReactNode, useContext, useState } from "react";
 
-import type { WriteStep } from "@/constants/write";
+import type { PlanType, WriteStep } from "@/constants/write";
 import type { RgbaColor } from "@/lib/utils/color";
+import type { UploadedFile } from "@/types/file";
 
 interface CategorySelection {
   categoryIndex: number;
@@ -18,9 +19,7 @@ export interface BasicInfo {
   과목명: string;
 }
 
-export type PlanType = "기본" | "플러스" | "맥스";
-
-interface WriteFormContextType {
+export interface WriteFormContextType {
   currentStep: WriteStep;
   setCurrentStep: (value: WriteStep) => void;
   selectedCategory: CategorySelection | null;
@@ -29,6 +28,8 @@ interface WriteFormContextType {
   setSelectedSize: (value: string | null) => void;
   selectedKeywords: string[];
   setSelectedKeywords: (value: string[]) => void;
+  additionalConcept: string;
+  setAdditionalConcept: (value: string) => void;
   colorMode: ColorMode;
   setColorMode: (value: ColorMode) => void;
   colors: (RgbaColor | null)[];
@@ -37,6 +38,16 @@ interface WriteFormContextType {
   setBasicInfo: (value: BasicInfo) => void;
   selectedPages: string[];
   setSelectedPages: (value: string[]) => void;
+  pageDescriptions: Record<string, string>;
+  setPageDescription: (page: string, value: string) => void;
+  materialFiles: UploadedFile[];
+  setMaterialFiles: (files: UploadedFile[]) => void;
+  referenceFiles: UploadedFile[];
+  setReferenceFiles: (files: UploadedFile[]) => void;
+  materialNote: string;
+  setMaterialNote: (value: string) => void;
+  referenceNote: string;
+  setReferenceNote: (value: string) => void;
   selectedPlan: PlanType | null;
   setSelectedPlan: (value: PlanType | null) => void;
   firstDate: Date | null;
@@ -55,10 +66,20 @@ export const WriteFormProvider = ({ children }: { children: ReactNode }) => {
   const [colorMode, setColorMode] = useState<ColorMode>("custom");
   const [colors, setColors] = useState<(RgbaColor | null)[]>([null, null, null]);
   const [basicInfo, setBasicInfo] = useState<BasicInfo>({ 교재명: "", 강사명: "", 과목명: "" });
+  const [additionalConcept, setAdditionalConcept] = useState("");
   const [selectedPages, setSelectedPages] = useState<string[]>([]);
+  const [pageDescriptions, setPageDescriptions] = useState<Record<string, string>>({});
+  const [materialFiles, setMaterialFiles] = useState<UploadedFile[]>([]);
+  const [referenceFiles, setReferenceFiles] = useState<UploadedFile[]>([]);
+  const [materialNote, setMaterialNote] = useState("");
+  const [referenceNote, setReferenceNote] = useState("");
   const [selectedPlan, setSelectedPlan] = useState<PlanType | null>(null);
   const [firstDate, setFirstDate] = useState<Date | null>(null);
   const [finalDate, setFinalDate] = useState<Date | null>(null);
+
+  const setPageDescription = (page: string, value: string) => {
+    setPageDescriptions(prev => ({ ...prev, [page]: value }));
+  };
 
   return (
     <WriteFormContext.Provider
@@ -71,6 +92,8 @@ export const WriteFormProvider = ({ children }: { children: ReactNode }) => {
         setSelectedSize,
         selectedKeywords,
         setSelectedKeywords,
+        additionalConcept,
+        setAdditionalConcept,
         colorMode,
         setColorMode,
         colors,
@@ -79,6 +102,16 @@ export const WriteFormProvider = ({ children }: { children: ReactNode }) => {
         setBasicInfo,
         selectedPages,
         setSelectedPages,
+        pageDescriptions,
+        setPageDescription,
+        materialFiles,
+        setMaterialFiles,
+        referenceFiles,
+        setReferenceFiles,
+        materialNote,
+        setMaterialNote,
+        referenceNote,
+        setReferenceNote,
         selectedPlan,
         setSelectedPlan,
         firstDate,

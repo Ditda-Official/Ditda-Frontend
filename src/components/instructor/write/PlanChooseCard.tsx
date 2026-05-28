@@ -1,30 +1,5 @@
 import Badge from "@/components/common/Badge";
-
-type PlanType = "기본" | "플러스" | "맥스";
-
-const planMap: Record<
-  PlanType,
-  { label: string; size: "3인" | "4인" | "5인"; price: string; description: string }
-> = {
-  기본: {
-    label: "기본 플랜",
-    size: "3인",
-    price: "400,000 원",
-    description: "디자이너 3명에 대한 시안을 받아볼 수 있습니다.",
-  },
-  플러스: {
-    label: "플러스 플랜",
-    size: "4인",
-    price: "480,000 원",
-    description: "더 다양한 디자이너의 시안을 받아볼 수 있습니다. ",
-  },
-  맥스: {
-    label: "맥스 플랜",
-    size: "5인",
-    price: "560,000 원",
-    description: "가장 많은 디자이너의 시안을 받아볼 수 있습니다. ",
-  },
-};
+import { PLAN_MAP, PlanType } from "@/constants/write";
 
 interface PlanChooseCardProps {
   plan: PlanType;
@@ -33,7 +8,7 @@ interface PlanChooseCardProps {
 }
 
 const PlanChooseCard = ({ plan, isSelected = false, onClick }: PlanChooseCardProps) => {
-  const { label, size, price, description } = planMap[plan];
+  const { label, size, price, description } = PLAN_MAP[plan];
 
   return (
     <div

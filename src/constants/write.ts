@@ -94,6 +94,100 @@ export type TermsItem = {
   sections?: TermsSection[];
 };
 
+export type PlanType = "기본" | "플러스" | "맥스";
+
+export const PLAN_MAP: Record<
+  PlanType,
+  { label: string; size: "3인" | "4인" | "5인"; price: string; description: string }
+> = {
+  기본: {
+    label: "기본 플랜",
+    size: "3인",
+    price: "400,000원",
+    description: "디자이너 3명에 대한 시안을 받아볼 수 있습니다.",
+  },
+  플러스: {
+    label: "플러스 플랜",
+    size: "4인",
+    price: "480,000원",
+    description: "더 다양한 디자이너의 시안을 받아볼 수 있습니다. ",
+  },
+  맥스: {
+    label: "맥스 플랜",
+    size: "5인",
+    price: "560,000원",
+    description: "가장 많은 디자이너의 시안을 받아볼 수 있습니다. ",
+  },
+};
+
+/* =========================
+    ENUM Mapping for API (최종x)
+    ========================= */
+export const PLAN_API_MAP: Record<string, string> = {
+  기본: "BASIC",
+  플러스: "PLUS",
+  맥스: "MAX",
+};
+
+export const CATEGORY_API_MAP: Record<string, string> = {
+  "교재 외지/내지": "FLYER_TEXTBOOK_COVER_INNER",
+};
+
+export const SIZE_API_MAP: Record<string, string> = {
+  a4: "A4",
+  국배판: "국배판",
+  b5: "B5",
+  a5: "A5",
+};
+
+export const SIZE_DISPLAY_MAP: Record<string, string> = {
+  a4: "A4",
+  국배판: "국배판",
+  b5: "B5",
+  a5: "A5",
+};
+
+export const KEYWORD_API_MAP: Record<string, string> = {
+  귀여운: "CUTE",
+  경쾌한: "LIGHT",
+  맑은: "CLEAR",
+  내츄럴한: "NATURAL",
+  은은한: "SUBTLE",
+  온화한: "WARM",
+  우아한: "ELEGANT",
+  고상한: "REFINED",
+  모던한: "MODERN",
+  화려한: "VIVID",
+  다이나믹한: "DYNAMIC",
+  점잖은: "CALM",
+};
+
+export type PageType =
+  | "INSTRUCTOR_PROFILE"
+  | "AUTHORS_NOTE"
+  | "TABLE_OF_CONTENTS"
+  | "UNIT_INTRO"
+  | "CONCEPT"
+  | "EXAMPLE"
+  | "PROBLEM"
+  | "NOTE"
+  | "COVER";
+
+export const PAGE_API_MAP: Record<string, PageType> = {
+  "강사 프로필": "INSTRUCTOR_PROFILE",
+  "저자의 말": "AUTHORS_NOTE",
+  목차: "TABLE_OF_CONTENTS",
+  "단원 시작 간지": "UNIT_INTRO",
+  "개념 설명": "CONCEPT",
+  "대표 유형": "EXAMPLE",
+  "문제 풀이": "PROBLEM",
+  노트: "NOTE",
+  표지: "COVER",
+};
+
+/* =========================
+    약관
+    ========================= */
 export const TERMS_CONTENT: TermsItem[] = [
   {
     title: "제1조 (목적·정의·우선순위)",

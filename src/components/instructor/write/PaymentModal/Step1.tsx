@@ -3,7 +3,9 @@ import { useState } from "react";
 import { ArrowDownIcon, CheckboxFillIcon, CheckboxGrayIcon } from "@/assets/icons";
 import Button from "@/components/common/Button";
 import Chip from "@/components/common/Chip";
-import { TERMS_CONTENT } from "@/constants/write";
+import { PLAN_MAP, SIZE_DISPLAY_MAP, TERMS_CONTENT } from "@/constants/write";
+import { useWriteForm } from "@/context/WriteFormContext";
+import { formatDate } from "@/lib/utils/date";
 
 /* ─────────────────────────────────────────────
    InfoRow
@@ -19,8 +21,8 @@ const InfoRow = ({
   children?: React.ReactNode;
 }) => (
   <div className="flex flex-row items-center gap-2">
-    <p className="text-gray-70 text-body2-m">{label}</p>
-    <div className="bg-gray-40 h-5 w-px" />
+    <p className="text-gray-70 text-body2-m shrink-0">{label}</p>
+    <div className="bg-gray-40 h-5 w-px shrink-0" />
     {value != null ? (
       <p className="text-gray-90 text-body1-sb">{value}</p>
     ) : (
@@ -103,6 +105,19 @@ const TermsSection = ({
 ───────────────────────────────────────────── */
 
 const Step1 = ({ onNext }: { onNext: () => void }) => {
+  const form = useWriteForm();
+  const {
+    selectedCategory,
+    selectedSize,
+    selectedKeywords,
+    colorMode,
+    colors,
+    selectedPages,
+    selectedPlan,
+    firstDate,
+    finalDate,
+  } = form;
+
   const [isAgreed, setIsAgreed] = useState(false);
 
   return (
@@ -110,24 +125,38 @@ const Step1 = ({ onNext }: { onNext: () => void }) => {
       <div className="scrollbar-hide min-h-0 flex-1 overflow-y-auto pt-8">
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-5">
-            <InfoRow label="카테고리" value="교재" />
-            <InfoRow label="사이즈" value="A4" />
-            <InfoRow label="플랜" value="플러스 플랜" />
-            <InfoRow label="페이지">
-              <Chip label="강사 프로필" disableHover />
-              <Chip label="단원 시작 간지" disableHover />
-            </InfoRow>
-            <InfoRow label="컨셉">
-              <Chip label="점잖은" disableHover />
-              <Chip label="우아한" disableHover />
-            </InfoRow>
-            <InfoRow label="컬러">
-              <div className="rounded-4 bg-purple-30 size-9.75" />
-              <div className="rounded-4 bg-purple-30 size-9.75" />
-              <div className="rounded-4 bg-purple-30 size-9.75" />
-            </InfoRow>
-            <InfoRow label="1차 수령 일시" value="2026년 5월 15일" />
-            <InfoRow label="최종 수령 일시" value="2026년 5월 23일" />
+            {selectedCategory && <InfoRow label="카테고리" value={selectedCategory.item} />}
+            {selectedSize && <InfoRow label="사이즈" value={SIZE_DISPLAY_MAP[selectedSize]} />}
+            {selectedPlan && <InfoRow label="플랜" value={`${selectedPlan} 플랜`} />}
+            {selectedPages.length > 0 && (
+              <InfoRow label="페이지">
+                {selectedPages.map(p => (
+                  <Chip key={p} label={p} disableHover />
+                ))}
+              </InfoRow>
+            )}
+            {selectedKeywords.length > 0 && (
+              <InfoRow label="컨셉">
+                {selectedKeywords.map(k => (
+                  <Chip key={k} label={k} disableHover />
+                ))}
+              </InfoRow>
+            )}
+            {colorMode === "custom" && colors.some(Boolean) && (
+              <InfoRow label="컬러">
+                {colors.map((c, i) =>
+                  c ? (
+                    <div
+                      key={i}
+                      className="rounded-4 size-9.75"
+                      style={{ backgroundColor: `rgba(${c.r}, ${c.g}, ${c.b}, ${c.a})` }}
+                    />
+                  ) : null,
+                )}
+              </InfoRow>
+            )}
+            {firstDate && <InfoRow label="1차 수령 일시" value={formatDate(firstDate)} />}
+            {finalDate && <InfoRow label="최종 수령 일시" value={formatDate(finalDate)} />}
           </div>
           <hr className="border-gray-20 border-t" />
           <TermsSection isAgreed={isAgreed} setIsAgreed={setIsAgreed} />
@@ -136,7 +165,9 @@ const Step1 = ({ onNext }: { onNext: () => void }) => {
 
       <div className="flex flex-row items-center justify-between pt-6 pb-8">
         <h3 className="text-heading3-sb text-gray-70">최종 금액</h3>
-        <p className="text-gray-90 text-title2-sb">480,000원</p>
+        <p className="text-gray-90 text-title2-sb">
+          {selectedPlan ? PLAN_MAP[selectedPlan].price : "-"}
+        </p>
       </div>
       <Button
         variant={isAgreed ? "large_primary" : "large_disabled"}

@@ -4,9 +4,12 @@ import { useRouter } from "next/navigation";
 
 import { ArrowLeftIcon, ExclamationMarkCircleIcon } from "@/assets/icons";
 import Button from "@/components/common/Button";
+import { PLAN_MAP } from "@/constants/write";
+import { useWriteForm } from "@/context/WriteFormContext";
 
 const Step2 = ({ onBack }: { onBack: () => void }) => {
   const router = useRouter();
+  const { selectedPlan } = useWriteForm();
   return (
     <div className="flex h-178.25 flex-col justify-between">
       <div>
@@ -35,7 +38,9 @@ const Step2 = ({ onBack }: { onBack: () => void }) => {
             </div>
             <div className="flex flex-row justify-between">
               <p className="text-gray-70 text-body2-m">이체 금액</p>
-              <p className="text-gray-90 text-heading1-sb">450,000원</p>
+              <p className="text-gray-90 text-heading1-sb">
+                {selectedPlan ? PLAN_MAP[selectedPlan].price : "-"}
+              </p>
             </div>
           </div>
         </div>

@@ -5,9 +5,11 @@ import { useEffect, useState } from "react";
 import { CloseIcon } from "@/assets/icons";
 import Step1 from "@/components/instructor/write/PaymentModal/Step1";
 import Step2 from "@/components/instructor/write/PaymentModal/Step2";
+import { useWriteForm } from "@/context/WriteFormContext";
 
 const PaymentModalContent = ({ onClose }: { onClose?: () => void }) => {
   const [step, setStep] = useState<1 | 2>(1);
+  const { basicInfo } = useWriteForm();
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -28,12 +30,11 @@ const PaymentModalContent = ({ onClose }: { onClose?: () => void }) => {
       >
         <div className="flex shrink-0 flex-col gap-2">
           <div className="flex flex-row justify-between py-2">
-            <h1 className="text-gray-90 text-heading2-sb">YBM 영어학원 홍보물 디자인 외주</h1>
+            <h1 className="text-gray-90 text-heading2-sb">{basicInfo.교재명 || "외주 정보"}</h1>
             <CloseIcon className="text-gray-90 size-6 cursor-pointer" onClick={onClose} />
           </div>
           <hr className="border-gray-20 border-t" />
         </div>
-
         {step === 1 ? <Step1 onNext={() => setStep(2)} /> : <Step2 onBack={() => setStep(1)} />}
       </div>
     </div>
