@@ -142,6 +142,7 @@ const Step1 = ({ onNext }: { onNext: () => void }) => {
                 ))}
               </InfoRow>
             )}
+            {colorMode === "designer" && <InfoRow label="컬러" value="디자이너가 지정" />}
             {colorMode === "custom" && colors.some(Boolean) && (
               <InfoRow label="컬러">
                 {colors.map((c, i) =>
@@ -149,7 +150,7 @@ const Step1 = ({ onNext }: { onNext: () => void }) => {
                     <div
                       key={i}
                       className="rounded-4 size-9.75"
-                      style={{ backgroundColor: `rgba(${c.r}, ${c.g}, ${c.b}, ${c.a})` }}
+                      style={{ backgroundColor: `rgba(${c.r}, ${c.g}, ${c.b}, ${c.a / 100})` }}
                     />
                   ) : null,
                 )}
