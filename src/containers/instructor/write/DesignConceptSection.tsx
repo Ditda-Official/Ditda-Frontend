@@ -4,10 +4,11 @@ import Chip from "@/components/common/Chip";
 import TextField from "@/components/common/input/TextField";
 import ConceptKeywordCard from "@/components/instructor/write/ConceptKeywordCard";
 import { CONCEPT_CATEGORIES, MAX_CONCEPT_SELECT } from "@/constants/write";
-import { useWriteForm } from "@/context/WriteFormContext";
+import { useWriteFormStore } from "@/store/writeFormStore";
 
 const DesignConceptSection = () => {
-  const { selectedKeywords, setSelectedKeywords } = useWriteForm();
+  const { selectedKeywords, setSelectedKeywords, additionalConcept, setAdditionalConcept } =
+    useWriteFormStore();
 
   const handleSelect = (keyword: string) => {
     if (selectedKeywords.includes(keyword)) {
@@ -61,7 +62,11 @@ const DesignConceptSection = () => {
       </div>
       <div className="flex flex-col gap-2">
         <h3 className="text-gray-70 text-body1-sb">컨셉 추가 요청</h3>
-        <TextField placeholder="원하는 컨셉이 있다면 적어주세요. (선택사항)" />
+        <TextField
+          placeholder="원하는 컨셉이 있다면 적어주세요. (선택사항)"
+          value={additionalConcept}
+          onChange={e => setAdditionalConcept(e.target.value)}
+        />
       </div>
     </div>
   );

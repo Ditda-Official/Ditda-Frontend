@@ -4,9 +4,15 @@ import FileDragAndDrop from "@/components/common/FileDragAndDrop";
 import FileUpload from "@/components/common/FileUpload";
 import TextField from "@/components/common/input/TextField";
 import { useUploadedFiles } from "@/lib/hooks/useUploadedFiles";
+import { useWriteFormStore } from "@/store/writeFormStore";
 
 const ReferenceSection = () => {
-  const { uploadedFiles, handleFilesAdded, handleRemove } = useUploadedFiles();
+  const { referenceFiles, setReferenceFiles, referenceNote, setReferenceNote } =
+    useWriteFormStore();
+  const { uploadedFiles, handleFilesAdded, handleRemove } = useUploadedFiles(
+    referenceFiles,
+    setReferenceFiles,
+  );
 
   return (
     <div className="rounded-12 focus-within:border-purple-40 flex flex-col border border-transparent bg-white p-6">
@@ -36,7 +42,11 @@ const ReferenceSection = () => {
           )}
           <div className="flex flex-col gap-2">
             <p className="text-gray-70 text-body1-sb">레퍼런스 참고사항</p>
-            <TextField placeholder="ex) img.04는 강사 프로필에 들어가는 이미지입니다." />
+            <TextField
+              placeholder="ex) img.04는 강사 프로필에 들어가는 이미지입니다."
+              value={referenceNote}
+              onChange={e => setReferenceNote(e.target.value)}
+            />
           </div>
         </div>
       </div>

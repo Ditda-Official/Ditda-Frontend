@@ -99,7 +99,7 @@ const DateDropdownMenu = ({
         className={cn(
           "text-body1-sb border-t-gray-10 rounded-b-8 w-full border-t px-3 py-2 transition-colors duration-150",
           isInvalid
-            ? "text-gray-40 cursor-not-allowed"
+            ? "text-gray-60 cursor-not-allowed"
             : "text-gray-80 hover:bg-gray-30 cursor-pointer",
         )}
         onClick={() => {

@@ -4,11 +4,11 @@ import { useEffect, useRef, useState } from "react";
 
 import DateDropdownBox from "@/components/common/dropdown/DateDropdownBox";
 import DateDropdownMenu from "@/components/common/dropdown/DateDropdownMenu";
-import { useWriteForm } from "@/context/WriteFormContext";
-import { formatDate, getYesterday } from "@/lib/utils/date";
+import { formatDate, getMinFinalDate, getYesterday } from "@/lib/utils/date";
+import { useWriteFormStore } from "@/store/writeFormStore";
 
 const DeadlineChooseSection = () => {
-  const { firstDate, setFirstDate, finalDate, setFinalDate } = useWriteForm();
+  const { firstDate, setFirstDate, finalDate, setFinalDate } = useWriteFormStore();
   const [openMenu, setOpenMenu] = useState<"first" | "final" | null>(null);
 
   const yesterday = getYesterday();
@@ -27,7 +27,7 @@ const DeadlineChooseSection = () => {
 
   const handleFirstConfirm = (date: Date) => {
     setFirstDate(date);
-    if (finalDate && finalDate <= date) {
+    if (finalDate && finalDate < getMinFinalDate(date)) {
       setFinalDate(null);
     }
     setOpenMenu(null);
@@ -76,7 +76,8 @@ const DeadlineChooseSection = () => {
             <div className="absolute top-full right-0 z-50 mt-1">
               <DateDropdownMenu
                 onConfirm={handleFinalConfirm}
-                minDate={firstDate ?? undefined}
+                minDate={firstDate ? getMinFinalDate(firstDate) : undefined}
+                invalidMessage={"1차 시안 수령일로부터\n최소 2주 이후 날짜를\n선택해주세요"}
                 defaultDate={finalDate ?? undefined}
               />
             </div>

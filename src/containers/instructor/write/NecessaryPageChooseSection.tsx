@@ -3,10 +3,11 @@
 import Chip from "@/components/common/Chip";
 import TextField from "@/components/common/input/TextField";
 import { PAGE_OPTIONS } from "@/constants/write";
-import { useWriteForm } from "@/context/WriteFormContext";
+import { useWriteFormStore } from "@/store/writeFormStore";
 
 const NecessaryPageChooseSection = () => {
-  const { selectedPages, setSelectedPages } = useWriteForm();
+  const { selectedPages, setSelectedPages, pageDescriptions, setPageDescription } =
+    useWriteFormStore();
 
   const togglePage = (label: string) => {
     if (selectedPages.includes(label)) {
@@ -53,7 +54,13 @@ const NecessaryPageChooseSection = () => {
           {PAGE_OPTIONS.filter(label => selectedPages.includes(label)).map(label => (
             <div key={label} className="flex flex-col gap-2">
               <p className="text-body1-sb text-gray-80">{label}</p>
-              <TextField maxLength={150} placeholder="예) 2단으로 구성해주세요" variant="white" />
+              <TextField
+                maxLength={150}
+                placeholder="예) 2단으로 구성해주세요"
+                variant="white"
+                value={pageDescriptions[label] ?? ""}
+                onChange={e => setPageDescription(label, e.target.value)}
+              />
             </div>
           ))}
         </div>

@@ -3,10 +3,10 @@
 import PaperSizeCard from "@/components/instructor/write/PaperSizeCard";
 import SizeRecommendedCard from "@/components/instructor/write/SizeRecommendedCard";
 import { SIZE_OPTIONS } from "@/constants/write";
-import { useWriteForm } from "@/context/WriteFormContext";
+import { useWriteFormStore } from "@/store/writeFormStore";
 
 const SizeSection = () => {
-  const { selectedCategory, selectedSize, setSelectedSize } = useWriteForm();
+  const { selectedCategory, selectedSize, setSelectedSize } = useWriteFormStore();
 
   return (
     <div className="rounded-12 focus-within:border-purple-40 flex flex-col gap-8 border border-transparent bg-white p-6">
