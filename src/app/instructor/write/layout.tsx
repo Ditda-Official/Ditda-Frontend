@@ -1,10 +1,18 @@
 "use client";
 
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 
 import StepHeader from "@/components/instructor/write/StepHeader";
+import { useWriteFormStore } from "@/store/writeFormStore";
 
 const WriteLayout = ({ children }: { children: ReactNode }) => {
+  const clearAfterSubmit = useWriteFormStore(s => s.clearAfterSubmit);
+
+  useEffect(() => {
+    return () => {
+      clearAfterSubmit();
+    };
+  }, [clearAfterSubmit]);
   return (
     <div className="bg-gray-10 min-h-screen pt-16">
       <div className="mx-auto w-235">
