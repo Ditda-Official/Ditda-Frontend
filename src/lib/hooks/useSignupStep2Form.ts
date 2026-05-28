@@ -15,6 +15,7 @@ import {
   SIGNUP_MOCK_ACCOUNT,
   SIGNUP_MOCK_EMAIL_VERIFICATION_CODE,
   SIGNUP_PASSWORD_CONFIRM_ERROR_MESSAGE,
+  SIGNUP_PASSWORD_CONFIRM_FORMAT_ERROR_MESSAGE,
   SIGNUP_PASSWORD_ERROR_MESSAGE,
 } from "@/constants/signup";
 
@@ -60,7 +61,9 @@ export const useSignupStep2Form = () => {
   const userIdMessage =
     userIdErrorMessage ?? (isUserIdAvailable ? SIGNUP_ID_AVAILABLE_MESSAGE : undefined);
   const isPasswordValid = validateSignupPassword(password);
-  const isPasswordConfirmValid = passwordConfirm.length > 0 && passwordConfirm === password;
+  const hasPasswordFormatError = password.length > 0 && !isPasswordValid;
+  const isPasswordConfirmValid =
+    passwordConfirm.length > 0 && isPasswordValid && passwordConfirm === password;
   const hasEmail = email.trim().length > 0;
   const isEmailFormatValid = validateSignupEmail(email);
   const isEmailVerified = emailVerificationStatus === "verified";
@@ -164,8 +167,12 @@ export const useSignupStep2Form = () => {
     password,
     passwordConfirm,
     passwordConfirmErrorMessage:
-      passwordConfirm.length > 0 && passwordConfirm !== password
-        ? SIGNUP_PASSWORD_CONFIRM_ERROR_MESSAGE
+      passwordConfirm.length > 0
+        ? hasPasswordFormatError
+          ? SIGNUP_PASSWORD_CONFIRM_FORMAT_ERROR_MESSAGE
+          : passwordConfirm !== password
+            ? SIGNUP_PASSWORD_CONFIRM_ERROR_MESSAGE
+            : undefined
         : undefined,
     passwordErrorMessage:
       password.length > 0 && !isPasswordValid ? SIGNUP_PASSWORD_ERROR_MESSAGE : undefined,

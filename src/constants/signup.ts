@@ -11,6 +11,7 @@ export const SIGNUP_MAX_PASSWORD_LENGTH = 20;
 export const SIGNUP_PASSWORD_ERROR_MESSAGE =
   "8~20자의 영문,숫자를 모두 포함한 비밀번호를 입력해주세요";
 export const SIGNUP_PASSWORD_CONFIRM_ERROR_MESSAGE = "비밀번호가 일치하지 않습니다";
+export const SIGNUP_PASSWORD_CONFIRM_FORMAT_ERROR_MESSAGE = "비밀번호가 형식에 맞지 않습니다";
 export const SIGNUP_ID_DUPLICATED_ERROR_MESSAGE = "이미 존재하는 아이디입니다";
 export const SIGNUP_ID_AVAILABLE_MESSAGE = "사용 가능한 아이디입니다";
 export const SIGNUP_EMAIL_ERROR_MESSAGE = "형식이 올바르지 않습니다";
