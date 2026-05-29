@@ -81,7 +81,7 @@ const Page = () => {
             <div className="flex w-full flex-col gap-16">
               <div className="flex w-full items-center justify-between">
                 <h1 className="text-title2-b text-black">회원가입</h1>
-                <StepOneInstructorIcon className="h-8 w-[138px] shrink-0" />
+                <StepOneInstructorIcon className="h-8 w-[85px] shrink-0" />
               </div>
 
               <div className="flex w-full flex-col gap-5">
