@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { type ChangeEvent, useState } from "react";
 
-import { CheckboxFillIcon, CheckboxGrayIcon, CloseIcon, StepOneDesigner } from "@/assets/icons";
+import { CheckboxFillIcon, CheckboxGrayIcon, CloseIcon, StepOneDesignerIcon } from "@/assets/icons";
 import Button from "@/components/common/Button";
 import Header from "@/components/common/Header";
 import InputField from "@/components/common/input/InputField";
@@ -76,7 +76,7 @@ const Page = () => {
             <div className="flex w-full flex-col gap-16">
               <div className="flex w-full items-center justify-between">
                 <h1 className="text-title2-b text-black">회원가입</h1>
-                <StepOneDesigner className="h-8 w-[138px] shrink-0" />
+                <StepOneDesignerIcon className="h-8 w-[138px] shrink-0" />
               </div>
 
               <div className="flex w-full flex-col gap-5">
@@ -132,7 +132,7 @@ const Page = () => {
                   label="전화번호"
                   inputMode="numeric"
                   maxLength={SIGNUP_MAX_PHONE_NUMBER_LENGTH + 2}
-                  placeholder="010-0000-0000"
+                  placeholder="전화번호를 입력해주세요"
                   type="tel"
                   value={phoneNumber}
                   onClear={() => setPhoneNumber("")}

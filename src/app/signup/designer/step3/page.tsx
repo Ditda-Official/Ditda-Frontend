@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { type ChangeEvent, useState } from "react";
 
-import { StepThreeDesigner } from "@/assets/icons";
+import { StepThreeDesignerIcon } from "@/assets/icons";
 import Button from "@/components/common/Button";
 import BankDropdown from "@/components/common/dropdown/BankDropdown";
 import FileDragAndDrop from "@/components/common/FileDragAndDrop";
@@ -57,7 +57,7 @@ const Page = () => {
             <div className="flex w-full flex-col gap-16">
               <div className="flex w-full items-center justify-between">
                 <h1 className="text-title2-b text-black">회원가입</h1>
-                <StepThreeDesigner className="h-8 w-[138px] shrink-0" />
+                <StepThreeDesignerIcon className="h-8 w-[138px] shrink-0" />
               </div>
 
               <div className="flex w-full flex-col gap-5">

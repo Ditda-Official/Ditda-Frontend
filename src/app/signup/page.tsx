@@ -34,14 +34,14 @@ const Page = () => {
 
               <div className="flex gap-2">
                 <UserTypeBtn
-                  icon={<UserTypeInstructorIcon className="size-20" />}
+                  icon={<UserTypeDesignerIcon className="size-20" />}
                   type="디자이너"
                   description="외주를 맡고 싶어요!"
                   isSelected={selectedType === "designer"}
                   onClick={() => setSelectedType("designer")}
                 />
                 <UserTypeBtn
-                  icon={<UserTypeDesignerIcon className="size-20" />}
+                  icon={<UserTypeInstructorIcon className="size-20" />}
                   type="강사/교사"
                   description="외주를 맡기고 싶어요!"
                   isSelected={selectedType === "instructor"}

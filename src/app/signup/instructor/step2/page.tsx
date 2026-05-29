@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 
-import { StepTwoInstructor } from "@/assets/icons";
+import { StepTwoInstructorIcon } from "@/assets/icons";
 import Button from "@/components/common/Button";
 import Header from "@/components/common/Header";
 import InputField from "@/components/common/input/InputField";
@@ -22,7 +22,7 @@ const Page = () => {
             <div className="flex w-full flex-col gap-16">
               <div className="flex w-full items-center justify-between">
                 <h1 className="text-title2-b text-black">회원가입</h1>
-                <StepTwoInstructor className="h-8 w-[85px] shrink-0" />
+                <StepTwoInstructorIcon className="h-8 w-[85px] shrink-0" />
               </div>
 
               <div className="flex w-full flex-col gap-5">
