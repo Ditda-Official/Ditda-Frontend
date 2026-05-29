@@ -42,17 +42,28 @@ const UserTypeBtn = ({
       type="button"
       aria-pressed={isSelected}
       className={cn(
-        "group rounded-12 flex w-58 cursor-pointer flex-col items-center gap-6 border-2 px-6 py-9 text-center outline-none",
+        "group rounded-12 flex w-58 cursor-pointer flex-col items-center gap-6 border-2 px-6 py-9 text-center transition-colors duration-150 outline-none",
         styles.button,
         className,
       )}
       {...props}
     >
-      <span className={cn("flex size-20 items-center justify-center", styles.icon)}>{icon}</span>
+      <span
+        className={cn(
+          "flex size-20 items-center justify-center transition-colors duration-150",
+          styles.icon,
+        )}
+      >
+        {icon}
+      </span>
 
       <span className="flex flex-col items-center gap-2">
-        <span className={cn("text-title2-b", styles.type)}>{type}</span>
-        <span className={cn("text-body2-m", styles.description)}>{description}</span>
+        <span className={cn("text-title2-b transition-colors duration-150", styles.type)}>
+          {type}
+        </span>
+        <span className={cn("text-body2-m transition-colors duration-150", styles.description)}>
+          {description}
+        </span>
       </span>
     </button>
   );
