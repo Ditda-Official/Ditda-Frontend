@@ -94,7 +94,10 @@ const BankDropdown = ({
 
       {isOpen && !disabled && (
         <div className="rounded-8 border-gray-20 absolute top-[calc(100%+4px)] z-20 w-full overflow-hidden border bg-white">
-          <div className="overflow-y-auto" style={{ maxHeight: BANK_DROPDOWN_MAX_HEIGHT }}>
+          <div
+            className="scrollbar-hide overflow-y-auto"
+            style={{ maxHeight: BANK_DROPDOWN_MAX_HEIGHT }}
+          >
             {BANK_OPTIONS.map(bank => {
               const isSelected = bank.code === selectedCode;
 
