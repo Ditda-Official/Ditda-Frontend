@@ -13,7 +13,7 @@ import {
 import { cn } from "@/lib/utils/cn";
 
 const iconButtonClassName =
-  "disabled:text-gray-30 inline-flex size-6 shrink-0 items-center justify-center transition-colors disabled:cursor-not-allowed";
+  "disabled:text-gray-30 inline-flex size-6 shrink-0 cursor-pointer items-center justify-center transition-colors disabled:cursor-not-allowed";
 
 export type InputFieldProps = ComponentPropsWithoutRef<"input"> & {
   label?: string;
