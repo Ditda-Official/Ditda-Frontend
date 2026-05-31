@@ -8,7 +8,7 @@ const ModifyingCommissionsRow = ({ item }: { item: ModifyingItem }) => {
   const { title, finalDeadline, isSubmitted, hasUpdate } = item;
 
   return (
-    <div className="border-b-gray-10 flex h-15 cursor-pointer items-center border-b py-3">
+    <div className="border-b-gray-10 hover:bg-gray-5 flex h-15 cursor-pointer items-center border-b py-3 transition-colors duration-150">
       <div className="flex w-full flex-row justify-between">
         <div className={cn("flex flex-row items-center", hasUpdate ? "gap-3" : "gap-6")}>
           <Tag variant="default" label={getDDay(finalDeadline)} />

@@ -9,7 +9,7 @@ const DraftSubmissionStatusRow = ({ item }: { item: DraftSubmissionItem }) => {
   const categoryLabel = CATEGORY_DISPLAY_MAP[category] ?? category;
 
   return (
-    <div className="border-b-gray-10 flex h-15 cursor-pointer items-center border-b py-3">
+    <div className="border-b-gray-10 hover:bg-gray-5 flex h-15 cursor-pointer items-center border-b py-3 transition-colors duration-150">
       <div className="flex w-full flex-row justify-between">
         <div className="flex flex-row items-center gap-6">
           <Tag variant="default" label={getDDay(firstDraftDeadline)} />
