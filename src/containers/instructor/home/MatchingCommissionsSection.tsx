@@ -3,7 +3,7 @@
 import { NextButton, PrevButton } from "@/assets/icons";
 import PageIndicator from "@/components/common/PageIndicator";
 import CommissionsHeader from "@/components/instructor/home/CommissionsHeader";
-import MatchingStatusRow from "@/components/instructor/home/MatchingStatusRow";
+import MatchingStatusCommissionsRow from "@/components/instructor/home/MatchingStatusCommissionsRow";
 import { MATCHING_ITEMS_PER_PAGE } from "@/constants/home";
 import { matchingStatusData } from "@/data/instructor/home";
 import usePagination from "@/lib/hooks/usePagination";
@@ -27,7 +27,7 @@ const MatchingCommissionsSection = () => {
               <p>외주명</p>
             </CommissionsHeader>
             {pageItems.map(item => (
-              <MatchingStatusRow key={item.commissionId} item={item} />
+              <MatchingStatusCommissionsRow key={item.commissionId} item={item} />
             ))}
           </div>
         </div>

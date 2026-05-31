@@ -3,7 +3,7 @@ import Tag from "@/components/common/Tag";
 import { MatchingItem } from "@/data/instructor/home";
 import { getDDay } from "@/lib/utils/date";
 
-const MatchingStatusRow = ({ item }: { item: MatchingItem }) => {
+const MatchingStatusCommissionsRow = ({ item }: { item: MatchingItem }) => {
   const { title, finalDeadline, matching } = item;
   const { matched, total } = matching;
 
@@ -25,4 +25,4 @@ const MatchingStatusRow = ({ item }: { item: MatchingItem }) => {
   );
 };
 
-export default MatchingStatusRow;
+export default MatchingStatusCommissionsRow;
