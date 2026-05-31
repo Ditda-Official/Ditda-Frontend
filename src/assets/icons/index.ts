@@ -23,6 +23,8 @@ export { default as FileImageIcon } from "@/assets/icons/icon_file_image.svg";
 export { default as FileImageBoldIcon } from "@/assets/icons/icon_file_image_bold.svg";
 export { default as FolderAddIcon } from "@/assets/icons/icon_folder_add.svg";
 export { default as LoadingIcon } from "@/assets/icons/icon_loading.svg";
+export { default as MatchingOffIcon } from "@/assets/icons/icon_matching_off.svg";
+export { default as MatchingOnIcon } from "@/assets/icons/icon_matching_on.svg";
 export { default as OneCircleIcon } from "@/assets/icons/icon_number_one_circle_fill.svg";
 export { default as ThreeCircleIcon } from "@/assets/icons/icon_number_three_circle_fill.svg";
 export { default as TwoCircleIcon } from "@/assets/icons/icon_number_two_circle_fill.svg";
