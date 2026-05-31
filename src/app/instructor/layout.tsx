@@ -8,7 +8,7 @@ const InstructorLayout = ({ children }: { children: ReactNode }) => {
   return (
     <div className="flex h-screen flex-col">
       <Header />
-      <div className="flex flex-1 overflow-hidden">
+      <div className="bg-gray-10 flex flex-1 overflow-hidden">
         <Sidebar bottom={<SidebarMenu label="로그아웃" />}>
           <SidebarMenu label="새 외주 작성" href="/instructor/write" />
           <SidebarMenu label="진행 중 외주" href="/instructor" />

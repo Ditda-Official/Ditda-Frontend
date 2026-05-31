@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import { NextButton, PrevButton } from "@/assets/icons";
 import PageIndicator from "@/components/common/PageIndicator";
-import DraftSubmissionStatusHeader from "@/components/instructor/home/DraftSubmissionStatusHeader";
+import CommissionsHeader from "@/components/instructor/home/CommissionsHeader";
 import DraftSubmissionStatusRow from "@/components/instructor/home/DraftSubmissionStatusRow";
 import { DRAFT_SUBMISSION_ITEMS_PER_PAGE } from "@/constants/home";
 import { draftSubmissionStatusData } from "@/data/instructor/home";
@@ -28,7 +28,11 @@ const DraftSubmissionStatusSection = () => {
             <span className="text-main-main">시안 제출</span> 현황
           </span>
           <div>
-            <DraftSubmissionStatusHeader />
+            <CommissionsHeader rightLabel="시안 제출자 수" rightClassName="w-53">
+              <p className="w-11">디데이</p>
+              <p className="w-20">카테고리</p>
+              <p className="flex-1">외주명</p>
+            </CommissionsHeader>
             {pageItems.map(item => (
               <DraftSubmissionStatusRow key={item.commissionId} item={item} />
             ))}
