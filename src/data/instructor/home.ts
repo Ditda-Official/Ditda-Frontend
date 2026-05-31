@@ -104,9 +104,40 @@ export const matchingStatusData: MatchingItem[] = [
   {
     commissionId: 38,
     title: "고등 물리학 I — 역학과 에너지",
-    matching: { matched: 4, total: 6 },
+    matching: { matched: 4, total: 5 },
     finalDeadline: "2026-07-15",
   },
 ];
 
 // [강사] [대시보드 조회] 수정 중인 외주 조회
+export type ModifyingItem = {
+  commissionId: number;
+  title: string;
+  isSubmitted: boolean;
+  hasUpdate: boolean;
+  finalDeadline: string;
+};
+
+export const modifyingStatusData: ModifyingItem[] = [
+  {
+    commissionId: 41,
+    title: "조직과 리더쉽 - 이승연",
+    isSubmitted: true,
+    hasUpdate: true,
+    finalDeadline: "2026-06-23",
+  },
+  {
+    commissionId: 42,
+    title: "수학의 정석 - 한석원",
+    isSubmitted: false,
+    hasUpdate: false,
+    finalDeadline: "2026-06-23",
+  },
+  {
+    commissionId: 43,
+    title: "수학의 정석 - 한석원",
+    isSubmitted: false,
+    hasUpdate: false,
+    finalDeadline: "2026-06-23",
+  },
+];
