@@ -1,3 +1,4 @@
+// [강사] [대시보드 조회] 시안 제출 예정 외주 조회
 export type DraftSubmissionItem = {
   commissionId: number;
   title: string;
@@ -13,7 +14,6 @@ export const CATEGORY_DISPLAY_MAP: Record<string, string> = {
   FLYER_TEXTBOOK_COVER_INNER: "교재 외지/내지",
 };
 
-// [강사] [대시보드 조회] 시안 제출 예정 외주 조회
 export const draftSubmissionStatusData: DraftSubmissionItem[] = [
   {
     commissionId: 11,
@@ -60,5 +60,53 @@ export const draftSubmissionStatusData: DraftSubmissionItem[] = [
 ];
 
 // [강사] [대시보드 조회] 매칭 중인 외주 조회
+export type MatchingItem = {
+  commissionId: number;
+  title: string;
+  finalDeadline: string;
+  matching: {
+    matched: number;
+    total: number;
+  };
+};
+
+export const matchingStatusData: MatchingItem[] = [
+  {
+    commissionId: 33,
+    title: "EBS 수능특강 영어 — 유형편 완성",
+    matching: { matched: 4, total: 5 },
+    finalDeadline: "2026-06-12",
+  },
+  {
+    commissionId: 34,
+    title: "중등 과학 탐구 — 물질과 에너지",
+    matching: { matched: 3, total: 5 },
+    finalDeadline: "2026-06-17",
+  },
+  {
+    commissionId: 35,
+    title: "고등 수학 II — 미적분 집중 완성",
+    matching: { matched: 2, total: 5 },
+    finalDeadline: "2026-06-23",
+  },
+  {
+    commissionId: 36,
+    title: "중등 영어 — 독해 및 문법 완성",
+    matching: { matched: 3, total: 4 },
+    finalDeadline: "2026-07-05",
+  },
+  {
+    commissionId: 37,
+    title: "초등 과학 — 생물과 환경 탐구",
+    matching: { matched: 1, total: 3 },
+    finalDeadline: "2026-06-30",
+  },
+  {
+    commissionId: 38,
+    title: "고등 물리학 I — 역학과 에너지",
+    matching: { matched: 4, total: 6 },
+    finalDeadline: "2026-07-15",
+  },
+];
 
 // [강사] [대시보드 조회] 수정 중인 외주 조회

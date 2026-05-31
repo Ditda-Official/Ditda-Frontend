@@ -1,24 +1,18 @@
 "use client";
 
-import { useState } from "react";
-
 import { NextButton, PrevButton } from "@/assets/icons";
 import PageIndicator from "@/components/common/PageIndicator";
 import CommissionsHeader from "@/components/instructor/home/CommissionsHeader";
 import DraftSubmissionStatusRow from "@/components/instructor/home/DraftSubmissionStatusRow";
 import { DRAFT_SUBMISSION_ITEMS_PER_PAGE } from "@/constants/home";
 import { draftSubmissionStatusData } from "@/data/instructor/home";
+import usePagination from "@/lib/hooks/usePagination";
 
 const DraftSubmissionStatusSection = () => {
-  const [current, setCurrent] = useState(0);
-  const totalPages = Math.ceil(draftSubmissionStatusData.length / DRAFT_SUBMISSION_ITEMS_PER_PAGE);
-  const pageItems = draftSubmissionStatusData.slice(
-    current * DRAFT_SUBMISSION_ITEMS_PER_PAGE,
-    (current + 1) * DRAFT_SUBMISSION_ITEMS_PER_PAGE,
+  const { current, totalPages, pageItems, handlePrev, handleNext } = usePagination(
+    draftSubmissionStatusData,
+    DRAFT_SUBMISSION_ITEMS_PER_PAGE,
   );
-
-  const handlePrev = () => setCurrent(prev => Math.max(0, prev - 1));
-  const handleNext = () => setCurrent(prev => Math.min(totalPages - 1, prev + 1));
 
   return (
     <div className="rounded-12 w-full bg-white px-6 pt-6 pb-4">

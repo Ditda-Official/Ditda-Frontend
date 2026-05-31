@@ -1,1 +1,2 @@
 export const DRAFT_SUBMISSION_ITEMS_PER_PAGE = 3;
+export const MATCHING_ITEMS_PER_PAGE = 3;
