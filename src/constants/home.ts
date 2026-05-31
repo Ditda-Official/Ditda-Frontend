@@ -1,0 +1,1 @@
+export const DRAFT_SUBMISSION_ITEMS_PER_PAGE = 3;
