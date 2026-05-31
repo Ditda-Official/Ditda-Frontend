@@ -4,6 +4,8 @@ import { useState } from "react";
 
 import { NextButton, PrevButton } from "@/assets/icons";
 import PageIndicator from "@/components/common/PageIndicator";
+import DraftSubmissionStatusHeader from "@/components/instructor/home/DraftSubmissionStatusHeader";
+import DraftSubmissionStatusRow from "@/components/instructor/home/DraftSubmissionStatusRow";
 
 const TOTAL_PAGES = 2;
 
@@ -20,13 +22,11 @@ const DraftSubmissionStatusSection = () => {
           <span className="text-heading1-sb text-black">
             <span className="text-main-main">시안 제출</span> 현황
           </span>
-          <div className="text-gray-70 text-caption1-r border-b-gray-10 flex flex-row justify-between border-b pb-3 whitespace-nowrap">
-            <div className="flex shrink-0 flex-row gap-6">
-              <p className="w-11">디데이</p>
-              <p className="w-20">카테고리</p>
-              <p className="w-full">외주명</p>
-            </div>
-            <p className="w-53">시안 제출자 수</p>
+          <div>
+            <DraftSubmissionStatusHeader />
+            <DraftSubmissionStatusRow />
+            <DraftSubmissionStatusRow />
+            <DraftSubmissionStatusRow />
           </div>
         </div>
         <div className="flex flex-row justify-between">

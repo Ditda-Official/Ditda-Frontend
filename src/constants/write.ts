@@ -1,5 +1,7 @@
+import React from "react";
+
 import { OneCircleIcon, ThreeCircleIcon, TwoCircleIcon } from "@/assets/icons";
-import { BadgePreset } from "@/components/common/Badge";
+import { BadgeVariant } from "@/components/common/Badge";
 
 export type WriteStep = 1 | 2 | 3;
 
@@ -99,7 +101,7 @@ export type PlanType = "기본" | "플러스" | "맥스";
 
 export const PLAN_MAP: Record<
   PlanType,
-  { label: string; size: BadgePreset; price: string; description: string }
+  { label: string; size: BadgeVariant; price: string; description: string }
 > = {
   기본: {
     label: "기본 플랜",
