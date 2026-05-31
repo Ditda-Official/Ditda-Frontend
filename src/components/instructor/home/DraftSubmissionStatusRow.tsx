@@ -15,7 +15,7 @@ const DraftSubmissionStatusRow = ({ item }: { item: DraftSubmissionItem }) => {
           <Tag variant="default" label={getDDay(firstDraftDeadline)} />
           <p className="text-gray-70 text-body2-m w-20">{categoryLabel}</p>
           <div className="flex flex-row items-center">
-            <p className="text-gray-80 text-heading3-m">{title}</p>
+            <p className="text-gray-80 text-heading3-m max-w-75 truncate">{title}</p>
             <ArrowRightIcon className="text-gray-90 size-5" />
           </div>
         </div>

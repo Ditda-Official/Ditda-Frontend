@@ -3,7 +3,7 @@ import Tag from "@/components/common/Tag";
 import { MatchingItem } from "@/data/instructor/home";
 import { getDDay } from "@/lib/utils/date";
 
-const MatchingStatusCommissionsRow = ({ item }: { item: MatchingItem }) => {
+const MatchingCommissionsRow = ({ item }: { item: MatchingItem }) => {
   const { title, finalDeadline, matching } = item;
   const { matched, total } = matching;
 
@@ -13,7 +13,7 @@ const MatchingStatusCommissionsRow = ({ item }: { item: MatchingItem }) => {
         <div className="flex flex-row items-center gap-6">
           <Tag variant="black" label={getDDay(finalDeadline)} />
           <div className="flex flex-row items-center">
-            <p className="text-gray-80 text-heading3-m">{title}</p>
+            <p className="text-gray-80 text-heading3-m max-w-75 truncate">{title}</p>
             <ArrowRightIcon className="text-gray-90 size-5" />
           </div>
         </div>
@@ -25,4 +25,4 @@ const MatchingStatusCommissionsRow = ({ item }: { item: MatchingItem }) => {
   );
 };
 
-export default MatchingStatusCommissionsRow;
+export default MatchingCommissionsRow;

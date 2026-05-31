@@ -3,7 +3,7 @@
 import { NextButton, PrevButton } from "@/assets/icons";
 import PageIndicator from "@/components/common/PageIndicator";
 import CommissionsHeader from "@/components/instructor/home/CommissionsHeader";
-import MatchingStatusCommissionsRow from "@/components/instructor/home/MatchingStatusCommissionsRow";
+import MatchingStatusCommissionsRow from "@/components/instructor/home/MatchingCommissionsRow";
 import { MATCHING_ITEMS_PER_PAGE } from "@/constants/home";
 import { matchingStatusData } from "@/data/instructor/home";
 import usePagination from "@/lib/hooks/usePagination";

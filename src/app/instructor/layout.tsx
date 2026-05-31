@@ -14,7 +14,7 @@ const InstructorLayout = ({ children }: { children: ReactNode }) => {
           <SidebarMenu label="진행 중 외주" href="/instructor" />
           <SidebarMenu label="마이페이지" href="/instructor/my" />
         </Sidebar>
-        <main className="scrollbar-hide flex-1 overflow-y-auto">{children}</main>
+        <main className="scrollbar-hide flex flex-1 flex-col overflow-y-auto">{children}</main>
       </div>
     </div>
   );
