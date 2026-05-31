@@ -1,21 +1,47 @@
-type BadgeSize = "3인" | "4인" | "5인";
+export type BadgeVariant = "3인" | "4인" | "5인" | "pass" | "fail" | "waiting";
 
-const sizeStyleMap: Record<BadgeSize, { bg: string; text: string }> = {
-  "3인": { bg: "bg-blue-bright", text: "text-blue-main" },
-  "4인": { bg: "bg-green-bright", text: "text-green-main" },
-  "5인": { bg: "bg-red-bright", text: "text-red-main" },
+const badgeStyleMap: Record<BadgeVariant, { wrapper: string; text: string; label: string }> = {
+  "3인": {
+    wrapper: "rounded-4 w-fit px-2 bg-blue-bright",
+    text: "text-body2-sb text-blue-main",
+    label: "3인",
+  },
+  "4인": {
+    wrapper: "rounded-4 w-fit px-2 bg-green-bright",
+    text: "text-body2-sb text-green-main",
+    label: "4인",
+  },
+  "5인": {
+    wrapper: "rounded-4 w-fit px-2 bg-red-bright",
+    text: "text-body2-sb text-red-main",
+    label: "5인",
+  },
+  pass: {
+    wrapper: "flex items-center justify-center rounded-32 w-14.5 px-3 py-1 bg-blue-bright",
+    text: "text-caption1-m text-blue-main",
+    label: "선정",
+  },
+  fail: {
+    wrapper: "flex items-center justify-center rounded-32 w-14.5 px-3 py-1 bg-red-bright",
+    text: "text-caption1-m text-red-main",
+    label: "미선정",
+  },
+  waiting: {
+    wrapper: "flex items-center justify-center rounded-32 w-14.5 px-3 py-1 bg-gray-10",
+    text: "text-caption1-m text-gray-70",
+    label: "대기중",
+  },
 };
 
 interface BadgeProps {
-  size: BadgeSize;
+  variant: BadgeVariant;
 }
 
-const Badge = ({ size }: BadgeProps) => {
-  const { bg, text } = sizeStyleMap[size];
-
+const Badge = ({ variant }: BadgeProps) => {
+  const { wrapper, text, label } = badgeStyleMap[variant];
   return (
-    <div className={`rounded-4 w-fit px-2 ${bg}`}>
-      <p className={`text-body2-sb ${text}`}>{size}</p>
+    <div className={wrapper}>
+      <p className={text}>{label}</p>
     </div>
   );
 };
