@@ -12,18 +12,27 @@ import { useWriteFormStore } from "@/store/writeFormStore";
 const ColorChooseSection = () => {
   const { colorMode, setColorMode, colors, setColors, mainColorIndex, setMainColorIndex } =
     useWriteFormStore();
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [activeIndex, setActiveIndex] = useState<number | null>(0);
+  const [isFocused, setIsFocused] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (sectionRef.current && !sectionRef.current.contains(e.target as Node)) {
-        setActiveIndex(null);
+        setIsFocused(false);
+        if (colors.every(c => c !== null)) {
+          setActiveIndex(null);
+        }
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  }, [colors]);
+
+  const handleCardClick = (i: number) => {
+    setActiveIndex(i);
+    setIsFocused(true);
+  };
 
   const handleColorChange = (index: number, color: RgbaColor) => {
     setColors(colors.map((c, i) => (i === index ? color : c)));
@@ -34,7 +43,7 @@ const ColorChooseSection = () => {
       ref={sectionRef}
       className={cn(
         "rounded-12 flex flex-col gap-8 border bg-white p-6",
-        activeIndex !== null ? "border-purple-40" : "border-transparent",
+        isFocused ? "border-purple-40" : "border-transparent",
       )}
     >
       <div className="flex items-center justify-between">
@@ -69,7 +78,7 @@ const ColorChooseSection = () => {
                 index={i + 1}
                 isMain={mainColorIndex === i}
                 isSelected={activeIndex === i}
-                onCardClick={() => setActiveIndex(i)}
+                onCardClick={() => handleCardClick(i)}
                 onRadioChange={() => setMainColorIndex(i)}
                 onColorChange={c => handleColorChange(i, c)}
               />

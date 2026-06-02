@@ -30,7 +30,7 @@ const Step2 = ({ onBack }: { onBack: () => void }) => {
           <div className="rounded-12 bg-gray-10 flex flex-col gap-4 p-6">
             <div className="flex flex-row justify-between">
               <p className="text-gray-70 text-body2-m">계좌번호</p>
-              <p className="text-gray-80 text-heading3-sb">국민 22-3244235-232425</p>
+              <p className="text-gray-80 text-heading3-sb">우리은행 1002763980123</p>
             </div>
             <div className="flex flex-row justify-between">
               <p className="text-gray-70 text-body2-m">예금주명</p>

@@ -22,10 +22,7 @@ const NecessaryPageChooseSection = () => {
   return (
     <div className="rounded-12 focus-within:border-purple-40 flex flex-col gap-8 border border-transparent bg-white p-6">
       <div className="flex flex-col gap-2">
-        <div className="flex flex-row items-center gap-2">
-          <h1 className="text-heading1-sb text-gray-90">필수 페이지 선택하기</h1>
-          <p className="text-gray-60 text-body2-m">복수 선택</p>
-        </div>
+        <h1 className="text-heading1-sb text-gray-90">필수 페이지 선택하기</h1>
         <h2 className="text-body2-m text-gray-70">
           작업물에 필수적으로 들어갈 페이지를 선택해주세요
         </h2>
