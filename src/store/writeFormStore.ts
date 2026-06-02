@@ -43,8 +43,8 @@ interface WriteFormState {
   pageDescriptions: Record<string, string>;
   materialFiles: UploadedFile[];
   referenceFiles: UploadedFile[];
-  materialNote: string;
-  referenceNote: string;
+  materialDescription: string;
+  referenceDescription: string;
   selectedPlan: PlanType | null;
   firstDate: Date | null;
   finalDate: Date | null;
@@ -63,8 +63,8 @@ interface WriteFormState {
   setPageDescription: (page: string, value: string) => void;
   setMaterialFiles: (files: UploadedFile[]) => void;
   setReferenceFiles: (files: UploadedFile[]) => void;
-  setMaterialNote: (value: string) => void;
-  setReferenceNote: (value: string) => void;
+  setMaterialDescription: (value: string) => void;
+  setReferenceDescription: (value: string) => void;
   setSelectedPlan: (value: PlanType | null) => void;
   setFirstDate: (value: Date | null) => void;
   setFinalDate: (value: Date | null) => void;
@@ -88,8 +88,8 @@ const initialState = {
   pageDescriptions: {},
   materialFiles: [],
   referenceFiles: [],
-  materialNote: "",
-  referenceNote: "",
+  materialDescription: "",
+  referenceDescription: "",
   selectedPlan: null,
   firstDate: null,
   finalDate: null,
@@ -128,17 +128,16 @@ const buildOrderRequest = (state: WriteFormState): WriteOrderRequest => {
       pageType: PAGE_API_MAP[page],
       description: state.pageDescriptions[page] || null,
     })),
-    ...(state.materialNote ? { materialNote: state.materialNote } : {}),
-    ...(state.referenceNote ? { referenceNote: state.referenceNote } : {}),
-    payment: {
-      plan: state.selectedPlan ? PLAN_API_MAP[state.selectedPlan] : "",
-      firstDraftDeadline: state.firstDate ? toApiDate(state.firstDate) : "",
-      finalDeadline: state.finalDate ? toApiDate(state.finalDate) : "",
-    },
-    terms: [
-      { type: "SERVICE", version: "V1.0", isAgreed: state.isTermsAgreed },
-      { type: "USERINFO", version: "V1.0", isAgreed: state.isTermsAgreed },
+    ...(state.materialDescription ? { materialDescription: state.materialDescription } : {}),
+    ...(state.referenceDescription ? { referenceDescription: state.referenceDescription } : {}),
+    plan: state.selectedPlan ? PLAN_API_MAP[state.selectedPlan] : "",
+    dates: [
+      {
+        firstDraftDeadline: state.firstDate ? toApiDate(state.firstDate) : "",
+        finalDeadline: state.finalDate ? toApiDate(state.finalDate) : "",
+      },
     ],
+    term: [{ type: "SETTLEMENT", version: "V1.0", isAgreed: state.isTermsAgreed }],
   };
 };
 
@@ -159,8 +158,8 @@ export const useWriteFormStore = create<WriteFormState>()(set => ({
     set(state => ({ pageDescriptions: { ...state.pageDescriptions, [page]: value } })),
   setMaterialFiles: files => set({ materialFiles: files }),
   setReferenceFiles: files => set({ referenceFiles: files }),
-  setMaterialNote: value => set({ materialNote: value }),
-  setReferenceNote: value => set({ referenceNote: value }),
+  setMaterialDescription: (value: string) => set({ materialDescription: value }),
+  setReferenceDescription: (value: string) => set({ referenceDescription: value }),
   setSelectedPlan: value => set({ selectedPlan: value }),
   setFirstDate: value => set({ firstDate: value }),
   setFinalDate: value => set({ finalDate: value }),
