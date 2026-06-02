@@ -50,13 +50,6 @@ export const draftSubmissionStatusData: DraftSubmissionItem[] = [
     draftSubmission: { submitted: 4, total: 5 },
     firstDraftDeadline: "2026-06-28",
   },
-  {
-    commissionId: 16,
-    title: "한국사 능력검정 - 심화 대비",
-    category: "FLYER_TEXTBOOK_COVER_INNER",
-    draftSubmission: { submitted: 1, total: 3 },
-    firstDraftDeadline: "2026-07-05",
-  },
 ];
 
 // [강사] [대시보드 조회] 매칭 중인 외주 조회
@@ -71,12 +64,6 @@ export type MatchingItem = {
 };
 
 export const matchingStatusData: MatchingItem[] = [
-  {
-    commissionId: 33,
-    title: "EBS 수능특강 영어 — 유형편 완성",
-    matching: { matched: 4, total: 5 },
-    finalDeadline: "2026-06-12",
-  },
   {
     commissionId: 34,
     title: "중등 과학 탐구 — 물질과 에너지",
@@ -119,13 +106,6 @@ export type ModifyingItem = {
 };
 
 export const modifyingStatusData: ModifyingItem[] = [
-  {
-    commissionId: 41,
-    title: "EBS 수능특강 국어 — 문학 집중 완성",
-    isSubmitted: true,
-    hasUpdate: true,
-    finalDeadline: "2026-06-15",
-  },
   {
     commissionId: 42,
     title: "중등 수학 — 방정식과 함수 개념서",

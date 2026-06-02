@@ -15,8 +15,8 @@ const DraftSubmissionStatusSection = () => {
   );
 
   return (
-    <div className="rounded-12 w-full bg-white px-6 pt-6 pb-4">
-      <div className="flex flex-col gap-5">
+    <div className="rounded-12 h-94.5 w-full bg-white px-6 pt-6 pb-4">
+      <div className="flex h-full flex-col justify-between">
         <div className="flex flex-col gap-8">
           <span className="text-heading1-sb text-black">
             <span className="text-main-main">시안 제출</span> 현황
