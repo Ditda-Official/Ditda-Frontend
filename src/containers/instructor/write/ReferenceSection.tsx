@@ -7,7 +7,7 @@ import { useUploadedFiles } from "@/lib/hooks/useUploadedFiles";
 import { useWriteFormStore } from "@/store/writeFormStore";
 
 const ReferenceSection = () => {
-  const { referenceFiles, setReferenceFiles, referenceNote, setReferenceNote } =
+  const { referenceFiles, setReferenceFiles, referenceDescription, setReferenceDescription } =
     useWriteFormStore();
   const { uploadedFiles, handleFilesAdded, handleRemove } = useUploadedFiles(
     referenceFiles,
@@ -44,8 +44,8 @@ const ReferenceSection = () => {
             <p className="text-gray-70 text-body1-sb">레퍼런스 참고사항</p>
             <TextField
               placeholder="ex) img.04는 강사 프로필에 들어가는 이미지입니다."
-              value={referenceNote}
-              onChange={e => setReferenceNote(e.target.value)}
+              value={referenceDescription}
+              onChange={e => setReferenceDescription(e.target.value)}
             />
           </div>
         </div>

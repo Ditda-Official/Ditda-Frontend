@@ -1,4 +1,7 @@
+import React from "react";
+
 import { OneCircleIcon, ThreeCircleIcon, TwoCircleIcon } from "@/assets/icons";
+import { BadgeVariant } from "@/components/common/Badge";
 
 export type WriteStep = 1 | 2 | 3;
 
@@ -98,7 +101,7 @@ export type PlanType = "기본" | "플러스" | "맥스";
 
 export const PLAN_MAP: Record<
   PlanType,
-  { label: string; size: "3인" | "4인" | "5인"; price: string; description: string }
+  { label: string; size: BadgeVariant; price: string; description: string }
 > = {
   기본: {
     label: "기본 플랜",
@@ -135,14 +138,14 @@ export const CATEGORY_API_MAP: Record<string, string> = {
 
 export const SIZE_API_MAP: Record<string, string> = {
   a4: "A4",
-  국배판: "국배판",
+  국배판: "KUKBAE",
   b5: "B5",
   a5: "A5",
 };
 
 export const SIZE_DISPLAY_MAP: Record<string, string> = {
   a4: "A4",
-  국배판: "국배판",
+  국배판: "KUKBAE",
   b5: "B5",
   a5: "A5",
 };

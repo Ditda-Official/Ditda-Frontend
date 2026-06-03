@@ -14,7 +14,7 @@ const Step2Content = () => {
     basicInfo.교재명.trim() !== "" &&
     basicInfo.강사명.trim() !== "" &&
     basicInfo.과목명.trim() !== "" &&
-    selectedPages.length >= 2;
+    selectedPages.length >= 1;
 
   return (
     <div className="flex flex-col gap-10 pt-15 pb-30">

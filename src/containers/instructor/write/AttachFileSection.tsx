@@ -7,7 +7,8 @@ import { useUploadedFiles } from "@/lib/hooks/useUploadedFiles";
 import { useWriteFormStore } from "@/store/writeFormStore";
 
 const AttachFileSection = () => {
-  const { materialFiles, setMaterialFiles, materialNote, setMaterialNote } = useWriteFormStore();
+  const { materialFiles, setMaterialFiles, materialDescription, setMaterialDescription } =
+    useWriteFormStore();
   const { uploadedFiles, handleFilesAdded, handleRemove } = useUploadedFiles(
     materialFiles,
     setMaterialFiles,
@@ -43,8 +44,8 @@ const AttachFileSection = () => {
             <p className="text-gray-70 text-body1-sb">첨부 자료 참고사항</p>
             <TextField
               placeholder="ex) img.04는 강사 프로필에 들어가는 이미지입니다."
-              value={materialNote}
-              onChange={e => setMaterialNote(e.target.value)}
+              value={materialDescription}
+              onChange={e => setMaterialDescription(e.target.value)}
             />
           </div>
         </div>

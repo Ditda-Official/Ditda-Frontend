@@ -24,7 +24,7 @@ const PlanChooseCard = ({ plan, isSelected = false, onClick }: PlanChooseCardPro
         <div className="flex flex-col gap-1">
           <div className="flex flex-row gap-1">
             <span className="text-gray-80 text-heading3-sb">{label}</span>
-            <Badge size={size} />
+            <Badge variant={size} />
           </div>
           <p className="text-gray-70 text-caption2-m">{description}</p>
         </div>

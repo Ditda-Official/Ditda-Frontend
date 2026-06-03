@@ -18,14 +18,13 @@ export interface WriteOrderPageRequest {
   description: string | null;
 }
 
-export interface WriteOrderPaymentRequest {
-  plan: string;
+export interface WriteOrderDateRequest {
   firstDraftDeadline: string;
   finalDeadline: string;
 }
 
 export interface WriteOrderTermRequest {
-  type: "SERVICE" | "USERINFO";
+  type: "SETTLEMENT";
   version: string;
   isAgreed: boolean;
 }
@@ -37,8 +36,9 @@ export interface WriteOrderRequest {
   instructorName: string;
   subject: string;
   requiredPages: WriteOrderPageRequest[];
-  materialNote?: string;
-  referenceNote?: string;
-  payment: WriteOrderPaymentRequest;
-  terms: WriteOrderTermRequest[];
+  materialDescription?: string;
+  referenceDescription?: string;
+  plan: string;
+  dates: WriteOrderDateRequest[];
+  term: WriteOrderTermRequest[];
 }

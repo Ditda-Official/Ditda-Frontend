@@ -29,13 +29,7 @@ const SizeRecommendedCard = ({
             <span className="text-heading3-sb text-gray-80">{size}</span>
             <span className="text-caption1-m text-gray-60">{dimensions}</span>
           </div>
-          {children && (
-            <span
-              className={`text-main-main ${isSelected ? "text-caption1-sb" : "text-caption2-m"}`}
-            >
-              {children}
-            </span>
-          )}
+          {children && <span className="text-main-main text-caption1-sb">{children}</span>}
         </div>
         <span className="text-gray-80 text-body2-m">{description}</span>
       </div>
