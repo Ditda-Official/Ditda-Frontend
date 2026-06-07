@@ -16,5 +16,3 @@ export const myInfoData: MyInfo = {
     ongoingCommissionCount: 5,
   },
 };
-
-// [강사] 마이페이지 외주 내역 조회
