@@ -1,11 +1,11 @@
 "use client";
 
-import AttachFileSection from "@/containers/instructor/write/AttachFileSection";
-import BasicInfoTypingSection from "@/containers/instructor/write/BasicInfoTypingSection";
-import NecessaryPageChooseSection from "@/containers/instructor/write/NecessaryPageChooseSection";
-import ReferenceSection from "@/containers/instructor/write/ReferenceSection";
+import { useWriteFormStore } from "@/features/instructor/write/model/writeFormStore";
 import Button from "@/shared/ui/Button";
-import { useWriteFormStore } from "@/store/writeFormStore";
+import AttachFileSection from "@/widgets/instructor/write/ui/AttachFileSection";
+import BasicInfoTypingSection from "@/widgets/instructor/write/ui/BasicInfoTypingSection";
+import NecessaryPageChooseSection from "@/widgets/instructor/write/ui/NecessaryPageChooseSection";
+import ReferenceSection from "@/widgets/instructor/write/ui/ReferenceSection";
 
 const Step2Content = () => {
   const { basicInfo, selectedPages, setCurrentStep } = useWriteFormStore();

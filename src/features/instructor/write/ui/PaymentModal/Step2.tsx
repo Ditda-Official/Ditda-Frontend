@@ -2,10 +2,10 @@
 
 import { useRouter } from "next/navigation";
 
-import { PLAN_MAP } from "@/constants/write";
+import { PLAN_MAP } from "@/features/instructor/write/config/write";
+import { useWriteFormStore } from "@/features/instructor/write/model/writeFormStore";
 import { ArrowLeftIcon, ExclamationMarkCircleIcon } from "@/shared/assets/icons";
 import Button from "@/shared/ui/Button";
-import { useWriteFormStore } from "@/store/writeFormStore";
 
 const Step2 = ({ onBack }: { onBack: () => void }) => {
   const router = useRouter();

@@ -1,17 +1,17 @@
 "use client";
 
+import { useWriteFormStore } from "@/features/instructor/write/model/writeFormStore";
 import { useUploadedFiles } from "@/shared/lib/hooks/useUploadedFiles";
 import FileDragAndDrop from "@/shared/ui/FileDragAndDrop";
 import FileUpload from "@/shared/ui/FileUpload";
 import TextField from "@/shared/ui/input/TextField";
-import { useWriteFormStore } from "@/store/writeFormStore";
 
-const AttachFileSection = () => {
-  const { materialFiles, setMaterialFiles, materialDescription, setMaterialDescription } =
+const ReferenceSection = () => {
+  const { referenceFiles, setReferenceFiles, referenceDescription, setReferenceDescription } =
     useWriteFormStore();
   const { uploadedFiles, handleFilesAdded, handleRemove } = useUploadedFiles(
-    materialFiles,
-    setMaterialFiles,
+    referenceFiles,
+    setReferenceFiles,
   );
 
   return (
@@ -19,9 +19,9 @@ const AttachFileSection = () => {
       <div className={`flex flex-col ${uploadedFiles.length > 0 ? "gap-7" : "gap-6"}`}>
         <div className="flex flex-col gap-8">
           <div className="flex flex-col gap-2">
-            <h1 className="text-gray-90 text-heading1-sb">자료 첨부</h1>
+            <h1 className="text-gray-90 text-heading1-sb">레퍼런스(선택)</h1>
             <h2 className="text-gray-70 text-body2-m">
-              교재 속에 들어갈 이미지 및 자료를 첨부해주세요
+              원하는 교재 이미지가 있다면 레퍼런스 파일을 첨부해주세요
             </h2>
           </div>
           <FileDragAndDrop onFilesAdded={handleFilesAdded} />
@@ -41,11 +41,11 @@ const AttachFileSection = () => {
             </div>
           )}
           <div className="flex flex-col gap-2">
-            <p className="text-gray-70 text-body1-sb">첨부 자료 참고사항</p>
+            <p className="text-gray-70 text-body1-sb">레퍼런스 참고사항</p>
             <TextField
               placeholder="ex) img.04는 강사 프로필에 들어가는 이미지입니다."
-              value={materialDescription}
-              onChange={e => setMaterialDescription(e.target.value)}
+              value={referenceDescription}
+              onChange={e => setReferenceDescription(e.target.value)}
             />
           </div>
         </div>
@@ -54,4 +54,4 @@ const AttachFileSection = () => {
   );
 };
 
-export default AttachFileSection;
+export default ReferenceSection;

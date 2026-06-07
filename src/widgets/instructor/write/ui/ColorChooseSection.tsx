@@ -2,12 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import ColorChooseCard from "@/components/instructor/write/ColorChooseCard";
-import ColorPicker from "@/components/instructor/write/ColorPicker";
+import { useWriteFormStore } from "@/features/instructor/write/model/writeFormStore";
+import ColorChooseCard from "@/features/instructor/write/ui/ColorChooseCard";
+import ColorPicker from "@/features/instructor/write/ui/ColorPicker";
 import { cn } from "@/shared/lib/utils/cn";
 import type { RgbaColor } from "@/shared/lib/utils/color";
 import Toggle from "@/shared/ui/Toggle";
-import { useWriteFormStore } from "@/store/writeFormStore";
 
 const ColorChooseSection = () => {
   const { colorMode, setColorMode, colors, setColors, mainColorIndex, setMainColorIndex } =

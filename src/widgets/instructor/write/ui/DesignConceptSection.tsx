@@ -1,10 +1,10 @@
 "use client";
 
-import ConceptKeywordCard from "@/components/instructor/write/ConceptKeywordCard";
-import { CONCEPT_CATEGORIES, MAX_CONCEPT_SELECT } from "@/constants/write";
+import { CONCEPT_CATEGORIES, MAX_CONCEPT_SELECT } from "@/features/instructor/write/config/write";
+import { useWriteFormStore } from "@/features/instructor/write/model/writeFormStore";
+import ConceptKeywordCard from "@/features/instructor/write/ui/ConceptKeywordCard";
 import Chip from "@/shared/ui/Chip";
 import TextField from "@/shared/ui/input/TextField";
-import { useWriteFormStore } from "@/store/writeFormStore";
 
 const DesignConceptSection = () => {
   const { selectedKeywords, setSelectedKeywords, additionalConcept, setAdditionalConcept } =

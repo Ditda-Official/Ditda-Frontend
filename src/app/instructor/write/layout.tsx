@@ -2,8 +2,7 @@
 
 import { ReactNode, useEffect } from "react";
 
-import StepHeader from "@/components/instructor/write/StepHeader";
-import { useWriteFormStore } from "@/store/writeFormStore";
+import { StepHeader, useWriteFormStore } from "@/features/instructor/write";
 
 const WriteLayout = ({ children }: { children: ReactNode }) => {
   const clearAfterSubmit = useWriteFormStore(s => s.clearAfterSubmit);

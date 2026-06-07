@@ -1,4 +1,4 @@
-import { WRITE_STEPS, WriteStep } from "@/constants/write";
+import { WRITE_STEPS, WriteStep } from "@/features/instructor/write/config/write";
 
 interface ProgressBarProps {
   currentStep?: WriteStep;

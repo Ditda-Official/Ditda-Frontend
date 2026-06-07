@@ -1,7 +1,7 @@
 "use client";
 
-import ProgressBar from "@/components/instructor/write/ProgressBar";
-import { useWriteFormStore } from "@/store/writeFormStore";
+import { useWriteFormStore } from "@/features/instructor/write/model/writeFormStore";
+import ProgressBar from "@/features/instructor/write/ui/ProgressBar";
 
 const StepHeader = () => {
   const { currentStep } = useWriteFormStore();

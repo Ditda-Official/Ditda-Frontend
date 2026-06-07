@@ -8,11 +8,11 @@ import {
   type PlanType,
   SIZE_API_MAP,
   type WriteStep,
-} from "@/constants/write";
+} from "@/features/instructor/write/config/write";
+import type { WriteOrderRequest } from "@/features/instructor/write/model/write";
 import { type RgbaColor, toHex } from "@/shared/lib/utils/color";
 import { toApiDate } from "@/shared/lib/utils/date";
 import type { UploadedFile } from "@/shared/types/file";
-import type { WriteOrderRequest } from "@/types/write";
 
 const STORAGE_KEY = "write-form";
 

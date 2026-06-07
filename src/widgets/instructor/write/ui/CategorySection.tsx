@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 
-import { CATEGORIES } from "@/constants/write";
+import { CATEGORIES } from "@/features/instructor/write/config/write";
+import { useWriteFormStore } from "@/features/instructor/write/model/writeFormStore";
 import AccordionMenu from "@/shared/ui/AccordionMenu";
 import Radio from "@/shared/ui/Radio";
-import { useWriteFormStore } from "@/store/writeFormStore";
 
 const CategorySection = () => {
   const { selectedCategory, setSelectedCategory } = useWriteFormStore();

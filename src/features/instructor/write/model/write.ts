@@ -1,4 +1,4 @@
-import { PageType } from "@/constants/write";
+import { PageType } from "@/features/instructor/write/config/write";
 
 export interface WriteOrderColorRequest {
   role: "MAIN" | "SUB1" | "SUB2";

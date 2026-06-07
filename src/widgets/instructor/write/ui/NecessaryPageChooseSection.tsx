@@ -1,9 +1,9 @@
 "use client";
 
-import { PAGE_OPTIONS } from "@/constants/write";
+import { PAGE_OPTIONS } from "@/features/instructor/write/config/write";
+import { useWriteFormStore } from "@/features/instructor/write/model/writeFormStore";
 import Chip from "@/shared/ui/Chip";
 import TextField from "@/shared/ui/input/TextField";
-import { useWriteFormStore } from "@/store/writeFormStore";
 
 const NecessaryPageChooseSection = () => {
   const { selectedPages, setSelectedPages, pageDescriptions, setPageDescription } =

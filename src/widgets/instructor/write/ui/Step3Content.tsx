@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 
-import PaymentModal from "@/components/instructor/write/PaymentModal/PaymentModal";
-import DeadlineChooseSection from "@/containers/instructor/write/DeadlineChooseSection";
-import PlanChooseSection from "@/containers/instructor/write/PlanChooseSection";
+import { useWriteFormStore } from "@/features/instructor/write/model/writeFormStore";
+import PaymentModal from "@/features/instructor/write/ui/PaymentModal/PaymentModal";
 import Button from "@/shared/ui/Button";
-import { useWriteFormStore } from "@/store/writeFormStore";
+import DeadlineChooseSection from "@/widgets/instructor/write/ui/DeadlineChooseSection";
+import PlanChooseSection from "@/widgets/instructor/write/ui/PlanChooseSection";
 
 const Step3Content = () => {
   const { setCurrentStep, selectedPlan, firstDate, finalDate } = useWriteFormStore();

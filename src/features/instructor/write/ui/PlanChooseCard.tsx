@@ -1,4 +1,4 @@
-import { PLAN_MAP, PlanType } from "@/constants/write";
+import { PLAN_MAP, PlanType } from "@/features/instructor/write/config/write";
 import Badge from "@/shared/ui/Badge";
 
 interface PlanChooseCardProps {

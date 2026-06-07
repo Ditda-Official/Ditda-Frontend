@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 
-import Step1 from "@/components/instructor/write/PaymentModal/Step1";
-import Step2 from "@/components/instructor/write/PaymentModal/Step2";
+import { useWriteFormStore } from "@/features/instructor/write/model/writeFormStore";
+import Step1 from "@/features/instructor/write/ui/PaymentModal/Step1";
+import Step2 from "@/features/instructor/write/ui/PaymentModal/Step2";
 import { CloseIcon } from "@/shared/assets/icons";
-import { useWriteFormStore } from "@/store/writeFormStore";
 
 const PaymentModalContent = ({ onClose }: { onClose?: () => void }) => {
   const [step, setStep] = useState<1 | 2>(1);

@@ -1,11 +1,11 @@
 "use client";
 
-import CategorySection from "@/containers/instructor/write/CategorySection";
-import ColorChooseSection from "@/containers/instructor/write/ColorChooseSection";
-import DesignConceptSection from "@/containers/instructor/write/DesignConceptSection";
-import SizeSection from "@/containers/instructor/write/SizeSection";
+import { useWriteFormStore } from "@/features/instructor/write/model/writeFormStore";
 import Button from "@/shared/ui/Button";
-import { useWriteFormStore } from "@/store/writeFormStore";
+import CategorySection from "@/widgets/instructor/write/ui/CategorySection";
+import ColorChooseSection from "@/widgets/instructor/write/ui/ColorChooseSection";
+import DesignConceptSection from "@/widgets/instructor/write/ui/DesignConceptSection";
+import SizeSection from "@/widgets/instructor/write/ui/SizeSection";
 
 const Step1Content = () => {
   const { selectedCategory, selectedSize, selectedKeywords, colorMode, colors, setCurrentStep } =

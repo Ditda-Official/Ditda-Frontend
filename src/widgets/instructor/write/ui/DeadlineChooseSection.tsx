@@ -2,10 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 
+import { useWriteFormStore } from "@/features/instructor/write/model/writeFormStore";
 import { formatDate, getMinFinalDate, getYesterday } from "@/shared/lib/utils/date";
 import DateDropdownBox from "@/shared/ui/dropdown/DateDropdownBox";
 import DateDropdownMenu from "@/shared/ui/dropdown/DateDropdownMenu";
-import { useWriteFormStore } from "@/store/writeFormStore";
 
 const DeadlineChooseSection = () => {
   const { firstDate, setFirstDate, finalDate, setFinalDate } = useWriteFormStore();
