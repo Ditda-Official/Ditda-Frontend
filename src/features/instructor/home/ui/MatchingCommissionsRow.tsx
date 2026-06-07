@@ -1,5 +1,5 @@
-import { getDDay } from "@/entities/instructor/home/lib/getDDay";
-import { MatchingItem } from "@/entities/instructor/home/model/home";
+import { getDDay } from "@/features/instructor/home/lib/getDDay";
+import { MatchingItem } from "@/features/instructor/home/model/home";
 import { ArrowRightIcon } from "@/shared/assets/icons";
 import Tag from "@/shared/ui/Tag";
 

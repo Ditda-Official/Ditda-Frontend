@@ -1,5 +1,5 @@
-import { getDDay } from "@/entities/instructor/home/lib/getDDay";
-import { ModifyingItem } from "@/entities/instructor/home/model/home";
+import { getDDay } from "@/features/instructor/home/lib/getDDay";
+import { ModifyingItem } from "@/features/instructor/home/model/home";
 import { cn } from "@/shared/lib/utils/cn";
 import Button from "@/shared/ui/Button";
 import Tag from "@/shared/ui/Tag";

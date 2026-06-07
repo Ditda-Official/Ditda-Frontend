@@ -1,5 +1,5 @@
-import { getDDay } from "@/entities/instructor/home/lib/getDDay";
-import { CATEGORY_DISPLAY_MAP, DraftSubmissionItem } from "@/entities/instructor/home/model/home";
+import { getDDay } from "@/features/instructor/home/lib/getDDay";
+import { CATEGORY_DISPLAY_MAP, DraftSubmissionItem } from "@/features/instructor/home/model/home";
 import { ArrowRightIcon, MatchingOffIcon, MatchingOnIcon } from "@/shared/assets/icons";
 import Tag from "@/shared/ui/Tag";
 
