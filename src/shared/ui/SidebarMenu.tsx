@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
-import { SIDEBAR_ICON_MAP } from "@/constants/sidebarMenu";
+import { SIDEBAR_ICON_MAP } from "@/shared/config/sidebarMenu";
 
 interface SidebarMenuProps {
   label: string;

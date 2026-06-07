@@ -2,8 +2,11 @@
 
 import { useRouter } from "next/navigation";
 
-import { SIGNUP_MAX_ID_LENGTH, SIGNUP_MAX_PASSWORD_LENGTH } from "@/constants/signup";
-import { useSignupStep2Form } from "@/lib/hooks/useSignupStep2Form";
+import {
+  SIGNUP_MAX_ID_LENGTH,
+  SIGNUP_MAX_PASSWORD_LENGTH,
+  useSignupStep2Form,
+} from "@/features/signup";
 import { StepTwoDesignerIcon } from "@/shared/assets/icons";
 import Button from "@/shared/ui/Button";
 import InputField from "@/shared/ui/input/InputField";

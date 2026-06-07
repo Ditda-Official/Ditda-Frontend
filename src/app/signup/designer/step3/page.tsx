@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { type ChangeEvent, useState } from "react";
 
-import { type BankCode, type BankOption } from "@/constants/signup";
+import { type BankCode, type BankOption } from "@/features/signup";
 import { StepThreeDesignerIcon } from "@/shared/assets/icons";
 import { useUploadedFiles } from "@/shared/lib/hooks/useUploadedFiles";
 import Button from "@/shared/ui/Button";

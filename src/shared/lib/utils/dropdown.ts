@@ -1,4 +1,4 @@
-import { SELECTED_EXTRA, STEP } from "@/constants/dropdown";
+import { SELECTED_EXTRA, STEP } from "@/shared/config/dropdown";
 
 export const easeOutCubic = (progress: number) => 1 - (1 - progress) ** 3;
 

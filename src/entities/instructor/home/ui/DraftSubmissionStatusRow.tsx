@@ -1,6 +1,6 @@
-import { CATEGORY_DISPLAY_MAP, DraftSubmissionItem } from "@/data/instructor/home";
+import { getDDay } from "@/entities/instructor/home/lib/getDDay";
+import { CATEGORY_DISPLAY_MAP, DraftSubmissionItem } from "@/entities/instructor/home/model/home";
 import { ArrowRightIcon, MatchingOffIcon, MatchingOnIcon } from "@/shared/assets/icons";
-import { getDDay } from "@/shared/lib/utils/date";
 import Tag from "@/shared/ui/Tag";
 
 const DraftSubmissionStatusRow = ({ item }: { item: DraftSubmissionItem }) => {

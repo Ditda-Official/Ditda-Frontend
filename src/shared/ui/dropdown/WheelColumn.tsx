@@ -1,6 +1,6 @@
 "use client";
 
-import { ITEM_GAP, LIST_H, PAD_BOTTOM, PAD_TOP } from "@/constants/dropdown";
+import { ITEM_GAP, LIST_H, PAD_BOTTOM, PAD_TOP } from "@/shared/config/dropdown";
 import { useWheelColumn } from "@/shared/lib/hooks/useWheelColumn";
 import { cn } from "@/shared/lib/utils/cn";
 

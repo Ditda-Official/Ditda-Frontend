@@ -1,12 +1,12 @@
 "use client";
 
-import CommissionsHeader from "@/components/instructor/home/CommissionsHeader";
-import MatchingStatusCommissionsRow from "@/components/instructor/home/MatchingCommissionsRow";
-import { MATCHING_ITEMS_PER_PAGE } from "@/constants/home";
-import { matchingStatusData } from "@/data/instructor/home";
+import { matchingStatusData } from "@/entities/instructor/home/model/home";
+import CommissionsHeader from "@/entities/instructor/home/ui/CommissionsHeader";
+import MatchingStatusCommissionsRow from "@/entities/instructor/home/ui/MatchingCommissionsRow";
 import { NextButton, PrevButton } from "@/shared/assets/icons";
-import usePagination from "@/shared/lib/hooks/usePagination";
 import PageIndicator from "@/shared/ui/PageIndicator";
+import { MATCHING_ITEMS_PER_PAGE } from "@/widgets/instructor/home/config/home";
+import usePagination from "@/widgets/instructor/home/lib/usePagination";
 
 const MatchingCommissionsSection = () => {
   const { current, totalPages, pageItems, handlePrev, handleNext } = usePagination(

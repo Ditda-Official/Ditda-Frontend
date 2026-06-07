@@ -2,11 +2,10 @@
 
 import { useCallback, useState } from "react";
 
-import { PAD_TOP, YEAR_RANGE } from "@/constants/dropdown";
+import { PAD_TOP, YEAR_RANGE } from "@/shared/config/dropdown";
 import { cn } from "@/shared/lib/utils/cn";
 import { getDaysInMonth } from "@/shared/lib/utils/dropdown";
-
-import WheelColumn from "./WheelColumn";
+import WheelColumn from "@/shared/ui/dropdown/WheelColumn";
 
 interface DropdownMenuProps {
   onConfirm?: (date: Date) => void;

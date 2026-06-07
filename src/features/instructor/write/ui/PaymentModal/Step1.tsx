@@ -5,9 +5,9 @@ import {
   SIZE_DISPLAY_MAP,
   TERMS_CONTENT,
 } from "@/features/instructor/write/config/write";
+import { formatDate } from "@/features/instructor/write/lib/date";
 import { useWriteFormStore } from "@/features/instructor/write/model/writeFormStore";
 import { ArrowDownIcon, CheckboxFillIcon, CheckboxGrayIcon } from "@/shared/assets/icons";
-import { formatDate } from "@/shared/lib/utils/date";
 import Button from "@/shared/ui/Button";
 import Chip from "@/shared/ui/Chip";
 

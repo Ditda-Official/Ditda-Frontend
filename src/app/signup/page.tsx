@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import UserTypeBtn from "@/components/signup/UserTypeBtn";
+import { UserTypeBtn } from "@/features/signup";
 import { UserTypeDesignerIcon, UserTypeInstructorIcon } from "@/shared/assets/icons";
 import Button from "@/shared/ui/Button";
 

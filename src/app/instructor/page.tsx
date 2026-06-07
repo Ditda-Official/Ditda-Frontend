@@ -1,6 +1,8 @@
-import DraftSubmissionStatusSection from "@/containers/instructor/home/DraftSubmissionStatusSection";
-import MatchingCommissionsSection from "@/containers/instructor/home/MatchingCommissionsSection";
-import ModifyingCommissionsSection from "@/containers/instructor/home/ModifyingCommissionsSection";
+import {
+  DraftSubmissionStatusSection,
+  MatchingCommissionsSection,
+  ModifyingCommissionsSection,
+} from "@/widgets/instructor/home";
 
 const page = () => {
   return (

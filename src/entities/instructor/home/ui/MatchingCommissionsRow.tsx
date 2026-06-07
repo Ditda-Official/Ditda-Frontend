@@ -1,6 +1,6 @@
-import { MatchingItem } from "@/data/instructor/home";
+import { getDDay } from "@/entities/instructor/home/lib/getDDay";
+import { MatchingItem } from "@/entities/instructor/home/model/home";
 import { ArrowRightIcon } from "@/shared/assets/icons";
-import { getDDay } from "@/shared/lib/utils/date";
 import Tag from "@/shared/ui/Tag";
 
 const MatchingCommissionsRow = ({ item }: { item: MatchingItem }) => {

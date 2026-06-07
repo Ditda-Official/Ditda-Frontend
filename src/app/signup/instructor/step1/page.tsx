@@ -7,7 +7,7 @@ import {
   INSTRUCTOR_TERMS,
   SIGNUP_MAX_NAME_LENGTH,
   SIGNUP_MAX_PHONE_NUMBER_LENGTH,
-} from "@/constants/signup";
+} from "@/features/signup";
 import {
   CheckboxFillIcon,
   CheckboxGrayIcon,

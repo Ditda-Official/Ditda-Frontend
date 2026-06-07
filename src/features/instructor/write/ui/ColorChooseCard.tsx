@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 
+import type { RgbaColor } from "@/features/instructor/write/lib/color";
+import { clamp, hexToRgb, toHex } from "@/features/instructor/write/lib/color";
 import { cn } from "@/shared/lib/utils/cn";
-import type { RgbaColor } from "@/shared/lib/utils/color";
-import { clamp, hexToRgb, toHex } from "@/shared/lib/utils/color";
 import Radio from "@/shared/ui/Radio";
 
 type ColorChooseCardProps = {

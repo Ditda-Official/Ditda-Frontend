@@ -17,7 +17,7 @@ import {
   SIGNUP_PASSWORD_CONFIRM_ERROR_MESSAGE,
   SIGNUP_PASSWORD_CONFIRM_FORMAT_ERROR_MESSAGE,
   SIGNUP_PASSWORD_ERROR_MESSAGE,
-} from "@/constants/signup";
+} from "@/features/signup/config/signup";
 
 type SignupUserIdCheckStatus = "idle" | "available" | "duplicated";
 type SignupEmailVerificationStatus = "idle" | "sent" | "verified";
