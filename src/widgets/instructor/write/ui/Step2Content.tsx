@@ -1,6 +1,6 @@
 "use client";
 
-import { useWriteFormStore } from "@/features/instructor/write/model/writeFormStore";
+import { useWriteFormStore } from "@/features/instructor/write";
 import Button from "@/shared/ui/Button";
 import AttachFileSection from "@/widgets/instructor/write/ui/AttachFileSection";
 import BasicInfoTypingSection from "@/widgets/instructor/write/ui/BasicInfoTypingSection";

@@ -1,8 +1,10 @@
 "use client";
 
-import { draftSubmissionStatusData } from "@/features/instructor/home/model/home";
-import CommissionsHeader from "@/features/instructor/home/ui/CommissionsHeader";
-import DraftSubmissionStatusRow from "@/features/instructor/home/ui/DraftSubmissionStatusRow";
+import {
+  CommissionsHeader,
+  draftSubmissionStatusData,
+  DraftSubmissionStatusRow,
+} from "@/features/instructor/home";
 import { NextButton, PrevButton } from "@/shared/assets/icons";
 import PageIndicator from "@/shared/ui/PageIndicator";
 import { DRAFT_SUBMISSION_ITEMS_PER_PAGE } from "@/widgets/instructor/home/config/home";

@@ -1,6 +1,6 @@
 "use client";
 
-import { useWriteFormStore } from "@/features/instructor/write/model/writeFormStore";
+import { useWriteFormStore } from "@/features/instructor/write";
 import { useUploadedFiles } from "@/shared/lib/hooks/useUploadedFiles";
 import FileDragAndDrop from "@/shared/ui/FileDragAndDrop";
 import FileUpload from "@/shared/ui/FileUpload";

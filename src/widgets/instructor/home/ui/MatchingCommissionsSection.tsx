@@ -1,8 +1,10 @@
 "use client";
 
-import { matchingStatusData } from "@/features/instructor/home/model/home";
-import CommissionsHeader from "@/features/instructor/home/ui/CommissionsHeader";
-import MatchingStatusCommissionsRow from "@/features/instructor/home/ui/MatchingCommissionsRow";
+import {
+  CommissionsHeader,
+  MatchingCommissionsRow as MatchingStatusCommissionsRow,
+  matchingStatusData,
+} from "@/features/instructor/home";
 import { NextButton, PrevButton } from "@/shared/assets/icons";
 import PageIndicator from "@/shared/ui/PageIndicator";
 import { MATCHING_ITEMS_PER_PAGE } from "@/widgets/instructor/home/config/home";

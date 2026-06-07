@@ -1,8 +1,10 @@
 "use client";
 
-import { modifyingStatusData } from "@/features/instructor/home/model/home";
-import CommissionsHeader from "@/features/instructor/home/ui/CommissionsHeader";
-import ModifyingCommissionsRow from "@/features/instructor/home/ui/ModifyingCommissionsRow";
+import {
+  CommissionsHeader,
+  ModifyingCommissionsRow,
+  modifyingStatusData,
+} from "@/features/instructor/home";
 import { NextButton, PrevButton } from "@/shared/assets/icons";
 import PageIndicator from "@/shared/ui/PageIndicator";
 import { MODIFYING_ITEMS_PER_PAGE } from "@/widgets/instructor/home/config/home";

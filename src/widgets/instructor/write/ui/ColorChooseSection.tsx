@@ -2,10 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import type { RgbaColor } from "@/features/instructor/write/lib/color";
-import { useWriteFormStore } from "@/features/instructor/write/model/writeFormStore";
-import ColorChooseCard from "@/features/instructor/write/ui/ColorChooseCard";
-import ColorPicker from "@/features/instructor/write/ui/ColorPicker";
+import {
+  ColorChooseCard,
+  ColorPicker,
+  type RgbaColor,
+  useWriteFormStore,
+} from "@/features/instructor/write";
 import { cn } from "@/shared/lib/utils/cn";
 import Toggle from "@/shared/ui/Toggle";
 

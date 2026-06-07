@@ -1,8 +1,6 @@
 "use client";
 
-import type { PlanType } from "@/features/instructor/write/config/write";
-import { useWriteFormStore } from "@/features/instructor/write/model/writeFormStore";
-import PlanChooseCard from "@/features/instructor/write/ui/PlanChooseCard";
+import { PlanChooseCard, type PlanType, useWriteFormStore } from "@/features/instructor/write";
 
 const PLANS: PlanType[] = ["기본", "플러스", "맥스"];
 

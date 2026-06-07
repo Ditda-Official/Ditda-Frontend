@@ -1,7 +1,6 @@
 "use client";
 
-import { PAGE_OPTIONS } from "@/features/instructor/write/config/write";
-import { useWriteFormStore } from "@/features/instructor/write/model/writeFormStore";
+import { PAGE_OPTIONS, useWriteFormStore } from "@/features/instructor/write";
 import Chip from "@/shared/ui/Chip";
 import TextField from "@/shared/ui/input/TextField";
 

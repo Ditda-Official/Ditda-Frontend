@@ -1,9 +1,11 @@
 "use client";
 
-import { SIZE_OPTIONS } from "@/features/instructor/write/config/write";
-import { useWriteFormStore } from "@/features/instructor/write/model/writeFormStore";
-import PaperSizeCard from "@/features/instructor/write/ui/PaperSizeCard";
-import SizeRecommendedCard from "@/features/instructor/write/ui/SizeRecommendedCard";
+import {
+  PaperSizeCard,
+  SIZE_OPTIONS,
+  SizeRecommendedCard,
+  useWriteFormStore,
+} from "@/features/instructor/write";
 
 const SizeSection = () => {
   const { selectedCategory, selectedSize, setSelectedSize } = useWriteFormStore();

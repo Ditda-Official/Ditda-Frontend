@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 
-import { useWriteFormStore } from "@/features/instructor/write/model/writeFormStore";
-import PaymentModal from "@/features/instructor/write/ui/PaymentModal/PaymentModal";
+import { useWriteFormStore } from "@/features/instructor/write";
+import { PaymentModal } from "@/features/instructor/write";
 import Button from "@/shared/ui/Button";
 import DeadlineChooseSection from "@/widgets/instructor/write/ui/DeadlineChooseSection";
 import PlanChooseSection from "@/widgets/instructor/write/ui/PlanChooseSection";

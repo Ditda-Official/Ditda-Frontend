@@ -2,8 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import { formatDate, getMinFinalDate, getYesterday } from "@/features/instructor/write/lib/date";
-import { useWriteFormStore } from "@/features/instructor/write/model/writeFormStore";
+import {
+  formatDate,
+  getMinFinalDate,
+  getYesterday,
+  useWriteFormStore,
+} from "@/features/instructor/write";
 import DateDropdownBox from "@/shared/ui/dropdown/DateDropdownBox";
 import DateDropdownMenu from "@/shared/ui/dropdown/DateDropdownMenu";
 

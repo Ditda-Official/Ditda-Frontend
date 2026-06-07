@@ -1,10 +1,6 @@
 "use client";
 
-import { BASIC_INFO_FIELDS } from "@/features/instructor/write/config/write";
-import {
-  type BasicInfo,
-  useWriteFormStore,
-} from "@/features/instructor/write/model/writeFormStore";
+import { BASIC_INFO_FIELDS, type BasicInfo, useWriteFormStore } from "@/features/instructor/write";
 import SmallInput from "@/shared/ui/input/SmallInput";
 
 const BasicInfoTypingSection = () => {

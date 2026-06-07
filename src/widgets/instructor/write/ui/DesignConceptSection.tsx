@@ -1,8 +1,11 @@
 "use client";
 
-import { CONCEPT_CATEGORIES, MAX_CONCEPT_SELECT } from "@/features/instructor/write/config/write";
-import { useWriteFormStore } from "@/features/instructor/write/model/writeFormStore";
-import ConceptKeywordCard from "@/features/instructor/write/ui/ConceptKeywordCard";
+import {
+  CONCEPT_CATEGORIES,
+  ConceptKeywordCard,
+  MAX_CONCEPT_SELECT,
+  useWriteFormStore,
+} from "@/features/instructor/write";
 import Chip from "@/shared/ui/Chip";
 import TextField from "@/shared/ui/input/TextField";
 

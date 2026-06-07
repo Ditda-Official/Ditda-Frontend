@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 
-import { CATEGORIES } from "@/features/instructor/write/config/write";
-import { useWriteFormStore } from "@/features/instructor/write/model/writeFormStore";
+import { CATEGORIES, useWriteFormStore } from "@/features/instructor/write";
 import AccordionMenu from "@/shared/ui/AccordionMenu";
 import Radio from "@/shared/ui/Radio";
 
