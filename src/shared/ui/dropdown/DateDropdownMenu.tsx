@@ -3,8 +3,8 @@
 import { useCallback, useState } from "react";
 
 import { PAD_TOP, YEAR_RANGE } from "@/constants/dropdown";
-import { cn } from "@/lib/utils/cn";
-import { getDaysInMonth } from "@/lib/utils/dropdown";
+import { cn } from "@/shared/lib/utils/cn";
+import { getDaysInMonth } from "@/shared/lib/utils/dropdown";
 
 import WheelColumn from "./WheelColumn";
 

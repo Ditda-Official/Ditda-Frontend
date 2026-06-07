@@ -1,7 +1,7 @@
 "use client";
 
-import SmallInput from "@/components/common/input/SmallInput";
 import { BASIC_INFO_FIELDS } from "@/constants/write";
+import SmallInput from "@/shared/ui/input/SmallInput";
 import { type BasicInfo, useWriteFormStore } from "@/store/writeFormStore";
 
 const BasicInfoTypingSection = () => {

@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils/cn";
+import { cn } from "@/shared/lib/utils/cn";
 
 const PAPER_SIZES = [
   { label: "A4", sizeClassName: "w-24 h-34.5" },

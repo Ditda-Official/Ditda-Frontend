@@ -2,14 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import { ArrowDownIcon, ArrowUpIcon } from "@/assets/icons";
 import {
   BANK_DROPDOWN_MAX_HEIGHT,
   BANK_OPTIONS,
   type BankCode,
   type BankOption,
 } from "@/constants/signup";
-import { cn } from "@/lib/utils/cn";
+import { ArrowDownIcon, ArrowUpIcon } from "@/shared/assets/icons";
+import { cn } from "@/shared/lib/utils/cn";
 
 interface BankDropdownProps {
   className?: string;

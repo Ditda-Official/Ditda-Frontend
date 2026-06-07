@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, type WheelEvent } from "react";
 
 import { SCROLL_ANIMATION_MS, SNAP_DELAY, STEP, WHEEL_COOLDOWN } from "@/constants/dropdown";
-import { easeOutCubic, getNearestIndex, getScrollTopForIndex } from "@/lib/utils/dropdown";
+import { easeOutCubic, getNearestIndex, getScrollTopForIndex } from "@/shared/lib/utils/dropdown";
 
 interface UseWheelColumnProps {
   items: string[];

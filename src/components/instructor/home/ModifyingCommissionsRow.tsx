@@ -1,8 +1,8 @@
-import Button from "@/components/common/Button";
-import Tag from "@/components/common/Tag";
 import { ModifyingItem } from "@/data/instructor/home";
-import { cn } from "@/lib/utils/cn";
-import { getDDay } from "@/lib/utils/date";
+import { cn } from "@/shared/lib/utils/cn";
+import { getDDay } from "@/shared/lib/utils/date";
+import Button from "@/shared/ui/Button";
+import Tag from "@/shared/ui/Tag";
 
 const ModifyingCommissionsRow = ({ item }: { item: ModifyingItem }) => {
   const { title, finalDeadline, isSubmitted, hasUpdate } = item;

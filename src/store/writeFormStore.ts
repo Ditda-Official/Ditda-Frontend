@@ -9,9 +9,9 @@ import {
   SIZE_API_MAP,
   type WriteStep,
 } from "@/constants/write";
-import { type RgbaColor, toHex } from "@/lib/utils/color";
-import { toApiDate } from "@/lib/utils/date";
-import type { UploadedFile } from "@/types/file";
+import { type RgbaColor, toHex } from "@/shared/lib/utils/color";
+import { toApiDate } from "@/shared/lib/utils/date";
+import type { UploadedFile } from "@/shared/types/file";
 import type { WriteOrderRequest } from "@/types/write";
 
 const STORAGE_KEY = "write-form";

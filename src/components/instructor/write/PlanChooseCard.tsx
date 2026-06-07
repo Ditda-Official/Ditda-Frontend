@@ -1,5 +1,5 @@
-import Badge from "@/components/common/Badge";
 import { PLAN_MAP, PlanType } from "@/constants/write";
+import Badge from "@/shared/ui/Badge";
 
 interface PlanChooseCardProps {
   plan: PlanType;

@@ -1,7 +1,7 @@
-import { ArrowRightIcon, MatchingOffIcon, MatchingOnIcon } from "@/assets/icons";
-import Tag from "@/components/common/Tag";
 import { CATEGORY_DISPLAY_MAP, DraftSubmissionItem } from "@/data/instructor/home";
-import { getDDay } from "@/lib/utils/date";
+import { ArrowRightIcon, MatchingOffIcon, MatchingOnIcon } from "@/shared/assets/icons";
+import { getDDay } from "@/shared/lib/utils/date";
+import Tag from "@/shared/ui/Tag";
 
 const DraftSubmissionStatusRow = ({ item }: { item: DraftSubmissionItem }) => {
   const { title, category, draftSubmission, firstDraftDeadline } = item;

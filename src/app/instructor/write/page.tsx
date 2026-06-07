@@ -3,10 +3,10 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import Modal from "@/components/common/Modal";
 import Step1Content from "@/containers/instructor/write/Steps/Step1Content";
 import Step2Content from "@/containers/instructor/write/Steps/Step2Content";
 import Step3Content from "@/containers/instructor/write/Steps/Step3Content";
+import Modal from "@/shared/ui/Modal";
 import { useWriteFormStore } from "@/store/writeFormStore";
 
 const WritePageContent = () => {

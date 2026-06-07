@@ -1,8 +1,8 @@
 "use client";
 
-import Chip from "@/components/common/Chip";
-import TextField from "@/components/common/input/TextField";
 import { PAGE_OPTIONS } from "@/constants/write";
+import Chip from "@/shared/ui/Chip";
+import TextField from "@/shared/ui/input/TextField";
 import { useWriteFormStore } from "@/store/writeFormStore";
 
 const NecessaryPageChooseSection = () => {

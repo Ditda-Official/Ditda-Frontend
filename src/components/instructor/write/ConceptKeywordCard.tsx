@@ -1,4 +1,4 @@
-import Chip from "@/components/common/Chip";
+import Chip from "@/shared/ui/Chip";
 
 interface ConceptKeywordCardProps {
   title: string;

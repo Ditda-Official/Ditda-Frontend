@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { RgbaColorPicker } from "react-colorful";
 
-import type { RgbaColor } from "@/lib/utils/color";
-import { clamp, hexToRgb, toHex } from "@/lib/utils/color";
+import type { RgbaColor } from "@/shared/lib/utils/color";
+import { clamp, hexToRgb, toHex } from "@/shared/lib/utils/color";
 
 interface ColorPickerProps {
   value?: RgbaColor;

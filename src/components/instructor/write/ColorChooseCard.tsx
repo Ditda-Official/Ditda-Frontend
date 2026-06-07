@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 
-import Radio from "@/components/common/Radio";
-import { cn } from "@/lib/utils/cn";
-import type { RgbaColor } from "@/lib/utils/color";
-import { clamp, hexToRgb, toHex } from "@/lib/utils/color";
+import { cn } from "@/shared/lib/utils/cn";
+import type { RgbaColor } from "@/shared/lib/utils/color";
+import { clamp, hexToRgb, toHex } from "@/shared/lib/utils/color";
+import Radio from "@/shared/ui/Radio";
 
 type ColorChooseCardProps = {
   index: number;

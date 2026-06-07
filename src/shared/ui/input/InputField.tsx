@@ -9,8 +9,8 @@ import {
   ClosedEyeIcon,
   ExclamationMarkCircleIcon,
   OpenEyeIcon,
-} from "@/assets/icons";
-import { cn } from "@/lib/utils/cn";
+} from "@/shared/assets/icons";
+import { cn } from "@/shared/lib/utils/cn";
 
 const iconButtonClassName =
   "disabled:text-gray-30 inline-flex size-6 shrink-0 cursor-pointer items-center justify-center transition-colors disabled:cursor-not-allowed";

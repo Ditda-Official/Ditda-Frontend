@@ -2,9 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import DateDropdownBox from "@/components/common/dropdown/DateDropdownBox";
-import DateDropdownMenu from "@/components/common/dropdown/DateDropdownMenu";
-import { formatDate, getMinFinalDate, getYesterday } from "@/lib/utils/date";
+import { formatDate, getMinFinalDate, getYesterday } from "@/shared/lib/utils/date";
+import DateDropdownBox from "@/shared/ui/dropdown/DateDropdownBox";
+import DateDropdownMenu from "@/shared/ui/dropdown/DateDropdownMenu";
 import { useWriteFormStore } from "@/store/writeFormStore";
 
 const DeadlineChooseSection = () => {

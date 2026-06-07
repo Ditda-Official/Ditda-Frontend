@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 
-import { CloseIcon } from "@/assets/icons";
 import Step1 from "@/components/instructor/write/PaymentModal/Step1";
 import Step2 from "@/components/instructor/write/PaymentModal/Step2";
+import { CloseIcon } from "@/shared/assets/icons";
 import { useWriteFormStore } from "@/store/writeFormStore";
 
 const PaymentModalContent = ({ onClose }: { onClose?: () => void }) => {

@@ -1,7 +1,7 @@
-import { ArrowRightIcon } from "@/assets/icons";
-import Tag from "@/components/common/Tag";
 import { MatchingItem } from "@/data/instructor/home";
-import { getDDay } from "@/lib/utils/date";
+import { ArrowRightIcon } from "@/shared/assets/icons";
+import { getDDay } from "@/shared/lib/utils/date";
+import Tag from "@/shared/ui/Tag";
 
 const MatchingCommissionsRow = ({ item }: { item: MatchingItem }) => {
   const { title, finalDeadline, matching } = item;

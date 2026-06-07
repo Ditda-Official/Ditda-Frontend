@@ -1,10 +1,10 @@
 "use client";
 
-import Button from "@/components/common/Button";
 import AttachFileSection from "@/containers/instructor/write/AttachFileSection";
 import BasicInfoTypingSection from "@/containers/instructor/write/BasicInfoTypingSection";
 import NecessaryPageChooseSection from "@/containers/instructor/write/NecessaryPageChooseSection";
 import ReferenceSection from "@/containers/instructor/write/ReferenceSection";
+import Button from "@/shared/ui/Button";
 import { useWriteFormStore } from "@/store/writeFormStore";
 
 const Step2Content = () => {

@@ -1,4 +1,4 @@
-import { ArrowDownIcon } from "@/assets/icons";
+import { ArrowDownIcon } from "@/shared/assets/icons";
 
 interface AccordionMenuProps {
   label: string;

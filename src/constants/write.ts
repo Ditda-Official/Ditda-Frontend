@@ -1,7 +1,7 @@
 import React from "react";
 
-import { OneCircleIcon, ThreeCircleIcon, TwoCircleIcon } from "@/assets/icons";
-import { BadgeVariant } from "@/components/common/Badge";
+import { OneCircleIcon, ThreeCircleIcon, TwoCircleIcon } from "@/shared/assets/icons";
+import { BadgeVariant } from "@/shared/ui/Badge";
 
 export type WriteStep = 1 | 2 | 3;
 

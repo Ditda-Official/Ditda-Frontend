@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
-import { formatFileSize } from "@/lib/utils/file";
-import { UploadedFile } from "@/types/file";
+import { formatFileSize } from "@/shared/lib/utils/file";
+import { UploadedFile } from "@/shared/types/file";
 
 export const useUploadedFiles = (
   externalFiles?: UploadedFile[],

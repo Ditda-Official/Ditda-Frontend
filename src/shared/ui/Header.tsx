@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { useState } from "react";
 
-import { EnterIcon, ProfileCircleIcon } from "@/assets/icons";
-import { PurpleLogo } from "@/assets/logos";
+import { EnterIcon, ProfileCircleIcon } from "@/shared/assets/icons";
+import { PurpleLogo } from "@/shared/assets/logos";
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true);

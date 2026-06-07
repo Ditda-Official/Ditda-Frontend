@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 
-import AccordionMenu from "@/components/common/AccordionMenu";
-import Radio from "@/components/common/Radio";
 import { CATEGORIES } from "@/constants/write";
+import AccordionMenu from "@/shared/ui/AccordionMenu";
+import Radio from "@/shared/ui/Radio";
 import { useWriteFormStore } from "@/store/writeFormStore";
 
 const CategorySection = () => {

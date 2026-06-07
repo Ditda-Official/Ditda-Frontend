@@ -1,8 +1,8 @@
 "use client";
 
 import { ITEM_GAP, LIST_H, PAD_BOTTOM, PAD_TOP } from "@/constants/dropdown";
-import { useWheelColumn } from "@/lib/hooks/useWheelColumn";
-import { cn } from "@/lib/utils/cn";
+import { useWheelColumn } from "@/shared/lib/hooks/useWheelColumn";
+import { cn } from "@/shared/lib/utils/cn";
 
 interface WheelColumnProps {
   items: string[];

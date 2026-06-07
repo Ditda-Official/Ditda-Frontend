@@ -1,9 +1,9 @@
 "use client";
 
-import FileDragAndDrop from "@/components/common/FileDragAndDrop";
-import FileUpload from "@/components/common/FileUpload";
-import TextField from "@/components/common/input/TextField";
-import { useUploadedFiles } from "@/lib/hooks/useUploadedFiles";
+import { useUploadedFiles } from "@/shared/lib/hooks/useUploadedFiles";
+import FileDragAndDrop from "@/shared/ui/FileDragAndDrop";
+import FileUpload from "@/shared/ui/FileUpload";
+import TextField from "@/shared/ui/input/TextField";
 import { useWriteFormStore } from "@/store/writeFormStore";
 
 const ReferenceSection = () => {

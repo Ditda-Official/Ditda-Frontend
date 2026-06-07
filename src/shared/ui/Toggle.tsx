@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils/cn";
+import { cn } from "@/shared/lib/utils/cn";
 
 interface ToggleProps<T extends string> {
   options: [{ value: T; label: string }, { value: T; label: string }];

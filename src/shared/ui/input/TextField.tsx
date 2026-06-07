@@ -3,7 +3,7 @@
 import type { ChangeEventHandler, ComponentPropsWithoutRef } from "react";
 import { useState } from "react";
 
-import { cn } from "@/lib/utils/cn";
+import { cn } from "@/shared/lib/utils/cn";
 
 const DEFAULT_TEXT_FIELD_MAX_LENGTH = 300;
 

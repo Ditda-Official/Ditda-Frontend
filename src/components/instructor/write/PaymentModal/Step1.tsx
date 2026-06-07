@@ -1,10 +1,10 @@
 import { useState } from "react";
 
-import { ArrowDownIcon, CheckboxFillIcon, CheckboxGrayIcon } from "@/assets/icons";
-import Button from "@/components/common/Button";
-import Chip from "@/components/common/Chip";
 import { PLAN_MAP, SIZE_DISPLAY_MAP, TERMS_CONTENT } from "@/constants/write";
-import { formatDate } from "@/lib/utils/date";
+import { ArrowDownIcon, CheckboxFillIcon, CheckboxGrayIcon } from "@/shared/assets/icons";
+import { formatDate } from "@/shared/lib/utils/date";
+import Button from "@/shared/ui/Button";
+import Chip from "@/shared/ui/Chip";
 import { useWriteFormStore } from "@/store/writeFormStore";
 
 /* ─────────────────────────────────────────────

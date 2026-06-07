@@ -2,9 +2,9 @@
 
 import { useRouter } from "next/navigation";
 
-import { ArrowLeftIcon, ExclamationMarkCircleIcon } from "@/assets/icons";
-import Button from "@/components/common/Button";
 import { PLAN_MAP } from "@/constants/write";
+import { ArrowLeftIcon, ExclamationMarkCircleIcon } from "@/shared/assets/icons";
+import Button from "@/shared/ui/Button";
 import { useWriteFormStore } from "@/store/writeFormStore";
 
 const Step2 = ({ onBack }: { onBack: () => void }) => {

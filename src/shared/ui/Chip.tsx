@@ -1,5 +1,5 @@
-import { CloseIcon } from "@/assets/icons";
-import { cn } from "@/lib/utils/cn";
+import { CloseIcon } from "@/shared/assets/icons";
+import { cn } from "@/shared/lib/utils/cn";
 
 type ChipVariant = "selectable" | "removable";
 

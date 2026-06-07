@@ -2,7 +2,7 @@
 
 import type { ComponentPropsWithoutRef } from "react";
 
-import { cn } from "@/lib/utils/cn";
+import { cn } from "@/shared/lib/utils/cn";
 
 export type SmallInputProps = Omit<ComponentPropsWithoutRef<"input">, "children"> & {
   children?: string | number;

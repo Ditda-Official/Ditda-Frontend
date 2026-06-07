@@ -1,9 +1,9 @@
 "use client";
 
-import Chip from "@/components/common/Chip";
-import TextField from "@/components/common/input/TextField";
 import ConceptKeywordCard from "@/components/instructor/write/ConceptKeywordCard";
 import { CONCEPT_CATEGORIES, MAX_CONCEPT_SELECT } from "@/constants/write";
+import Chip from "@/shared/ui/Chip";
+import TextField from "@/shared/ui/input/TextField";
 import { useWriteFormStore } from "@/store/writeFormStore";
 
 const DesignConceptSection = () => {

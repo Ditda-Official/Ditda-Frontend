@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 
-import Button from "@/components/common/Button";
 import PaymentModal from "@/components/instructor/write/PaymentModal/PaymentModal";
 import DeadlineChooseSection from "@/containers/instructor/write/DeadlineChooseSection";
 import PlanChooseSection from "@/containers/instructor/write/PlanChooseSection";
+import Button from "@/shared/ui/Button";
 import { useWriteFormStore } from "@/store/writeFormStore";
 
 const Step3Content = () => {

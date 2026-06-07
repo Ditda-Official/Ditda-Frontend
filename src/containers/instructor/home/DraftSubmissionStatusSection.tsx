@@ -1,12 +1,12 @@
 "use client";
 
-import { NextButton, PrevButton } from "@/assets/icons";
-import PageIndicator from "@/components/common/PageIndicator";
 import CommissionsHeader from "@/components/instructor/home/CommissionsHeader";
 import DraftSubmissionStatusRow from "@/components/instructor/home/DraftSubmissionStatusRow";
 import { DRAFT_SUBMISSION_ITEMS_PER_PAGE } from "@/constants/home";
 import { draftSubmissionStatusData } from "@/data/instructor/home";
-import usePagination from "@/lib/hooks/usePagination";
+import { NextButton, PrevButton } from "@/shared/assets/icons";
+import usePagination from "@/shared/lib/hooks/usePagination";
+import PageIndicator from "@/shared/ui/PageIndicator";
 
 const DraftSubmissionStatusSection = () => {
   const { current, totalPages, pageItems, handlePrev, handleNext } = usePagination(

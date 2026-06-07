@@ -2,9 +2,9 @@
 
 import { DragEvent, useRef, useState } from "react";
 
-import { FolderAddIcon } from "@/assets/icons";
-import Button from "@/components/common/Button";
-import { cn } from "@/lib/utils/cn";
+import { FolderAddIcon } from "@/shared/assets/icons";
+import { cn } from "@/shared/lib/utils/cn";
+import Button from "@/shared/ui/Button";
 
 interface FileDragAndDropProps {
   onFilesAdded: (files: File[]) => void;

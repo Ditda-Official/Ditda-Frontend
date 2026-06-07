@@ -1,10 +1,10 @@
 "use client";
 
-import Button from "@/components/common/Button";
 import CategorySection from "@/containers/instructor/write/CategorySection";
 import ColorChooseSection from "@/containers/instructor/write/ColorChooseSection";
 import DesignConceptSection from "@/containers/instructor/write/DesignConceptSection";
 import SizeSection from "@/containers/instructor/write/SizeSection";
+import Button from "@/shared/ui/Button";
 import { useWriteFormStore } from "@/store/writeFormStore";
 
 const Step1Content = () => {

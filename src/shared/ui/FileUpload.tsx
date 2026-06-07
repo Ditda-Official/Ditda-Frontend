@@ -1,4 +1,4 @@
-import { CheckCircleFillIcon, CloseCircleFillIcon, LoadingIcon } from "@/assets/icons";
+import { CheckCircleFillIcon, CloseCircleFillIcon, LoadingIcon } from "@/shared/assets/icons";
 
 interface FileUploadProps {
   fileName: string;

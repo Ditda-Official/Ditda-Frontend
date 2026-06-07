@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
 
-import Header from "@/components/common/Header";
-import Sidebar from "@/components/common/Sidebar";
-import SidebarMenu from "@/components/common/SidebarMenu";
+import Header from "@/shared/ui/Header";
+import Sidebar from "@/shared/ui/Sidebar";
+import SidebarMenu from "@/shared/ui/SidebarMenu";
 
 const DesignerLayout = ({ children }: { children: ReactNode }) => {
   return (

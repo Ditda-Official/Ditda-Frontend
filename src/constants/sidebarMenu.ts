@@ -9,7 +9,7 @@ import {
   ProfileCircleIcon,
   SearchBoldIcon,
   SearchIcon,
-} from "@/assets/icons";
+} from "@/shared/assets/icons";
 
 type IconComponent = React.FC<React.SVGProps<SVGSVGElement>>;
 
