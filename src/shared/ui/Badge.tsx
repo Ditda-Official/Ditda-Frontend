@@ -1,4 +1,4 @@
-export type BadgeVariant = "3인" | "4인" | "5인" | "pass" | "fail" | "waiting";
+export type BadgeVariant = "3인" | "4인" | "5인" | "교재" | "pass" | "fail" | "waiting";
 
 const badgeStyleMap: Record<BadgeVariant, { wrapper: string; text: string; label: string }> = {
   "3인": {
@@ -15,6 +15,11 @@ const badgeStyleMap: Record<BadgeVariant, { wrapper: string; text: string; label
     wrapper: "rounded-4 w-fit px-2 bg-red-bright",
     text: "text-body2-sb text-red-main",
     label: "5인",
+  },
+  교재: {
+    wrapper: "rounded-4 w-fit px-2 bg-purple-20",
+    text: "text-body2-sb text-purple-60",
+    label: "교재",
   },
   pass: {
     wrapper: "flex items-center justify-center rounded-32 w-14.5 px-3 py-1 bg-blue-bright",
@@ -40,7 +45,7 @@ interface BadgeProps {
 const Badge = ({ variant }: BadgeProps) => {
   const { wrapper, text, label } = badgeStyleMap[variant];
   return (
-    <div className={wrapper}>
+    <div className={`shrink-0 whitespace-nowrap ${wrapper}`}>
       <p className={text}>{label}</p>
     </div>
   );

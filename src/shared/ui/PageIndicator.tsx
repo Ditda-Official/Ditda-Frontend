@@ -1,17 +1,28 @@
+import { cn } from "@/shared/lib/utils/cn";
+
 interface PageIndicatorProps {
   total: number;
   current: number;
+  variant?: "home" | "my";
 }
 
-const PageIndicator = ({ total, current }: PageIndicatorProps) => {
+const PageIndicator = ({ total, current, variant = "home" }: PageIndicatorProps) => {
   return (
-    <div className="flex items-center gap-2">
-      {Array.from({ length: total }, (_, i) => (
-        <div
-          key={i}
-          className={`size-2 rounded-full transition-colors duration-300 ${i === current ? "bg-gray-700" : "bg-gray-300"}`}
-        />
-      ))}
+    <div className={cn("flex items-center", variant === "my" ? "gap-3" : "gap-2")}>
+      {Array.from({ length: total }, (_, i) => {
+        const active = i === current;
+
+        return (
+          <div
+            key={i}
+            className={cn(
+              "transition-colors duration-300",
+              variant === "my" ? "rounded-12 size-3" : "size-2 rounded-full",
+              active ? (variant === "my" ? "bg-gray-90" : "bg-gray-70") : "bg-gray-30",
+            )}
+          />
+        );
+      })}
     </div>
   );
 };
