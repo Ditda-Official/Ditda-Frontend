@@ -3,14 +3,19 @@
 import { useRouter } from "next/navigation";
 import { type ChangeEvent, useState } from "react";
 
-import { CheckboxFillIcon, CheckboxGrayIcon, CloseIcon, StepOneDesignerIcon } from "@/assets/icons";
-import Button from "@/components/common/Button";
-import InputField from "@/components/common/input/InputField";
 import {
   DESIGNER_TERMS,
   SIGNUP_MAX_NAME_LENGTH,
   SIGNUP_MAX_PHONE_NUMBER_LENGTH,
-} from "@/constants/signup";
+} from "@/features/signup";
+import {
+  CheckboxFillIcon,
+  CheckboxGrayIcon,
+  CloseIcon,
+  StepOneDesignerIcon,
+} from "@/shared/assets/icons";
+import Button from "@/shared/ui/Button";
+import InputField from "@/shared/ui/input/InputField";
 
 type DesignerTermsId = (typeof DESIGNER_TERMS)[number]["id"];
 

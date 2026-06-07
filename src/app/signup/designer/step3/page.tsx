@@ -3,14 +3,13 @@
 import { useRouter } from "next/navigation";
 import { type ChangeEvent, useState } from "react";
 
-import { StepThreeDesignerIcon } from "@/assets/icons";
-import Button from "@/components/common/Button";
-import BankDropdown from "@/components/common/dropdown/BankDropdown";
-import FileDragAndDrop from "@/components/common/FileDragAndDrop";
-import FileUpload from "@/components/common/FileUpload";
-import InputField from "@/components/common/input/InputField";
-import { type BankCode, type BankOption } from "@/constants/signup";
-import { useUploadedFiles } from "@/lib/hooks/useUploadedFiles";
+import { type BankCode, BankDropdown, type BankOption } from "@/features/signup";
+import { StepThreeDesignerIcon } from "@/shared/assets/icons";
+import { useUploadedFiles } from "@/shared/lib/hooks/useUploadedFiles";
+import Button from "@/shared/ui/Button";
+import FileDragAndDrop from "@/shared/ui/FileDragAndDrop";
+import FileUpload from "@/shared/ui/FileUpload";
+import InputField from "@/shared/ui/input/InputField";
 
 const PORTFOLIO_MAX_FILE_COUNT = 3;
 const PORTFOLIO_ALLOWED_EXTENSIONS = [".pdf", ".png"];

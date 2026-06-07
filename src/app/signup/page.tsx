@@ -3,9 +3,9 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import { UserTypeDesignerIcon, UserTypeInstructorIcon } from "@/assets/icons";
-import Button from "@/components/common/Button";
-import UserTypeBtn from "@/components/signup/UserTypeBtn";
+import { UserTypeBtn } from "@/features/signup";
+import { UserTypeDesignerIcon, UserTypeInstructorIcon } from "@/shared/assets/icons";
+import Button from "@/shared/ui/Button";
 
 type UserType = "designer" | "instructor";
 

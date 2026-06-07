@@ -2,11 +2,14 @@
 
 import { useRouter } from "next/navigation";
 
-import { StepTwoInstructorIcon } from "@/assets/icons";
-import Button from "@/components/common/Button";
-import InputField from "@/components/common/input/InputField";
-import { SIGNUP_MAX_ID_LENGTH, SIGNUP_MAX_PASSWORD_LENGTH } from "@/constants/signup";
-import { useSignupStep2Form } from "@/lib/hooks/useSignupStep2Form";
+import {
+  SIGNUP_MAX_ID_LENGTH,
+  SIGNUP_MAX_PASSWORD_LENGTH,
+  useSignupStep2Form,
+} from "@/features/signup";
+import { StepTwoInstructorIcon } from "@/shared/assets/icons";
+import Button from "@/shared/ui/Button";
+import InputField from "@/shared/ui/input/InputField";
 
 const Page = () => {
   const router = useRouter();

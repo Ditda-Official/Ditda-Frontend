@@ -4,18 +4,18 @@ import { useRouter } from "next/navigation";
 import { type ChangeEvent, useState } from "react";
 
 import {
+  INSTRUCTOR_TERMS,
+  SIGNUP_MAX_NAME_LENGTH,
+  SIGNUP_MAX_PHONE_NUMBER_LENGTH,
+} from "@/features/signup";
+import {
   CheckboxFillIcon,
   CheckboxGrayIcon,
   CloseIcon,
   StepOneInstructorIcon,
-} from "@/assets/icons";
-import Button from "@/components/common/Button";
-import InputField from "@/components/common/input/InputField";
-import {
-  INSTRUCTOR_TERMS,
-  SIGNUP_MAX_NAME_LENGTH,
-  SIGNUP_MAX_PHONE_NUMBER_LENGTH,
-} from "@/constants/signup";
+} from "@/shared/assets/icons";
+import Button from "@/shared/ui/Button";
+import InputField from "@/shared/ui/input/InputField";
 
 type InstructorTermsId = (typeof INSTRUCTOR_TERMS)[number]["id"];
 

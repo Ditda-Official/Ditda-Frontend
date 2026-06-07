@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { useState } from "react";
 
-import { BlackLogo } from "@/assets/logos";
-import Button from "@/components/common/Button";
-import InputField from "@/components/common/input/InputField";
+import { BlackLogo } from "@/shared/assets/logos";
+import Button from "@/shared/ui/Button";
+import InputField from "@/shared/ui/input/InputField";
 
 const Page = () => {
   const [loginId, setLoginId] = useState("");

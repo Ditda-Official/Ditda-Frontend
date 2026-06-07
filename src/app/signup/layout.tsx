@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import Header from "@/components/common/Header";
+import Header from "@/shared/ui/Header";
 
 const SignupLayout = ({ children }: { children: ReactNode }) => {
   return (
