@@ -7,7 +7,7 @@ import {
   BANK_OPTIONS,
   type BankCode,
   type BankOption,
-} from "@/features/signup";
+} from "@/features/signup/config/signup";
 import { ArrowDownIcon, ArrowUpIcon } from "@/shared/assets/icons";
 import { cn } from "@/shared/lib/utils/cn";
 

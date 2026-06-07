@@ -3,11 +3,10 @@
 import { useRouter } from "next/navigation";
 import { type ChangeEvent, useState } from "react";
 
-import { type BankCode, type BankOption } from "@/features/signup";
+import { type BankCode, BankDropdown, type BankOption } from "@/features/signup";
 import { StepThreeDesignerIcon } from "@/shared/assets/icons";
 import { useUploadedFiles } from "@/shared/lib/hooks/useUploadedFiles";
 import Button from "@/shared/ui/Button";
-import BankDropdown from "@/shared/ui/dropdown/BankDropdown";
 import FileDragAndDrop from "@/shared/ui/FileDragAndDrop";
 import FileUpload from "@/shared/ui/FileUpload";
 import InputField from "@/shared/ui/input/InputField";
