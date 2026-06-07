@@ -45,7 +45,7 @@ interface BadgeProps {
 const Badge = ({ variant }: BadgeProps) => {
   const { wrapper, text, label } = badgeStyleMap[variant];
   return (
-    <div className={wrapper}>
+    <div className={`shrink-0 whitespace-nowrap ${wrapper}`}>
       <p className={text}>{label}</p>
     </div>
   );

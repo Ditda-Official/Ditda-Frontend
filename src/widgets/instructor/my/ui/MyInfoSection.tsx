@@ -5,7 +5,7 @@ const MyInfoSection = () => {
   const { name, stats } = myInfoData;
 
   return (
-    <div className="w-full">
+    <div className="w-212.75">
       <div className="flex flex-row items-center gap-4 rounded-t-xl bg-purple-50 px-6 py-5">
         <ProfileCircleIcon className="size-8 text-white" />
         <p className="text-heading2-sb text-white">{name}</p>
