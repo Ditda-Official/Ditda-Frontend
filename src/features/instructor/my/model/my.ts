@@ -94,4 +94,22 @@ export const commissionHistoryData: CommissionHistoryItem[] = [
     totalAmount: 480000,
     status: "COMPLETED",
   },
+  {
+    commissionId: 9,
+    category: "FLYER_TEXTBOOK_COVER_INNER",
+    title: "초등 사회 한국사 인물편 표지디자인 외주",
+    createdAt: "2024-11-12",
+    plan: "BASIC",
+    totalAmount: 400000,
+    status: "ONGOING",
+  },
+  {
+    commissionId: 10,
+    category: "FLYER_TEXTBOOK_COVER_INNER",
+    title: "고등 영어 듣기평가 모의고사 표지디자인 외주",
+    createdAt: "2024-10-27",
+    plan: "MAX",
+    totalAmount: 560000,
+    status: "COMPLETED",
+  },
 ];

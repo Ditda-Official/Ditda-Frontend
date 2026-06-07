@@ -17,9 +17,9 @@ const CommissionsHistorySection = () => {
   );
 
   return (
-    <div className="rounded-12 flex w-212.75 flex-col gap-6 bg-white p-6">
+    <div className="rounded-12 flex h-auto w-212.75 flex-col gap-6 bg-white p-6">
       <h1 className="text-heading1-sb text-black">외주 내역 확인</h1>
-      <div className="flex flex-col">
+      <div className="flex h-66.25 flex-col">
         <CommissionsHeader />
         {pageItems.map(item => (
           <CommissionsHistoryRow key={item.commissionId} item={item} />
