@@ -5,15 +5,19 @@ import { useState } from "react";
 
 import Button from "@/shared/ui/Button";
 import Modal from "@/shared/ui/Modal";
-import { RevisionRequestSection } from "@/widgets/instructor/revision";
+import { RevisionCategorySection, RevisionCommentSection } from "@/widgets/instructor/revision";
 import { MAX_SELECTABLE_COUNT } from "@/widgets/instructor/revision/config/revision";
 
 const Page = () => {
   const router = useRouter();
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [comments, setComments] = useState<Record<string, string>>({});
   const [isFinalizeModalOpen, setIsFinalizeModalOpen] = useState(false);
 
   const isFinalizeActive = selectedCategories.length === 0;
+  const isSubmitActive =
+    selectedCategories.length > 0 &&
+    selectedCategories.every(category => (comments[category] ?? "").trim().length > 0);
 
   const handleToggleCategory = (category: string) => {
     setSelectedCategories(prev => {
@@ -27,6 +31,10 @@ const Page = () => {
     });
   };
 
+  const handleChangeComment = (category: string, value: string) => {
+    setComments(prev => ({ ...prev, [category]: value }));
+  };
+
   const handleCloseFinalizeModal = () => {
     setIsFinalizeModalOpen(false);
   };
@@ -37,12 +45,17 @@ const Page = () => {
   };
 
   return (
-    <div className="mx-auto flex w-235 flex-col items-center pt-16">
+    <div className="mx-auto flex w-235 flex-col items-center pt-16 pb-19.5">
       <h1 className="text-title2-sb w-full py-4 pb-8 text-left text-black">YBM 영어 교재</h1>
       <div className="flex flex-col gap-10">
-        <RevisionRequestSection
+        <RevisionCategorySection
           selectedCategories={selectedCategories}
           onToggleCategory={handleToggleCategory}
+        />
+        <RevisionCommentSection
+          comments={comments}
+          selectedCategories={selectedCategories}
+          onChangeComment={handleChangeComment}
         />
         <div className="flex w-full flex-row justify-end gap-4">
           <Button
@@ -52,10 +65,7 @@ const Page = () => {
           >
             최종 시안으로 선택하기
           </Button>
-          <Button
-            className="w-fit"
-            variant={selectedCategories.length > 0 ? "medium_primary" : "medium_disabled"}
-          >
+          <Button className="w-fit" variant={isSubmitActive ? "medium_primary" : "medium_disabled"}>
             수정사항 전달하기
           </Button>
         </div>

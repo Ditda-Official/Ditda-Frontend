@@ -10,7 +10,7 @@ interface ThumbnailProps {
 const Thumbnail = ({ src = "/images/thumbnail_mock.jpg", alt = "썸네일" }: ThumbnailProps) => {
   return (
     <div className="rounded-12 bg-gray-20 group relative h-63.75 w-62.5 overflow-hidden">
-      <Image src={src} alt={alt} fill className="object-cover" />
+      <Image src={src} alt={alt} fill sizes="250px" className="object-cover" />
       <div className="bg-overlay-hover backdrop-blur-hover absolute inset-0 opacity-0 transition-opacity group-hover:opacity-100" />
       <button
         type="button"

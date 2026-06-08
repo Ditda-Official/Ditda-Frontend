@@ -4,15 +4,15 @@ import { CheckboxFillIcon, CheckboxWhiteIcon } from "@/shared/assets/icons";
 import Thumbnail from "@/shared/ui/Thumbnail";
 import { REVISION_CATEGORIES } from "@/widgets/instructor/revision/config/revision";
 
-interface RevisionRequestSectionProps {
+interface RevisionCategorySectionProps {
   selectedCategories: string[];
   onToggleCategory: (category: string) => void;
 }
 
-const RevisionRequestSection = ({
+const RevisionCategorySection = ({
   selectedCategories,
   onToggleCategory,
-}: RevisionRequestSectionProps) => {
+}: RevisionCategorySectionProps) => {
   return (
     <div className="rounded-12 w-235 bg-white p-6">
       <div className="flex flex-col gap-10.5">
@@ -57,4 +57,4 @@ const RevisionRequestSection = ({
   );
 };
 
-export default RevisionRequestSection;
+export default RevisionCategorySection;
