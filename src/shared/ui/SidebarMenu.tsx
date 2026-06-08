@@ -9,13 +9,16 @@ import { SIDEBAR_ICON_MAP } from "@/shared/config/sidebarMenu";
 interface SidebarMenuProps {
   label: string;
   href?: string;
+  matchPrefix?: string;
 }
 
-const SidebarMenu = ({ label, href }: SidebarMenuProps) => {
+const SidebarMenu = ({ label, href, matchPrefix }: SidebarMenuProps) => {
   const pathname = usePathname();
   const [isHovered, setIsHovered] = useState(false);
 
-  const isSelected = href ? pathname === href : false;
+  const isSelected = href
+    ? pathname === href || (!!matchPrefix && pathname.startsWith(matchPrefix))
+    : false;
   const isActive = isSelected || isHovered;
   const icons = SIDEBAR_ICON_MAP[label];
 

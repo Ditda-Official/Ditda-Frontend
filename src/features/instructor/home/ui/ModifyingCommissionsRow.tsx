@@ -1,3 +1,5 @@
+import { useRouter } from "next/navigation";
+
 import { getDDay } from "@/features/instructor/home/lib/getDDay";
 import { ModifyingItem } from "@/features/instructor/home/model/home";
 import { cn } from "@/shared/lib/utils/cn";
@@ -5,7 +7,8 @@ import Button from "@/shared/ui/Button";
 import Tag from "@/shared/ui/Tag";
 
 const ModifyingCommissionsRow = ({ item }: { item: ModifyingItem }) => {
-  const { title, finalDeadline, isSubmitted, hasUpdate } = item;
+  const router = useRouter();
+  const { commissionId, title, finalDeadline, isSubmitted, hasUpdate } = item;
 
   return (
     <div className="border-b-gray-10 hover:bg-gray-5 flex h-15 cursor-pointer items-center border-b py-3 transition-colors duration-150">
@@ -20,7 +23,11 @@ const ModifyingCommissionsRow = ({ item }: { item: ModifyingItem }) => {
         {isSubmitted ? (
           <button className="text-body1-m text-purple-70 w-20">전송완료</button>
         ) : (
-          <Button variant="small_secondary" className="w-fit">
+          <Button
+            variant="small_secondary"
+            className="w-fit"
+            onClick={() => router.push(`/instructor/revision/${commissionId}`)}
+          >
             확인하기
           </Button>
         )}
