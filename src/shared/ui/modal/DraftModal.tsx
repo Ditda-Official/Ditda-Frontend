@@ -46,9 +46,16 @@ const DraftModal = ({ isOpen, onClose, title, fileUrls }: DraftModalProps) => {
           {fileUrls.map((fileUrl, index) => (
             <div
               key={`${fileUrl}-${index}`}
-              className="rounded-12 relative h-128.25 w-86.25 shrink-0 overflow-hidden"
+              className="rounded-12 relative h-128.25 w-86.25 shrink-0 overflow-hidden select-none"
+              onContextMenu={e => e.preventDefault()}
             >
-              <Image src={fileUrl} alt="시안 이미지" fill className="object-cover" />
+              <Image
+                src={fileUrl}
+                alt="시안 이미지"
+                fill
+                draggable={false}
+                className="pointer-events-none object-cover"
+              />
             </div>
           ))}
         </div>
