@@ -57,6 +57,9 @@
   --color-blue-bright: #e0eeff;
   --color-blue-main: #0248c2;
 
+  /* Overlay */
+  --color-overlay-hover: rgba(86, 75, 96, 0.58);
+
   /* =========================
     Typography
     ========================= */
@@ -176,6 +179,12 @@
   --shadow-dropdown: 0 0 20px 4px rgba(0, 0, 0, 0.05);
 
   /* =========================
+    Blur Tokens
+    ========================= */
+  --blur-hover: 1.7px;
+  --blur-button: 2px;
+
+  /* =========================
     Radius Tokens
     ========================= */
   --radius-4: 4px;
@@ -185,6 +194,7 @@
   --radius-12: 12px;
   --radius-14: 14px;
   --radius-20: 20px;
+  --radius-24: 24px;
   --radius-32: 32px;
   --radius-48: 48px;
   --radius-100: 100px;
