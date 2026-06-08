@@ -30,8 +30,7 @@ export const draftRevisionDetailData: DraftRevisionDetail[] = [
     currentDraft: {
       draftId: 90,
       thumbnailUrl: "",
-      designerComment:
-        "요청하신 색상 톤으로 전체적인 분위기를 따뜻하게 조정해봤습니다. 확인 부탁드립니다.",
+      designerComment: "",
     },
     remainingRevisionCount: 2,
     maxRevisionCount: 3,
