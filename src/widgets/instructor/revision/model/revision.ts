@@ -19,7 +19,7 @@ export const draftRevisionDetailData: DraftRevisionDetail[] = [
       draftId: 88,
       thumbnailUrl: "",
       designerComment:
-        "지난번 수정사항 중 이러이러한 거 이렇게 바꿨는데 진심 너무 구려서 안하고 이렇게 하는것을 제안합니다...",
+        "지난번 요청해 주신 수정사항을 반영해 보았는데, 막상 적용해 보니 전체적인 톤과 잘 어울리지 않는 것 같아 원래 방향을 살리는 쪽으로 다시 제안드립니다. 검토 후 의견 부탁드립니다.",
     },
     remainingRevisionCount: 1,
     maxRevisionCount: 3,
@@ -54,7 +54,7 @@ export const draftRevisionDetailData: DraftRevisionDetail[] = [
     currentDraft: {
       draftId: 92,
       thumbnailUrl: "",
-      designerComment: "타이포 크기와 자간을 조정하여 가독성을 높였습니다. 의견 부탁드려요.",
+      designerComment: "",
     },
     remainingRevisionCount: 0,
     maxRevisionCount: 3,
