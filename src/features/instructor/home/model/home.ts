@@ -130,7 +130,7 @@ export const modifyingStatusData: ModifyingItem[] = [
   {
     commissionId: 45,
     title: "한국사 능력검정 — 중급 핵심 요약",
-    isSubmitted: true,
+    isSubmitted: false,
     hasUpdate: true,
     finalDeadline: "2026-07-10",
   },

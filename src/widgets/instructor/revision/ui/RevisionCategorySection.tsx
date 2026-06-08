@@ -1,16 +1,23 @@
 "use client";
 
 import { CheckboxFillIcon, CheckboxWhiteIcon } from "@/shared/assets/icons";
+import { cn } from "@/shared/lib/utils/cn";
 import CommentCard from "@/shared/ui/CommentCard";
 import Thumbnail from "@/shared/ui/Thumbnail";
 import { REVISION_CATEGORIES } from "@/widgets/instructor/revision/config/revision";
 
 interface RevisionCategorySectionProps {
+  designerComment: string;
+  remainingRevisionCount: number;
+  maxRevisionCount: number;
   selectedCategories: string[];
   onToggleCategory: (category: string) => void;
 }
 
 const RevisionCategorySection = ({
+  designerComment,
+  remainingRevisionCount,
+  maxRevisionCount,
   selectedCategories,
   onToggleCategory,
 }: RevisionCategorySectionProps) => {
@@ -18,11 +25,18 @@ const RevisionCategorySection = ({
     <div className="rounded-12 w-235 bg-white p-6">
       <div className="flex flex-col gap-10.5">
         <div className="flex flex-col gap-2">
-          <h1 className="text-heading1-sb text-gray-90">
-            수정 요청하기 <span className="text-gray-70">(</span>
-            <span className="text-green-main">3</span>
-            <span className="text-gray-70">/3)</span>
-          </h1>
+          <div className="flex flex-row items-center justify-between">
+            <h1 className="text-heading1-sb text-gray-90">
+              수정 요청하기 <span className="text-gray-70">(</span>
+              <span className="text-green-main">{remainingRevisionCount}</span>
+              <span className="text-gray-70">/{maxRevisionCount})</span>
+            </h1>
+            {remainingRevisionCount === 0 && (
+              <button className="text-gray-80 text-body2-m cursor-pointer underline underline-offset-2">
+                수정 횟수를 추가하시겠어요?
+              </button>
+            )}
+          </div>
           <p className="text-gray-70 text-body2-m">시안 수정은 총 3회 수정이 가능합니다.</p>
         </div>
         <div className="flex flex-row gap-2">
@@ -42,10 +56,16 @@ const RevisionCategorySection = ({
                 return (
                   <div
                     key={category}
-                    className="flex flex-row gap-2"
-                    onClick={() => onToggleCategory(category)}
+                    className={cn(
+                      "flex flex-row gap-2",
+                      remainingRevisionCount === 0 ? "cursor-not-allowed" : "cursor-pointer",
+                    )}
+                    onClick={() => {
+                      if (remainingRevisionCount === 0) return;
+                      onToggleCategory(category);
+                    }}
                   >
-                    <CheckboxIcon className="size-6 cursor-pointer" />
+                    <CheckboxIcon className="size-6" />
                     <p className="text-gray-90 text-body1-m">{category}</p>
                   </div>
                 );

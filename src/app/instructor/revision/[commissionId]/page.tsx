@@ -1,15 +1,20 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 
 import Button from "@/shared/ui/Button";
 import Modal from "@/shared/ui/Modal";
 import { RevisionCategorySection, RevisionCommentSection } from "@/widgets/instructor/revision";
 import { MAX_SELECTABLE_COUNT } from "@/widgets/instructor/revision/config/revision";
+import { draftRevisionDetailData } from "@/widgets/instructor/revision/model/revision";
 
 const Page = () => {
   const router = useRouter();
+  const { commissionId } = useParams<{ commissionId: string }>();
+  const draftRevisionDetail = draftRevisionDetailData.find(
+    detail => detail.commissionId === Number(commissionId),
+  );
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [comments, setComments] = useState<Record<string, string>>({});
   const [isFinalizeModalOpen, setIsFinalizeModalOpen] = useState(false);
@@ -44,11 +49,20 @@ const Page = () => {
     router.push("/instructor");
   };
 
+  if (draftRevisionDetail == null) {
+    return null;
+  }
+
   return (
     <div className="mx-auto flex w-235 flex-col items-center pt-16 pb-19.5">
-      <h1 className="text-title2-sb w-full py-4 pb-8 text-left text-black">YBM 영어 교재</h1>
+      <h1 className="text-title2-sb w-full py-4 pb-8 text-left text-black">
+        {draftRevisionDetail.title}
+      </h1>
       <div className="flex flex-col gap-10">
         <RevisionCategorySection
+          designerComment={draftRevisionDetail.currentDraft.designerComment}
+          remainingRevisionCount={draftRevisionDetail.remainingRevisionCount}
+          maxRevisionCount={draftRevisionDetail.maxRevisionCount}
           selectedCategories={selectedCategories}
           onToggleCategory={handleToggleCategory}
         />
