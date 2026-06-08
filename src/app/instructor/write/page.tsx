@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { useWriteFormStore } from "@/features/instructor/write";
-import Modal from "@/shared/ui/Modal";
+import Modal from "@/shared/ui/modal/Modal";
 import { Step1Content, Step2Content, Step3Content } from "@/widgets/instructor/write";
 
 const WritePageContent = () => {

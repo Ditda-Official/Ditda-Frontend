@@ -4,7 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 
 import Button from "@/shared/ui/Button";
-import Modal from "@/shared/ui/Modal";
+import Modal from "@/shared/ui/modal/Modal";
 import { RevisionCategorySection, RevisionCommentSection } from "@/widgets/instructor/revision";
 import { MAX_SELECTABLE_COUNT } from "@/widgets/instructor/revision/config/revision";
 import { draftRevisionDetailData } from "@/widgets/instructor/revision/model/revision";
