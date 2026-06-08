@@ -9,10 +9,11 @@ import DragScrollbar from "@/shared/ui/DragScrollbar";
 interface DraftModalProps {
   isOpen: boolean;
   onClose: () => void;
+  title: string;
   fileUrls: string[];
 }
 
-const DraftModal = ({ isOpen, onClose, fileUrls }: DraftModalProps) => {
+const DraftModal = ({ isOpen, onClose, title, fileUrls }: DraftModalProps) => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -35,7 +36,7 @@ const DraftModal = ({ isOpen, onClose, fileUrls }: DraftModalProps) => {
         onClick={e => e.stopPropagation()}
       >
         <div className="flex justify-between px-14 pb-10">
-          <h1 className="text-heading1-sb flex items-center text-black">시안 1</h1>
+          <h1 className="text-heading1-sb flex items-center text-black">{title}</h1>
           <CloseCircleIcon className="text-gray-70 size-12 cursor-pointer" onClick={onClose} />
         </div>
         <div

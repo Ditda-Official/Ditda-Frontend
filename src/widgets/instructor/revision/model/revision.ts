@@ -68,13 +68,45 @@ export type DraftFiles = {
   fileUrls: string[];
 };
 
-export const draftFilesData: DraftFiles = {
-  commissionId: 123,
-  draftId: 88,
-  fileUrls: [
-    "/images/thumbnail_mock.jpg",
-    "/images/thumbnail_mock.jpg",
-    "/images/thumbnail_mock.jpg",
-    "/images/thumbnail_mock.jpg",
-  ],
-};
+export const draftFilesData: DraftFiles[] = [
+  {
+    commissionId: 42,
+    draftId: 88,
+    fileUrls: [
+      "/images/thumbnail_mock.jpg",
+      "/images/thumbnail_mock.jpg",
+      "/images/thumbnail_mock.jpg",
+      "/images/thumbnail_mock.jpg",
+    ],
+  },
+  {
+    commissionId: 44,
+    draftId: 90,
+    fileUrls: [
+      "/images/thumbnail_mock.jpg",
+      "/images/thumbnail_mock.jpg",
+      "/images/thumbnail_mock.jpg",
+      "/images/thumbnail_mock.jpg",
+    ],
+  },
+  {
+    commissionId: 45,
+    draftId: 95,
+    fileUrls: [
+      "/images/thumbnail_mock.jpg",
+      "/images/thumbnail_mock.jpg",
+      "/images/thumbnail_mock.jpg",
+      "/images/thumbnail_mock.jpg",
+    ],
+  },
+  {
+    commissionId: 46,
+    draftId: 92,
+    fileUrls: [
+      "/images/thumbnail_mock.jpg",
+      "/images/thumbnail_mock.jpg",
+      "/images/thumbnail_mock.jpg",
+      "/images/thumbnail_mock.jpg",
+    ],
+  },
+];

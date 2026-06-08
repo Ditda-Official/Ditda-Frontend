@@ -7,7 +7,10 @@ import Button from "@/shared/ui/Button";
 import Modal from "@/shared/ui/modal/Modal";
 import { RevisionCategorySection, RevisionCommentSection } from "@/widgets/instructor/revision";
 import { MAX_SELECTABLE_COUNT } from "@/widgets/instructor/revision/config/revision";
-import { draftRevisionDetailData } from "@/widgets/instructor/revision/model/revision";
+import {
+  draftFilesData,
+  draftRevisionDetailData,
+} from "@/widgets/instructor/revision/model/revision";
 
 const Page = () => {
   const router = useRouter();
@@ -15,6 +18,7 @@ const Page = () => {
   const draftRevisionDetail = draftRevisionDetailData.find(
     detail => detail.commissionId === Number(commissionId),
   );
+  const draftFiles = draftFilesData.find(files => files.commissionId === Number(commissionId));
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [comments, setComments] = useState<Record<string, string>>({});
   const [isFinalizeModalOpen, setIsFinalizeModalOpen] = useState(false);
@@ -60,11 +64,13 @@ const Page = () => {
       </h1>
       <div className="flex flex-col gap-10">
         <RevisionCategorySection
+          draftTitle={draftRevisionDetail.title}
           designerComment={draftRevisionDetail.currentDraft.designerComment}
           remainingRevisionCount={draftRevisionDetail.remainingRevisionCount}
           maxRevisionCount={draftRevisionDetail.maxRevisionCount}
           selectedCategories={selectedCategories}
           onToggleCategory={handleToggleCategory}
+          fileUrls={draftFiles?.fileUrls ?? []}
         />
         <RevisionCommentSection
           comments={comments}
