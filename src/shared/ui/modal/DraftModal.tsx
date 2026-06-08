@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useEffect, useId, useRef } from "react";
 
 import { CloseCircleIcon } from "@/shared/assets/icons";
 import DragScrollbar from "@/shared/ui/DragScrollbar";
@@ -15,6 +15,7 @@ interface DraftModalProps {
 
 const DraftModal = ({ isOpen, onClose, title, fileUrls }: DraftModalProps) => {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const titleId = useId();
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -32,12 +33,22 @@ const DraftModal = ({ isOpen, onClose, title, fileUrls }: DraftModalProps) => {
       onClick={onClose}
     >
       <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
         className="rounded-24 flex h-191 w-303.5 flex-col bg-white py-10"
         onClick={e => e.stopPropagation()}
       >
         <div className="flex justify-between px-14 pb-10">
-          <h1 className="text-heading1-sb flex items-center text-black">{title}</h1>
-          <CloseCircleIcon className="text-gray-70 size-12 cursor-pointer" onClick={onClose} />
+          <h1 id={titleId} className="text-heading1-sb flex items-center text-black">
+            {title}
+          </h1>
+          <CloseCircleIcon
+            className="text-gray-70 size-12 cursor-pointer"
+            role="button"
+            aria-label="모달 닫기"
+            onClick={onClose}
+          />
         </div>
         <div
           ref={scrollRef}
