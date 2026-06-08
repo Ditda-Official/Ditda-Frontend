@@ -1,6 +1,7 @@
 "use client";
 
 import { CheckboxFillIcon, CheckboxWhiteIcon } from "@/shared/assets/icons";
+import CommentCard from "@/shared/ui/CommentCard";
 import Thumbnail from "@/shared/ui/Thumbnail";
 import { REVISION_CATEGORIES } from "@/widgets/instructor/revision/config/revision";
 
