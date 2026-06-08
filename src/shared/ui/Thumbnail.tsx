@@ -1,34 +1,27 @@
 import Image from "next/image";
-import type { CSSProperties } from "react";
 
 import { SearchIcon } from "@/shared/assets/icons";
+import { cn } from "@/shared/lib/utils/cn";
 
 interface ThumbnailProps {
   src?: string;
   alt?: string;
-  width?: number;
-  height?: number;
+  className?: string;
 }
 
 const Thumbnail = ({
   src = "/images/thumbnail_mock.jpg",
   alt = "썸네일",
-  width = 250,
-  height = 255,
+  className,
 }: ThumbnailProps) => {
   return (
     <div
-      className="rounded-12 bg-gray-20 group relative h-(--thumbnail-h) w-(--thumbnail-w) overflow-hidden"
-      style={{ "--thumbnail-w": `${width}px`, "--thumbnail-h": `${height}px` } as CSSProperties}
+      className={cn(
+        "rounded-12 bg-gray-20 group relative h-full w-full overflow-hidden",
+        className,
+      )}
     >
-      <Image
-        src={src}
-        alt={alt}
-        fill
-        sizes={`${width}px`}
-        loading="eager"
-        className="object-cover"
-      />
+      <Image src={src} alt={alt} fill sizes="250px" loading="eager" className="object-cover" />
       <div className="bg-overlay-hover backdrop-blur-hover absolute inset-0 opacity-0 transition-opacity group-hover:opacity-100" />
       <button
         type="button"

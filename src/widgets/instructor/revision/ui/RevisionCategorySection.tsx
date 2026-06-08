@@ -26,7 +26,7 @@ const RevisionCategorySection = ({
           <p className="text-gray-70 text-body2-m">시안 수정은 총 3회 수정이 가능합니다.</p>
         </div>
         <div className="flex flex-row gap-2">
-          <Thumbnail width={250} height={255} />
+          <Thumbnail className="h-63.75 w-62.5" />
           <div className="flex flex-1 flex-col gap-6 p-6">
             <div>
               <p className="text-gray-90 text-heading3-m pb-2">
