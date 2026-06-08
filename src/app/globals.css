@@ -57,6 +57,10 @@
   --color-blue-bright: #e0eeff;
   --color-blue-main: #0248c2;
 
+  /* Overlay */
+  --color-overlay-hover: rgba(86, 75, 96, 0.58);
+  --color-overlay-button: rgba(255, 255, 255, 0.18);
+
   /* =========================
     Typography
     ========================= */
@@ -174,6 +178,12 @@
     Shadow Tokens
     ========================= */
   --shadow-dropdown: 0 0 20px 4px rgba(0, 0, 0, 0.05);
+
+  /* =========================
+    Blur Tokens
+    ========================= */
+  --blur-hover: 1.7px;
+  --blur-button: 2px;
 
   /* =========================
     Radius Tokens
