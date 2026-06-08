@@ -53,6 +53,7 @@ const DraftModal = ({ isOpen, onClose, title, fileUrls }: DraftModalProps) => {
                 src={fileUrl}
                 alt="시안 이미지"
                 fill
+                sizes="345px"
                 draggable={false}
                 className="pointer-events-none object-cover"
               />
