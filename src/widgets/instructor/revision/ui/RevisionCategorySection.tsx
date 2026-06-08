@@ -1,8 +1,11 @@
 "use client";
 
+import { useState } from "react";
+
 import { CheckboxFillIcon, CheckboxWhiteIcon } from "@/shared/assets/icons";
 import { cn } from "@/shared/lib/utils/cn";
 import CommentCard from "@/shared/ui/CommentCard";
+import DraftModal from "@/shared/ui/modal/DraftModal";
 import Thumbnail from "@/shared/ui/Thumbnail";
 import { REVISION_CATEGORIES } from "@/widgets/instructor/revision/config/revision";
 
@@ -21,6 +24,8 @@ const RevisionCategorySection = ({
   selectedCategories,
   onToggleCategory,
 }: RevisionCategorySectionProps) => {
+  const [isDraftModalOpen, setIsDraftModalOpen] = useState(false);
+
   const titleSection = (
     <div className="flex flex-col gap-2">
       <div className="flex flex-row items-center justify-between">
@@ -66,49 +71,58 @@ const RevisionCategorySection = ({
 
   if (designerComment) {
     return (
-      <div className="rounded-12 w-235 bg-white p-6">
-        <div className="flex flex-col">
-          <div className="flex flex-row gap-10 py-3">
-            <Thumbnail className="h-68.25 w-62.5" />
-            <div className="flex flex-1 flex-col justify-between">
-              {titleSection}
-              <CommentCard title="디자이너 코멘트" comment={designerComment} />
+      <>
+        <div className="rounded-12 w-235 bg-white p-6">
+          <div className="flex flex-col">
+            <div className="flex flex-row gap-10 py-3">
+              <Thumbnail
+                className="h-68.25 w-62.5"
+                onDetailClick={() => setIsDraftModalOpen(true)}
+              />
+              <div className="flex flex-1 flex-col justify-between">
+                {titleSection}
+                <CommentCard title="디자이너 코멘트" comment={designerComment} />
+              </div>
             </div>
-          </div>
-          <div className="flex flex-col gap-6 px-2 py-6">
-            <div>
-              <p className="text-gray-90 text-heading2-sb pb-2">
-                수정하고 싶은 카테고리를 골라주세요
-              </p>
-              <p className="text-gray-70 text-body2-m">1회 수정에 최대 2개까지 가능합니다.</p>
+            <div className="flex flex-col gap-6 px-2 py-6">
+              <div>
+                <p className="text-gray-90 text-heading2-sb pb-2">
+                  수정하고 싶은 카테고리를 골라주세요
+                </p>
+                <p className="text-gray-70 text-body2-m">1회 수정에 최대 2개까지 가능합니다.</p>
+              </div>
+              <hr className="text-gray-20" />
+              {categoryCheckboxes}
             </div>
-            <hr className="text-gray-20" />
-            {categoryCheckboxes}
           </div>
         </div>
-      </div>
+        <DraftModal isOpen={isDraftModalOpen} onClose={() => setIsDraftModalOpen(false)} />
+      </>
     );
   }
 
   return (
-    <div className="rounded-12 w-235 bg-white p-6">
-      <div className="flex flex-col gap-10.5">
-        {titleSection}
-        <div className="flex flex-row gap-2">
-          <Thumbnail className="h-63.75 w-62.5" />
-          <div className="flex flex-1 flex-col gap-6 p-6">
-            <div>
-              <p className="text-gray-90 text-heading3-m pb-2">
-                수정하고 싶은 카테고리를 골라주세요
-              </p>
-              <p className="text-gray-70 text-caption1-m">1회 수정에 최대 2개까지 가능합니다.</p>
+    <>
+      <div className="rounded-12 w-235 bg-white p-6">
+        <div className="flex flex-col gap-10.5">
+          {titleSection}
+          <div className="flex flex-row gap-2">
+            <Thumbnail className="h-63.75 w-62.5" onDetailClick={() => setIsDraftModalOpen(true)} />
+            <div className="flex flex-1 flex-col gap-6 p-6">
+              <div>
+                <p className="text-gray-90 text-heading3-m pb-2">
+                  수정하고 싶은 카테고리를 골라주세요
+                </p>
+                <p className="text-gray-70 text-caption1-m">1회 수정에 최대 2개까지 가능합니다.</p>
+              </div>
+              <hr className="text-gray-20" />
+              {categoryCheckboxes}
             </div>
-            <hr className="text-gray-20" />
-            {categoryCheckboxes}
           </div>
         </div>
       </div>
-    </div>
+      <DraftModal isOpen={isDraftModalOpen} onClose={() => setIsDraftModalOpen(false)} />
+    </>
   );
 };
 
