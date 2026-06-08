@@ -8,6 +8,7 @@ import CommentCard from "@/shared/ui/CommentCard";
 import DraftModal from "@/shared/ui/modal/DraftModal";
 import Thumbnail from "@/shared/ui/Thumbnail";
 import { REVISION_CATEGORIES } from "@/widgets/instructor/revision/config/revision";
+import { draftFilesData } from "@/widgets/instructor/revision/model/revision";
 
 interface RevisionCategorySectionProps {
   designerComment?: string;
@@ -96,7 +97,11 @@ const RevisionCategorySection = ({
             </div>
           </div>
         </div>
-        <DraftModal isOpen={isDraftModalOpen} onClose={() => setIsDraftModalOpen(false)} />
+        <DraftModal
+          isOpen={isDraftModalOpen}
+          onClose={() => setIsDraftModalOpen(false)}
+          fileUrls={draftFilesData.fileUrls}
+        />
       </>
     );
   }
@@ -121,7 +126,11 @@ const RevisionCategorySection = ({
           </div>
         </div>
       </div>
-      <DraftModal isOpen={isDraftModalOpen} onClose={() => setIsDraftModalOpen(false)} />
+      <DraftModal
+        isOpen={isDraftModalOpen}
+        onClose={() => setIsDraftModalOpen(false)}
+        fileUrls={draftFilesData.fileUrls}
+      />
     </>
   );
 };

@@ -60,3 +60,21 @@ export const draftRevisionDetailData: DraftRevisionDetail[] = [
     maxRevisionCount: 3,
   },
 ];
+
+// [강사] 수정된 시안 상세 조회
+export type DraftFiles = {
+  commissionId: number;
+  draftId: number;
+  fileUrls: string[];
+};
+
+export const draftFilesData: DraftFiles = {
+  commissionId: 123,
+  draftId: 88,
+  fileUrls: [
+    "/images/thumbnail_mock.jpg",
+    "/images/thumbnail_mock.jpg",
+    "/images/thumbnail_mock.jpg",
+    "/images/thumbnail_mock.jpg",
+  ],
+};

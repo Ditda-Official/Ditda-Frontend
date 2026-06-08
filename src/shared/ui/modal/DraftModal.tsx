@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef } from "react";
 
 import { CloseCircleIcon } from "@/shared/assets/icons";
@@ -8,9 +9,10 @@ import DragScrollbar from "@/shared/ui/DragScrollbar";
 interface DraftModalProps {
   isOpen: boolean;
   onClose: () => void;
+  fileUrls: string[];
 }
 
-const DraftModal = ({ isOpen, onClose }: DraftModalProps) => {
+const DraftModal = ({ isOpen, onClose, fileUrls }: DraftModalProps) => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -40,11 +42,14 @@ const DraftModal = ({ isOpen, onClose }: DraftModalProps) => {
           ref={scrollRef}
           className="scrollbar-hide flex flex-row gap-6 overflow-x-auto pr-14 pb-0.75 pl-14"
         >
-          <div className="bg-gray-30 rounded-12 h-128.25 w-86.25 shrink-0" />
-          <div className="bg-gray-30 rounded-12 h-128.25 w-86.25 shrink-0" />
-          <div className="bg-gray-30 rounded-12 h-128.25 w-86.25 shrink-0" />
-          <div className="bg-gray-30 rounded-12 h-128.25 w-86.25 shrink-0" />
-          <div className="bg-gray-30 rounded-12 h-128.25 w-86.25 shrink-0" />
+          {fileUrls.map((fileUrl, index) => (
+            <div
+              key={`${fileUrl}-${index}`}
+              className="rounded-12 relative h-128.25 w-86.25 shrink-0 overflow-hidden"
+            >
+              <Image src={fileUrl} alt="시안 이미지" fill className="object-cover" />
+            </div>
+          ))}
         </div>
         <DragScrollbar scrollRef={scrollRef} className="mt-8 px-14" />
       </div>
