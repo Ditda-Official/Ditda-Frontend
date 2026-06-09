@@ -1,6 +1,6 @@
 "use client";
 
-import { notFound } from "next/navigation";
+import { notFound, useRouter } from "next/navigation";
 import { use, useState } from "react";
 
 import { commissionDraftsData } from "@/features/instructor/choose";
@@ -12,6 +12,7 @@ interface PageProps {
 }
 
 const Page = ({ params }: PageProps) => {
+  const router = useRouter();
   const { commissionId } = use(params);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
@@ -34,6 +35,7 @@ const Page = ({ params }: PageProps) => {
       <Button
         variant={selectedIndex !== null ? "medium_primary" : "medium_disabled"}
         className="w-fit self-end"
+        onClick={selectedIndex !== null ? () => router.push("/instructor") : undefined}
       >
         제출하기
       </Button>

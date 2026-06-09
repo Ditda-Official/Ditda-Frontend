@@ -85,7 +85,11 @@ const Page = () => {
           >
             최종 시안으로 선택하기
           </Button>
-          <Button className="w-fit" variant={isSubmitActive ? "medium_primary" : "medium_disabled"}>
+          <Button
+            className="w-fit"
+            variant={isSubmitActive ? "medium_primary" : "medium_disabled"}
+            onClick={isSubmitActive ? () => router.push("/instructor") : undefined}
+          >
             수정사항 전달하기
           </Button>
         </div>
