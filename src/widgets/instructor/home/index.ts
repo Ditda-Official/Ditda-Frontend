@@ -1,3 +1,3 @@
-export { default as DraftSubmissionStatusSection } from "@/widgets/instructor/home/ui/DraftSubmissionStatusSection";
-export { default as MatchingCommissionsSection } from "@/widgets/instructor/home/ui/MatchingCommissionsSection";
-export { default as ModifyingCommissionsSection } from "@/widgets/instructor/home/ui/ModifyingCommissionsSection";
+export { default as DraftSubmissionStatusSection } from "./ui/DraftSubmissionStatusSection";
+export { default as MatchingCommissionsSection } from "./ui/MatchingCommissionsSection";
+export { default as ModifyingCommissionsSection } from "./ui/ModifyingCommissionsSection";
