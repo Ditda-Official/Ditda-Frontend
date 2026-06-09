@@ -28,7 +28,7 @@ const Thumbnail = ({
       <button
         type="button"
         onClick={onDetailClick}
-        className="backdrop-blur-button text-body2-m rounded-12 absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 cursor-pointer flex-row items-center gap-2.5 bg-white/18 px-4 py-2 text-white opacity-0 transition-opacity group-hover:opacity-100"
+        className="backdrop-blur-button text-body2-m rounded-12 absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 cursor-pointer flex-row items-center gap-2.5 bg-white/18 px-4 py-2 whitespace-nowrap text-white opacity-0 transition-opacity group-hover:opacity-100"
       >
         자세히 보기
         <SearchIcon className="size-5" />

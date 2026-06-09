@@ -1,18 +1,35 @@
 "use client";
 
-import { useState } from "react";
+import { notFound } from "next/navigation";
+import { use, useState } from "react";
 
+import { commissionDraftsData } from "@/features/instructor/choose";
 import Button from "@/shared/ui/Button";
 import { DraftCheckSection } from "@/widgets/instructor/choose";
 
-const Page = () => {
+interface PageProps {
+  params: Promise<{ commissionId: string }>;
+}
+
+const Page = ({ params }: PageProps) => {
+  const { commissionId } = use(params);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+
+  const commission = commissionDraftsData.find(c => c.commissionId === Number(commissionId));
+
+  if (!commission) return notFound();
 
   return (
     <div className="mx-auto flex w-235 flex-col items-center gap-10 pt-16">
       <div>
-        <h1 className="text-title2-sb mb-6.5 w-full py-4 text-left text-black">YBM 영어 교재</h1>
-        <DraftCheckSection selectedIndex={selectedIndex} onSelect={setSelectedIndex} />
+        <h1 className="text-title2-sb mb-6.5 w-full py-4 text-left text-black">
+          {commission.title}
+        </h1>
+        <DraftCheckSection
+          drafts={commission.drafts}
+          selectedIndex={selectedIndex}
+          onSelect={setSelectedIndex}
+        />
       </div>
       <Button
         variant={selectedIndex !== null ? "medium_primary" : "medium_disabled"}
