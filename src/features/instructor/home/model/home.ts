@@ -19,7 +19,7 @@ export const draftSubmissionStatusData: DraftSubmissionItem[] = [
     commissionId: 11,
     title: "해커스톡 왕초보 영어 - 기초 문법편",
     category: "FLYER_TEXTBOOK_COVER_INNER",
-    draftSubmission: { submitted: 1, total: 4 },
+    draftSubmission: { submitted: 4, total: 4 },
     firstDraftDeadline: "2026-06-10",
   },
   {
@@ -47,7 +47,7 @@ export const draftSubmissionStatusData: DraftSubmissionItem[] = [
     commissionId: 15,
     title: "고등 국어 문학 - 현대시 집중",
     category: "FLYER_TEXTBOOK_COVER_INNER",
-    draftSubmission: { submitted: 4, total: 5 },
+    draftSubmission: { submitted: 5, total: 5 },
     firstDraftDeadline: "2026-06-28",
   },
 ];

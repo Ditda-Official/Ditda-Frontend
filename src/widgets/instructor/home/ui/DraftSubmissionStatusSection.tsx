@@ -24,7 +24,7 @@ const DraftSubmissionStatusSection = () => {
             <span className="text-main-main">시안 제출</span> 현황
           </span>
           <div>
-            <CommissionsHeader rightLabel="시안 제출자 수" rightClassName="w-53">
+            <CommissionsHeader rightLabel="시안 제출자 수" rightClassName="w-85.75">
               <p className="w-11">디데이</p>
               <p className="w-20">카테고리</p>
               <p className="flex-1">외주명</p>

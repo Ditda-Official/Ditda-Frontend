@@ -15,7 +15,8 @@ type ButtonVariant =
   | "large_disabled"
   | "certification_primary"
   | "certification_disabled"
-  | "xsmall_primary";
+  | "xsmall_primary"
+  | "choose";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant: ButtonVariant;
@@ -47,6 +48,8 @@ const variantStyles: Record<ButtonVariant, string> = {
     "rounded-8 px-6 py-4 text-gray-60 text-heading3-m bg-gray-30 cursor-not-allowed",
   xsmall_primary:
     "rounded-8 text-gray-70 px-3 py-2 bg-gray-40 text-caption2-m hover:bg-purple-40 hover:text-white gap-1 [&>svg]:size-4.5",
+  choose:
+    "rounded-8 px-3 py-1 bg-gray-20 text-gray-60 text-body1-sb hover:bg-gray-40 aria-pressed:bg-purple-20 aria-pressed:border-purple-30 aria-pressed:text-main-main border border-transparent",
 };
 
 const Button = ({ variant, children, className, ...props }: ButtonProps) => {
