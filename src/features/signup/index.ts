@@ -6,3 +6,4 @@ export { default as AccountStep } from "./ui/AccountStep";
 export { default as BankDropdown } from "./ui/BankDropdown";
 export { default as TermsProfileStep } from "./ui/TermsProfileStep";
 export { default as UserTypeBtn } from "./ui/UserTypeBtn";
+export { default as UserTypeStep } from "./ui/UserTypeStep";
