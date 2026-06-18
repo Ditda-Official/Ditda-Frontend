@@ -11,17 +11,11 @@ import {
   SIGNUP_INITIAL_STEP,
   SIGNUP_STEPS_BY_ROLE,
   type SignupFunnelStep,
+  SignupProgressIcon,
   type SignupRole,
   TermsProfileStep,
   UserTypeStep,
 } from "@/features/signup";
-import {
-  StepOneDesignerIcon,
-  StepOneInstructorIcon,
-  StepThreeDesignerIcon,
-  StepTwoDesignerIcon,
-  StepTwoInstructorIcon,
-} from "@/shared/assets/icons";
 
 const SignupFunnel = () => {
   const router = useRouter();
@@ -71,7 +65,7 @@ const SignupFunnel = () => {
       return (
         <TermsProfileStep
           terms={DESIGNER_TERMS}
-          progressIcon={<StepOneDesignerIcon className="h-8 w-[138px] shrink-0" />}
+          progressIcon={<SignupProgressIcon currentStep={1} totalSteps={3} />}
           onPrev={movePrev}
           onNext={moveNext}
         />
@@ -81,7 +75,7 @@ const SignupFunnel = () => {
     return (
       <TermsProfileStep
         terms={INSTRUCTOR_TERMS}
-        progressIcon={<StepOneInstructorIcon className="h-8 w-[85px] shrink-0" />}
+        progressIcon={<SignupProgressIcon currentStep={1} totalSteps={2} />}
         onPrev={movePrev}
         onNext={moveNext}
       />
@@ -92,7 +86,7 @@ const SignupFunnel = () => {
     if (selectedRole === "designer") {
       return (
         <AccountStep
-          progressIcon={<StepTwoDesignerIcon className="h-8 w-[138px] shrink-0" />}
+          progressIcon={<SignupProgressIcon currentStep={2} totalSteps={3} />}
           nextButtonText="다음"
           onPrev={movePrev}
           onNext={moveNext}
@@ -102,7 +96,7 @@ const SignupFunnel = () => {
 
     return (
       <AccountStep
-        progressIcon={<StepTwoInstructorIcon className="h-8 w-[85px] shrink-0" />}
+        progressIcon={<SignupProgressIcon currentStep={2} totalSteps={2} />}
         nextButtonText="가입하기"
         onPrev={movePrev}
         onNext={moveNext}
@@ -112,7 +106,7 @@ const SignupFunnel = () => {
 
   return (
     <DesignerAdditionalStep
-      progressIcon={<StepThreeDesignerIcon className="h-8 w-[138px] shrink-0" />}
+      progressIcon={<SignupProgressIcon currentStep={3} totalSteps={3} />}
       onPrev={movePrev}
       onSubmit={moveNext}
     />
