@@ -28,7 +28,7 @@ const variantStyles: Record<ButtonVariant, string> = {
   small_primary:
     "px-3.5 py-1.5 rounded-8 bg-main-main text-white hover:bg-main-dark text-body1-sb hover:text-gray-20",
   small_secondary:
-    "px-3.5 py-1.5 rounded-8 border border-purple-10 bg-purple-5 hover:border-transparent hover:bg-gray-30 text-purple-60 text-body1-m",
+    "px-3.5 py-1.5 rounded-8 border border-purple-10 bg-purple-5 hover:border-transparent hover:bg-purple-20 hover:text-purple-70 text-purple-60 text-body1-m",
   small_tertiary:
     "px-3.5 py-1.5 rounded-8 text-body1-sb text-gray-60 bg-gray-20 border border-transparent hover:bg-gray-40 active:bg-purple-20 active:text-main-main active:border-purple-30",
   medium_primary:
