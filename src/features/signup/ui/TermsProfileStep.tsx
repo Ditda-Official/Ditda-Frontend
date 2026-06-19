@@ -1,23 +1,26 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { type ChangeEvent, useState } from "react";
+import { type ChangeEvent, type ReactNode, useState } from "react";
 
-import {
-  DESIGNER_TERMS,
-  SIGNUP_MAX_NAME_LENGTH,
-  SIGNUP_MAX_PHONE_NUMBER_LENGTH,
-} from "@/features/signup";
-import {
-  CheckboxFillIcon,
-  CheckboxGrayIcon,
-  CloseIcon,
-  StepOneDesignerIcon,
-} from "@/shared/assets/icons";
+import { CheckboxFillIcon, CheckboxGrayIcon, CloseIcon } from "@/shared/assets/icons";
 import Button from "@/shared/ui/Button";
 import InputField from "@/shared/ui/input/InputField";
 
-type DesignerTermsId = (typeof DESIGNER_TERMS)[number]["id"];
+import { SIGNUP_MAX_NAME_LENGTH, SIGNUP_MAX_PHONE_NUMBER_LENGTH } from "../config/signup";
+
+type SignupTerm = {
+  id: string;
+  label: string;
+  modalTitle: string;
+  content: string;
+};
+
+type TermsProfileStepProps = {
+  terms: readonly SignupTerm[];
+  progressIcon: ReactNode;
+  onPrev: () => void;
+  onNext: () => void;
+};
 
 const CheckIcon = ({ isChecked }: { isChecked: boolean }) => {
   const Icon = isChecked ? CheckboxFillIcon : CheckboxGrayIcon;
@@ -34,32 +37,28 @@ const formatPhoneNumber = (value: string) => {
   return `${numbers.slice(0, 3)}-${numbers.slice(3, 7)}-${numbers.slice(7)}`;
 };
 
-const createCheckedTerms = (value: boolean) =>
-  Object.fromEntries(DESIGNER_TERMS.map(({ id }) => [id, value])) as Record<
-    DesignerTermsId,
-    boolean
-  >;
+const createCheckedTerms = (terms: readonly SignupTerm[], value: boolean) =>
+  Object.fromEntries(terms.map(({ id }) => [id, value])) as Record<string, boolean>;
 
-const Page = () => {
-  const router = useRouter();
+const TermsProfileStep = ({ terms, progressIcon, onPrev, onNext }: TermsProfileStepProps) => {
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [selectedTermId, setSelectedTermId] = useState<DesignerTermsId | null>(null);
-  const [checkedTerms, setCheckedTerms] = useState<Record<DesignerTermsId, boolean>>(() =>
-    createCheckedTerms(false),
+  const [selectedTermId, setSelectedTermId] = useState<string | null>(null);
+  const [checkedTerms, setCheckedTerms] = useState<Record<string, boolean>>(() =>
+    createCheckedTerms(terms, false),
   );
 
-  const selectedTerm = DESIGNER_TERMS.find(({ id }) => id === selectedTermId);
-  const isAllAgreed = DESIGNER_TERMS.every(({ id }) => checkedTerms[id]);
+  const selectedTerm = terms.find(({ id }) => id === selectedTermId);
+  const isAllAgreed = terms.every(({ id }) => checkedTerms[id]);
   const isNextEnabled = isAllAgreed && name.trim().length > 0 && phoneNumber.trim().length > 0;
 
   const toggleAllTerms = () => {
     const nextValue = !isAllAgreed;
 
-    setCheckedTerms(createCheckedTerms(nextValue));
+    setCheckedTerms(createCheckedTerms(terms, nextValue));
   };
 
-  const toggleTerm = (termId: DesignerTermsId) => {
+  const toggleTerm = (termId: string) => {
     setCheckedTerms(prev => ({ ...prev, [termId]: !prev[termId] }));
   };
 
@@ -78,7 +77,7 @@ const Page = () => {
           <div className="flex w-full flex-col gap-16">
             <div className="flex w-full items-center justify-between">
               <h1 className="text-title2-b text-black">회원가입</h1>
-              <StepOneDesignerIcon className="h-8 w-[138px] shrink-0" />
+              {progressIcon}
             </div>
 
             <div className="flex w-full flex-col gap-5">
@@ -98,7 +97,7 @@ const Page = () => {
                   <div className="bg-gray-20 h-px w-full" />
 
                   <div className="flex flex-col gap-3">
-                    {DESIGNER_TERMS.map(({ id, label }) => (
+                    {terms.map(({ id, label }) => (
                       <div key={id} className="flex items-center justify-between gap-4">
                         <button
                           type="button"
@@ -144,12 +143,7 @@ const Page = () => {
           </div>
 
           <div className="flex w-full items-start justify-between">
-            <Button
-              className="w-[232px]"
-              variant="medium_secondary"
-              type="button"
-              onClick={() => router.push("/signup")}
-            >
+            <Button className="w-[232px]" variant="medium_secondary" type="button" onClick={onPrev}>
               이전
             </Button>
             <Button
@@ -157,7 +151,7 @@ const Page = () => {
               variant={isNextEnabled ? "medium_primary" : "medium_disabled"}
               type="button"
               onClick={() => {
-                if (isNextEnabled) router.push("/signup/designer/step2");
+                if (isNextEnabled) onNext();
               }}
             >
               다음
@@ -196,4 +190,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default TermsProfileStep;

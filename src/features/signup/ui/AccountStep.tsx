@@ -1,18 +1,21 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { type ReactNode } from "react";
 
-import {
-  SIGNUP_MAX_ID_LENGTH,
-  SIGNUP_MAX_PASSWORD_LENGTH,
-  useSignupStep2Form,
-} from "@/features/signup";
-import { StepTwoInstructorIcon } from "@/shared/assets/icons";
 import Button from "@/shared/ui/Button";
 import InputField from "@/shared/ui/input/InputField";
 
-const Page = () => {
-  const router = useRouter();
+import { SIGNUP_MAX_ID_LENGTH, SIGNUP_MAX_PASSWORD_LENGTH } from "../config/signup";
+import { useSignupStep2Form } from "../model/useSignupStep2Form";
+
+type AccountStepProps = {
+  progressIcon: ReactNode;
+  nextButtonText: string;
+  onPrev: () => void;
+  onNext: () => void;
+};
+
+const AccountStep = ({ progressIcon, nextButtonText, onPrev, onNext }: AccountStepProps) => {
   const form = useSignupStep2Form();
 
   return (
@@ -22,7 +25,7 @@ const Page = () => {
           <div className="flex w-full flex-col gap-16">
             <div className="flex w-full items-center justify-between">
               <h1 className="text-title2-b text-black">회원가입</h1>
-              <StepTwoInstructorIcon className="h-8 w-[85px] shrink-0" />
+              {progressIcon}
             </div>
 
             <div className="flex w-full flex-col gap-5">
@@ -139,21 +142,16 @@ const Page = () => {
           </div>
 
           <div className="flex w-full items-start justify-between">
-            <Button
-              className="w-[232px]"
-              type="button"
-              variant="medium_secondary"
-              onClick={() => router.push("/signup/instructor/step1")}
-            >
+            <Button className="w-[232px]" type="button" variant="medium_secondary" onClick={onPrev}>
               이전
             </Button>
             <Button
               className="w-[232px]"
               type="button"
               variant={form.isSubmitEnabled ? "medium_primary" : "medium_disabled"}
-              onClick={() => router.push("/login")}
+              onClick={onNext}
             >
-              가입하기
+              {nextButtonText}
             </Button>
           </div>
         </section>
@@ -162,4 +160,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default AccountStep;

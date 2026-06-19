@@ -1,15 +1,21 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { type ChangeEvent, useState } from "react";
+import { type ChangeEvent, type ReactNode, useState } from "react";
 
-import { type BankCode, BankDropdown, type BankOption } from "@/features/signup";
-import { StepThreeDesignerIcon } from "@/shared/assets/icons";
 import { useUploadedFiles } from "@/shared/lib/hooks/useUploadedFiles";
 import Button from "@/shared/ui/Button";
 import FileDragAndDrop from "@/shared/ui/FileDragAndDrop";
 import FileUpload from "@/shared/ui/FileUpload";
 import InputField from "@/shared/ui/input/InputField";
+
+import type { BankCode, BankOption } from "../config/signup";
+import BankDropdown from "./BankDropdown";
+
+type DesignerAdditionalStepProps = {
+  progressIcon: ReactNode;
+  onPrev: () => void;
+  onSubmit: () => void;
+};
 
 const PORTFOLIO_MAX_FILE_COUNT = 3;
 const PORTFOLIO_ALLOWED_EXTENSIONS = [".pdf", ".png"];
@@ -20,8 +26,11 @@ const isPortfolioFile = (file: File) => {
   return PORTFOLIO_ALLOWED_EXTENSIONS.some(extension => fileName.endsWith(extension));
 };
 
-const Page = () => {
-  const router = useRouter();
+const DesignerAdditionalStep = ({
+  progressIcon,
+  onPrev,
+  onSubmit,
+}: DesignerAdditionalStepProps) => {
   const [selectedBank, setSelectedBank] = useState<BankCode | null>(null);
   const [accountNumber, setAccountNumber] = useState("");
   const [accountHolder, setAccountHolder] = useState("");
@@ -53,7 +62,7 @@ const Page = () => {
           <div className="flex w-full flex-col gap-16">
             <div className="flex w-full items-center justify-between">
               <h1 className="text-title2-b text-black">회원가입</h1>
-              <StepThreeDesignerIcon className="h-8 w-[138px] shrink-0" />
+              {progressIcon}
             </div>
 
             <div className="flex w-full flex-col gap-5">
@@ -104,12 +113,7 @@ const Page = () => {
           </div>
 
           <div className="flex w-full items-start justify-between">
-            <Button
-              className="w-[232px]"
-              type="button"
-              variant="medium_secondary"
-              onClick={() => router.push("/signup/designer/step2")}
-            >
+            <Button className="w-[232px]" type="button" variant="medium_secondary" onClick={onPrev}>
               이전
             </Button>
             <Button
@@ -117,7 +121,7 @@ const Page = () => {
               type="button"
               variant={isSubmitEnabled ? "medium_primary" : "medium_disabled"}
               onClick={() => {
-                if (isSubmitEnabled) router.push("/login");
+                if (isSubmitEnabled) onSubmit();
               }}
             >
               가입하기
@@ -129,4 +133,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default DesignerAdditionalStep;

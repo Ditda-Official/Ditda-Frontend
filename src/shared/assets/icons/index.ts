@@ -33,10 +33,5 @@ export { default as ProfileCircleBoldIcon } from "@/shared/assets/icons/icon_pro
 export { default as SearchIcon } from "@/shared/assets/icons/icon_search.svg";
 export { default as SearchBoldIcon } from "@/shared/assets/icons/icon_search_bold.svg";
 export { default as ShareIcon } from "@/shared/assets/icons/icon_share.svg";
-export { default as StepOneDesignerIcon } from "@/shared/assets/icons/icon_step_one_designer.svg";
-export { default as StepOneInstructorIcon } from "@/shared/assets/icons/icon_step_one_instructor.svg";
-export { default as StepThreeDesignerIcon } from "@/shared/assets/icons/icon_step_three_designer.svg";
-export { default as StepTwoDesignerIcon } from "@/shared/assets/icons/icon_step_two_designer.svg";
-export { default as StepTwoInstructorIcon } from "@/shared/assets/icons/icon_step_two_instructor.svg";
 export { default as UserTypeDesignerIcon } from "@/shared/assets/icons/icon_user_type_designer.svg";
 export { default as UserTypeInstructorIcon } from "@/shared/assets/icons/icon_user_type_instructor.svg";
