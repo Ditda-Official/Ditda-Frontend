@@ -7,19 +7,23 @@ import Button from "@/shared/ui/Button";
 import InputField from "@/shared/ui/input/InputField";
 
 import { SIGNUP_MAX_NAME_LENGTH, SIGNUP_MAX_PHONE_NUMBER_LENGTH } from "../config/signup";
+import type { SignupProfileData, SignupTermType } from "../model/signup";
+import { signupProfileSchema } from "../model/signupSchemas";
 
 type SignupTerm = {
-  id: string;
+  id: SignupTermType;
   label: string;
   modalTitle: string;
   content: string;
+  version: string;
 };
 
 type TermsProfileStepProps = {
   terms: readonly SignupTerm[];
   progressIcon: ReactNode;
+  initialData?: SignupProfileData;
   onPrev: () => void;
-  onNext: () => void;
+  onNext: (data: SignupProfileData) => void;
 };
 
 const CheckIcon = ({ isChecked }: { isChecked: boolean }) => {
@@ -37,20 +41,52 @@ const formatPhoneNumber = (value: string) => {
   return `${numbers.slice(0, 3)}-${numbers.slice(3, 7)}-${numbers.slice(7)}`;
 };
 
-const createCheckedTerms = (terms: readonly SignupTerm[], value: boolean) =>
-  Object.fromEntries(terms.map(({ id }) => [id, value])) as Record<string, boolean>;
+const createCheckedTerms = (
+  terms: readonly SignupTerm[],
+  value: boolean,
+): Record<SignupTermType, boolean> =>
+  Object.fromEntries(terms.map(({ id }) => [id, value])) as Record<SignupTermType, boolean>;
 
-const TermsProfileStep = ({ terms, progressIcon, onPrev, onNext }: TermsProfileStepProps) => {
-  const [name, setName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+const createInitialCheckedTerms = (
+  terms: readonly SignupTerm[],
+  initialData: SignupProfileData | undefined,
+) =>
+  Object.fromEntries(
+    terms.map(({ id }) => [
+      id,
+      initialData?.terms.some(term => term.type === id && term.isAgreed) ?? false,
+    ]),
+  ) as Record<SignupTermType, boolean>;
+
+const TermsProfileStep = ({
+  terms,
+  progressIcon,
+  initialData,
+  onPrev,
+  onNext,
+}: TermsProfileStepProps) => {
+  const [name, setName] = useState(initialData?.name ?? "");
+  const [phoneNumber, setPhoneNumber] = useState(
+    initialData != null ? formatPhoneNumber(initialData.phone) : "",
+  );
   const [selectedTermId, setSelectedTermId] = useState<string | null>(null);
-  const [checkedTerms, setCheckedTerms] = useState<Record<string, boolean>>(() =>
-    createCheckedTerms(terms, false),
+  const [checkedTerms, setCheckedTerms] = useState<Record<SignupTermType, boolean>>(() =>
+    createInitialCheckedTerms(terms, initialData),
   );
 
   const selectedTerm = terms.find(({ id }) => id === selectedTermId);
   const isAllAgreed = terms.every(({ id }) => checkedTerms[id]);
-  const isNextEnabled = isAllAgreed && name.trim().length > 0 && phoneNumber.trim().length > 0;
+  const profileData = {
+    name: name.trim(),
+    phone: phoneNumber.replace(/\D/g, ""),
+    terms: terms.map(({ id, version }) => ({
+      type: id,
+      version,
+      isAgreed: checkedTerms[id],
+    })),
+  };
+  const parsedProfileData = signupProfileSchema.safeParse(profileData);
+  const isNextEnabled = parsedProfileData.success;
 
   const toggleAllTerms = () => {
     const nextValue = !isAllAgreed;
@@ -58,7 +94,7 @@ const TermsProfileStep = ({ terms, progressIcon, onPrev, onNext }: TermsProfileS
     setCheckedTerms(createCheckedTerms(terms, nextValue));
   };
 
-  const toggleTerm = (termId: string) => {
+  const toggleTerm = (termId: SignupTermType) => {
     setCheckedTerms(prev => ({ ...prev, [termId]: !prev[termId] }));
   };
 
@@ -151,7 +187,7 @@ const TermsProfileStep = ({ terms, progressIcon, onPrev, onNext }: TermsProfileS
               variant={isNextEnabled ? "medium_primary" : "medium_disabled"}
               type="button"
               onClick={() => {
-                if (isNextEnabled) onNext();
+                if (parsedProfileData.success) onNext(parsedProfileData.data);
               }}
             >
               다음

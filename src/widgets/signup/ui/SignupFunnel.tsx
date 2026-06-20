@@ -10,7 +10,9 @@ import {
   INSTRUCTOR_TERMS,
   SIGNUP_INITIAL_STEP,
   SIGNUP_STEPS_BY_ROLE,
+  type SignupAccountData,
   type SignupFunnelStep,
+  type SignupProfileData,
   SignupProgressIcon,
   type SignupRole,
   TermsProfileStep,
@@ -21,9 +23,13 @@ const SignupFunnel = () => {
   const router = useRouter();
   const [selectedRole, setSelectedRole] = useState<SignupRole | null>(null);
   const [currentStep, setCurrentStep] = useState<SignupFunnelStep>(SIGNUP_INITIAL_STEP);
+  const [profileData, setProfileData] = useState<SignupProfileData>();
+  const [accountData, setAccountData] = useState<SignupAccountData>();
 
   const handleRoleNext = (role: SignupRole) => {
     setSelectedRole(role);
+    setProfileData(undefined);
+    setAccountData(undefined);
     setCurrentStep(SIGNUP_STEPS_BY_ROLE[role][0]);
   };
 
@@ -49,11 +55,21 @@ const SignupFunnel = () => {
     const nextStep = roleSteps[currentStepIndex + 1];
 
     if (nextStep == null) {
-      router.push("/login");
+      router.push(selectedRole === "instructor" ? "/instructor" : "/login");
       return;
     }
 
     setCurrentStep(nextStep);
+  };
+
+  const handleProfileNext = (data: SignupProfileData) => {
+    setProfileData(data);
+    moveNext();
+  };
+
+  const handleAccountNext = (data: SignupAccountData) => {
+    setAccountData(data);
+    moveNext();
   };
 
   if (selectedRole == null || currentStep === "role") {
@@ -66,8 +82,9 @@ const SignupFunnel = () => {
         <TermsProfileStep
           terms={DESIGNER_TERMS}
           progressIcon={<SignupProgressIcon currentStep={1} totalSteps={3} />}
+          initialData={profileData}
           onPrev={movePrev}
-          onNext={moveNext}
+          onNext={handleProfileNext}
         />
       );
     }
@@ -76,8 +93,9 @@ const SignupFunnel = () => {
       <TermsProfileStep
         terms={INSTRUCTOR_TERMS}
         progressIcon={<SignupProgressIcon currentStep={1} totalSteps={2} />}
+        initialData={profileData}
         onPrev={movePrev}
-        onNext={moveNext}
+        onNext={handleProfileNext}
       />
     );
   }
@@ -88,8 +106,11 @@ const SignupFunnel = () => {
         <AccountStep
           progressIcon={<SignupProgressIcon currentStep={2} totalSteps={3} />}
           nextButtonText="다음"
+          role={selectedRole}
+          initialData={accountData}
+          profileData={profileData}
           onPrev={movePrev}
-          onNext={moveNext}
+          onNext={handleAccountNext}
         />
       );
     }
@@ -98,8 +119,11 @@ const SignupFunnel = () => {
       <AccountStep
         progressIcon={<SignupProgressIcon currentStep={2} totalSteps={2} />}
         nextButtonText="가입하기"
+        role={selectedRole}
+        initialData={accountData}
+        profileData={profileData}
         onPrev={movePrev}
-        onNext={moveNext}
+        onNext={handleAccountNext}
       />
     );
   }
