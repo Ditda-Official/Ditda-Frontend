@@ -5,6 +5,7 @@ import { type ChangeEvent, type ReactNode, useState } from "react";
 import {
   SIGNUP_MAX_NAME_LENGTH,
   SIGNUP_MAX_PHONE_NUMBER_LENGTH,
+  type SignupTermContent,
 } from "@/features/signup/config/signup";
 import type { SignupProfileData, SignupTermType } from "@/features/signup/model/signup";
 import { signupProfileSchema } from "@/features/signup/model/signupSchemas";
@@ -16,7 +17,7 @@ type SignupTerm = {
   id: SignupTermType;
   label: string;
   modalTitle: string;
-  content: string;
+  content: SignupTermContent;
   version: string;
 };
 
@@ -59,6 +60,52 @@ const createInitialCheckedTerms = (
       initialData?.terms.some(term => term.type === id && term.isAgreed) ?? false,
     ]),
   ) as Record<SignupTermType, boolean>;
+
+const isTermArticleHeading = (heading: string) => heading.startsWith("제");
+
+const TermContentViewer = ({ content }: { content: SignupTermContent }) => {
+  return (
+    <div className="scrollbar-hide min-h-0 flex-1 overflow-y-auto">
+      <div className="flex flex-col gap-6">
+        {content.sections.map(section => {
+          const isArticleSection = isTermArticleHeading(section.heading);
+          const ListTag = isArticleSection ? "ol" : "ul";
+          const listStyleClassName = isArticleSection ? "list-decimal" : "list-disc";
+
+          return (
+            <section key={section.heading} className="flex flex-col gap-2">
+              <h4 className="text-heading1-b text-black">{section.heading}</h4>
+
+              {section.items != null && (
+                <ListTag className={`flex ${listStyleClassName} flex-col pl-6`}>
+                  {section.items.map(item => (
+                    <li key={item.text} className="text-body1-m text-gray-90">
+                      <p>{item.text}</p>
+
+                      {item.subItems != null && (
+                        <ul className="flex flex-col gap-1">
+                          {item.subItems.map(subItem => (
+                            <li key={subItem}>{subItem}</li>
+                          ))}
+                        </ul>
+                      )}
+                    </li>
+                  ))}
+                </ListTag>
+              )}
+
+              {section.paragraphs?.map(paragraph => (
+                <p key={paragraph} className="text-body1-m text-gray-90">
+                  {paragraph}
+                </p>
+              ))}
+            </section>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
 
 const TermsProfileStep = ({
   terms,
@@ -218,9 +265,7 @@ const TermsProfileStep = ({
               </button>
             </header>
             <div className="bg-gray-20 h-px w-full" />
-            <p className="scrollbar-hide text-body1-m text-gray-80 min-h-0 flex-1 overflow-y-auto leading-6 whitespace-pre-line">
-              {selectedTerm.content}
-            </p>
+            <TermContentViewer content={selectedTerm.content} />
           </section>
         </div>
       )}
