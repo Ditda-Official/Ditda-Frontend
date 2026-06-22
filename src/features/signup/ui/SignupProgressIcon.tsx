@@ -48,7 +48,7 @@ const SignupProgressIcon = ({ currentStep, totalSteps, className }: SignupProgre
               <span
                 aria-hidden="true"
                 className={cn(
-                  "h-0 w-[21px] shrink-0 border-t",
+                  "h-0 w-5.25 shrink-0 border-t",
                   isConnectorActive ? "border-main-main" : "border-gray-40",
                 )}
               />

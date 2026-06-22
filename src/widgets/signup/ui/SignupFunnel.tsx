@@ -10,20 +10,36 @@ import {
   INSTRUCTOR_TERMS,
   SIGNUP_INITIAL_STEP,
   SIGNUP_STEPS_BY_ROLE,
+  type SignupAccountData,
+  signupDesigner,
+  type SignupDesignerAdditionalData,
   type SignupFunnelStep,
+  type SignupProfileData,
   SignupProgressIcon,
   type SignupRole,
   TermsProfileStep,
   UserTypeStep,
 } from "@/features/signup";
+import {
+  getClientUserHomePath,
+  normalizeClientUserRole,
+  setClientAuth,
+} from "@/shared/lib/auth/client";
 
 const SignupFunnel = () => {
   const router = useRouter();
   const [selectedRole, setSelectedRole] = useState<SignupRole | null>(null);
   const [currentStep, setCurrentStep] = useState<SignupFunnelStep>(SIGNUP_INITIAL_STEP);
+  const [profileData, setProfileData] = useState<SignupProfileData>();
+  const [accountData, setAccountData] = useState<SignupAccountData>();
+  const [designerAdditionalData, setDesignerAdditionalData] =
+    useState<SignupDesignerAdditionalData>();
 
   const handleRoleNext = (role: SignupRole) => {
     setSelectedRole(role);
+    setProfileData(undefined);
+    setAccountData(undefined);
+    setDesignerAdditionalData(undefined);
     setCurrentStep(SIGNUP_STEPS_BY_ROLE[role][0]);
   };
 
@@ -49,11 +65,43 @@ const SignupFunnel = () => {
     const nextStep = roleSteps[currentStepIndex + 1];
 
     if (nextStep == null) {
-      router.push("/login");
+      router.push(selectedRole === "instructor" ? "/instructor" : "/login");
       return;
     }
 
     setCurrentStep(nextStep);
+  };
+
+  const handleProfileNext = (data: SignupProfileData) => {
+    setProfileData(data);
+    moveNext();
+  };
+
+  const handleAccountNext = (data: SignupAccountData) => {
+    setAccountData(data);
+    moveNext();
+  };
+
+  const handleDesignerSubmit = async (data: SignupDesignerAdditionalData) => {
+    if (profileData == null || accountData == null) {
+      throw new Error("회원가입 정보를 확인할 수 없습니다");
+    }
+
+    setDesignerAdditionalData(data);
+
+    const result = await signupDesigner({
+      profile: profileData,
+      account: accountData,
+      additional: data,
+    });
+    const userRole = normalizeClientUserRole(result.userType);
+
+    if (userRole == null) {
+      throw new Error("사용자 유형을 확인할 수 없습니다");
+    }
+
+    setClientAuth({ accessToken: result.accessToken, role: userRole });
+    router.push(getClientUserHomePath(userRole));
   };
 
   if (selectedRole == null || currentStep === "role") {
@@ -66,8 +114,9 @@ const SignupFunnel = () => {
         <TermsProfileStep
           terms={DESIGNER_TERMS}
           progressIcon={<SignupProgressIcon currentStep={1} totalSteps={3} />}
+          initialData={profileData}
           onPrev={movePrev}
-          onNext={moveNext}
+          onNext={handleProfileNext}
         />
       );
     }
@@ -76,8 +125,9 @@ const SignupFunnel = () => {
       <TermsProfileStep
         terms={INSTRUCTOR_TERMS}
         progressIcon={<SignupProgressIcon currentStep={1} totalSteps={2} />}
+        initialData={profileData}
         onPrev={movePrev}
-        onNext={moveNext}
+        onNext={handleProfileNext}
       />
     );
   }
@@ -88,8 +138,11 @@ const SignupFunnel = () => {
         <AccountStep
           progressIcon={<SignupProgressIcon currentStep={2} totalSteps={3} />}
           nextButtonText="다음"
+          role={selectedRole}
+          initialData={accountData}
+          profileData={profileData}
           onPrev={movePrev}
-          onNext={moveNext}
+          onNext={handleAccountNext}
         />
       );
     }
@@ -98,8 +151,11 @@ const SignupFunnel = () => {
       <AccountStep
         progressIcon={<SignupProgressIcon currentStep={2} totalSteps={2} />}
         nextButtonText="가입하기"
+        role={selectedRole}
+        initialData={accountData}
+        profileData={profileData}
         onPrev={movePrev}
-        onNext={moveNext}
+        onNext={handleAccountNext}
       />
     );
   }
@@ -107,8 +163,9 @@ const SignupFunnel = () => {
   return (
     <DesignerAdditionalStep
       progressIcon={<SignupProgressIcon currentStep={3} totalSteps={3} />}
+      initialData={designerAdditionalData}
       onPrev={movePrev}
-      onSubmit={moveNext}
+      onSubmit={handleDesignerSubmit}
     />
   );
 };

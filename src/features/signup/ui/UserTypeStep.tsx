@@ -2,11 +2,10 @@
 
 import { useState } from "react";
 
+import type { SignupRole } from "@/features/signup/model/signup";
+import UserTypeBtn from "@/features/signup/ui/UserTypeBtn";
 import { UserTypeDesignerIcon, UserTypeInstructorIcon } from "@/shared/assets/icons";
 import Button from "@/shared/ui/Button";
-
-import type { SignupRole } from "../model/signup";
-import UserTypeBtn from "./UserTypeBtn";
 
 type UserTypeStepProps = {
   onNext: (selectedType: SignupRole) => void;

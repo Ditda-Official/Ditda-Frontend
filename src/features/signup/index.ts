@@ -1,6 +1,12 @@
+export { signupDesigner } from "./api/signup";
 export * from "./config/signup";
 export * from "./config/signupFunnel";
 export * from "./model/signup";
+export type {
+  SignupAccountData,
+  SignupDesignerAdditionalData,
+  SignupProfileData,
+} from "./model/signupSchemas";
 export { useSignupStep2Form } from "./model/useSignupStep2Form";
 export { default as AccountStep } from "./ui/AccountStep";
 export { default as BankDropdown } from "./ui/BankDropdown";

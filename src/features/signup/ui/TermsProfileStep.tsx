@@ -2,24 +2,31 @@
 
 import { type ChangeEvent, type ReactNode, useState } from "react";
 
+import {
+  SIGNUP_MAX_NAME_LENGTH,
+  SIGNUP_MAX_PHONE_NUMBER_LENGTH,
+  type SignupTermContent,
+} from "@/features/signup/config/signup";
+import type { SignupProfileData, SignupTermType } from "@/features/signup/model/signup";
+import { signupProfileSchema } from "@/features/signup/model/signupSchemas";
 import { CheckboxFillIcon, CheckboxGrayIcon, CloseIcon } from "@/shared/assets/icons";
 import Button from "@/shared/ui/Button";
 import InputField from "@/shared/ui/input/InputField";
 
-import { SIGNUP_MAX_NAME_LENGTH, SIGNUP_MAX_PHONE_NUMBER_LENGTH } from "../config/signup";
-
 type SignupTerm = {
-  id: string;
+  id: SignupTermType;
   label: string;
   modalTitle: string;
-  content: string;
+  content: SignupTermContent;
+  version: string;
 };
 
 type TermsProfileStepProps = {
   terms: readonly SignupTerm[];
   progressIcon: ReactNode;
+  initialData?: SignupProfileData;
   onPrev: () => void;
-  onNext: () => void;
+  onNext: (data: SignupProfileData) => void;
 };
 
 const CheckIcon = ({ isChecked }: { isChecked: boolean }) => {
@@ -37,20 +44,98 @@ const formatPhoneNumber = (value: string) => {
   return `${numbers.slice(0, 3)}-${numbers.slice(3, 7)}-${numbers.slice(7)}`;
 };
 
-const createCheckedTerms = (terms: readonly SignupTerm[], value: boolean) =>
-  Object.fromEntries(terms.map(({ id }) => [id, value])) as Record<string, boolean>;
+const createCheckedTerms = (
+  terms: readonly SignupTerm[],
+  value: boolean,
+): Record<SignupTermType, boolean> =>
+  Object.fromEntries(terms.map(({ id }) => [id, value])) as Record<SignupTermType, boolean>;
 
-const TermsProfileStep = ({ terms, progressIcon, onPrev, onNext }: TermsProfileStepProps) => {
-  const [name, setName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+const createInitialCheckedTerms = (
+  terms: readonly SignupTerm[],
+  initialData: SignupProfileData | undefined,
+) =>
+  Object.fromEntries(
+    terms.map(({ id }) => [
+      id,
+      initialData?.terms.some(term => term.type === id && term.isAgreed) ?? false,
+    ]),
+  ) as Record<SignupTermType, boolean>;
+
+const isTermArticleHeading = (heading: string) => heading.startsWith("제");
+
+const TermContentViewer = ({ content }: { content: SignupTermContent }) => {
+  return (
+    <div className="scrollbar-hide min-h-0 flex-1 overflow-y-auto">
+      <div className="flex flex-col gap-6">
+        {content.sections.map(section => {
+          const isArticleSection = isTermArticleHeading(section.heading);
+          const ListTag = isArticleSection ? "ol" : "ul";
+          const listStyleClassName = isArticleSection ? "list-decimal" : "list-disc";
+
+          return (
+            <section key={section.heading} className="flex flex-col gap-2">
+              <h4 className="text-heading1-b text-black">{section.heading}</h4>
+
+              {section.items != null && (
+                <ListTag className={`flex ${listStyleClassName} flex-col pl-6`}>
+                  {section.items.map(item => (
+                    <li key={item.text} className="text-body1-m text-gray-90">
+                      <p>{item.text}</p>
+
+                      {item.subItems != null && (
+                        <ul className="flex flex-col gap-1">
+                          {item.subItems.map(subItem => (
+                            <li key={subItem}>{subItem}</li>
+                          ))}
+                        </ul>
+                      )}
+                    </li>
+                  ))}
+                </ListTag>
+              )}
+
+              {section.paragraphs?.map(paragraph => (
+                <p key={paragraph} className="text-body1-m text-gray-90">
+                  {paragraph}
+                </p>
+              ))}
+            </section>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+const TermsProfileStep = ({
+  terms,
+  progressIcon,
+  initialData,
+  onPrev,
+  onNext,
+}: TermsProfileStepProps) => {
+  const [name, setName] = useState(initialData?.name ?? "");
+  const [phoneNumber, setPhoneNumber] = useState(
+    initialData != null ? formatPhoneNumber(initialData.phone) : "",
+  );
   const [selectedTermId, setSelectedTermId] = useState<string | null>(null);
-  const [checkedTerms, setCheckedTerms] = useState<Record<string, boolean>>(() =>
-    createCheckedTerms(terms, false),
+  const [checkedTerms, setCheckedTerms] = useState<Record<SignupTermType, boolean>>(() =>
+    createInitialCheckedTerms(terms, initialData),
   );
 
   const selectedTerm = terms.find(({ id }) => id === selectedTermId);
   const isAllAgreed = terms.every(({ id }) => checkedTerms[id]);
-  const isNextEnabled = isAllAgreed && name.trim().length > 0 && phoneNumber.trim().length > 0;
+  const profileData = {
+    name: name.trim(),
+    phone: phoneNumber.replace(/\D/g, ""),
+    terms: terms.map(({ id, version }) => ({
+      type: id,
+      version,
+      isAgreed: checkedTerms[id],
+    })),
+  };
+  const parsedProfileData = signupProfileSchema.safeParse(profileData);
+  const isNextEnabled = parsedProfileData.success;
 
   const toggleAllTerms = () => {
     const nextValue = !isAllAgreed;
@@ -58,7 +143,7 @@ const TermsProfileStep = ({ terms, progressIcon, onPrev, onNext }: TermsProfileS
     setCheckedTerms(createCheckedTerms(terms, nextValue));
   };
 
-  const toggleTerm = (termId: string) => {
+  const toggleTerm = (termId: SignupTermType) => {
     setCheckedTerms(prev => ({ ...prev, [termId]: !prev[termId] }));
   };
 
@@ -143,15 +228,15 @@ const TermsProfileStep = ({ terms, progressIcon, onPrev, onNext }: TermsProfileS
           </div>
 
           <div className="flex w-full items-start justify-between">
-            <Button className="w-[232px]" variant="medium_secondary" type="button" onClick={onPrev}>
+            <Button className="w-58" variant="medium_secondary" type="button" onClick={onPrev}>
               이전
             </Button>
             <Button
-              className="w-[232px]"
+              className="w-58"
               variant={isNextEnabled ? "medium_primary" : "medium_disabled"}
               type="button"
               onClick={() => {
-                if (isNextEnabled) onNext();
+                if (parsedProfileData.success) onNext(parsedProfileData.data);
               }}
             >
               다음
@@ -166,7 +251,7 @@ const TermsProfileStep = ({ terms, progressIcon, onPrev, onNext }: TermsProfileS
           onClick={() => setSelectedTermId(null)}
         >
           <section
-            className="rounded-12 flex h-[792px] w-[612px] flex-col gap-6 bg-white px-6 py-8"
+            className="rounded-12 flex h-198 w-153 flex-col gap-6 bg-white px-6 py-8"
             onClick={event => event.stopPropagation()}
           >
             <header className="border-gray-20 flex items-center justify-between gap-4">
@@ -180,9 +265,7 @@ const TermsProfileStep = ({ terms, progressIcon, onPrev, onNext }: TermsProfileS
               </button>
             </header>
             <div className="bg-gray-20 h-px w-full" />
-            <p className="scrollbar-hide text-body1-m text-gray-80 min-h-0 flex-1 overflow-y-auto leading-6 whitespace-pre-line">
-              {selectedTerm.content}
-            </p>
+            <TermContentViewer content={selectedTerm.content} />
           </section>
         </div>
       )}

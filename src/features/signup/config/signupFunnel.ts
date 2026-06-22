@@ -1,4 +1,4 @@
-import type { SignupFunnelStep, SignupRole, SignupRoleStep } from "../model/signup";
+import type { SignupFunnelStep, SignupRole, SignupRoleStep } from "@/features/signup/model/signup";
 
 export const SIGNUP_INITIAL_STEP = "role" satisfies SignupFunnelStep;
 

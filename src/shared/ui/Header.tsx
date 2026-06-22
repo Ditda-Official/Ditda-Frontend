@@ -5,18 +5,21 @@ import { useEffect, useMemo, useState } from "react";
 
 import { EnterIcon, ProfileCircleIcon } from "@/shared/assets/icons";
 import { PurpleLogo } from "@/shared/assets/logos";
-
-type UserRole = "designer" | "instructor";
+import {
+  type ClientUserRole,
+  getClientUserRoleFromAccessToken,
+  normalizeClientUserRole,
+} from "@/shared/lib/auth/client";
 
 interface AuthState {
   isLoggedIn: boolean;
-  role: UserRole | null;
+  role: ClientUserRole | null;
 }
 
 const ACCESS_TOKEN_COOKIE_NAME = "accessToken";
 const USER_ROLE_COOKIE_NAME = "userRole";
 
-const ROLE_ACCOUNT_PATH: Record<UserRole, string> = {
+const ROLE_ACCOUNT_PATH: Record<ClientUserRole, string> = {
   designer: "/designer",
   instructor: "/instructor/my",
 };
@@ -31,16 +34,6 @@ const getCookieValue = (name: string) => {
   return decodeURIComponent(cookie.slice(name.length + 1));
 };
 
-const normalizeRole = (role?: string): UserRole | null => {
-  const normalizedRole = role?.toLowerCase();
-
-  if (normalizedRole === "designer" || normalizedRole === "instructor") {
-    return normalizedRole;
-  }
-
-  return null;
-};
-
 const Header = () => {
   const [authState, setAuthState] = useState<AuthState>({
     isLoggedIn: false,
@@ -50,7 +43,10 @@ const Header = () => {
   useEffect(() => {
     const syncAuthState = () => {
       const accessToken = getCookieValue(ACCESS_TOKEN_COOKIE_NAME);
-      const role = normalizeRole(getCookieValue(USER_ROLE_COOKIE_NAME));
+      const roleFromCookie = normalizeClientUserRole(getCookieValue(USER_ROLE_COOKIE_NAME));
+      const role =
+        roleFromCookie ??
+        (accessToken != null ? getClientUserRoleFromAccessToken(accessToken) : null);
 
       setAuthState({
         isLoggedIn: accessToken != null && role != null,

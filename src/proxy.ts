@@ -5,6 +5,7 @@ type UserRole = "designer" | "instructor";
 
 const ACCESS_TOKEN_COOKIE_NAME = "accessToken";
 const USER_ROLE_COOKIE_NAME = "userRole";
+const GUEST_ONLY_PATHS = ["/login", "/signup"];
 
 const ROLE_HOME_PATH: Record<UserRole, string> = {
   designer: "/designer",
@@ -44,7 +45,12 @@ const getUserRole = (request: NextRequest, accessToken: string): UserRole | null
   if (roleFromCookie != null) return roleFromCookie;
 
   const tokenPayload = parseJwtPayload(accessToken);
-  const roleFromToken = typeof tokenPayload?.role === "string" ? tokenPayload.role : undefined;
+  const roleFromToken =
+    typeof tokenPayload?.role === "string"
+      ? tokenPayload.role
+      : typeof tokenPayload?.userType === "string"
+        ? tokenPayload.userType
+        : undefined;
 
   return normalizeRole(roleFromToken);
 };
@@ -62,13 +68,21 @@ const redirect = (path: string, request: NextRequest) => {
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  const accessToken = request.cookies.get(ACCESS_TOKEN_COOKIE_NAME)?.value;
+
+  if (GUEST_ONLY_PATHS.includes(pathname) && accessToken != null) {
+    const userRole = getUserRole(request, accessToken);
+
+    if (userRole != null) {
+      return redirect(ROLE_HOME_PATH[userRole], request);
+    }
+  }
+
   const requiredRole = getRequiredRole(pathname);
 
   if (requiredRole == null) {
     return NextResponse.next();
   }
-
-  const accessToken = request.cookies.get(ACCESS_TOKEN_COOKIE_NAME)?.value;
 
   if (accessToken == null) {
     return redirect("/login", request);
@@ -88,5 +102,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/designer/:path*", "/instructor/:path*"],
+  matcher: ["/login", "/signup", "/designer/:path*", "/instructor/:path*"],
 };

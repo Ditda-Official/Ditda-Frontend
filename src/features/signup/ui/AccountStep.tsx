@@ -2,21 +2,65 @@
 
 import { type ReactNode } from "react";
 
+import { SIGNUP_MAX_ID_LENGTH, SIGNUP_MAX_PASSWORD_LENGTH } from "@/features/signup/config/signup";
+import type {
+  SignupAccountData,
+  SignupProfileData,
+  SignupRole,
+} from "@/features/signup/model/signup";
+import { useSignupStep2Form } from "@/features/signup/model/useSignupStep2Form";
+import { normalizeClientUserRole, setClientAuth } from "@/shared/lib/auth/client";
 import Button from "@/shared/ui/Button";
 import InputField from "@/shared/ui/input/InputField";
-
-import { SIGNUP_MAX_ID_LENGTH, SIGNUP_MAX_PASSWORD_LENGTH } from "../config/signup";
-import { useSignupStep2Form } from "../model/useSignupStep2Form";
 
 type AccountStepProps = {
   progressIcon: ReactNode;
   nextButtonText: string;
+  role: SignupRole;
+  initialData?: SignupAccountData;
+  profileData?: SignupProfileData;
   onPrev: () => void;
-  onNext: () => void;
+  onNext: (data: SignupAccountData) => void;
 };
 
-const AccountStep = ({ progressIcon, nextButtonText, onPrev, onNext }: AccountStepProps) => {
-  const form = useSignupStep2Form();
+const AccountStep = ({
+  progressIcon,
+  nextButtonText,
+  role,
+  initialData,
+  profileData,
+  onPrev,
+  onNext,
+}: AccountStepProps) => {
+  const form = useSignupStep2Form(initialData);
+
+  const handleNext = async () => {
+    const accountData = await form.validateAndGetAccountData();
+
+    if (accountData == null) return;
+
+    if (role === "instructor") {
+      if (profileData == null) {
+        form.setSubmitErrorMessage("프로필 정보를 확인할 수 없습니다");
+        return;
+      }
+
+      const result = await form.handleInstructorSignup(profileData, accountData);
+
+      if (result == null) return;
+
+      const userRole = normalizeClientUserRole(result.userType);
+
+      if (userRole == null) {
+        form.setSubmitErrorMessage("사용자 유형을 확인할 수 없습니다");
+        return;
+      }
+
+      setClientAuth({ accessToken: result.accessToken, role: userRole });
+    }
+
+    onNext(accountData);
+  };
 
   return (
     <div className="flex min-h-full flex-col bg-white">
@@ -44,14 +88,14 @@ const AccountStep = ({ progressIcon, nextButtonText, onPrev, onNext }: AccountSt
                       onClear={form.clearUserId}
                     />
                     <Button
-                      className="h-[58px] w-fit shrink-0 whitespace-nowrap"
+                      className="h-14.5 w-fit shrink-0 whitespace-nowrap"
                       type="button"
                       variant={
                         form.isUserIdLengthValid
                           ? "certification_primary"
                           : "certification_disabled"
                       }
-                      onClick={form.handleUserIdCheck}
+                      onClick={() => void form.handleUserIdCheck()}
                     >
                       중복확인
                     </Button>
@@ -106,54 +150,72 @@ const AccountStep = ({ progressIcon, nextButtonText, onPrev, onNext }: AccountSt
                     onClear={form.clearEmail}
                   />
                   <Button
-                    className="h-[58px] w-fit shrink-0 whitespace-nowrap"
+                    className="h-14.5 w-fit shrink-0 whitespace-nowrap"
                     type="button"
                     variant={
                       form.isEmailVerificationButtonEnabled
                         ? "certification_primary"
                         : "certification_disabled"
                     }
-                    onClick={form.handleEmailVerificationRequest}
+                    onClick={() => void form.handleEmailVerificationRequest()}
                   >
                     인증 번호 받기
                   </Button>
                 </div>
                 {form.isVerificationCodeVisible && (
-                  <InputField
-                    className={form.isEmailVerified ? "text-gray-60" : undefined}
-                    disabled={form.isEmailVerified}
-                    errorMessage={form.verificationCodeErrorMessage}
-                    inputMode="numeric"
-                    isSuccess={form.isEmailVerified}
-                    placeholder="인증번호를 입력해주세요"
-                    rightElement={
-                      form.verificationTimerText != null ? (
-                        <span className="text-heading3-m text-main-main shrink-0 tabular-nums">
-                          {form.verificationTimerText}
-                        </span>
-                      ) : undefined
-                    }
-                    value={form.verificationCode}
-                    onChange={form.handleVerificationCodeChange}
-                  />
+                  <div className="flex w-full items-start gap-2">
+                    <InputField
+                      className={form.isEmailVerified ? "text-gray-60" : undefined}
+                      disabled={form.isEmailVerified}
+                      errorMessage={form.verificationCodeErrorMessage}
+                      inputMode="numeric"
+                      isSuccess={form.isEmailVerified}
+                      placeholder="인증번호를 입력해주세요"
+                      rightElement={
+                        form.verificationTimerText != null ? (
+                          <span className="text-heading3-m text-main-main shrink-0 tabular-nums">
+                            {form.verificationTimerText}
+                          </span>
+                        ) : undefined
+                      }
+                      value={form.verificationCode}
+                      wrapperClassName="min-w-0 flex-1"
+                      onChange={form.handleVerificationCodeChange}
+                    />
+                    <Button
+                      className="h-14.5 w-fit shrink-0 whitespace-nowrap"
+                      type="button"
+                      variant={
+                        form.isEmailVerificationConfirmButtonEnabled
+                          ? "certification_primary"
+                          : "certification_disabled"
+                      }
+                      onClick={() => void form.handleEmailVerificationConfirm()}
+                    >
+                      확인
+                    </Button>
+                  </div>
                 )}
               </div>
             </div>
           </div>
 
           <div className="flex w-full items-start justify-between">
-            <Button className="w-[232px]" type="button" variant="medium_secondary" onClick={onPrev}>
+            <Button className="w-58" type="button" variant="medium_secondary" onClick={onPrev}>
               이전
             </Button>
             <Button
-              className="w-[232px]"
+              className="w-58"
               type="button"
               variant={form.isSubmitEnabled ? "medium_primary" : "medium_disabled"}
-              onClick={onNext}
+              onClick={() => void handleNext()}
             >
-              {nextButtonText}
+              {form.isSubmitting ? "가입 중" : nextButtonText}
             </Button>
           </div>
+          {form.submitErrorMessage != null && (
+            <p className="text-caption1-m text-red-main text-right">{form.submitErrorMessage}</p>
+          )}
         </section>
       </div>
     </div>

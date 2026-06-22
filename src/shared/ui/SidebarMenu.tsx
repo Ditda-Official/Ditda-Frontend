@@ -10,9 +10,11 @@ interface SidebarMenuProps {
   label: string;
   href?: string;
   matchPrefix?: string | string[];
+  disabled?: boolean;
+  onClick?: () => void;
 }
 
-const SidebarMenu = ({ label, href, matchPrefix }: SidebarMenuProps) => {
+const SidebarMenu = ({ label, href, matchPrefix, disabled = false, onClick }: SidebarMenuProps) => {
   const pathname = usePathname();
   const [isHovered, setIsHovered] = useState(false);
 
@@ -34,18 +36,33 @@ const SidebarMenu = ({ label, href, matchPrefix }: SidebarMenuProps) => {
   );
 
   const className =
-    "bg-gray-5 rounded-8 hover:bg-gray-20 group w-58 cursor-pointer px-5 py-3 block transition-colors duration-150" +
+    "bg-gray-5 rounded-8 hover:bg-gray-20 group block w-58 cursor-pointer px-5 py-3 text-left transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-60" +
     (isSelected ? " bg-gray-20" : "");
 
-  return href ? (
-    <Link
-      href={href}
+  if (href != null) {
+    return (
+      <Link
+        href={href}
+        className={className}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        {content}
+      </Link>
+    );
+  }
+
+  return onClick != null ? (
+    <button
       className={className}
+      disabled={disabled}
+      type="button"
+      onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {content}
-    </Link>
+    </button>
   ) : (
     <nav
       className={className}
