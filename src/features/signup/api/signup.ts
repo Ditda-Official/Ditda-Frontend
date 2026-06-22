@@ -57,7 +57,7 @@ const unwrapApiResponse = async <T>(
 
     return resultSchema.parse(response.result);
   } catch (error) {
-    throw await toApiError(error, fallbackMessage);
+    throw await toApiError(error);
   }
 };
 
@@ -207,6 +207,6 @@ export const signupDesigner = async ({
       "이미 가입된 정보가 있습니다",
     );
   } catch (error) {
-    throw await toApiError(error, "디자이너 회원가입에 실패했습니다");
+    throw await toApiError(error);
   }
 };

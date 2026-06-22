@@ -9,8 +9,6 @@ import {
 import type { ApiResponse } from "./types";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "");
-const DEFAULT_API_ERROR_MESSAGE = "요청 처리 중 문제가 발생했습니다";
-const DEFAULT_CONFLICT_ERROR_MESSAGE = "이미 존재하는 데이터입니다";
 const LOGIN_PATH = "/api/v1/auth/login";
 const TOKEN_REISSUE_PATH = "/api/v1/auth/reissue";
 
@@ -69,7 +67,7 @@ const extractAccessToken = (response: ApiResponse<unknown>) => {
     !("accessToken" in response.result) ||
     typeof response.result.accessToken !== "string"
   ) {
-    throw new ApiError(DEFAULT_API_ERROR_MESSAGE, { response });
+    throw new ApiError(getApiResponseMessage(response), { response });
   }
 
   return response.result.accessToken;
@@ -138,38 +136,43 @@ const stringifyApiErrorDetail = (error: ApiResponse<unknown>["error"]) => {
   return undefined;
 };
 
-export const getApiResponseMessage = (
-  response?: Partial<ApiResponse<unknown>>,
-  fallbackMessage = DEFAULT_API_ERROR_MESSAGE,
-) => {
-  return response?.message || stringifyApiErrorDetail(response?.error ?? null) || fallbackMessage;
+const hasErrorResponse = (error: unknown): error is { response: Response } => {
+  return (
+    typeof error === "object" &&
+    error != null &&
+    "response" in error &&
+    error.response instanceof Response
+  );
 };
 
-export const toApiError = async (error: unknown, fallbackMessage = DEFAULT_API_ERROR_MESSAGE) => {
+export const getApiResponseMessage = (response?: Partial<ApiResponse<unknown>>) => {
+  return response?.message || stringifyApiErrorDetail(response?.error ?? null) || "";
+};
+
+export const toApiError = async (error: unknown) => {
   if (error instanceof ApiError) return error;
 
-  if (error instanceof HTTPError) {
-    try {
-      const body = (await error.response.json()) as Partial<ApiResponse<unknown>>;
+  if (error instanceof HTTPError || hasErrorResponse(error)) {
+    const { response } = error;
 
-      return new ApiError(getApiResponseMessage(body, fallbackMessage), {
+    try {
+      const body = (await response.clone().json()) as Partial<ApiResponse<unknown>>;
+
+      return new ApiError(getApiResponseMessage(body), {
         code: body.code,
         response: body,
-        status: error.response.status,
+        status: response.status,
       });
     } catch {
-      return new ApiError(
-        error.response.status === 409 ? DEFAULT_CONFLICT_ERROR_MESSAGE : fallbackMessage,
-        { status: error.response.status },
-      );
+      return new ApiError(response.statusText, { status: response.status });
     }
   }
 
   if (error instanceof Error) return new ApiError(error.message);
 
-  return new ApiError(fallbackMessage);
+  return new ApiError("");
 };
 
-export const getApiErrorMessage = async (error: unknown, fallbackMessage?: string) => {
-  return (await toApiError(error, fallbackMessage)).message;
+export const getApiErrorMessage = async (error: unknown) => {
+  return (await toApiError(error)).message;
 };

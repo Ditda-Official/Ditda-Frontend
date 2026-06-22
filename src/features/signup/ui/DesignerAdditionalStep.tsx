@@ -162,7 +162,7 @@ const DesignerAdditionalStep = ({
                 if (isSubmitEnabled) void handleSubmit();
               }}
             >
-              {isSubmitting ? "가입 중" : "가입하기"}
+              가입하기
             </Button>
           </div>
         </section>

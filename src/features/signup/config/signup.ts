@@ -17,11 +17,6 @@ export const SIGNUP_ID_AVAILABLE_MESSAGE = "사용 가능한 아이디입니다"
 export const SIGNUP_EMAIL_ERROR_MESSAGE = "형식이 올바르지 않습니다";
 export const SIGNUP_EMAIL_VERIFICATION_CODE_ERROR_MESSAGE = "인증번호가 일치하지 않습니다";
 export const SIGNUP_EMAIL_VERIFICATION_LIMIT_SECONDS = 5 * 60;
-export const SIGNUP_MOCK_EMAIL_VERIFICATION_CODE = "1234";
-export const SIGNUP_MOCK_ACCOUNT = {
-  id: "test1234",
-  password: "test1234",
-} as const;
 export const SIGNUP_EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /* =========================
