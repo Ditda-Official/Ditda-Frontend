@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import type { LoginFormValues } from "@/features/login/model/loginSchemas";
 import {
   ApiError,
   createApiPath,
@@ -8,8 +9,6 @@ import {
   toApiError,
 } from "@/shared/api/client";
 import type { ApiResponse } from "@/shared/api/types";
-
-import type { LoginFormValues } from "../model/loginSchemas";
 
 const loginResultSchema = z.object({
   userId: z.number(),

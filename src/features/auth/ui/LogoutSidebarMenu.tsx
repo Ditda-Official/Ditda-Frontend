@@ -1,8 +1,7 @@
 "use client";
 
+import { useLogout } from "@/features/auth/model/useLogout";
 import SidebarMenu from "@/shared/ui/SidebarMenu";
-
-import { useLogout } from "../model/useLogout";
 
 const LogoutSidebarMenu = () => {
   const { handleLogout, isLoggingOut } = useLogout();

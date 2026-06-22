@@ -9,7 +9,7 @@ import {
   SIGNUP_MAX_PHONE_NUMBER_LENGTH,
   SIGNUP_MIN_ID_LENGTH,
   SIGNUP_MIN_PASSWORD_LENGTH,
-} from "../config/signup";
+} from "@/features/signup/config/signup";
 
 export const signupTermTypeSchema = z.enum([
   "SERVICE",

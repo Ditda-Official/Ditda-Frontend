@@ -5,14 +5,13 @@ import { useRouter } from "next/navigation";
 import { type ChangeEvent, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 
+import { login } from "@/features/login/api/login";
+import { loginFormSchema, type LoginFormValues } from "@/features/login/model/loginSchemas";
 import {
   getClientUserHomePath,
   normalizeClientUserRole,
   setClientAuth,
 } from "@/shared/lib/auth/client";
-
-import { login } from "../api/login";
-import { loginFormSchema, type LoginFormValues } from "./loginSchemas";
 
 export const useLoginForm = () => {
   const router = useRouter();

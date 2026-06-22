@@ -4,4 +4,8 @@ export type SignupFunnelStep = "role" | "termsProfile" | "account" | "designerAd
 
 export type SignupRoleStep = Exclude<SignupFunnelStep, "role">;
 
-export type { SignupAccountData, SignupProfileData, SignupTermType } from "./signupSchemas";
+export type {
+  SignupAccountData,
+  SignupProfileData,
+  SignupTermType,
+} from "@/features/signup/model/signupSchemas";

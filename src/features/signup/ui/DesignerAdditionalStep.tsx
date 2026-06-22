@@ -2,18 +2,17 @@
 
 import { type ChangeEvent, type ReactNode, useState } from "react";
 
+import type { BankCode, BankOption } from "@/features/signup/config/signup";
+import {
+  type SignupDesignerAdditionalData,
+  signupDesignerAdditionalSchema,
+} from "@/features/signup/model/signupSchemas";
+import BankDropdown from "@/features/signup/ui/BankDropdown";
 import { useUploadedFiles } from "@/shared/lib/hooks/useUploadedFiles";
 import Button from "@/shared/ui/Button";
 import FileDragAndDrop from "@/shared/ui/FileDragAndDrop";
 import FileUpload from "@/shared/ui/FileUpload";
 import InputField from "@/shared/ui/input/InputField";
-
-import type { BankCode, BankOption } from "../config/signup";
-import {
-  type SignupDesignerAdditionalData,
-  signupDesignerAdditionalSchema,
-} from "../model/signupSchemas";
-import BankDropdown from "./BankDropdown";
 
 type DesignerAdditionalStepProps = {
   progressIcon: ReactNode;

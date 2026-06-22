@@ -2,13 +2,15 @@
 
 import { type ChangeEvent, type ReactNode, useState } from "react";
 
+import {
+  SIGNUP_MAX_NAME_LENGTH,
+  SIGNUP_MAX_PHONE_NUMBER_LENGTH,
+} from "@/features/signup/config/signup";
+import type { SignupProfileData, SignupTermType } from "@/features/signup/model/signup";
+import { signupProfileSchema } from "@/features/signup/model/signupSchemas";
 import { CheckboxFillIcon, CheckboxGrayIcon, CloseIcon } from "@/shared/assets/icons";
 import Button from "@/shared/ui/Button";
 import InputField from "@/shared/ui/input/InputField";
-
-import { SIGNUP_MAX_NAME_LENGTH, SIGNUP_MAX_PHONE_NUMBER_LENGTH } from "../config/signup";
-import type { SignupProfileData, SignupTermType } from "../model/signup";
-import { signupProfileSchema } from "../model/signupSchemas";
 
 type SignupTerm = {
   id: SignupTermType;

@@ -1,5 +1,10 @@
 import { z } from "zod";
 
+import type {
+  SignupAccountData,
+  SignupDesignerAdditionalData,
+  SignupProfileData,
+} from "@/features/signup/model/signupSchemas";
 import {
   ApiError,
   createApiPath,
@@ -8,12 +13,6 @@ import {
   toApiError,
 } from "@/shared/api/client";
 import type { ApiResponse } from "@/shared/api/types";
-
-import type {
-  SignupAccountData,
-  SignupDesignerAdditionalData,
-  SignupProfileData,
-} from "../model/signupSchemas";
 
 const instructorSignupResultSchema = z.object({
   userId: z.number(),

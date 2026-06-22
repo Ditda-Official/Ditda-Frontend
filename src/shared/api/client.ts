@@ -1,12 +1,11 @@
 import ky, { HTTPError } from "ky";
 
+import type { ApiResponse } from "@/shared/api/types";
 import {
   clearClientAuth,
   getClientAccessToken,
   setClientAccessToken,
 } from "@/shared/lib/auth/client";
-
-import type { ApiResponse } from "./types";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "");
 const LOGIN_PATH = "/api/v1/auth/login";

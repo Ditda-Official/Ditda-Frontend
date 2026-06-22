@@ -2,14 +2,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { type ChangeEvent, useEffect, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 
-import { ApiError } from "@/shared/api/client";
-
 import {
   checkSignupUsername,
   requestSignupEmailVerificationCode,
   signupInstructor,
   verifySignupEmailCode,
-} from "../api/signup";
+} from "@/features/signup/api/signup";
 import {
   SIGNUP_EMAIL_ERROR_MESSAGE,
   SIGNUP_EMAIL_VERIFICATION_CODE_ERROR_MESSAGE,
@@ -22,13 +20,14 @@ import {
   SIGNUP_PASSWORD_CONFIRM_ERROR_MESSAGE,
   SIGNUP_PASSWORD_CONFIRM_FORMAT_ERROR_MESSAGE,
   SIGNUP_PASSWORD_ERROR_MESSAGE,
-} from "../config/signup";
-import type {
+} from "@/features/signup/config/signup";
+import {
   SignupAccountData,
   SignupAccountFormValues,
+  signupAccountSchema,
   SignupProfileData,
-} from "./signupSchemas";
-import { signupAccountSchema } from "./signupSchemas";
+} from "@/features/signup/model/signupSchemas";
+import { ApiError } from "@/shared/api/client";
 
 type SignupUserIdCheckStatus = "idle" | "checking" | "available" | "duplicated";
 type SignupEmailVerificationStatus = "idle" | "sending" | "sent" | "verifying" | "verified";

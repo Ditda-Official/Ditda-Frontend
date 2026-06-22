@@ -2,13 +2,16 @@
 
 import { type ReactNode } from "react";
 
+import { SIGNUP_MAX_ID_LENGTH, SIGNUP_MAX_PASSWORD_LENGTH } from "@/features/signup/config/signup";
+import type {
+  SignupAccountData,
+  SignupProfileData,
+  SignupRole,
+} from "@/features/signup/model/signup";
+import { useSignupStep2Form } from "@/features/signup/model/useSignupStep2Form";
 import { normalizeClientUserRole, setClientAuth } from "@/shared/lib/auth/client";
 import Button from "@/shared/ui/Button";
 import InputField from "@/shared/ui/input/InputField";
-
-import { SIGNUP_MAX_ID_LENGTH, SIGNUP_MAX_PASSWORD_LENGTH } from "../config/signup";
-import type { SignupAccountData, SignupProfileData, SignupRole } from "../model/signup";
-import { useSignupStep2Form } from "../model/useSignupStep2Form";
 
 type AccountStepProps = {
   progressIcon: ReactNode;

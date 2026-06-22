@@ -3,9 +3,8 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+import { logout } from "@/features/auth/api/logout";
 import { clearClientAuth } from "@/shared/lib/auth/client";
-
-import { logout } from "../api/logout";
 
 export const useLogout = () => {
   const router = useRouter();
