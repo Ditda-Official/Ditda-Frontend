@@ -309,6 +309,7 @@ export const useSignupStep2Form = (initialValues?: Partial<SignupAccountData>) =
       values.password.length > 0 && errors.password != null
         ? SIGNUP_PASSWORD_ERROR_MESSAGE
         : undefined,
+    setSubmitErrorMessage,
     submitErrorMessage,
     userId: values.username,
     userIdErrorMessage,

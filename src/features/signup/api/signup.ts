@@ -43,7 +43,6 @@ export type DesignerSignupResult = z.infer<typeof designerSignupResultSchema>;
 const unwrapApiResponse = async <T>(
   request: Promise<ApiResponse<unknown>>,
   resultSchema: z.ZodType<T>,
-  fallbackMessage?: string,
 ) => {
   try {
     const response = await request;
@@ -204,7 +203,6 @@ export const signupDesigner = async ({
         })
         .json<ApiResponse<unknown>>(),
       designerSignupResultSchema,
-      "이미 가입된 정보가 있습니다",
     );
   } catch (error) {
     throw await toApiError(error);

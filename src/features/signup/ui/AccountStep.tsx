@@ -37,7 +37,10 @@ const AccountStep = ({
     if (accountData == null) return;
 
     if (role === "instructor") {
-      if (profileData == null) return;
+      if (profileData == null) {
+        form.setSubmitErrorMessage("프로필 정보를 확인할 수 없습니다");
+        return;
+      }
 
       const result = await form.handleInstructorSignup(profileData, accountData);
 
@@ -45,7 +48,10 @@ const AccountStep = ({
 
       const userRole = normalizeClientUserRole(result.userType);
 
-      if (userRole == null) return;
+      if (userRole == null) {
+        form.setSubmitErrorMessage("사용자 유형을 확인할 수 없습니다");
+        return;
+      }
 
       setClientAuth({ accessToken: result.accessToken, role: userRole });
     }
@@ -79,7 +85,7 @@ const AccountStep = ({
                       onClear={form.clearUserId}
                     />
                     <Button
-                      className="h-[58px] w-fit shrink-0 whitespace-nowrap"
+                      className="h-14.5 w-fit shrink-0 whitespace-nowrap"
                       type="button"
                       variant={
                         form.isUserIdLengthValid
@@ -141,7 +147,7 @@ const AccountStep = ({
                     onClear={form.clearEmail}
                   />
                   <Button
-                    className="h-[58px] w-fit shrink-0 whitespace-nowrap"
+                    className="h-14.5 w-fit shrink-0 whitespace-nowrap"
                     type="button"
                     variant={
                       form.isEmailVerificationButtonEnabled
@@ -174,7 +180,7 @@ const AccountStep = ({
                       onChange={form.handleVerificationCodeChange}
                     />
                     <Button
-                      className="h-[58px] w-fit shrink-0 whitespace-nowrap"
+                      className="h-14.5 w-fit shrink-0 whitespace-nowrap"
                       type="button"
                       variant={
                         form.isEmailVerificationConfirmButtonEnabled
@@ -192,11 +198,11 @@ const AccountStep = ({
           </div>
 
           <div className="flex w-full items-start justify-between">
-            <Button className="w-[232px]" type="button" variant="medium_secondary" onClick={onPrev}>
+            <Button className="w-58" type="button" variant="medium_secondary" onClick={onPrev}>
               이전
             </Button>
             <Button
-              className="w-[232px]"
+              className="w-58"
               type="button"
               variant={form.isSubmitEnabled ? "medium_primary" : "medium_disabled"}
               onClick={() => void handleNext()}

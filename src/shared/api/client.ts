@@ -85,6 +85,18 @@ const reissueAccessToken = async () => {
   }
 };
 
+let refreshPromise: Promise<string> | null = null;
+
+const getOrRefreshAccessToken = () => {
+  if (refreshPromise == null) {
+    refreshPromise = reissueAccessToken().finally(() => {
+      refreshPromise = null;
+    });
+  }
+
+  return refreshPromise;
+};
+
 export const api = ky.create({
   credentials: "include",
   prefix: API_BASE_URL,
@@ -110,7 +122,7 @@ export const api = ky.create({
         }
 
         try {
-          const accessToken = await reissueAccessToken();
+          const accessToken = await getOrRefreshAccessToken();
           setClientAccessToken(accessToken);
 
           const headers = new Headers(request.headers);
@@ -170,7 +182,7 @@ export const toApiError = async (error: unknown) => {
 
   if (error instanceof Error) return new ApiError(error.message);
 
-  return new ApiError("");
+  return new ApiError("요청 처리 중 문제가 발생했습니다");
 };
 
 export const getApiErrorMessage = async (error: unknown) => {

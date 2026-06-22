@@ -179,11 +179,11 @@ const TermsProfileStep = ({
           </div>
 
           <div className="flex w-full items-start justify-between">
-            <Button className="w-[232px]" variant="medium_secondary" type="button" onClick={onPrev}>
+            <Button className="w-58" variant="medium_secondary" type="button" onClick={onPrev}>
               이전
             </Button>
             <Button
-              className="w-[232px]"
+              className="w-58"
               variant={isNextEnabled ? "medium_primary" : "medium_disabled"}
               type="button"
               onClick={() => {
@@ -202,7 +202,7 @@ const TermsProfileStep = ({
           onClick={() => setSelectedTermId(null)}
         >
           <section
-            className="rounded-12 flex h-[792px] w-[612px] flex-col gap-6 bg-white px-6 py-8"
+            className="rounded-12 flex h-198 w-153 flex-col gap-6 bg-white px-6 py-8"
             onClick={event => event.stopPropagation()}
           >
             <header className="border-gray-20 flex items-center justify-between gap-4">

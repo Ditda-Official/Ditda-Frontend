@@ -151,11 +151,11 @@ const DesignerAdditionalStep = ({
           </div>
 
           <div className="flex w-full items-start justify-between">
-            <Button className="w-[232px]" type="button" variant="medium_secondary" onClick={onPrev}>
+            <Button className="w-58" type="button" variant="medium_secondary" onClick={onPrev}>
               이전
             </Button>
             <Button
-              className="w-[232px]"
+              className="w-58"
               type="button"
               variant={isSubmitEnabled ? "medium_primary" : "medium_disabled"}
               onClick={() => {
