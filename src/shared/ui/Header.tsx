@@ -53,7 +53,7 @@ const Header = () => {
       const role = normalizeRole(getCookieValue(USER_ROLE_COOKIE_NAME));
 
       setAuthState({
-        isLoggedIn: accessToken != null && role != null,
+        isLoggedIn: accessToken != null,
         role,
       });
     };
@@ -65,7 +65,7 @@ const Header = () => {
   }, []);
 
   const accountHref = useMemo(() => {
-    if (authState.role == null) return "/login";
+    if (authState.role == null) return "/";
 
     return ROLE_ACCOUNT_PATH[authState.role];
   }, [authState.role]);

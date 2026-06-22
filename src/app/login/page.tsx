@@ -1,16 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
 
+import { useLoginForm } from "@/features/login/model/useLoginForm";
 import { BlackLogo } from "@/shared/assets/logos";
 import Button from "@/shared/ui/Button";
 import InputField from "@/shared/ui/input/InputField";
 
 const Page = () => {
-  const [loginId, setLoginId] = useState("");
-  const [password, setPassword] = useState("");
-  const isLoginEnabled = loginId.trim().length > 0 && password.trim().length > 0;
+  const form = useLoginForm();
 
   return (
     <div className="flex min-h-full flex-col bg-white">
@@ -19,32 +17,37 @@ const Page = () => {
           <BlackLogo className="h-12.5 w-40" />
 
           <div className="flex w-full flex-col items-center gap-18.25">
-            <div className="flex w-full flex-col gap-12">
+            <form
+              className="flex w-full flex-col gap-12"
+              onSubmit={event => void form.onSubmit(event)}
+            >
               <div className="flex w-full flex-col gap-4">
                 <InputField
                   label="아이디"
-                  onChange={event => setLoginId(event.target.value)}
+                  onChange={form.handleUsernameChange}
+                  onClear={form.clearUsername}
                   placeholder="아이디를 입력해주세요"
-                  value={loginId}
+                  value={form.username}
                 />
                 <InputField
+                  errorMessage={form.errorMessage}
                   label="비밀번호"
-                  onChange={event => setPassword(event.target.value)}
+                  onChange={form.handlePasswordChange}
                   placeholder="비밀번호를 입력해주세요"
                   showPasswordToggle
                   type="password"
-                  value={password}
+                  value={form.password}
                 />
               </div>
 
               <Button
-                disabled={!isLoginEnabled}
-                variant={isLoginEnabled ? "large_primary" : "large_disabled"}
-                type="button"
+                disabled={!form.isLoginEnabled}
+                variant={form.isLoginEnabled ? "large_primary" : "large_disabled"}
+                type="submit"
               >
-                로그인하기
+                {form.isSubmitting ? "로그인 중" : "로그인하기"}
               </Button>
-            </div>
+            </form>
 
             <div className="flex flex-col items-center gap-3">
               <p className="text-body1-m text-gray-60">Ditda가 처음이신가요?</p>

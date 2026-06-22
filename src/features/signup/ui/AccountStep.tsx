@@ -2,7 +2,7 @@
 
 import { type ReactNode } from "react";
 
-import { setClientAuth } from "@/shared/lib/auth/client";
+import { normalizeClientUserRole, setClientAuth } from "@/shared/lib/auth/client";
 import Button from "@/shared/ui/Button";
 import InputField from "@/shared/ui/input/InputField";
 
@@ -43,7 +43,11 @@ const AccountStep = ({
 
       if (result == null) return;
 
-      setClientAuth({ accessToken: result.accessToken, role: "instructor" });
+      const userRole = normalizeClientUserRole(result.userType);
+
+      if (userRole == null) return;
+
+      setClientAuth({ accessToken: result.accessToken, role: userRole });
     }
 
     onNext(accountData);

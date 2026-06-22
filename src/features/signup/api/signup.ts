@@ -13,6 +13,7 @@ import type { SignupAccountData, SignupProfileData } from "../model/signupSchema
 
 const instructorSignupResultSchema = z.object({
   userId: z.number(),
+  userType: z.string(),
   name: z.string(),
   profileImageUrl: z.string(),
   accessToken: z.string(),

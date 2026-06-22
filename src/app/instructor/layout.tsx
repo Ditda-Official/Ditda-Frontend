@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 
+import { LogoutSidebarMenu } from "@/features/auth";
 import Header from "@/shared/ui/Header";
 import Sidebar from "@/shared/ui/Sidebar";
 import SidebarMenu from "@/shared/ui/SidebarMenu";
@@ -9,7 +10,7 @@ const InstructorLayout = ({ children }: { children: ReactNode }) => {
     <div className="flex h-screen flex-col">
       <Header />
       <div className="bg-gray-10 flex flex-1 overflow-hidden">
-        <Sidebar bottom={<SidebarMenu label="로그아웃" />}>
+        <Sidebar bottom={<LogoutSidebarMenu />}>
           <SidebarMenu label="새 외주 작성" href="/instructor/write" />
           <SidebarMenu
             label="진행 중 외주"

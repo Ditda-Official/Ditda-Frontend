@@ -44,7 +44,12 @@ const getUserRole = (request: NextRequest, accessToken: string): UserRole | null
   if (roleFromCookie != null) return roleFromCookie;
 
   const tokenPayload = parseJwtPayload(accessToken);
-  const roleFromToken = typeof tokenPayload?.role === "string" ? tokenPayload.role : undefined;
+  const roleFromToken =
+    typeof tokenPayload?.role === "string"
+      ? tokenPayload.role
+      : typeof tokenPayload?.userType === "string"
+        ? tokenPayload.userType
+        : undefined;
 
   return normalizeRole(roleFromToken);
 };
