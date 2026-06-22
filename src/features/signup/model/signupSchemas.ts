@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 import {
+  BANK_OPTIONS,
   SIGNUP_EMAIL_REGEX,
   SIGNUP_MAX_ID_LENGTH,
   SIGNUP_MAX_NAME_LENGTH,
@@ -54,6 +55,17 @@ export const signupAccountSchema = z
     }
   });
 
+export const signupDesignerAdditionalSchema = z.object({
+  bankCode: z.custom<(typeof BANK_OPTIONS)[number]["code"]>(
+    value => typeof value === "string" && BANK_OPTIONS.some(({ code }) => code === value),
+  ),
+  accountNumber: z.string().trim().min(1),
+  accountHolder: z.string().trim().min(1),
+  portfolioFiles: z
+    .array(z.custom<File>(value => typeof File !== "undefined" && value instanceof File))
+    .max(3),
+});
+
 export type SignupTermType = z.infer<typeof signupTermTypeSchema>;
 export type SignupTermAgreement = z.infer<typeof signupTermAgreementSchema>;
 export type SignupProfileData = z.infer<typeof signupProfileSchema>;
@@ -62,3 +74,4 @@ export type SignupAccountData = Omit<
   SignupAccountFormValues,
   "passwordConfirm" | "verificationCode"
 >;
+export type SignupDesignerAdditionalData = z.infer<typeof signupDesignerAdditionalSchema>;

@@ -11,6 +11,8 @@ import {
   SIGNUP_INITIAL_STEP,
   SIGNUP_STEPS_BY_ROLE,
   type SignupAccountData,
+  signupDesigner,
+  type SignupDesignerAdditionalData,
   type SignupFunnelStep,
   type SignupProfileData,
   SignupProgressIcon,
@@ -18,6 +20,11 @@ import {
   TermsProfileStep,
   UserTypeStep,
 } from "@/features/signup";
+import {
+  getClientUserHomePath,
+  normalizeClientUserRole,
+  setClientAuth,
+} from "@/shared/lib/auth/client";
 
 const SignupFunnel = () => {
   const router = useRouter();
@@ -25,11 +32,14 @@ const SignupFunnel = () => {
   const [currentStep, setCurrentStep] = useState<SignupFunnelStep>(SIGNUP_INITIAL_STEP);
   const [profileData, setProfileData] = useState<SignupProfileData>();
   const [accountData, setAccountData] = useState<SignupAccountData>();
+  const [designerAdditionalData, setDesignerAdditionalData] =
+    useState<SignupDesignerAdditionalData>();
 
   const handleRoleNext = (role: SignupRole) => {
     setSelectedRole(role);
     setProfileData(undefined);
     setAccountData(undefined);
+    setDesignerAdditionalData(undefined);
     setCurrentStep(SIGNUP_STEPS_BY_ROLE[role][0]);
   };
 
@@ -70,6 +80,28 @@ const SignupFunnel = () => {
   const handleAccountNext = (data: SignupAccountData) => {
     setAccountData(data);
     moveNext();
+  };
+
+  const handleDesignerSubmit = async (data: SignupDesignerAdditionalData) => {
+    if (profileData == null || accountData == null) {
+      throw new Error("회원가입 정보를 확인할 수 없습니다");
+    }
+
+    setDesignerAdditionalData(data);
+
+    const result = await signupDesigner({
+      profile: profileData,
+      account: accountData,
+      additional: data,
+    });
+    const userRole = normalizeClientUserRole(result.userType);
+
+    if (userRole == null) {
+      throw new Error("사용자 유형을 확인할 수 없습니다");
+    }
+
+    setClientAuth({ accessToken: result.accessToken, role: userRole });
+    router.push(getClientUserHomePath(userRole));
   };
 
   if (selectedRole == null || currentStep === "role") {
@@ -131,8 +163,9 @@ const SignupFunnel = () => {
   return (
     <DesignerAdditionalStep
       progressIcon={<SignupProgressIcon currentStep={3} totalSteps={3} />}
+      initialData={designerAdditionalData}
       onPrev={movePrev}
-      onSubmit={moveNext}
+      onSubmit={handleDesignerSubmit}
     />
   );
 };

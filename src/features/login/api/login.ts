@@ -1,10 +1,10 @@
 import { z } from "zod";
 
 import {
-  api,
   ApiError,
   createApiPath,
   getApiResponseMessage,
+  publicApi,
   toApiError,
 } from "@/shared/api/client";
 import type { ApiResponse } from "@/shared/api/types";
@@ -23,7 +23,7 @@ export type LoginResult = z.infer<typeof loginResultSchema>;
 
 export const login = async ({ password, username }: LoginFormValues) => {
   try {
-    const response = await api
+    const response = await publicApi
       .post(createApiPath("/api/v1/auth/login"), {
         json: { password, username },
       })

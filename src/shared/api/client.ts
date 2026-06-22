@@ -10,6 +10,7 @@ import type { ApiResponse } from "./types";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "");
 const DEFAULT_API_ERROR_MESSAGE = "요청 처리 중 문제가 발생했습니다";
+const DEFAULT_CONFLICT_ERROR_MESSAGE = "이미 존재하는 데이터입니다";
 const LOGIN_PATH = "/api/v1/auth/login";
 const TOKEN_REISSUE_PATH = "/api/v1/auth/reissue";
 
@@ -41,6 +42,11 @@ const tokenRefreshApi = ky.create({
   credentials: "include",
   prefix: API_BASE_URL,
   retry: 0,
+});
+
+export const publicApi = ky.create({
+  credentials: "include",
+  prefix: API_BASE_URL,
 });
 
 const shouldSkipTokenReissue = (request: Request) => {
@@ -152,7 +158,10 @@ export const toApiError = async (error: unknown, fallbackMessage = DEFAULT_API_E
         status: error.response.status,
       });
     } catch {
-      return new ApiError(fallbackMessage, { status: error.response.status });
+      return new ApiError(
+        error.response.status === 409 ? DEFAULT_CONFLICT_ERROR_MESSAGE : fallbackMessage,
+        { status: error.response.status },
+      );
     }
   }
 
