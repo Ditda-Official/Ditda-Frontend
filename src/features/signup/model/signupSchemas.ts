@@ -11,12 +11,7 @@ import {
   SIGNUP_MIN_PASSWORD_LENGTH,
 } from "@/features/signup/config/signup";
 
-export const signupTermTypeSchema = z.enum([
-  "SERVICE",
-  "USERINFO",
-  "SETTLEMENT",
-  "DISINTERMEDIATION",
-]);
+export const signupTermTypeSchema = z.enum(["DESIGNER_SERVICE", "INSTRUCTOR_SERVICE", "USERINFO"]);
 
 export const signupTermAgreementSchema = z.object({
   type: signupTermTypeSchema,
@@ -30,7 +25,7 @@ export const signupProfileSchema = z.object({
     .string()
     .regex(/^\d{10,11}$/)
     .max(SIGNUP_MAX_PHONE_NUMBER_LENGTH),
-  terms: z.array(signupTermAgreementSchema).min(1),
+  terms: z.array(signupTermAgreementSchema).length(2),
 });
 
 export const signupAccountSchema = z

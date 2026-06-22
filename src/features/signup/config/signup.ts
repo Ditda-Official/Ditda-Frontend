@@ -56,31 +56,17 @@ export const BANK_API_MAP = Object.fromEntries(
     ========================= */
 export const DESIGNER_TERMS = [
   {
-    id: "SERVICE",
-    label: "디자이너 약관 1",
-    modalTitle: "디자이너 약관 제목 1",
+    id: "DESIGNER_SERVICE",
+    label: "디자이너 이용약관",
+    modalTitle: "디자이너 이용약관",
     content: "디자이너약관1디자이너약관1디자이너약관1",
     version: "V1.0",
   },
   {
     id: "USERINFO",
-    label: "디자이너 약관 2",
-    modalTitle: "디자이너 약관 제목 2",
+    label: "개인정보처리방침",
+    modalTitle: "개인정보처리방침",
     content: "디자이너약관2디자이너약관2디자이너약관2디자이너약관2",
-    version: "V1.0",
-  },
-  {
-    id: "SETTLEMENT",
-    label: "디자이너 약관 3",
-    modalTitle: "디자이너 약관 제목 3",
-    content: "디자이너약관3디자이너약관3디자이너약관3디자이너약관3디자이너약관3",
-    version: "V1.0",
-  },
-  {
-    id: "DISINTERMEDIATION",
-    label: "디자이너 약관 4",
-    modalTitle: "약관 제목 4",
-    content: "디자이너약관4디자이너약관4디자이너약관4디자이너약관4디자이너약관4",
     version: "V1.0",
   },
 ] as const;
@@ -90,32 +76,17 @@ export const DESIGNER_TERMS = [
     ========================= */
 export const INSTRUCTOR_TERMS = [
   {
-    id: "SERVICE",
-    label: "강사 약관 1",
-    modalTitle: "강사 약관 제목 1",
+    id: "INSTRUCTOR_SERVICE",
+    label: "강사 이용약관",
+    modalTitle: "강사 이용약관",
     content: "강사약관1강사약관1강사약관1강사약관1강사약관1강사약관1강사약관1강사약관1강사약관1",
     version: "V1.0",
   },
   {
     id: "USERINFO",
-    label: "강사 약관 2",
-    modalTitle: "강사 약관 제목 3",
+    label: "개인정보처리방침",
+    modalTitle: "개인정보처리방침",
     content: "강사약관2강사약관2강사약관2강사약관2강사약관2강사약관2강사약관2강사약관2강사약관2",
-    version: "V1.0",
-  },
-  {
-    id: "SETTLEMENT",
-    label: "강사 약관 3",
-    modalTitle: "강사 약관 제목 3",
-    content:
-      "강사약관3강사약관3강사약관3강사약관3강사약관3강사약관3강사약관3강사약관3강사약관3강사약관3",
-    version: "V1.0",
-  },
-  {
-    id: "DISINTERMEDIATION",
-    label: "강사 약관 4",
-    modalTitle: "강사 약관 제목 4",
-    content: "강사약관4강사약관4강사약관4강사약관4강사약관4강사약관4강사약관4강사약관4강사약관4",
     version: "V1.0",
   },
 ] as const;
