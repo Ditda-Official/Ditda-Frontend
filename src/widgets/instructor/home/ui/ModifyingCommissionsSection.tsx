@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 
 import {
   CommissionsHeader,
+  getRevisions,
   ModifyingCommissionsRow,
   type ModifyingItem,
 } from "@/features/instructor/home";
-import { getRevisions } from "@/features/instructor/home/api/getRevisions";
 import { NextButton, PrevButton } from "@/shared/assets/icons";
 import usePagination from "@/shared/lib/hooks/usePagination";
 import PageIndicator from "@/shared/ui/PageIndicator";
