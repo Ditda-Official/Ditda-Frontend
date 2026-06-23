@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
 import { EnterIcon, ProfileCircleIcon } from "@/shared/assets/icons";
@@ -65,6 +66,15 @@ const Header = () => {
     return () => window.removeEventListener("focus", syncAuthState);
   }, []);
 
+  const pathname = usePathname();
+
+  const logoHref = useMemo(() => {
+    if (!authState.isLoggedIn) return "/";
+    if (pathname.startsWith("/instructor")) return "/instructor";
+    if (pathname.startsWith("/designer")) return "/designer";
+    return "/";
+  }, [authState.isLoggedIn, pathname]);
+
   const accountHref = useMemo(() => {
     if (authState.role == null) return "/login";
 
@@ -73,7 +83,9 @@ const Header = () => {
 
   return (
     <header className="bg-gray-5 flex h-16 w-full flex-row items-center justify-between px-10 py-4">
-      <PurpleLogo className="h-5.75 w-18.5" />
+      <Link href={logoHref}>
+        <PurpleLogo className="h-5.75 w-18.5" />
+      </Link>
       <div className="text-gray-80 text-body2-m hover:text-gray-90 flex cursor-pointer flex-row gap-16">
         <p>이용방식 안내</p>
         <p>1:1 문의하기</p>
