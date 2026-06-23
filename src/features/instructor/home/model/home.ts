@@ -34,8 +34,6 @@ export type ModifyingItem = {
   commissionId: number;
   title: string;
   isSubmitted: boolean;
-  hasUpdate: boolean;
+  hasUpdated: boolean;
   finalDeadline: string;
 };
-
-export const modifyingStatusData: ModifyingItem[] = [];

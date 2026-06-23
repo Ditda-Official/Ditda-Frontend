@@ -1,18 +1,27 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import {
   CommissionsHeader,
   ModifyingCommissionsRow,
-  modifyingStatusData,
+  type ModifyingItem,
 } from "@/features/instructor/home";
+import { getRevisions } from "@/features/instructor/home/api/getRevisions";
 import { NextButton, PrevButton } from "@/shared/assets/icons";
 import usePagination from "@/shared/lib/hooks/usePagination";
 import PageIndicator from "@/shared/ui/PageIndicator";
 import { MODIFYING_ITEMS_PER_PAGE } from "@/widgets/instructor/home/config/home";
 
 const ModifyingCommissionsSection = () => {
+  const [items, setItems] = useState<ModifyingItem[]>([]);
+
+  useEffect(() => {
+    getRevisions().then(setItems);
+  }, []);
+
   const { current, totalPages, pageItems, handlePrev, handleNext } = usePagination(
-    modifyingStatusData,
+    items,
     MODIFYING_ITEMS_PER_PAGE,
   );
 
@@ -35,7 +44,7 @@ const ModifyingCommissionsSection = () => {
         </div>
         {pageItems.length === 0 ? (
           <div className="flex flex-1 items-center justify-center">
-            <span className="text-heading3-m text-gray-60">수정 중인 외주가 없습니다</span>
+            <span className="text-heading3-m text-gray-60">진행중인 외주가 없습니다</span>
           </div>
         ) : (
           <div className="flex flex-row justify-between">
