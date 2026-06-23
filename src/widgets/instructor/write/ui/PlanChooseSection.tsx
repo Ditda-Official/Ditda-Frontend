@@ -1,11 +1,21 @@
 "use client";
 
-import { PlanChooseCard, type PlanType, useWriteFormStore } from "@/features/instructor/write";
+import { useEffect, useState } from "react";
 
-const PLANS: PlanType[] = ["기본", "플러스", "맥스"];
+import {
+  getPlans,
+  type Plan,
+  PlanChooseCard,
+  useWriteFormStore,
+} from "@/features/instructor/write";
 
 const PlanChooseSection = () => {
   const { selectedPlan, setSelectedPlan } = useWriteFormStore();
+  const [plans, setPlans] = useState<Plan[]>([]);
+
+  useEffect(() => {
+    getPlans().then(setPlans).catch(console.error);
+  }, []);
 
   return (
     <div className="rounded-12 focus-within:border-purple-40 flex flex-col gap-8 border border-transparent bg-white p-6">
@@ -16,11 +26,11 @@ const PlanChooseSection = () => {
         </h2>
       </div>
       <div className="flex flex-row gap-3">
-        {PLANS.map(plan => (
+        {plans.map(plan => (
           <PlanChooseCard
-            key={plan}
+            key={plan.code}
             plan={plan}
-            isSelected={selectedPlan === plan}
+            isSelected={selectedPlan?.code === plan.code}
             onClick={() => setSelectedPlan(plan)}
           />
         ))}

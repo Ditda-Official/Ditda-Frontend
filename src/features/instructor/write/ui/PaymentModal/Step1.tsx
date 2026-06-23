@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import {
-  PLAN_MAP,
+  PLAN_LABEL_MAP,
   SIZE_DISPLAY_MAP,
   TERMS_CONTENT,
 } from "@/features/instructor/write/config/write";
@@ -130,7 +130,7 @@ const Step1 = ({ onNext, errorMessage }: { onNext: () => void; errorMessage?: st
           <div className="flex flex-col gap-5">
             {selectedCategory && <InfoRow label="카테고리" value={selectedCategory.item} />}
             {selectedSize && <InfoRow label="사이즈" value={SIZE_DISPLAY_MAP[selectedSize]} />}
-            {selectedPlan && <InfoRow label="플랜" value={`${selectedPlan} 플랜`} />}
+            {selectedPlan && <InfoRow label="플랜" value={PLAN_LABEL_MAP[selectedPlan.code]} />}
             {selectedPages.length > 0 && (
               <InfoRow label="페이지">
                 {selectedPages.map(p => (
@@ -170,7 +170,7 @@ const Step1 = ({ onNext, errorMessage }: { onNext: () => void; errorMessage?: st
         <div className="flex flex-row items-center justify-between pt-6 pb-8">
           <h3 className="text-heading3-sb text-gray-70">최종 금액</h3>
           <p className="text-gray-90 text-title2-sb">
-            {selectedPlan ? PLAN_MAP[selectedPlan].price : "-"}
+            {selectedPlan ? `${selectedPlan.price.toLocaleString("ko-KR")}원` : "-"}
           </p>
         </div>
         {errorMessage && (

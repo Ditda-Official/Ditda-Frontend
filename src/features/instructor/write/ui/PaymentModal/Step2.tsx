@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation";
 
-import { PLAN_MAP } from "@/features/instructor/write/config/write";
 import { useWriteFormStore } from "@/features/instructor/write/model/writeFormStore";
 import { ArrowLeftIcon, ExclamationMarkCircleIcon } from "@/shared/assets/icons";
 import Button from "@/shared/ui/Button";
@@ -39,7 +38,7 @@ const Step2 = ({ onBack }: { onBack: () => void }) => {
             <div className="flex flex-row justify-between">
               <p className="text-gray-70 text-body2-m">이체 금액</p>
               <p className="text-gray-90 text-heading1-sb">
-                {selectedPlan ? PLAN_MAP[selectedPlan].price : "-"}
+                {selectedPlan ? `${selectedPlan.price.toLocaleString("ko-KR")}원` : "-"}
               </p>
             </div>
           </div>

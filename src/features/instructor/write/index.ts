@@ -1,3 +1,5 @@
+export type { Plan } from "./api/getPlans";
+export { getPlans } from "./api/getPlans";
 export * from "./config/write";
 export type { RgbaColor } from "./lib/color";
 export { formatDate, getMinFinalDate, getYesterday } from "./lib/date";

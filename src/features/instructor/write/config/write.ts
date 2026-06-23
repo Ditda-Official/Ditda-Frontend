@@ -1,7 +1,6 @@
 import React from "react";
 
 import { OneCircleIcon, ThreeCircleIcon, TwoCircleIcon } from "@/shared/assets/icons";
-import { BadgeVariant } from "@/shared/ui/Badge";
 
 export type WriteStep = 1 | 2 | 3;
 
@@ -97,39 +96,12 @@ export type TermsItem = {
   sections?: TermsSection[];
 };
 
-export type PlanType = "기본" | "플러스" | "맥스";
+export type PlanType = "BASIC" | "PLUS" | "MAX";
 
-export const PLAN_MAP: Record<
-  PlanType,
-  { label: string; size: BadgeVariant; price: string; description: string }
-> = {
-  기본: {
-    label: "기본 플랜",
-    size: "3인",
-    price: "400,000원",
-    description: "디자이너 3명에 대한 시안을 받아볼 수 있습니다.",
-  },
-  플러스: {
-    label: "플러스 플랜",
-    size: "4인",
-    price: "480,000원",
-    description: "더 다양한 디자이너의 시안을 받아볼 수 있습니다. ",
-  },
-  맥스: {
-    label: "맥스 플랜",
-    size: "5인",
-    price: "560,000원",
-    description: "가장 많은 디자이너의 시안을 받아볼 수 있습니다. ",
-  },
-};
-
-/* =========================
-    ENUM Mapping for API (최종x)
-    ========================= */
-export const PLAN_API_MAP: Record<string, string> = {
-  기본: "BASIC",
-  플러스: "PLUS",
-  맥스: "MAX",
+export const PLAN_LABEL_MAP: Record<PlanType, string> = {
+  BASIC: "기본 플랜",
+  PLUS: "플러스 플랜",
+  MAX: "맥스 플랜",
 };
 
 export const CATEGORY_API_MAP: Record<string, string> = {
