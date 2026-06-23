@@ -36,7 +36,7 @@ const DraftSubmissionStatusSection = () => {
         </div>
         {pageItems.length === 0 ? (
           <div className="flex flex-1 items-center justify-center">
-            <span className="text-heading3-m text-gray-60">진행중인 외주가 없습니다</span>
+            <span className="text-heading3-m text-gray-60">제출된 시안이 없습니다</span>
           </div>
         ) : (
           <div className="flex flex-row justify-between">

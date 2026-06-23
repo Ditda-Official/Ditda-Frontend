@@ -33,11 +33,17 @@ const ModifyingCommissionsSection = () => {
             ))}
           </div>
         </div>
-        <div className="flex flex-row justify-between">
-          <PrevButton className="size-12 cursor-pointer" onClick={handlePrev} />
-          <PageIndicator total={totalPages} current={current} />
-          <NextButton className="size-12 cursor-pointer" onClick={handleNext} />
-        </div>
+        {pageItems.length === 0 ? (
+          <div className="flex flex-1 items-center justify-center">
+            <span className="text-heading3-m text-gray-60">수정 중인 외주가 없습니다</span>
+          </div>
+        ) : (
+          <div className="flex flex-row justify-between">
+            <PrevButton className="size-12 cursor-pointer" onClick={handlePrev} />
+            <PageIndicator total={totalPages} current={current} />
+            <NextButton className="size-12 cursor-pointer" onClick={handleNext} />
+          </div>
+        )}
       </div>
     </div>
   );
