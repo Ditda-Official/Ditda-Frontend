@@ -1,4 +1,4 @@
-import type { Plan } from "@/features/instructor/write/api/getPlans";
+import type { Plan } from "@/features/instructor/write/api/writeTypes";
 import { PLAN_LABEL_MAP } from "@/features/instructor/write/config/write";
 import Badge, { type BadgeVariant } from "@/shared/ui/Badge";
 

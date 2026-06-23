@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import { logout } from "@/features/auth/api/logout";
+import { postLogout } from "@/features/auth/api/auth";
 import { clearClientAuth } from "@/shared/lib/auth/client";
 
 export const useLogout = () => {
@@ -16,7 +16,7 @@ export const useLogout = () => {
     setIsLoggingOut(true);
 
     try {
-      await logout();
+      await postLogout();
     } catch {
       // 클라이언트 세션 정리는 로그아웃 API 실패 여부와 무관하게 진행합니다.
     } finally {

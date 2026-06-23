@@ -2,8 +2,8 @@
 
 import { useRouter } from "next/navigation";
 
+import { ModifyingItem } from "@/features/instructor/home/api/homeTypes";
 import { getDDay } from "@/features/instructor/home/lib/getDDay";
-import { ModifyingItem } from "@/features/instructor/home/model/home";
 import { cn } from "@/shared/lib/utils/cn";
 import Button from "@/shared/ui/Button";
 import Tag from "@/shared/ui/Tag";

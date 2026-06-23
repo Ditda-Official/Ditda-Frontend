@@ -1,5 +1,5 @@
+import { MatchingItem } from "@/features/instructor/home/api/homeTypes";
 import { getDDay } from "@/features/instructor/home/lib/getDDay";
-import { MatchingItem } from "@/features/instructor/home/model/home";
 import { ArrowRightIcon } from "@/shared/assets/icons";
 import Tag from "@/shared/ui/Tag";
 

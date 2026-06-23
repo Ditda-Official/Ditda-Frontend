@@ -10,7 +10,7 @@ import { MAX_SELECTABLE_COUNT } from "@/widgets/instructor/revision/config/revis
 import {
   draftFilesData,
   draftRevisionDetailData,
-} from "@/widgets/instructor/revision/model/revision";
+} from "@/widgets/instructor/revision/model/revisionMock";
 
 const Page = () => {
   const router = useRouter();

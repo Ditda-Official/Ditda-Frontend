@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-import type { Plan } from "@/features/instructor/write/api/getPlans";
+import type { Plan } from "@/features/instructor/write/api/writeTypes";
 import {
   CATEGORY_API_MAP,
   KEYWORD_API_MAP,

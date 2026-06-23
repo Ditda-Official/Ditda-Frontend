@@ -5,9 +5,10 @@ import {
   getApiResponseMessage,
   toApiError,
 } from "@/shared/api/client";
-import type { ApiResponse } from "@/shared/api/types";
+import type { ApiResponse } from "@/shared/api/commonType";
 
-export const logout = async () => {
+// 로그아웃
+export const postLogout = async () => {
   try {
     const response = await api
       .post(createApiPath("/api/v1/auth/logout"))

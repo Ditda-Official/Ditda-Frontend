@@ -1,4 +1,4 @@
-export { signupDesigner } from "./api/signup";
+export { postSignupDesigner } from "./api/signup";
 export * from "./config/signup";
 export * from "./config/signupFunnel";
 export * from "./model/signup";

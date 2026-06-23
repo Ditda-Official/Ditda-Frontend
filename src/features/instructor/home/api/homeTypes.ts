@@ -1,4 +1,3 @@
-// [강사] [대시보드 조회] 시안 제출 예정 외주 조회
 export type DraftSubmissionItem = {
   commissionId: number;
   title: string;
@@ -11,11 +10,6 @@ export type DraftSubmissionItem = {
   firstDraftDeadline: string;
 };
 
-export const CATEGORY_DISPLAY_MAP: Record<string, string> = {
-  FLYER_TEXTBOOK_COVER_INNER: "교재 외지/내지",
-};
-
-// [강사] [대시보드 조회] 매칭 중인 외주 조회
 export type MatchingItem = {
   commissionId: number;
   title: string;
@@ -26,11 +20,26 @@ export type MatchingItem = {
   };
 };
 
-// [강사] [대시보드 조회] 수정 중인 외주 조회
 export type ModifyingItem = {
   commissionId: number;
   title: string;
   isSubmitted: boolean;
   hasUpdated: boolean;
   finalDeadline: string;
+};
+
+export const CATEGORY_DISPLAY_MAP: Record<string, string> = {
+  FLYER_TEXTBOOK_COVER_INNER: "교재 외지/내지",
+};
+
+export type GetDraftSubmissionsResult = {
+  commissions: DraftSubmissionItem[];
+};
+
+export type GetMatchingCommissionsResult = {
+  commissions: MatchingItem[];
+};
+
+export type GetRevisionsResult = {
+  commissions: ModifyingItem[];
 };

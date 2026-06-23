@@ -1,7 +1,10 @@
 import { useRouter } from "next/navigation";
 
+import {
+  CATEGORY_DISPLAY_MAP,
+  DraftSubmissionItem,
+} from "@/features/instructor/home/api/homeTypes";
 import { getDDay } from "@/features/instructor/home/lib/getDDay";
-import { CATEGORY_DISPLAY_MAP, DraftSubmissionItem } from "@/features/instructor/home/model/home";
 import { ArrowRightIcon, MatchingOffIcon, MatchingOnIcon } from "@/shared/assets/icons";
 import Button from "@/shared/ui/Button";
 import Tag from "@/shared/ui/Tag";

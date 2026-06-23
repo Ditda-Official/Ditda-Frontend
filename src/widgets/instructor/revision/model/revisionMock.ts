@@ -13,7 +13,7 @@ export type DraftRevisionDetail = {
 
 export const draftRevisionDetailData: DraftRevisionDetail[] = [
   {
-    commissionId: 42,
+    commissionId: 6,
     title: "중등 수학 — 방정식과 함수 개념서",
     currentDraft: {
       draftId: 88,
@@ -69,7 +69,7 @@ export type DraftFiles = {
 
 export const draftFilesData: DraftFiles[] = [
   {
-    commissionId: 42,
+    commissionId: 6,
     draftId: 88,
     fileUrls: [
       "/images/thumbnail_mock.jpg",

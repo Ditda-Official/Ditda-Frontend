@@ -1,18 +1,8 @@
-import type { PlanType } from "@/features/instructor/write/config/write";
+import type { GetPlansResult, Plan } from "@/features/instructor/write/api/writeTypes";
 import { api, createApiPath } from "@/shared/api/client";
-import type { ApiResponse } from "@/shared/api/types";
+import type { ApiResponse } from "@/shared/api/commonType";
 
-export type Plan = {
-  code: PlanType;
-  designerCount: number;
-  price: number;
-  description: string;
-};
-
-type GetPlansResult = {
-  plans: Plan[];
-};
-
+// 플랜 조회
 export const getPlans = async (): Promise<Plan[]> => {
   const response = await api
     .get(createApiPath("/api/v1/instructors/commissions/plans"))

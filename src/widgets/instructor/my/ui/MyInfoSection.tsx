@@ -1,7 +1,7 @@
 import Image from "next/image";
 
+import { myInfoData } from "@/features/instructor/my/model/myMock";
 import { ProfileCircleIcon } from "@/shared/assets/icons";
-import { myInfoData } from "@/widgets/instructor/my/model/my";
 
 interface MyInfoSectionProps {
   name: string;
