@@ -59,7 +59,12 @@ export const useLoginForm = () => {
         throw new Error("사용자 유형을 확인할 수 없습니다");
       }
 
-      setClientAuth({ accessToken: result.accessToken, role: userRole });
+      setClientAuth({
+        accessToken: result.accessToken,
+        role: userRole,
+        name: result.name,
+        profileImageUrl: result.profileImageUrl,
+      });
       router.push(getClientUserHomePath(userRole));
     } catch (error) {
       setErrorMessage(error instanceof Error ? error.message : "요청 처리 중 문제가 발생했습니다");

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
@@ -7,6 +8,7 @@ import { EnterIcon, ProfileCircleIcon } from "@/shared/assets/icons";
 import { PurpleLogo } from "@/shared/assets/logos";
 import {
   type ClientUserRole,
+  getClientProfileImageUrl,
   getClientUserRoleFromAccessToken,
   normalizeClientUserRole,
 } from "@/shared/lib/auth/client";
@@ -14,6 +16,7 @@ import {
 interface AuthState {
   isLoggedIn: boolean;
   role: ClientUserRole | null;
+  profileImageUrl: string | null;
 }
 
 const ACCESS_TOKEN_COOKIE_NAME = "accessToken";
@@ -38,6 +41,7 @@ const Header = () => {
   const [authState, setAuthState] = useState<AuthState>({
     isLoggedIn: false,
     role: null,
+    profileImageUrl: null,
   });
 
   useEffect(() => {
@@ -51,6 +55,7 @@ const Header = () => {
       setAuthState({
         isLoggedIn: accessToken != null && role != null,
         role,
+        profileImageUrl: getClientProfileImageUrl() ?? null,
       });
     };
 
@@ -76,7 +81,17 @@ const Header = () => {
       </div>
       {authState.isLoggedIn ? (
         <Link href={accountHref} className="flex cursor-pointer flex-row items-center gap-2">
-          <ProfileCircleIcon className="text-gray-70 hover:text-gray-80 size-8" />
+          {authState.profileImageUrl != null ? (
+            <Image
+              src={authState.profileImageUrl}
+              alt="프로필"
+              width={32}
+              height={32}
+              className="size-8 rounded-full object-cover"
+            />
+          ) : (
+            <ProfileCircleIcon className="text-gray-70 hover:text-gray-80 size-8" />
+          )}
           <span className="text-body2-m text-gray-80 hover:text-gray-90">내 계정</span>
         </Link>
       ) : (

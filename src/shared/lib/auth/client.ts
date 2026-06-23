@@ -2,6 +2,8 @@ export type ClientUserRole = "designer" | "instructor";
 
 const ACCESS_TOKEN_COOKIE_NAME = "accessToken";
 const USER_ROLE_COOKIE_NAME = "userRole";
+const USER_NAME_COOKIE_NAME = "userName";
+const USER_PROFILE_IMAGE_COOKIE_NAME = "userProfileImageUrl";
 const ACCESS_TOKEN_MAX_AGE_SECONDS = 60 * 60;
 
 const getCookieValue = (name: string) => {
@@ -51,6 +53,8 @@ const parseJwtPayload = (token: string): Record<string, unknown> | null => {
 };
 
 export const getClientAccessToken = () => getCookieValue(ACCESS_TOKEN_COOKIE_NAME);
+export const getClientUserName = () => getCookieValue(USER_NAME_COOKIE_NAME);
+export const getClientProfileImageUrl = () => getCookieValue(USER_PROFILE_IMAGE_COOKIE_NAME);
 
 export const setClientAccessToken = (accessToken: string) => {
   document.cookie = `${ACCESS_TOKEN_COOKIE_NAME}=${encodeURIComponent(
@@ -73,23 +77,40 @@ export const getClientUserRoleFromAccessToken = (accessToken: string) => {
 export const setClientAuth = ({
   accessToken,
   role,
+  name,
+  profileImageUrl,
 }: {
   accessToken: string;
   role?: ClientUserRole;
+  name?: string;
+  profileImageUrl?: string;
 }) => {
   setClientAccessToken(accessToken);
 
   if (role == null) {
     document.cookie = `${USER_ROLE_COOKIE_NAME}=; ${createCookieOptions(0)}`;
-    return;
+  } else {
+    document.cookie = `${USER_ROLE_COOKIE_NAME}=${encodeURIComponent(role)}; ${createCookieOptions(
+      ACCESS_TOKEN_MAX_AGE_SECONDS,
+    )}`;
   }
 
-  document.cookie = `${USER_ROLE_COOKIE_NAME}=${encodeURIComponent(role)}; ${createCookieOptions(
-    ACCESS_TOKEN_MAX_AGE_SECONDS,
-  )}`;
+  if (name != null) {
+    document.cookie = `${USER_NAME_COOKIE_NAME}=${encodeURIComponent(name)}; ${createCookieOptions(
+      ACCESS_TOKEN_MAX_AGE_SECONDS,
+    )}`;
+  }
+
+  if (profileImageUrl != null) {
+    document.cookie = `${USER_PROFILE_IMAGE_COOKIE_NAME}=${encodeURIComponent(profileImageUrl)}; ${createCookieOptions(
+      ACCESS_TOKEN_MAX_AGE_SECONDS,
+    )}`;
+  }
 };
 
 export const clearClientAuth = () => {
   document.cookie = `${ACCESS_TOKEN_COOKIE_NAME}=; ${createCookieOptions(0)}`;
   document.cookie = `${USER_ROLE_COOKIE_NAME}=; ${createCookieOptions(0)}`;
+  document.cookie = `${USER_NAME_COOKIE_NAME}=; ${createCookieOptions(0)}`;
+  document.cookie = `${USER_PROFILE_IMAGE_COOKIE_NAME}=; ${createCookieOptions(0)}`;
 };
