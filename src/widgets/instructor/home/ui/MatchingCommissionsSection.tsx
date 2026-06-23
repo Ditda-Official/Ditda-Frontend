@@ -1,9 +1,12 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import {
   CommissionsHeader,
-  MatchingCommissionsRow as MatchingStatusCommissionsRow,
-  matchingStatusData,
+  getMatchingCommissions,
+  MatchingCommissionsRow,
+  type MatchingItem,
 } from "@/features/instructor/home";
 import { NextButton, PrevButton } from "@/shared/assets/icons";
 import usePagination from "@/shared/lib/hooks/usePagination";
@@ -11,8 +14,14 @@ import PageIndicator from "@/shared/ui/PageIndicator";
 import { MATCHING_ITEMS_PER_PAGE } from "@/widgets/instructor/home/config/home";
 
 const MatchingCommissionsSection = () => {
-  const { current, totalPages, pageItems, handlePrev, handleNext } = usePagination(
-    matchingStatusData,
+  const [items, setItems] = useState<MatchingItem[]>([]);
+
+  useEffect(() => {
+    getMatchingCommissions().then(setItems);
+  }, []);
+
+  const { current, totalPages, pageItems, handlePrev, handleNext } = usePagination<MatchingItem>(
+    items,
     MATCHING_ITEMS_PER_PAGE,
   );
 
@@ -29,7 +38,7 @@ const MatchingCommissionsSection = () => {
               <p>외주명</p>
             </CommissionsHeader>
             {pageItems.map(item => (
-              <MatchingStatusCommissionsRow key={item.commissionId} item={item} />
+              <MatchingCommissionsRow key={item.commissionId} item={item} />
             ))}
           </div>
         </div>
