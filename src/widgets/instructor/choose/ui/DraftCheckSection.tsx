@@ -53,9 +53,14 @@ const DraftCheckSection = ({ drafts, selectedIndex, onSelect }: DraftCheckSectio
           );
         })}
       </div>
-      <button className="text-gray-60 text-caption1-m cursor-pointer underline underline-offset-2">
+      <a
+        href="https://forms.gle/SahSfZWVywkGXRs76"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-gray-60 text-caption1-m cursor-pointer underline underline-offset-2"
+      >
         부적절한 시안이 있으신가요?
-      </button>
+      </a>
     </div>
   );
 };

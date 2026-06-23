@@ -39,9 +39,14 @@ const RevisionCategorySection = ({
           <span className="text-gray-70">/{maxRevisionCount})</span>
         </h1>
         {remainingRevisionCount === 0 && (
-          <button className="text-gray-80 text-body2-m cursor-pointer underline underline-offset-2">
+          <a
+            href="https://forms.gle/exFTiZJ8Fp8UUNij6"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-80 text-body2-m cursor-pointer underline underline-offset-2"
+          >
             수정 횟수를 추가하시겠어요?
-          </button>
+          </a>
         )}
       </div>
       <p className="text-gray-70 text-body2-m">시안 수정은 총 3회 수정이 가능합니다.</p>
