@@ -21,7 +21,7 @@ const loginResultSchema = z.object({
 export type LoginResult = z.infer<typeof loginResultSchema>;
 
 // 로그인
-export const login = async ({ password, username }: LoginFormValues) => {
+export const postLogin = async ({ password, username }: LoginFormValues) => {
   try {
     const response = await publicApi
       .post(createApiPath("/api/v1/auth/login"), {

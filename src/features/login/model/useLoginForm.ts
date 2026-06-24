@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { type ChangeEvent, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 
-import { login } from "@/features/login/api/login";
+import { postLogin } from "@/features/login/api/login";
 import { loginFormSchema, type LoginFormValues } from "@/features/login/model/loginSchemas";
 import {
   getClientUserHomePath,
@@ -52,7 +52,7 @@ export const useLoginForm = () => {
     setErrorMessage(undefined);
 
     try {
-      const result = await login(formValues);
+      const result = await postLogin(formValues);
       const userRole = normalizeClientUserRole(result.userType);
 
       if (userRole == null) {

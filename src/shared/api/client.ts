@@ -73,7 +73,7 @@ const extractAccessToken = (response: ApiResponse<unknown>) => {
 };
 
 // 토큰 재발급
-const reissueAccessToken = async () => {
+const postReissueAccessToken = async () => {
   try {
     const response = await tokenRefreshApi
       .post(createApiPath(TOKEN_REISSUE_PATH))
@@ -89,7 +89,7 @@ let refreshPromise: Promise<string> | null = null;
 
 const getOrRefreshAccessToken = () => {
   if (refreshPromise == null) {
-    refreshPromise = reissueAccessToken().finally(() => {
+    refreshPromise = postReissueAccessToken().finally(() => {
       refreshPromise = null;
     });
   }
