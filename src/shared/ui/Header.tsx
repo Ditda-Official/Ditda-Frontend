@@ -88,8 +88,16 @@ const Header = () => {
       </Link>
       <div className="text-gray-80 text-body2-m hover:text-gray-90 flex cursor-pointer flex-row gap-16">
         <Link href="/">이용방식 안내</Link>
-        <p>1:1 문의하기</p>
-        <p>FAQ</p>
+        <a href="https://forms.gle/zkPkTpi5STsWdcc67" target="_blank" rel="noopener noreferrer">
+          1:1 문의하기
+        </a>
+        <a
+          href="https://friendly-case-06a.notion.site/ditda-FAQ-388fb8159b3381929564d7e4e908a64f"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          FAQ
+        </a>
       </div>
       {authState.isLoggedIn ? (
         <Link href={accountHref} className="flex cursor-pointer flex-row items-center gap-2">
