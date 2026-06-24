@@ -1,11 +1,10 @@
 import { create } from "zustand";
 
+import type { Plan } from "@/features/instructor/write/api/writeTypes";
 import {
   CATEGORY_API_MAP,
   KEYWORD_API_MAP,
   PAGE_API_MAP,
-  PLAN_API_MAP,
-  type PlanType,
   SIZE_API_MAP,
   type WriteStep,
 } from "@/features/instructor/write/config/write";
@@ -45,7 +44,7 @@ interface WriteFormState {
   referenceFiles: UploadedFile[];
   materialDescription: string;
   referenceDescription: string;
-  selectedPlan: PlanType | null;
+  selectedPlan: Plan | null;
   firstDate: Date | null;
   finalDate: Date | null;
   isTermsAgreed: boolean;
@@ -65,7 +64,7 @@ interface WriteFormState {
   setReferenceFiles: (files: UploadedFile[]) => void;
   setMaterialDescription: (value: string) => void;
   setReferenceDescription: (value: string) => void;
-  setSelectedPlan: (value: PlanType | null) => void;
+  setSelectedPlan: (value: Plan | null) => void;
   setFirstDate: (value: Date | null) => void;
   setFinalDate: (value: Date | null) => void;
   setIsTermsAgreed: (value: boolean) => void;
@@ -130,7 +129,7 @@ const buildOrderRequest = (state: WriteFormState): WriteOrderRequest => {
     })),
     ...(state.materialDescription ? { materialDescription: state.materialDescription } : {}),
     ...(state.referenceDescription ? { referenceDescription: state.referenceDescription } : {}),
-    plan: state.selectedPlan ? PLAN_API_MAP[state.selectedPlan] : "",
+    plan: state.selectedPlan?.code ?? "",
     dates: [
       {
         firstDraftDeadline: state.firstDate ? toApiDate(state.firstDate) : "",

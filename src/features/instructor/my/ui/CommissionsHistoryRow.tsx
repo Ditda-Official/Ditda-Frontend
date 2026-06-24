@@ -2,7 +2,7 @@ import {
   CATEGORY_BADGE_MAP,
   CommissionHistoryItem,
   PLAN_DISPLAY_MAP,
-} from "@/features/instructor/my/model/my";
+} from "@/features/instructor/my/model/myMock";
 import { ArrowRightIcon } from "@/shared/assets/icons";
 import Badge from "@/shared/ui/Badge";
 

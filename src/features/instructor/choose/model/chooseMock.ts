@@ -12,7 +12,7 @@ export type CommissionWithDrafts = {
 
 export const commissionDraftsData: CommissionWithDrafts[] = [
   {
-    commissionId: 11,
+    commissionId: 4,
     title: "해커스톡 왕초보 영어 - 기초 문법편",
     drafts: [
       { draftId: 41, thumbnailUrl: "/images/thumbnail_mock.jpg" },
@@ -22,7 +22,7 @@ export const commissionDraftsData: CommissionWithDrafts[] = [
     ],
   },
   {
-    commissionId: 15,
+    commissionId: 6,
     title: "고등 국어 문학 - 현대시 집중",
     drafts: [
       { draftId: 51, thumbnailUrl: "/images/thumbnail_mock.jpg" },

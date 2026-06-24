@@ -8,10 +8,10 @@ import {
   DESIGNER_TERMS,
   DesignerAdditionalStep,
   INSTRUCTOR_TERMS,
+  postSignupDesigner,
   SIGNUP_INITIAL_STEP,
   SIGNUP_STEPS_BY_ROLE,
   type SignupAccountData,
-  signupDesigner,
   type SignupDesignerAdditionalData,
   type SignupFunnelStep,
   type SignupProfileData,
@@ -89,7 +89,7 @@ const SignupFunnel = () => {
 
     setDesignerAdditionalData(data);
 
-    const result = await signupDesigner({
+    const result = await postSignupDesigner({
       profile: profileData,
       account: accountData,
       additional: data,

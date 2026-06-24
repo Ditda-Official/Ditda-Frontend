@@ -8,7 +8,7 @@ import {
   publicApi,
   toApiError,
 } from "@/shared/api/client";
-import type { ApiResponse } from "@/shared/api/types";
+import type { ApiResponse } from "@/shared/api/commonType";
 
 const loginResultSchema = z.object({
   userId: z.number(),
@@ -20,7 +20,8 @@ const loginResultSchema = z.object({
 
 export type LoginResult = z.infer<typeof loginResultSchema>;
 
-export const login = async ({ password, username }: LoginFormValues) => {
+// 로그인
+export const postLogin = async ({ password, username }: LoginFormValues) => {
   try {
     const response = await publicApi
       .post(createApiPath("/api/v1/auth/login"), {

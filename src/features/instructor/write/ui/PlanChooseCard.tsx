@@ -1,14 +1,17 @@
-import { PLAN_MAP, PlanType } from "@/features/instructor/write/config/write";
-import Badge from "@/shared/ui/Badge";
+import type { Plan } from "@/features/instructor/write/api/writeTypes";
+import { PLAN_LABEL_MAP } from "@/features/instructor/write/config/write";
+import Badge, { type BadgeVariant } from "@/shared/ui/Badge";
 
 interface PlanChooseCardProps {
-  plan: PlanType;
+  plan: Plan;
   isSelected?: boolean;
   onClick?: () => void;
 }
 
 const PlanChooseCard = ({ plan, isSelected = false, onClick }: PlanChooseCardProps) => {
-  const { label, size, price, description } = PLAN_MAP[plan];
+  const label = PLAN_LABEL_MAP[plan.code];
+  const badgeVariant = `${plan.designerCount}인` as BadgeVariant;
+  const formattedPrice = `${plan.price.toLocaleString("ko-KR")}원`;
 
   return (
     <div
@@ -24,11 +27,11 @@ const PlanChooseCard = ({ plan, isSelected = false, onClick }: PlanChooseCardPro
         <div className="flex flex-col gap-1">
           <div className="flex flex-row gap-1">
             <span className="text-gray-80 text-heading3-sb">{label}</span>
-            <Badge variant={size} />
+            <Badge variant={badgeVariant} />
           </div>
-          <p className="text-gray-70 text-caption2-m">{description}</p>
+          <p className="text-gray-70 text-caption2-m">{plan.description}</p>
         </div>
-        <p className="text-heading1-sb text-black">{price}</p>
+        <p className="text-heading1-sb text-black">{formattedPrice}</p>
       </div>
     </div>
   );

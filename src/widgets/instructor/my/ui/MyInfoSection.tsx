@@ -1,13 +1,30 @@
-import { ProfileCircleIcon } from "@/shared/assets/icons";
-import { myInfoData } from "@/widgets/instructor/my/model/my";
+import Image from "next/image";
 
-const MyInfoSection = () => {
-  const { name, stats } = myInfoData;
+import { myInfoData } from "@/features/instructor/my/model/myMock";
+import { ProfileCircleIcon } from "@/shared/assets/icons";
+
+interface MyInfoSectionProps {
+  name: string;
+  profileImageUrl?: string;
+}
+
+const MyInfoSection = ({ name, profileImageUrl }: MyInfoSectionProps) => {
+  const { stats } = myInfoData;
 
   return (
     <div className="w-212.75">
       <div className="flex flex-row items-center gap-4 rounded-t-xl bg-purple-50 px-6 py-5">
-        <ProfileCircleIcon className="size-8 text-white" />
+        {profileImageUrl != null ? (
+          <Image
+            src={profileImageUrl}
+            alt="프로필"
+            width={32}
+            height={32}
+            className="size-8 rounded-full object-cover"
+          />
+        ) : (
+          <ProfileCircleIcon className="size-8 text-white" />
+        )}
         <p className="text-heading2-sb text-white">{name}</p>
       </div>
       <div className="rounded-b-xl bg-white px-30 py-6">

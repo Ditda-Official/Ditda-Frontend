@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { type ChangeEvent, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 
-import { login } from "@/features/login/api/login";
+import { postLogin } from "@/features/login/api/login";
 import { loginFormSchema, type LoginFormValues } from "@/features/login/model/loginSchemas";
 import {
   getClientUserHomePath,
@@ -52,14 +52,19 @@ export const useLoginForm = () => {
     setErrorMessage(undefined);
 
     try {
-      const result = await login(formValues);
+      const result = await postLogin(formValues);
       const userRole = normalizeClientUserRole(result.userType);
 
       if (userRole == null) {
         throw new Error("사용자 유형을 확인할 수 없습니다");
       }
 
-      setClientAuth({ accessToken: result.accessToken, role: userRole });
+      setClientAuth({
+        accessToken: result.accessToken,
+        role: userRole,
+        name: result.name,
+        profileImageUrl: result.profileImageUrl,
+      });
       router.push(getClientUserHomePath(userRole));
     } catch (error) {
       setErrorMessage(error instanceof Error ? error.message : "요청 처리 중 문제가 발생했습니다");

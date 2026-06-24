@@ -3,10 +3,10 @@ import { type ChangeEvent, useEffect, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 
 import {
-  checkSignupUsername,
-  requestSignupEmailVerificationCode,
-  signupInstructor,
-  verifySignupEmailCode,
+  postCheckSignupUsername,
+  postSignupEmailVerification,
+  postSignupInstructor,
+  postVerifySignupEmail,
 } from "@/features/signup/api/signup";
 import {
   SIGNUP_EMAIL_ERROR_MESSAGE,
@@ -133,7 +133,7 @@ export const useSignupStep2Form = (initialValues?: Partial<SignupAccountData>) =
     setUserIdCheckStatus("checking");
 
     try {
-      await checkSignupUsername(values.username);
+      await postCheckSignupUsername(values.username);
       setUserIdCheckStatus("available");
     } catch (error) {
       if (error instanceof ApiError && (error.status === 409 || error.code === "REQ_409_01")) {
@@ -173,7 +173,7 @@ export const useSignupStep2Form = (initialValues?: Partial<SignupAccountData>) =
     setVerificationCodeErrorMessage(undefined);
 
     try {
-      await requestSignupEmailVerificationCode(values.email.trim());
+      await postSignupEmailVerification(values.email.trim());
       setValue("verificationCode", "", { shouldDirty: true, shouldValidate: true });
       setEmailVerificationStatus("sent");
       setVerificationTimer(SIGNUP_EMAIL_VERIFICATION_LIMIT_SECONDS);
@@ -211,7 +211,7 @@ export const useSignupStep2Form = (initialValues?: Partial<SignupAccountData>) =
     setVerificationCodeErrorMessage(undefined);
 
     try {
-      await verifySignupEmailCode({
+      await postVerifySignupEmail({
         code: values.verificationCode.trim(),
         email: values.email.trim(),
       });
@@ -249,7 +249,7 @@ export const useSignupStep2Form = (initialValues?: Partial<SignupAccountData>) =
     setIsSubmitting(true);
 
     try {
-      return await signupInstructor({ account, profile });
+      return await postSignupInstructor({ account, profile });
     } catch (error) {
       setSubmitErrorMessage(
         error instanceof Error ? error.message : "강사 회원가입에 실패했습니다",

@@ -1,12 +1,15 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
 import { EnterIcon, ProfileCircleIcon } from "@/shared/assets/icons";
 import { PurpleLogo } from "@/shared/assets/logos";
 import {
   type ClientUserRole,
+  getClientProfileImageUrl,
   getClientUserRoleFromAccessToken,
   normalizeClientUserRole,
 } from "@/shared/lib/auth/client";
@@ -14,6 +17,7 @@ import {
 interface AuthState {
   isLoggedIn: boolean;
   role: ClientUserRole | null;
+  profileImageUrl: string | null;
 }
 
 const ACCESS_TOKEN_COOKIE_NAME = "accessToken";
@@ -38,6 +42,7 @@ const Header = () => {
   const [authState, setAuthState] = useState<AuthState>({
     isLoggedIn: false,
     role: null,
+    profileImageUrl: null,
   });
 
   useEffect(() => {
@@ -51,6 +56,7 @@ const Header = () => {
       setAuthState({
         isLoggedIn: accessToken != null && role != null,
         role,
+        profileImageUrl: getClientProfileImageUrl() ?? null,
       });
     };
 
@@ -60,6 +66,15 @@ const Header = () => {
     return () => window.removeEventListener("focus", syncAuthState);
   }, []);
 
+  const pathname = usePathname();
+
+  const logoHref = useMemo(() => {
+    if (!authState.isLoggedIn) return "/";
+    if (pathname.startsWith("/instructor")) return "/instructor";
+    if (pathname.startsWith("/designer")) return "/designer";
+    return "/";
+  }, [authState.isLoggedIn, pathname]);
+
   const accountHref = useMemo(() => {
     if (authState.role == null) return "/login";
 
@@ -68,15 +83,27 @@ const Header = () => {
 
   return (
     <header className="bg-gray-5 flex h-16 w-full flex-row items-center justify-between px-10 py-4">
-      <PurpleLogo className="h-5.75 w-18.5" />
+      <Link href={logoHref}>
+        <PurpleLogo className="h-5.75 w-18.5" />
+      </Link>
       <div className="text-gray-80 text-body2-m hover:text-gray-90 flex cursor-pointer flex-row gap-16">
-        <p>이용방식 안내</p>
+        <Link href="/">이용방식 안내</Link>
         <p>1:1 문의하기</p>
         <p>FAQ</p>
       </div>
       {authState.isLoggedIn ? (
         <Link href={accountHref} className="flex cursor-pointer flex-row items-center gap-2">
-          <ProfileCircleIcon className="text-gray-70 hover:text-gray-80 size-8" />
+          {authState.profileImageUrl != null ? (
+            <Image
+              src={authState.profileImageUrl}
+              alt="프로필"
+              width={32}
+              height={32}
+              className="size-8 rounded-full object-cover"
+            />
+          ) : (
+            <ProfileCircleIcon className="text-gray-70 hover:text-gray-80 size-8" />
+          )}
           <span className="text-body2-m text-gray-80 hover:text-gray-90">내 계정</span>
         </Link>
       ) : (

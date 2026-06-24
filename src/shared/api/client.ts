@@ -1,6 +1,6 @@
 import ky, { HTTPError } from "ky";
 
-import type { ApiResponse } from "@/shared/api/types";
+import type { ApiResponse } from "@/shared/api/commonType";
 import {
   clearClientAuth,
   getClientAccessToken,
@@ -72,7 +72,8 @@ const extractAccessToken = (response: ApiResponse<unknown>) => {
   return response.result.accessToken;
 };
 
-const reissueAccessToken = async () => {
+// 토큰 재발급
+const postReissueAccessToken = async () => {
   try {
     const response = await tokenRefreshApi
       .post(createApiPath(TOKEN_REISSUE_PATH))
@@ -88,7 +89,7 @@ let refreshPromise: Promise<string> | null = null;
 
 const getOrRefreshAccessToken = () => {
   if (refreshPromise == null) {
-    refreshPromise = reissueAccessToken().finally(() => {
+    refreshPromise = postReissueAccessToken().finally(() => {
       refreshPromise = null;
     });
   }

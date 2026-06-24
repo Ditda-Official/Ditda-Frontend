@@ -1,9 +1,12 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import {
   CommissionsHeader,
-  draftSubmissionStatusData,
+  type DraftSubmissionItem,
   DraftSubmissionStatusRow,
+  getDraftSubmissions,
 } from "@/features/instructor/home";
 import { NextButton, PrevButton } from "@/shared/assets/icons";
 import usePagination from "@/shared/lib/hooks/usePagination";
@@ -11,10 +14,14 @@ import PageIndicator from "@/shared/ui/PageIndicator";
 import { DRAFT_SUBMISSION_ITEMS_PER_PAGE } from "@/widgets/instructor/home/config/home";
 
 const DraftSubmissionStatusSection = () => {
-  const { current, totalPages, pageItems, handlePrev, handleNext } = usePagination(
-    draftSubmissionStatusData,
-    DRAFT_SUBMISSION_ITEMS_PER_PAGE,
-  );
+  const [items, setItems] = useState<DraftSubmissionItem[]>([]);
+
+  useEffect(() => {
+    getDraftSubmissions().then(setItems);
+  }, []);
+
+  const { current, totalPages, pageItems, handlePrev, handleNext } =
+    usePagination<DraftSubmissionItem>(items, DRAFT_SUBMISSION_ITEMS_PER_PAGE);
 
   return (
     <div className="rounded-12 h-94.5 w-full bg-white px-6 pt-6 pb-4">
@@ -34,11 +41,17 @@ const DraftSubmissionStatusSection = () => {
             ))}
           </div>
         </div>
-        <div className="flex flex-row justify-between">
-          <PrevButton className="size-12 cursor-pointer" onClick={handlePrev} />
-          <PageIndicator total={totalPages} current={current} />
-          <NextButton className="size-12 cursor-pointer" onClick={handleNext} />
-        </div>
+        {pageItems.length === 0 ? (
+          <div className="flex flex-1 items-center justify-center">
+            <span className="text-heading3-m text-gray-60">제출된 시안이 없습니다</span>
+          </div>
+        ) : (
+          <div className="flex flex-row justify-between">
+            <PrevButton className="size-12 cursor-pointer" onClick={handlePrev} />
+            <PageIndicator total={totalPages} current={current} />
+            <NextButton className="size-12 cursor-pointer" onClick={handleNext} />
+          </div>
+        )}
       </div>
     </div>
   );

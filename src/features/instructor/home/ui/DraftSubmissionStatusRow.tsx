@@ -1,13 +1,16 @@
 import { useRouter } from "next/navigation";
 
+import {
+  CATEGORY_DISPLAY_MAP,
+  DraftSubmissionItem,
+} from "@/features/instructor/home/api/homeTypes";
 import { getDDay } from "@/features/instructor/home/lib/getDDay";
-import { CATEGORY_DISPLAY_MAP, DraftSubmissionItem } from "@/features/instructor/home/model/home";
 import { ArrowRightIcon, MatchingOffIcon, MatchingOnIcon } from "@/shared/assets/icons";
 import Button from "@/shared/ui/Button";
 import Tag from "@/shared/ui/Tag";
 
 const DraftSubmissionStatusRow = ({ item }: { item: DraftSubmissionItem }) => {
-  const { commissionId, title, category, draftSubmission, firstDraftDeadline } = item;
+  const { commissionId, title, category, draftSubmission, isViewable, firstDraftDeadline } = item;
   const { submitted, total } = draftSubmission;
   const categoryLabel = CATEGORY_DISPLAY_MAP[category] ?? category;
   const router = useRouter();
@@ -37,7 +40,7 @@ const DraftSubmissionStatusRow = ({ item }: { item: DraftSubmissionItem }) => {
               (<span className="text-main-main">{submitted}</span>/{total})
             </p>
           </div>
-          {submitted === total ? (
+          {isViewable ? (
             <Button
               variant="small_primary"
               className="w-fit"
