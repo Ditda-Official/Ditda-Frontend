@@ -24,7 +24,7 @@ const ACCESS_TOKEN_COOKIE_NAME = "accessToken";
 const USER_ROLE_COOKIE_NAME = "userRole";
 
 const ROLE_ACCOUNT_PATH: Record<ClientUserRole, string> = {
-  designer: "/designer",
+  designer: "/designer/my",
   instructor: "/instructor/my",
 };
 
