@@ -125,11 +125,17 @@ const DraftSubmissionScheduleSection = () => {
           </div>
         </div>
 
-        <div className="flex items-center justify-between">
-          <PrevButton className="size-12 cursor-pointer" onClick={handlePrev} />
-          <PageIndicator total={totalPages} current={current} />
-          <NextButton className="size-12 cursor-pointer" onClick={handleNext} />
-        </div>
+        {pageItems.length === 0 ? (
+          <div className="flex flex-1 items-center justify-center">
+            <span className="text-heading3-m text-gray-60">제출된 시안이 없습니다</span>
+          </div>
+        ) : (
+          <div className="flex items-center justify-between">
+            <PrevButton className="size-12 cursor-pointer" onClick={handlePrev} />
+            <PageIndicator total={totalPages} current={current} />
+            <NextButton className="size-12 cursor-pointer" onClick={handleNext} />
+          </div>
+        )}
       </div>
     </section>
   );
