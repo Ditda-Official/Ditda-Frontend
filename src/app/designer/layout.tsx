@@ -9,7 +9,7 @@ const DesignerLayout = ({ children }: { children: ReactNode }) => {
   return (
     <div className="flex h-screen flex-col">
       <Header />
-      <div className="flex flex-1 overflow-hidden">
+      <div className="bg-gray-10 flex flex-1 overflow-hidden">
         <Sidebar bottom={<LogoutSidebarMenu />}>
           <SidebarMenu label="현재 외주" href="/designer" />
           <SidebarMenu label="외주 찾기" href="/designer/search" />
