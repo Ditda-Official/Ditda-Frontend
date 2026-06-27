@@ -57,14 +57,6 @@ const draftSubmissionScheduleItems: DraftSubmissionScheduleItem[] = [
     submissionDeadline: "2026.05.16 11:59pm",
     maxReward: "400,000원",
   },
-  {
-    id: 6,
-    dDay: "D-24",
-    category: "명함",
-    title: "해커스톡 왕초보 영어 - 누구누",
-    submissionDeadline: "2026.05.16 11:59pm",
-    maxReward: "400,000원",
-  },
 ];
 
 const DraftSubmissionScheduleSection = () => {

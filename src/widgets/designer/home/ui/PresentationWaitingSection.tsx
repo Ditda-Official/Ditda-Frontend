@@ -19,18 +19,6 @@ type PresentationWaitingItem = {
 // 목데이터
 const presentationWaitingItems: PresentationWaitingItem[] = [
   {
-    id: 1,
-    title: "해커스톡 왕초보 영어 - 누구해커스톡 왕초보 영어",
-    announcementDate: "2026-06-20",
-    result: "selected",
-  },
-  {
-    id: 2,
-    title: "수학의 정석 - 한석원",
-    announcementDate: "2026-06-25",
-    result: "notSelected",
-  },
-  {
     id: 3,
     title: "수학의 정석 - 한석원",
     announcementDate: "2026-07-01",
@@ -95,34 +83,38 @@ const PresentationWaitingSection = () => {
               <p className="w-14.5">결과</p>
             </div>
 
-            <div>
-              {pageItems.map(item => (
-                <div
-                  key={item.id}
-                  className="border-b-gray-10 flex h-15 items-center border-b py-3"
-                >
-                  <div className="flex w-full items-center justify-between gap-3">
-                    <div className="flex items-center gap-6">
-                      <Tag variant="black" label={getAnnouncementDDay(item.announcementDate)} />
-                      <div className="flex items-center">
-                        <p className="text-heading3-m text-gray-80 max-w-80 truncate">
-                          {item.title}
-                        </p>
-                        <ArrowRightIcon className="text-gray-90 size-5 shrink-0 cursor-pointer" />
-                      </div>
-                    </div>
-                    <Badge variant={resultBadgeVariantMap[item.result]} />
-                  </div>
+            <div className="h-45">
+              {pageItems.length === 0 ? (
+                <div className="flex h-full items-center justify-center">
+                  <span className="text-heading3-m text-gray-60">
+                    발표 대기 중인 외주가 없습니다
+                  </span>
                 </div>
-              ))}
+              ) : (
+                pageItems.map(item => (
+                  <div
+                    key={item.id}
+                    className="border-b-gray-10 flex h-15 items-center border-b py-3"
+                  >
+                    <div className="flex w-full items-center justify-between gap-3">
+                      <div className="flex items-center gap-6">
+                        <Tag variant="black" label={getAnnouncementDDay(item.announcementDate)} />
+                        <div className="flex items-center">
+                          <p className="text-heading3-m text-gray-80 max-w-80 truncate">
+                            {item.title}
+                          </p>
+                          <ArrowRightIcon className="text-gray-90 size-5 shrink-0 cursor-pointer" />
+                        </div>
+                      </div>
+                      <Badge variant={resultBadgeVariantMap[item.result]} />
+                    </div>
+                  </div>
+                ))
+              )}
             </div>
           </div>
 
-          {pageItems.length === 0 ? (
-            <div className="flex flex-1 items-center justify-center">
-              <span className="text-heading3-m text-gray-60">발표 대기 중인 외주가 없습니다</span>
-            </div>
-          ) : (
+          {pageItems.length > 0 && (
             <div className="flex items-center justify-between">
               <PrevButton className="size-12 cursor-pointer" onClick={handlePrev} />
               <PageIndicator total={totalPages} current={current} />
