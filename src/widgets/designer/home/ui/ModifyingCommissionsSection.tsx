@@ -11,6 +11,7 @@ type ModifyingCommissionItem = {
   id: number;
   title: string;
   finalDeadline: string;
+  isSubmitted: boolean;
 };
 
 //목데이터
@@ -19,21 +20,25 @@ const modifyingCommissionItems: ModifyingCommissionItem[] = [
     id: 1,
     title: "수학의 정석 - 한석원물마마마마마나너나마마마마마마마마나너나마마마",
     finalDeadline: "2026-07-01",
+    isSubmitted: false,
   },
   {
     id: 2,
     title: "수학의 정석 - 한석원몸마마마마나너나마마마",
     finalDeadline: "2026-07-01",
+    isSubmitted: false,
   },
   {
     id: 3,
     title: "수학의 정석 - 한석원",
     finalDeadline: "2026-07-05",
+    isSubmitted: true,
   },
   {
     id: 4,
     title: "해커스톡 왕초보 영어 - 누구해커스톡 왕초보 영어",
     finalDeadline: "2026-07-08",
+    isSubmitted: false,
   },
 ];
 
@@ -88,8 +93,12 @@ const ModifyingCommissionsSection = () => {
                           {item.title}
                         </p>
                       </div>
-                      <Button type="button" variant="small_secondary" className="w-fit">
-                        확인하기
+                      <Button
+                        type="button"
+                        variant={item.isSubmitted ? "small_text" : "small_secondary"}
+                        className="w-fit"
+                      >
+                        {item.isSubmitted ? "전송완료" : "확인하기"}
                       </Button>
                     </div>
                   </div>
