@@ -1,18 +1,14 @@
 "use client";
 
+import {
+  CommissionsHeader,
+  type ModifyingCommissionItem,
+  ModifyingCommissionsRow,
+} from "@/features/designer/home";
 import { NextButton, PrevButton } from "@/shared/assets/icons";
 import usePagination from "@/shared/lib/hooks/usePagination";
-import Button from "@/shared/ui/Button";
 import PageIndicator from "@/shared/ui/PageIndicator";
-import Tag from "@/shared/ui/Tag";
 import { MODIFYING_ITEMS_PER_PAGE } from "@/widgets/designer/home/config/home";
-
-type ModifyingCommissionItem = {
-  id: number;
-  title: string;
-  finalDeadline: string;
-  isSubmitted: boolean;
-};
 
 //목데이터
 const modifyingCommissionItems: ModifyingCommissionItem[] = [
@@ -42,18 +38,6 @@ const modifyingCommissionItems: ModifyingCommissionItem[] = [
   },
 ];
 
-const getDDay = (deadline: string) => {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
-  const targetDate = new Date(deadline);
-  targetDate.setHours(0, 0, 0, 0);
-
-  const diff = Math.ceil((targetDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
-
-  return diff >= 0 ? `D-${diff}` : "-";
-};
-
 const ModifyingCommissionsSection = () => {
   const { current, totalPages, pageItems, handlePrev, handleNext } =
     usePagination<ModifyingCommissionItem>(modifyingCommissionItems, MODIFYING_ITEMS_PER_PAGE);
@@ -67,13 +51,10 @@ const ModifyingCommissionsSection = () => {
 
         <div className="flex flex-col gap-5">
           <div>
-            <div className="border-b-gray-40 text-caption1-r text-gray-70 flex w-full justify-between border-b pb-3 whitespace-nowrap">
-              <div className="flex flex-1 gap-6">
-                <p className="w-11">디데이</p>
-                <p>외주명</p>
-              </div>
-              <p className="w-20">작업 단계</p>
-            </div>
+            <CommissionsHeader rightLabel="작업 단계" rightClassName="w-20">
+              <p className="w-11">디데이</p>
+              <p>외주명</p>
+            </CommissionsHeader>
 
             <div className="h-45">
               {pageItems.length === 0 ? (
@@ -81,28 +62,7 @@ const ModifyingCommissionsSection = () => {
                   <span className="text-heading3-m text-gray-60">수정 중인 외주가 없습니다</span>
                 </div>
               ) : (
-                pageItems.map(item => (
-                  <div
-                    key={item.id}
-                    className="border-b-gray-10 flex h-15 items-center border-b py-3"
-                  >
-                    <div className="flex w-full items-center justify-between">
-                      <div className="flex items-center gap-6">
-                        <Tag variant="default" label={getDDay(item.finalDeadline)} />
-                        <p className="text-heading3-m text-gray-80 max-w-80 truncate">
-                          {item.title}
-                        </p>
-                      </div>
-                      <Button
-                        type="button"
-                        variant={item.isSubmitted ? "small_text" : "small_secondary"}
-                        className="w-fit"
-                      >
-                        {item.isSubmitted ? "전송완료" : "확인하기"}
-                      </Button>
-                    </div>
-                  </div>
-                ))
+                pageItems.map(item => <ModifyingCommissionsRow key={item.id} item={item} />)
               )}
             </div>
           </div>

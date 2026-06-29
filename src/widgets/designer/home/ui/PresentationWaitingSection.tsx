@@ -1,20 +1,14 @@
 "use client";
 
-import { ArrowRightIcon, NextButton, PrevButton } from "@/shared/assets/icons";
+import {
+  CommissionsHeader,
+  type PresentationWaitingItem,
+  PresentationWaitingRow,
+} from "@/features/designer/home";
+import { NextButton, PrevButton } from "@/shared/assets/icons";
 import usePagination from "@/shared/lib/hooks/usePagination";
-import Badge, { type BadgeVariant } from "@/shared/ui/Badge";
 import PageIndicator from "@/shared/ui/PageIndicator";
-import Tag from "@/shared/ui/Tag";
 import { MATCHING_ITEMS_PER_PAGE } from "@/widgets/designer/home/config/home";
-
-type PresentationResult = "selected" | "notSelected" | "waiting";
-
-type PresentationWaitingItem = {
-  id: number;
-  title: string;
-  announcementDate: string;
-  result: PresentationResult;
-};
 
 // 목데이터
 const presentationWaitingItems: PresentationWaitingItem[] = [
@@ -44,24 +38,6 @@ const presentationWaitingItems: PresentationWaitingItem[] = [
   },
 ];
 
-const resultBadgeVariantMap: Record<PresentationResult, BadgeVariant> = {
-  selected: "pass",
-  notSelected: "fail",
-  waiting: "waiting",
-};
-
-const getAnnouncementDDay = (announcementDate: string) => {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
-  const targetDate = new Date(announcementDate);
-  targetDate.setHours(0, 0, 0, 0);
-
-  const diff = Math.ceil((targetDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
-
-  return diff >= 0 ? `D-${diff}` : "-";
-};
-
 const PresentationWaitingSection = () => {
   const { current, totalPages, pageItems, handlePrev, handleNext } =
     usePagination<PresentationWaitingItem>(presentationWaitingItems, MATCHING_ITEMS_PER_PAGE);
@@ -75,13 +51,10 @@ const PresentationWaitingSection = () => {
 
         <div className="flex flex-col gap-5">
           <div>
-            <div className="border-b-gray-40 text-caption1-r text-gray-70 flex w-full justify-between border-b pb-3 whitespace-nowrap">
-              <div className="flex flex-1 gap-6">
-                <p className="w-11">디데이</p>
-                <p>외주명</p>
-              </div>
-              <p className="w-14.5">결과</p>
-            </div>
+            <CommissionsHeader rightLabel="결과" rightClassName="w-14.5">
+              <p className="w-11">디데이</p>
+              <p>외주명</p>
+            </CommissionsHeader>
 
             <div className="h-45">
               {pageItems.length === 0 ? (
@@ -91,25 +64,7 @@ const PresentationWaitingSection = () => {
                   </span>
                 </div>
               ) : (
-                pageItems.map(item => (
-                  <div
-                    key={item.id}
-                    className="border-b-gray-10 flex h-15 items-center border-b py-3"
-                  >
-                    <div className="flex w-full items-center justify-between gap-3">
-                      <div className="flex items-center gap-6">
-                        <Tag variant="black" label={getAnnouncementDDay(item.announcementDate)} />
-                        <div className="flex items-center">
-                          <p className="text-heading3-m text-gray-80 max-w-80 truncate">
-                            {item.title}
-                          </p>
-                          <ArrowRightIcon className="text-gray-90 size-5 shrink-0 cursor-pointer" />
-                        </div>
-                      </div>
-                      <Badge variant={resultBadgeVariantMap[item.result]} />
-                    </div>
-                  </div>
-                ))
+                pageItems.map(item => <PresentationWaitingRow key={item.id} item={item} />)
               )}
             </div>
           </div>
