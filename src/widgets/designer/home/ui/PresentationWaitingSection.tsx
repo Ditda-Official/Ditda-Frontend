@@ -1,0 +1,85 @@
+"use client";
+
+import {
+  CommissionsHeader,
+  type PresentationWaitingItem,
+  PresentationWaitingRow,
+} from "@/features/designer/home";
+import { NextButton, PrevButton } from "@/shared/assets/icons";
+import usePagination from "@/shared/lib/hooks/usePagination";
+import PageIndicator from "@/shared/ui/PageIndicator";
+import { MATCHING_ITEMS_PER_PAGE } from "@/widgets/designer/home/config/home";
+
+// 목데이터
+const presentationWaitingItems: PresentationWaitingItem[] = [
+  {
+    id: 3,
+    title: "수학의 정석 - 한석원",
+    announcementDate: "2026-07-01",
+    result: "waiting",
+  },
+  {
+    id: 4,
+    title: "해커스톡 왕초보 영어 - 누구해커스톡 왕초보 영어",
+    announcementDate: "2026-06-20",
+    result: "selected",
+  },
+  {
+    id: 5,
+    title: "수학의 정석 - 한석원ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+    announcementDate: "2026-06-15",
+    result: "notSelected",
+  },
+  {
+    id: 6,
+    title: "수학의 정석 - 한석원",
+    announcementDate: "2026-07-01",
+    result: "waiting",
+  },
+];
+
+const PresentationWaitingSection = () => {
+  const { current, totalPages, pageItems, handlePrev, handleNext } =
+    usePagination<PresentationWaitingItem>(presentationWaitingItems, MATCHING_ITEMS_PER_PAGE);
+
+  return (
+    <section className="rounded-12 w-full bg-white px-6 pt-6 pb-4">
+      <div className="flex flex-col gap-8">
+        <h2 className="text-heading1-sb text-black">
+          발표 <span className="text-main-main">대기란</span>
+        </h2>
+
+        <div className="flex flex-col gap-5">
+          <div>
+            <CommissionsHeader rightLabel="결과" rightClassName="w-14.5">
+              <p className="w-11">디데이</p>
+              <p>외주명</p>
+            </CommissionsHeader>
+
+            <div className="h-45">
+              {pageItems.length === 0 ? (
+                <div className="flex h-full items-center justify-center">
+                  <span className="text-heading3-m text-gray-60">
+                    발표 대기 중인 외주가 없습니다
+                  </span>
+                </div>
+              ) : (
+                pageItems.map(item => <PresentationWaitingRow key={item.id} item={item} />)
+              )}
+            </div>
+          </div>
+
+          {pageItems.length > 0 && (
+            <div className="flex items-center justify-between">
+              <PrevButton className="size-12 cursor-pointer" onClick={handlePrev} />
+              <PageIndicator total={totalPages} current={current} />
+              <NextButton className="size-12 cursor-pointer" onClick={handleNext} />
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default PresentationWaitingSection;

@@ -6,6 +6,7 @@ type ButtonVariant =
   | "small_primary"
   | "small_secondary"
   | "small_tertiary"
+  | "small_text"
   | "small_disabled"
   | "medium_primary"
   | "medium_secondary"
@@ -31,6 +32,7 @@ const variantStyles: Record<ButtonVariant, string> = {
     "px-3.5 py-1.5 rounded-8 border border-purple-10 bg-purple-5 hover:border-transparent hover:bg-purple-20 hover:text-purple-70 text-purple-60 text-body1-m",
   small_tertiary:
     "px-3.5 py-1.5 rounded-8 text-body1-sb text-gray-60 bg-gray-20 border border-transparent hover:bg-gray-40 active:bg-purple-20 active:text-main-main active:border-purple-30",
+  small_text: "px-3.5 py-1.5 rounded-8 gap-1 text-body1-sb text-purple-70",
   medium_primary:
     "px-8 py-3 rounded-12 bg-main-main text-white hover:bg-main-dark hover:text-gray-20 text-heading3-sb",
   medium_secondary:
