@@ -29,7 +29,7 @@ const DraftSubmissionScheduleRow = ({ item }: { item: DraftSubmissionScheduleIte
             <p className="text-body2-sb text-gray-70 w-32">{item.submissionDeadline}</p>
             <p className="text-body2-sb text-gray-70 w-20">{item.maxReward}</p>
           </div>
-          <Button type="button" variant="small_primary" className="w-25">
+          <Button type="button" variant="small_primary" className="w-fit">
             제출하기
           </Button>
         </div>
