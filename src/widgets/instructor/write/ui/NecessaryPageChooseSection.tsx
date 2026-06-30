@@ -19,7 +19,7 @@ const NecessaryPageChooseSection = () => {
   const hasSelected = selectedPages.length > 0;
 
   return (
-    <div className="rounded-12 focus-within:border-purple-40 flex flex-col gap-8 border border-transparent bg-white p-6">
+    <div className="rounded-12 focus-within:border-gray-40 flex flex-col gap-8 border border-transparent bg-white p-6">
       <div className="flex flex-col gap-2">
         <h1 className="text-heading1-sb text-gray-90">필수 페이지 선택하기</h1>
         <h2 className="text-body2-m text-gray-70">

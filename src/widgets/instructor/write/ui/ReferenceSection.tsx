@@ -15,7 +15,7 @@ const ReferenceSection = () => {
   );
 
   return (
-    <div className="rounded-12 focus-within:border-purple-40 flex flex-col border border-transparent bg-white p-6">
+    <div className="rounded-12 focus-within:border-gray-40 flex flex-col border border-transparent bg-white p-6">
       <div className={`flex flex-col ${uploadedFiles.length > 0 ? "gap-7" : "gap-6"}`}>
         <div className="flex flex-col gap-8">
           <div className="flex flex-col gap-2">

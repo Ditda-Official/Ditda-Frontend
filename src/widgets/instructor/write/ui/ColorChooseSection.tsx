@@ -45,7 +45,7 @@ const ColorChooseSection = () => {
       ref={sectionRef}
       className={cn(
         "rounded-12 flex flex-col gap-8 border bg-white p-6",
-        isFocused ? "border-purple-40" : "border-transparent",
+        isFocused ? "border-gray-40" : "border-transparent",
       )}
     >
       <div className="flex items-center justify-between">

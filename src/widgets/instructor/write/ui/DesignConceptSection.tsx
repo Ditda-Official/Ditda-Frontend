@@ -26,7 +26,7 @@ const DesignConceptSection = () => {
   };
 
   return (
-    <div className="rounded-12 focus-within:border-purple-40 flex flex-col gap-8 border border-transparent bg-white p-6">
+    <div className="rounded-12 focus-within:border-gray-40 flex flex-col gap-8 border border-transparent bg-white p-6">
       <div>
         <h1 className="text-heading1-sb text-gray-90 pb-2">디자인 컨셉</h1>
         <h2 className="text-gray-70 text-body2-m">
