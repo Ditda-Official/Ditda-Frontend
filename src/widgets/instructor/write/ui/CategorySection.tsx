@@ -26,7 +26,7 @@ const CategorySection = () => {
 
   return (
     <div
-      className={`rounded-12 focus-within:border-gray-40 flex flex-col gap-8 border border-transparent bg-white px-6 pt-6 ${openIndex !== null ? "pb-6" : "pb-0"}`}
+      className={`rounded-12 focus-within:border-gray-40 flex flex-col gap-8 border bg-white px-6 pt-6 ${openIndex !== null ? "border-gray-40 pb-6" : "border-transparent pb-0"}`}
     >
       <div>
         <div className="flex flex-row items-center justify-between pb-2">
