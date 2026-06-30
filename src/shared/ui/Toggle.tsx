@@ -10,7 +10,7 @@ const Toggle = <T extends string>({ options, value, onChange }: ToggleProps<T>) 
   const [left, right] = options;
 
   return (
-    <div className="rounded-8 border-purple-20 inline-flex border bg-[#FAF7FF]">
+    <div className="rounded-8 border-gray-40 bg-gray-5 inline-flex border">
       {[left, right].map(option => {
         const isActive = value === option.value;
         return (

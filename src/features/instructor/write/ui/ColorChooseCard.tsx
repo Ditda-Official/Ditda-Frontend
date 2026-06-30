@@ -5,14 +5,12 @@ import { useState } from "react";
 import type { RgbaColor } from "@/features/instructor/write/lib/color";
 import { clamp, hexToRgb, toHex } from "@/features/instructor/write/lib/color";
 import { cn } from "@/shared/lib/utils/cn";
-import Radio from "@/shared/ui/Radio";
 
 type ColorChooseCardProps = {
   index: number;
   isMain: boolean;
   isSelected: boolean;
   color: RgbaColor | null;
-  onRadioChange: () => void;
   onCardClick: () => void;
   onColorChange: (color: RgbaColor) => void;
 };
@@ -24,7 +22,6 @@ const ColorChooseCard = ({
   isMain,
   isSelected,
   color,
-  onRadioChange,
   onCardClick,
   onColorChange,
 }: ColorChooseCardProps) => {
@@ -61,14 +58,14 @@ const ColorChooseCard = ({
       )}
       onClick={onCardClick}
     >
-      <div className="relative" onClick={e => e.stopPropagation()}>
-        <Radio checked={isMain} name="main-color" value={String(index)} onChange={onRadioChange} />
-        {isMain && (
-          <span className="text-caption2-m text-main-main absolute top-full left-1/2 -translate-x-1/2 pt-0.5 whitespace-nowrap">
-            Main
-          </span>
+      <span
+        className={cn(
+          "text-caption2-m w-6.5 text-center whitespace-nowrap",
+          isMain ? "text-main-main" : "text-gray-60",
         )}
-      </div>
+      >
+        {isMain ? "Main" : "Sub"}
+      </span>
       <div
         className={cn(
           "rounded-8 ml-7 size-19.5",

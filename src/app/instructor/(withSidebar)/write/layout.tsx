@@ -15,7 +15,7 @@ const WriteLayout = ({ children }: { children: ReactNode }) => {
   return (
     <div className="bg-gray-10 min-h-screen pt-16">
       <div className="mx-auto w-235">
-        <div className="sticky top-0 z-10">
+        <div className="z-header sticky top-0">
           <StepHeader />
         </div>
         {children}

@@ -18,9 +18,9 @@ export const WRITE_STEPS: {
     STEP1
     ========================= */
 export const CATEGORIES = [
-  { label: "유인물", items: ["교재 외지/내지"] },
-  { label: "홍보물", items: [] },
-  { label: "퍼스널 브랜딩", items: [] },
+  { label: "유인물", items: ["교재 외지/내지", "대봉투"] },
+  { label: "홍보물", items: ["포스터", "배너", "옥외 광고물", "SNS 카드뉴스"] },
+  { label: "퍼스널 브랜딩", items: ["포토카드", "스티커", "키링", "명함", "로고"] },
 ];
 
 export const SIZE_OPTIONS = [
@@ -52,14 +52,14 @@ export const SIZE_OPTIONS = [
 ];
 
 export const CONCEPT_CATEGORIES = [
-  { title: "밝은", keywords: ["귀여운", "경쾌한", "맑은"] },
-  { title: "부드러운", keywords: ["내츄럴한", "은은한", "온화한"] },
-  { title: "고급스러운", keywords: ["우아한", "고상한", "모던한"] },
-  { title: "강렬한", keywords: ["화려한", "다이나믹한"] },
-  { title: "단정한", keywords: ["점잖은"] },
+  { title: "질감", keywords: ["입체감 있는", "평면적인", "거친", "매끈한"] },
+  { title: "레이아웃", keywords: ["정돈된", "역동적인", "여백이 많은", "꽉 찬"] },
+  { title: "형태", keywords: ["둥근", "각진", "자유로운", "기하학적인"] },
+  { title: "색감", keywords: ["화려한", "차분한", "밝은", "어두운"] },
+  { title: "무드", keywords: ["귀여운", "시크한", "감성적인", "전문적인"] },
 ];
 
-export const MAX_CONCEPT_SELECT = 2;
+export const MAX_CONCEPT_SELECT = 5;
 
 /* =========================
     STEP2
@@ -123,18 +123,26 @@ export const SIZE_DISPLAY_MAP: Record<string, string> = {
 };
 
 export const KEYWORD_API_MAP: Record<string, string> = {
-  귀여운: "CUTE",
-  경쾌한: "LIGHT",
-  맑은: "CLEAR",
-  내츄럴한: "NATURAL",
-  은은한: "SUBTLE",
-  온화한: "WARM",
-  우아한: "ELEGANT",
-  고상한: "REFINED",
-  모던한: "MODERN",
+  "입체감 있는": "DIMENSIONAL",
+  평면적인: "LIGHT",
+  거친: "ROUGH",
+  매끈한: "SMOOTH",
+  정돈된: "ORDERLY",
+  역동적인: "DYNAMIC",
+  "여백이 많은": "SPACIOUS",
+  "꽉 찬": "DENSE",
+  둥근: "ROUND",
+  각진: "ANGULAR",
+  자유로운: "FREEFORM",
+  기하학적인: "GEOMETRIC",
   화려한: "VIVID",
-  다이나믹한: "DYNAMIC",
-  점잖은: "CALM",
+  차분한: "MUTED",
+  밝은: "BRIGHT",
+  어두운: "DARK",
+  귀여운: "CUTE",
+  시크한: "CHIC",
+  감성적인: "EMOTIONAL",
+  전문적인: "PROFESSIONAL",
 };
 
 export type PageType =

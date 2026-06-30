@@ -12,8 +12,7 @@ import { cn } from "@/shared/lib/utils/cn";
 import Toggle from "@/shared/ui/Toggle";
 
 const ColorChooseSection = () => {
-  const { colorMode, setColorMode, colors, setColors, mainColorIndex, setMainColorIndex } =
-    useWriteFormStore();
+  const { colorMode, setColorMode, colors, setColors } = useWriteFormStore();
   const [activeIndex, setActiveIndex] = useState<number | null>(0);
   const [isFocused, setIsFocused] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -45,7 +44,7 @@ const ColorChooseSection = () => {
       ref={sectionRef}
       className={cn(
         "rounded-12 flex flex-col gap-8 border bg-white p-6",
-        isFocused ? "border-purple-40" : "border-transparent",
+        isFocused ? "border-gray-40" : "border-transparent",
       )}
     >
       <div className="flex items-center justify-between">
@@ -67,7 +66,7 @@ const ColorChooseSection = () => {
         />
       </div>
       {colorMode === "designer" ? (
-        <h3 className="text-body2-sb text-gray-60">
+        <h3 className="text-body2-sb text-gray-50">
           디자이너가 외주 시작 후, 자유롭게 색상을 선택하여 디자인하게 됩니다.
         </h3>
       ) : (
@@ -78,10 +77,9 @@ const ColorChooseSection = () => {
                 key={i}
                 color={color}
                 index={i + 1}
-                isMain={mainColorIndex === i}
+                isMain={i === 0}
                 isSelected={activeIndex === i}
                 onCardClick={() => handleCardClick(i)}
-                onRadioChange={() => setMainColorIndex(i)}
                 onColorChange={c => handleColorChange(i, c)}
               />
             ))}

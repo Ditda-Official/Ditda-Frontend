@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   PLAN_LABEL_MAP,
@@ -10,6 +10,7 @@ import { useWriteFormStore } from "@/features/instructor/write/model/writeFormSt
 import { ArrowDownIcon, CheckboxFillIcon, CheckboxGrayIcon } from "@/shared/assets/icons";
 import Button from "@/shared/ui/Button";
 import Chip from "@/shared/ui/Chip";
+import Toast from "@/shared/ui/Toast";
 
 /* ─────────────────────────────────────────────
    InfoRow
@@ -123,6 +124,20 @@ const Step1 = ({ onNext, errorMessage }: { onNext: () => void; errorMessage?: st
     setIsTermsAgreed,
   } = useWriteFormStore();
 
+  const [prevErrorMessage, setPrevErrorMessage] = useState(errorMessage);
+  const [autoHide, setAutoHide] = useState(false);
+  if (errorMessage !== prevErrorMessage) {
+    setPrevErrorMessage(errorMessage);
+    setAutoHide(false);
+  }
+  const showError = !!errorMessage && !autoHide;
+
+  useEffect(() => {
+    if (!showError) return;
+    const timeout = setTimeout(() => setAutoHide(true), 2500);
+    return () => clearTimeout(timeout);
+  }, [showError]);
+
   return (
     <>
       <div className="scrollbar-hide min-h-0 flex-1 overflow-y-auto pt-8">
@@ -166,25 +181,27 @@ const Step1 = ({ onNext, errorMessage }: { onNext: () => void; errorMessage?: st
           <TermsSection isTermsAgreed={isTermsAgreed} setIsTermsAgreed={setIsTermsAgreed} />
         </div>
       </div>
-      <div className="relative">
+      <div>
         <div className="flex flex-row items-center justify-between pt-6 pb-8">
           <h3 className="text-heading3-sb text-gray-70">최종 금액</h3>
           <p className="text-gray-90 text-title2-sb">
             {selectedPlan ? `${selectedPlan.price.toLocaleString("ko-KR")}원` : "-"}
           </p>
         </div>
-        {errorMessage && (
-          <p className="text-red-main text-caption2-m absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap">
-            {errorMessage}
-          </p>
-        )}
-        <Button
-          variant={isTermsAgreed && !errorMessage ? "large_primary" : "large_disabled"}
-          disabled={!isTermsAgreed || !!errorMessage}
-          onClick={onNext}
-        >
-          결제하기
-        </Button>
+        <div className="relative">
+          <Toast
+            message={errorMessage ?? ""}
+            show={showError}
+            className="absolute -top-4 left-1/2 w-fit shrink-0 -translate-x-1/2 -translate-y-full whitespace-nowrap"
+          />
+          <Button
+            variant={isTermsAgreed && !showError ? "large_primary" : "large_disabled"}
+            disabled={!isTermsAgreed || showError}
+            onClick={onNext}
+          >
+            결제하기
+          </Button>
+        </div>
       </div>
     </>
   );
