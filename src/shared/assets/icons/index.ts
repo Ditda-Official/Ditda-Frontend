@@ -8,6 +8,7 @@ export { default as CheckCircleFillIcon } from "@/shared/assets/icons/icon_check
 export { default as CheckboxGrayIcon } from "@/shared/assets/icons/icon_checkbox_border_gray.svg";
 export { default as CheckboxWhiteIcon } from "@/shared/assets/icons/icon_checkbox_border_white.svg";
 export { default as CheckboxFillIcon } from "@/shared/assets/icons/icon_checkbox_fill.svg";
+export { default as ChevronRightIcon } from "@/shared/assets/icons/icon_chevron_right.svg";
 export { default as CloseIcon } from "@/shared/assets/icons/icon_close.svg";
 export { default as CloseCircleIcon } from "@/shared/assets/icons/icon_close_circle.svg";
 export { default as CloseCircleFillIcon } from "@/shared/assets/icons/icon_close_circle_fill.svg";
