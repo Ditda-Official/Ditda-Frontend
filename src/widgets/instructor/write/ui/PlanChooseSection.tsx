@@ -22,7 +22,7 @@ const PlanChooseSection = () => {
       <div className="flex flex-col gap-2">
         <h1 className="text-gray-90 text-heading1-sb">플랜 선택</h1>
         <h2 className="text-gray-70 text-body2-m">
-          작업을 진행할 디자이너의 인원수를 선택해주세요
+          작업을 진행할 디자이너의 인원수를 선택해 주세요.
         </h2>
       </div>
       <div className="flex flex-row gap-3">
