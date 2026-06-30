@@ -5,6 +5,17 @@ export const easeOutCubic = (progress: number) => 1 - (1 - progress) ** 3;
 export const getDaysInMonth = (year: number, monthIndex: number) =>
   new Date(year, monthIndex + 1, 0).getDate();
 
+export const getDateForIndices = (
+  baseYear: number,
+  yearIndex: number,
+  monthIndex: number,
+  dayIndex: number,
+) => {
+  const year = baseYear + yearIndex;
+  const daysInMonth = getDaysInMonth(year, monthIndex);
+  return new Date(year, monthIndex, Math.min(dayIndex, daysInMonth - 1) + 1);
+};
+
 export const getScrollTopForIndex = (index: number, selectedIndex: number) =>
   index * STEP + (index > selectedIndex ? SELECTED_EXTRA : 0);
 

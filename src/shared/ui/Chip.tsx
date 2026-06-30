@@ -1,17 +1,19 @@
 import { CloseIcon } from "@/shared/assets/icons";
 import { cn } from "@/shared/lib/utils/cn";
 
-type ChipVariant = "selectable" | "removable";
+type ChipVariant = "selectable" | "removable" | "long";
 
 interface ChipProps {
   label: string;
   isSelected?: boolean;
   isHoverPreview?: boolean;
   disableHover?: boolean;
+  disabled?: boolean;
   onRemove?: () => void;
   onClick?: () => void;
   removeAriaLabel?: string;
   variant?: ChipVariant;
+  className?: string;
 }
 
 const Chip = ({
@@ -19,10 +21,12 @@ const Chip = ({
   isSelected = false,
   isHoverPreview = false,
   disableHover = false,
+  disabled = false,
   onRemove,
   onClick,
   removeAriaLabel,
   variant = "selectable",
+  className,
 }: ChipProps) => {
   if (variant === "removable") {
     const iconWrapperStyles = "inline-flex size-4 shrink-0 items-center justify-center";
@@ -38,6 +42,28 @@ const Chip = ({
       >
         <span className="text-body2-m">{label}</span>
         <span className={iconWrapperStyles}>{icon}</span>
+      </div>
+    );
+  }
+
+  if (variant === "long") {
+    return (
+      <div
+        className={cn(
+          "rounded-100 border-gray-20 text-body2-m text-gray-70 flex cursor-pointer items-center justify-start border px-3 py-1.5 transition-colors duration-150",
+          disabled
+            ? "bg-gray-5 cursor-default"
+            : isSelected
+              ? "border-main-main bg-purple-10 text-body2-sb text-main-main"
+              : "hover:border-gray-60",
+          className,
+        )}
+        onClick={disabled ? undefined : onClick}
+        role={onClick != null ? "button" : undefined}
+        tabIndex={onClick != null && !disabled ? 0 : undefined}
+        aria-disabled={disabled}
+      >
+        <span>{label}</span>
       </div>
     );
   }

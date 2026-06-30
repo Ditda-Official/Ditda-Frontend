@@ -10,10 +10,21 @@ import {
 const SizeSection = () => {
   const { selectedCategory, selectedSize, setSelectedSize } = useWriteFormStore();
 
+  const selectedSizeLabel = selectedSize
+    ? SIZE_OPTIONS.find(option => option.id === selectedSize)?.size
+    : null;
+
   return (
-    <div className="rounded-12 focus-within:border-purple-40 flex flex-col gap-8 border border-transparent bg-white p-6">
+    <div className="rounded-12 focus-within:border-gray-40 flex flex-col gap-8 border border-transparent bg-white p-6">
       <div>
-        <h1 className="text-gray-90 text-heading1-sb pb-2">사이즈</h1>
+        <div className="flex flex-row items-center justify-between pb-2">
+          <h1 className="text-gray-90 text-heading1-sb">사이즈</h1>
+          {selectedSizeLabel && (
+            <div className="rounded-4 bg-purple-10 flex h-7 items-center px-2">
+              <span className="text-body2-m text-gray-90">{selectedSizeLabel}</span>
+            </div>
+          )}
+        </div>
         {selectedCategory && (
           <h2 className="text-gray-70 text-body2-m">진행할 작업물의 사이즈를 선택해주세요</h2>
         )}

@@ -1,23 +1,43 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
+
 import {
   CONCEPT_CATEGORIES,
   ConceptKeywordCard,
   MAX_CONCEPT_SELECT,
   useWriteFormStore,
 } from "@/features/instructor/write";
-import Chip from "@/shared/ui/Chip";
+import ConceptResult from "@/features/instructor/write/ui/ConceptResult";
+import { ArrowDownIcon, ExclamationMarkCircleIcon } from "@/shared/assets/icons";
 import TextField from "@/shared/ui/input/TextField";
+import Toast from "@/shared/ui/Toast";
+
+const LIMIT_TOAST_MESSAGE =
+  "컨셉은 5개까지 선택할 수 있습니다. 추가적인 내용은 하단 토글을 열어 작성해주세요.";
 
 const DesignConceptSection = () => {
   const { selectedKeywords, setSelectedKeywords, additionalConcept, setAdditionalConcept } =
     useWriteFormStore();
+  const [isAdditionalOpen, setIsAdditionalOpen] = useState(false);
+  const [showLimitToast, setShowLimitToast] = useState(false);
+  const toastTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (toastTimeoutRef.current) clearTimeout(toastTimeoutRef.current);
+    };
+  }, []);
 
   const handleSelect = (keyword: string) => {
     if (selectedKeywords.includes(keyword)) {
       setSelectedKeywords(selectedKeywords.filter(k => k !== keyword));
     } else if (selectedKeywords.length < MAX_CONCEPT_SELECT) {
       setSelectedKeywords([...selectedKeywords, keyword]);
+    } else {
+      if (toastTimeoutRef.current) clearTimeout(toastTimeoutRef.current);
+      setShowLimitToast(true);
+      toastTimeoutRef.current = setTimeout(() => setShowLimitToast(false), 2500);
     }
   };
 
@@ -26,33 +46,17 @@ const DesignConceptSection = () => {
   };
 
   return (
-    <div className="rounded-12 focus-within:border-purple-40 flex flex-col gap-8 border border-transparent bg-white p-6">
+    <div className="rounded-12 focus-within:border-gray-40 flex flex-col gap-8 border border-transparent bg-white p-6">
+      <Toast
+        message={LIMIT_TOAST_MESSAGE}
+        show={showLimitToast}
+        className="fixed top-4 left-[calc(50%+var(--sidebar-w,0)/2)] w-235 -translate-x-1/2"
+      />
       <div>
         <h1 className="text-heading1-sb text-gray-90 pb-2">디자인 컨셉</h1>
-        <h2 className="text-gray-70 text-body2-m">
-          원하는 컨셉의 태그를 두가지 선택하거나 직접 작성해주세요
-        </h2>
+        <h2 className="text-gray-70 text-body2-m">최대 5개까지 자유롭게 선택할 수 있어요</h2>
       </div>
-      <div className="bg-gray-10 rounded-48 flex h-13.5 items-center justify-center gap-2 px-8 py-2">
-        <span className="text-gray-80 text-body1-m shrink-0">작업물이</span>
-        <div className="flex items-center gap-2">
-          {Array.from({ length: MAX_CONCEPT_SELECT }).map((_, i) => {
-            const keyword = selectedKeywords[i];
-            return keyword != null ? (
-              <Chip
-                key={keyword}
-                label={keyword}
-                variant="removable"
-                onRemove={() => handleRemove(keyword)}
-              />
-            ) : (
-              <div key={i} className="rounded-100 h-9.5 w-14.5 bg-white" />
-            );
-          })}
-        </div>
-        <span className="text-gray-80 text-body1-m shrink-0">컨셉으로 되면 좋겠어요</span>
-      </div>
-      <div className="flex flex-row justify-center gap-6">
+      <div className="flex flex-row justify-center gap-12">
         {CONCEPT_CATEGORIES.map(({ title, keywords }) => (
           <ConceptKeywordCard
             key={title}
@@ -63,13 +67,31 @@ const DesignConceptSection = () => {
           />
         ))}
       </div>
-      <div className="flex flex-col gap-2">
-        <h3 className="text-gray-70 text-body1-sb">컨셉 추가 요청</h3>
-        <TextField
-          placeholder="원하는 컨셉이 있다면 적어주세요. (선택사항)"
-          value={additionalConcept}
-          onChange={e => setAdditionalConcept(e.target.value)}
-        />
+      <ConceptResult selectedKeywords={selectedKeywords} onRemove={handleRemove} />
+      <div className="border-t-gray-20 flex flex-col gap-2 border-t pt-3 pb-1">
+        <div className="flex flex-row items-center gap-1">
+          <ExclamationMarkCircleIcon className="text-blue-main size-5 shrink-0" />
+          <p className="text-gray-70 text-body1-sb">
+            원하는 컨셉이 없거나 추가로 반영할 내용이 있다면 직접 입력할 수 있어요
+          </p>
+          <ArrowDownIcon
+            className={`text-gray-70 size-6 cursor-pointer transition-transform ${isAdditionalOpen ? "rotate-180" : ""}`}
+            onClick={() => setIsAdditionalOpen(prev => !prev)}
+          />
+        </div>
+        <div
+          className={`grid transition-[grid-template-rows] duration-300 ease-in-out ${
+            isAdditionalOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+          }`}
+        >
+          <div className="overflow-hidden">
+            <TextField
+              placeholder="1번 사진은 선생님 개인 프로필 사진입니다. 저자의 말 페이지에 활용해주세요."
+              value={additionalConcept}
+              onChange={e => setAdditionalConcept(e.target.value)}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

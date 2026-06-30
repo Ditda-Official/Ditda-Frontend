@@ -8,10 +8,17 @@ interface WheelColumnProps {
   items: string[];
   selectedIndex: number;
   onSelect: (index: number) => void;
+  onItemClick?: (index: number) => void;
   itemClassName?: string;
 }
 
-const WheelColumn = ({ items, selectedIndex, onSelect, itemClassName = "" }: WheelColumnProps) => {
+const WheelColumn = ({
+  items,
+  selectedIndex,
+  onSelect,
+  onItemClick,
+  itemClassName = "",
+}: WheelColumnProps) => {
   const { scrollRef, handleScroll, handleWheel } = useWheelColumn({
     items,
     selectedIndex,
@@ -34,8 +41,12 @@ const WheelColumn = ({ items, selectedIndex, onSelect, itemClassName = "" }: Whe
             style={{
               marginBottom: index === items.length - 1 ? 0 : ITEM_GAP,
             }}
+            onClick={() => {
+              if (index !== selectedIndex) onSelect(index);
+              onItemClick?.(index);
+            }}
             className={cn(
-              "flex snap-start snap-always items-center justify-end",
+              "flex cursor-pointer snap-start snap-always items-center justify-end",
               index === selectedIndex ? "h-9.5" : "h-5.5",
             )}
           >

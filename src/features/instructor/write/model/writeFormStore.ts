@@ -79,7 +79,7 @@ const initialState = {
   selectedSize: null,
   selectedKeywords: [],
   additionalConcept: "",
-  colorMode: "custom" as ColorMode,
+  colorMode: "designer" as ColorMode,
   colors: [null, null, null] as (RgbaColor | null)[],
   mainColorIndex: 0,
   basicInfo: { 교재명: "", 강사명: "", 과목명: "" },

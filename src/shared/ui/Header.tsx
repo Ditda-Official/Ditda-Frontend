@@ -92,7 +92,7 @@ const Header = () => {
           1:1 문의하기
         </a>
         <a
-          href="https://friendly-case-06a.notion.site/ditda-FAQ-388fb8159b3381929564d7e4e908a64f"
+          href="https://friendly-case-06a.notion.site/ditda-FAQ-38ffb8159b33800bb641f769dc9e2365"
           target="_blank"
           rel="noopener noreferrer"
         >
