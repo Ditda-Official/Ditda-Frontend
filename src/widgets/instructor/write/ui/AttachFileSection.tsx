@@ -1,10 +1,16 @@
 "use client";
 
+import { useState } from "react";
+
 import { useWriteFormStore } from "@/features/instructor/write";
 import { useUploadedFiles } from "@/shared/lib/hooks/useUploadedFiles";
+import { isAllowedFileType, MAX_FILE_SIZE_BYTES } from "@/shared/lib/utils/file";
 import FileDragAndDrop from "@/shared/ui/FileDragAndDrop";
 import FileUpload from "@/shared/ui/FileUpload";
 import TextField from "@/shared/ui/input/TextField";
+import Modal from "@/shared/ui/modal/Modal";
+
+const MAX_FILE_COUNT = 5;
 
 const AttachFileSection = () => {
   const { materialFiles, setMaterialFiles, materialDescription, setMaterialDescription } =
@@ -13,6 +19,27 @@ const AttachFileSection = () => {
     materialFiles,
     setMaterialFiles,
   );
+  const [isInvalidFileModalOpen, setIsInvalidFileModalOpen] = useState(false);
+  const [isFileCountExceededModalOpen, setIsFileCountExceededModalOpen] = useState(false);
+
+  const handleValidatedFilesAdded = (files: File[]) => {
+    const validFiles = files.filter(
+      file => isAllowedFileType(file, [".png"]) && file.size <= MAX_FILE_SIZE_BYTES,
+    );
+
+    if (validFiles.length < files.length) {
+      setIsInvalidFileModalOpen(true);
+    }
+
+    if (validFiles.length === 0) return;
+
+    if (uploadedFiles.length + validFiles.length > MAX_FILE_COUNT) {
+      setIsFileCountExceededModalOpen(true);
+      return;
+    }
+
+    handleFilesAdded(validFiles);
+  };
 
   return (
     <div className="rounded-12 focus-within:border-gray-40 flex flex-col border border-transparent bg-white p-6">
@@ -24,7 +51,7 @@ const AttachFileSection = () => {
               선생님 사진, 학원 로고 등 직접적으로 사용될 자료들을 첨부해주세요.
             </h2>
           </div>
-          <FileDragAndDrop onFilesAdded={handleFilesAdded} />
+          <FileDragAndDrop onFilesAdded={handleValidatedFilesAdded} />
         </div>
         <div className="flex flex-col gap-6">
           {uploadedFiles.length > 0 && (
@@ -55,6 +82,26 @@ const AttachFileSection = () => {
           </div>
         </div>
       </div>
+      <Modal
+        isOpen={isInvalidFileModalOpen}
+        type="single"
+        title="파일 업로드를 실패하였습니다"
+        description={"해당 파일의 업로드를 실패했습니다.\n용량과 확장자를 확인해주세요."}
+        confirmLabel="확인"
+        onConfirm={() => setIsInvalidFileModalOpen(false)}
+        onClose={() => setIsInvalidFileModalOpen(false)}
+      />
+      <Modal
+        isOpen={isFileCountExceededModalOpen}
+        type="single"
+        title={"업로드 가능 파일 개수를\n초과했습니다"}
+        description={
+          "파일은 30MB 씩 총 5개까지 업로드가 가능합니다.\n기존의 업로드한 파일을 삭제 후 업로드해주세요."
+        }
+        confirmLabel="닫기"
+        onConfirm={() => setIsFileCountExceededModalOpen(false)}
+        onClose={() => setIsFileCountExceededModalOpen(false)}
+      />
     </div>
   );
 };
