@@ -1,0 +1,1 @@
+export const MATCHING_WAITING_ITEMS_PER_PAGE = 6;

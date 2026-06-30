@@ -1,5 +1,7 @@
+import { MatchingWaitingCommissionsSection } from "@/widgets/designer/search";
+
 const page = () => {
-  return <div>디자이너 외주 찾기</div>;
+  return <MatchingWaitingCommissionsSection />;
 };
 
 export default page;
