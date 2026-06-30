@@ -124,14 +124,19 @@ const Step1 = ({ onNext, errorMessage }: { onNext: () => void; errorMessage?: st
     setIsTermsAgreed,
   } = useWriteFormStore();
 
-  const [dismissedMessage, setDismissedMessage] = useState<string | null | undefined>(null);
-  const showError = !!errorMessage && errorMessage !== dismissedMessage;
+  const [prevErrorMessage, setPrevErrorMessage] = useState(errorMessage);
+  const [autoHide, setAutoHide] = useState(false);
+  if (errorMessage !== prevErrorMessage) {
+    setPrevErrorMessage(errorMessage);
+    setAutoHide(false);
+  }
+  const showError = !!errorMessage && !autoHide;
 
   useEffect(() => {
-    if (!errorMessage || errorMessage === dismissedMessage) return;
-    const timeout = setTimeout(() => setDismissedMessage(errorMessage), 2500);
+    if (!showError) return;
+    const timeout = setTimeout(() => setAutoHide(true), 2500);
     return () => clearTimeout(timeout);
-  }, [errorMessage, dismissedMessage]);
+  }, [showError]);
 
   return (
     <>
@@ -190,8 +195,8 @@ const Step1 = ({ onNext, errorMessage }: { onNext: () => void; errorMessage?: st
             className="absolute -top-4 left-1/2 w-fit shrink-0 -translate-x-1/2 -translate-y-full whitespace-nowrap"
           />
           <Button
-            variant={isTermsAgreed && !errorMessage ? "large_primary" : "large_disabled"}
-            disabled={!isTermsAgreed || !!errorMessage}
+            variant={isTermsAgreed && !showError ? "large_primary" : "large_disabled"}
+            disabled={!isTermsAgreed || showError}
             onClick={onNext}
           >
             결제하기
