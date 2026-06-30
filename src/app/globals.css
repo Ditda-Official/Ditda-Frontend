@@ -207,3 +207,7 @@
     display: none;
   }
 }
+
+@utility notfound-gradient {
+  background: linear-gradient(180deg, #fff 0%, #f3edff 100%);
+}
