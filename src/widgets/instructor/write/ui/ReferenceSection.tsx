@@ -21,7 +21,7 @@ const ReferenceSection = () => {
           <div className="flex flex-col gap-2">
             <h1 className="text-gray-90 text-heading1-sb">레퍼런스(선택)</h1>
             <h2 className="text-gray-70 text-body2-m">
-              원하는 교재 이미지가 있다면 레퍼런스 파일을 첨부해주세요
+              디자이너가 참고하길 원하는 스타일이 있다면 레퍼런스 파일을 첨부해주세요.
             </h2>
           </div>
           <FileDragAndDrop onFilesAdded={handleFilesAdded} />
@@ -41,9 +41,14 @@ const ReferenceSection = () => {
             </div>
           )}
           <div className="flex flex-col gap-2">
-            <p className="text-gray-70 text-body1-sb">레퍼런스 참고사항</p>
+            <p className="text-gray-70 text-body1-sb">
+              레퍼런스별 추가 설명
+              {uploadedFiles.length > 0 && <span className="text-red-main">*</span>}
+            </p>
             <TextField
-              placeholder="ex) img.04는 강사 프로필에 들어가는 이미지입니다."
+              placeholder={
+                "첨부한 파일에 대한 설명을 반드시 작성해주세요.\nex) 1번 사진의 색감처럼 깔끔했으면 좋겠어요."
+              }
               value={referenceDescription}
               onChange={e => setReferenceDescription(e.target.value)}
             />
