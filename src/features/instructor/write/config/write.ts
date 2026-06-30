@@ -54,7 +54,7 @@ export const SIZE_OPTIONS = [
 export const CONCEPT_CATEGORIES = [
   { title: "질감", keywords: ["입체감 있는", "평면적인", "거친", "매끈한"] },
   { title: "레이아웃", keywords: ["정돈된", "역동적인", "여백이 많은", "꽉 찬"] },
-  { title: "형태", keywords: ["둥근", "각진", "지유로운", "기하학적인"] },
+  { title: "형태", keywords: ["둥근", "각진", "자유로운", "기하학적인"] },
   { title: "색감", keywords: ["화려한", "차분한", "밝은", "어두운"] },
   { title: "무드", keywords: ["귀여운", "시크한", "감성적인", "전문적인"] },
 ];

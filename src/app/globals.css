@@ -177,12 +177,20 @@
     Shadow Tokens
     ========================= */
   --shadow-dropdown: 0 0 20px 4px rgba(0, 0, 0, 0.05);
+  /* UI/안내바 */
+  --shadow-banner: 0 8px 20px 4px rgba(0, 0, 0, 0.08);
 
   /* =========================
     Blur Tokens
     ========================= */
   --blur-hover: 1.7px;
   --blur-button: 2px;
+
+  /* =========================
+    Z-Index Tokens
+    ========================= */
+  --z-index-header: 10;
+  --z-index-toast: 60;
 
   /* =========================
     Radius Tokens
