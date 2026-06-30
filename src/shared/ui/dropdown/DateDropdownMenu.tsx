@@ -4,7 +4,7 @@ import { useCallback, useState } from "react";
 
 import { PAD_TOP, YEAR_RANGE } from "@/shared/config/dropdown";
 import { cn } from "@/shared/lib/utils/cn";
-import { getDaysInMonth } from "@/shared/lib/utils/dropdown";
+import { getDateForIndices, getDaysInMonth } from "@/shared/lib/utils/dropdown";
 import WheelColumn from "@/shared/ui/dropdown/WheelColumn";
 
 interface DropdownMenuProps {
@@ -43,6 +43,11 @@ const DateDropdownMenu = ({
   const selectedDate = new Date(selectedYear, monthIndex, safeDayIndex + 1);
   const isInvalid = minDate != null && selectedDate <= minDate;
 
+  const confirmDate = (date: Date) => {
+    if (minDate != null && date <= minDate) return;
+    onConfirm?.(date);
+  };
+
   const handleYearSelect = useCallback(
     (nextYearIndex: number) => {
       setYearIndex(nextYearIndex);
@@ -78,17 +83,33 @@ const DateDropdownMenu = ({
           </div>
         </div>
         <div className="relative z-10 flex flex-row justify-center gap-6 text-right">
-          <WheelColumn items={years} selectedIndex={yearIndex} onSelect={handleYearSelect} />
+          <WheelColumn
+            items={years}
+            selectedIndex={yearIndex}
+            onSelect={handleYearSelect}
+            onItemClick={index => {
+              handleYearSelect(index);
+              confirmDate(getDateForIndices(baseYear, index, monthIndex, safeDayIndex));
+            }}
+          />
           <WheelColumn
             items={months}
             selectedIndex={monthIndex}
             onSelect={handleMonthSelect}
+            onItemClick={index => {
+              handleMonthSelect(index);
+              confirmDate(getDateForIndices(baseYear, yearIndex, index, safeDayIndex));
+            }}
             itemClassName="w-7.5"
           />
           <WheelColumn
             items={days}
             selectedIndex={safeDayIndex}
             onSelect={setDayIndex}
+            onItemClick={index => {
+              setDayIndex(index);
+              confirmDate(getDateForIndices(baseYear, yearIndex, monthIndex, index));
+            }}
             itemClassName="w-8.5"
           />
         </div>
