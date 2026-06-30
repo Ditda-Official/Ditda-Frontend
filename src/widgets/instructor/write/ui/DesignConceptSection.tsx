@@ -8,10 +8,10 @@ import {
   MAX_CONCEPT_SELECT,
   useWriteFormStore,
 } from "@/features/instructor/write";
-import ConceptLimitToast from "@/features/instructor/write/ui/ConceptLimitToast";
 import ConceptResult from "@/features/instructor/write/ui/ConceptResult";
 import { ArrowDownIcon, ExclamationMarkCircleIcon } from "@/shared/assets/icons";
 import TextField from "@/shared/ui/input/TextField";
+import Toast from "@/shared/ui/Toast";
 
 const LIMIT_TOAST_MESSAGE =
   "컨셉은 5개까지 선택할 수 있습니다. 추가적인 내용은 하단 토글을 열어 작성해주세요.";
@@ -47,7 +47,11 @@ const DesignConceptSection = () => {
 
   return (
     <div className="rounded-12 focus-within:border-gray-40 flex flex-col gap-8 border border-transparent bg-white p-6">
-      <ConceptLimitToast message={LIMIT_TOAST_MESSAGE} show={showLimitToast} />
+      <Toast
+        message={LIMIT_TOAST_MESSAGE}
+        show={showLimitToast}
+        className="fixed top-4 left-[calc(50%+var(--sidebar-w,0)/2)] w-235 -translate-x-1/2"
+      />
       <div>
         <h1 className="text-heading1-sb text-gray-90 pb-2">디자인 컨셉</h1>
         <h2 className="text-gray-70 text-body2-m">최대 5개까지 자유롭게 선택할 수 있어요</h2>
