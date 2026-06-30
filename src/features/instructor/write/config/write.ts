@@ -18,9 +18,9 @@ export const WRITE_STEPS: {
     STEP1
     ========================= */
 export const CATEGORIES = [
-  { label: "유인물", items: ["교재 외지/내지"] },
-  { label: "홍보물", items: [] },
-  { label: "퍼스널 브랜딩", items: [] },
+  { label: "유인물", items: ["교재 외지/내지", "대봉투"] },
+  { label: "홍보물", items: ["포스터", "배너", "옥외 광고물", "SNS 카드뉴스"] },
+  { label: "퍼스널 브랜딩", items: ["포토카드", "스티커", "키링", "명함", "로고"] },
 ];
 
 export const SIZE_OPTIONS = [
