@@ -8,15 +8,20 @@ import DesignConceptSection from "@/widgets/instructor/write/ui/DesignConceptSec
 import SizeSection from "@/widgets/instructor/write/ui/SizeSection";
 
 const Step1Content = () => {
-  const { selectedCategory, selectedSize, selectedKeywords, colorMode, colors, setCurrentStep } =
-    useWriteFormStore();
+  const {
+    selectedCategory,
+    selectedSize,
+    selectedKeywords,
+    additionalConcept,
+    colorMode,
+    colors,
+    setCurrentStep,
+  } = useWriteFormStore();
 
   const isColorReady = colorMode === "designer" || colors.every(c => c !== null);
+  const isConceptReady = selectedKeywords.length >= 1 || additionalConcept.trim().length > 0;
   const isAllSelected =
-    selectedCategory !== null &&
-    selectedSize !== null &&
-    selectedKeywords.length >= 1 &&
-    isColorReady;
+    selectedCategory !== null && selectedSize !== null && isConceptReady && isColorReady;
 
   return (
     <div className="flex flex-col gap-10 pt-15 pb-30">
