@@ -1,16 +1,11 @@
 import Image from "next/image";
 
-import { myInfoData } from "@/features/instructor/my/model/myMock";
+import type { MyInfo } from "@/features/instructor/my";
 import { ProfileCircleIcon } from "@/shared/assets/icons";
 
-interface MyInfoSectionProps {
-  name: string;
-  profileImageUrl?: string;
-}
+type MyInfoSectionProps = MyInfo;
 
-const MyInfoSection = ({ name, profileImageUrl }: MyInfoSectionProps) => {
-  const { stats } = myInfoData;
-
+const MyInfoSection = ({ name, profileImageUrl, stats }: MyInfoSectionProps) => {
   return (
     <div className="w-212.75">
       <div className="flex flex-row items-center gap-4 rounded-t-xl bg-purple-50 px-6 py-5">
