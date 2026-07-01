@@ -1,3 +1,5 @@
+import type { BadgeVariant } from "@/shared/ui/Badge";
+
 export type MyInfoStats = {
   totalCommissionCount: number;
   ongoingCommissionCount: number;
@@ -25,6 +27,12 @@ export const PLAN_DISPLAY_MAP: Record<CommissionHistoryItem["plan"], string> = {
   MAX: "맥스",
 };
 
-export const CATEGORY_BADGE_MAP: Record<string, string> = {
+export const CATEGORY_BADGE_MAP: Record<string, BadgeVariant> = {
   FLYER_TEXTBOOK_COVER_INNER: "교재",
+};
+
+export const PLAN_PAID_AMOUNT_MAP: Record<CommissionHistoryItem["plan"], number> = {
+  BASIC: 400000,
+  PLUS: 450000,
+  MAX: 480000,
 };

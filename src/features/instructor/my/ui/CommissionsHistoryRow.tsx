@@ -2,6 +2,7 @@ import {
   CATEGORY_BADGE_MAP,
   CommissionHistoryItem,
   PLAN_DISPLAY_MAP,
+  PLAN_PAID_AMOUNT_MAP,
 } from "@/features/instructor/my";
 import { ArrowRightIcon } from "@/shared/assets/icons";
 import Badge from "@/shared/ui/Badge";
@@ -22,7 +23,7 @@ const CommissionsHistoryRow = ({ item }: { item: CommissionHistoryItem }) => {
         <p className="text-gray-70 text-heading2-m w-25">{createdAt.replaceAll("-", ".")}</p>
         <p className="text-gray-70 text-heading2-m w-14">{PLAN_DISPLAY_MAP[plan]}</p>
         <p className="text-gray-90 text-heading3-m w-25">
-          {paidAmount != null ? `${paidAmount.toLocaleString()}원` : "-"}
+          {(paidAmount ?? PLAN_PAID_AMOUNT_MAP[plan]).toLocaleString()}원
         </p>
       </div>
     </div>
