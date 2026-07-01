@@ -1,0 +1,1 @@
+export const PAYMENT_HISTORY_ITEMS_PER_PAGE = 3;

@@ -1,19 +1,14 @@
 "use client";
 
-import { ArrowRightIcon, NextButton, PrevButton } from "@/shared/assets/icons";
+import {
+  type PaymentHistory,
+  PaymentHistoryHeader,
+  PaymentHistoryRow,
+} from "@/features/designer/my";
+import { NextButton, PrevButton } from "@/shared/assets/icons";
 import usePagination from "@/shared/lib/hooks/usePagination";
-import Badge from "@/shared/ui/Badge";
 import PageIndicator from "@/shared/ui/PageIndicator";
-
-type PaymentHistory = {
-  id: number;
-  category: "교재";
-  title: string;
-  amountType: "기본금" | "최종금액";
-  amount: number;
-};
-
-const PAYMENT_HISTORY_ITEMS_PER_PAGE = 3;
+import { PAYMENT_HISTORY_ITEMS_PER_PAGE } from "@/widgets/designer/my/config/my";
 
 const paymentHistories: PaymentHistory[] = [
   {
@@ -53,8 +48,6 @@ const paymentHistories: PaymentHistory[] = [
   },
 ];
 
-const formatPrice = (amount: number) => `${amount.toLocaleString()}원`;
-
 const PaymentHistorySection = () => {
   const { current, totalPages, pageItems, handlePrev, handleNext } = usePagination<PaymentHistory>(
     paymentHistories,
@@ -66,37 +59,14 @@ const PaymentHistorySection = () => {
       <h2 className="text-heading1-sb text-black">지급 내역 확인</h2>
       <div className="flex flex-1 flex-col gap-6">
         <div className="flex h-66.25 flex-col">
-          <div className="border-b-gray-20 flex items-center justify-between border-b px-3 py-2">
-            <p className="text-caption1-r text-gray-70">외주</p>
-            <div className="flex items-center gap-16">
-              <p className="text-caption1-r text-gray-70 w-14">금액 종류</p>
-              <p className="text-caption1-r text-gray-70 w-25">금액</p>
-            </div>
-          </div>
+          <PaymentHistoryHeader />
 
           {pageItems.length === 0 ? (
             <div className="flex flex-1 items-center justify-center">
               <p className="text-heading3-m text-gray-60">진행된 외주가 없습니다</p>
             </div>
           ) : (
-            pageItems.map(history => (
-              <div
-                key={history.id}
-                className="border-b-gray-20 flex h-19.25 items-center justify-between border-b px-3 py-5"
-              >
-                <div className="flex items-center gap-6">
-                  <Badge variant={history.category} />
-                  <div className="text-gray-90 flex items-center gap-1">
-                    <p className="text-heading3-m truncate">{history.title}</p>
-                    <ArrowRightIcon className="size-6 shrink-0 cursor-pointer" />
-                  </div>
-                </div>
-                <div className="flex items-center gap-16">
-                  <p className="text-heading3-m text-gray-70 w-14">{history.amountType}</p>
-                  <p className="text-heading2-m text-gray-90 w-25">{formatPrice(history.amount)}</p>
-                </div>
-              </div>
-            ))
+            pageItems.map(history => <PaymentHistoryRow key={history.id} item={history} />)
           )}
         </div>
 
