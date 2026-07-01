@@ -1,6 +1,8 @@
 import { getMyInfo } from "@/features/instructor/my/api/my";
 import { CommissionsHistorySection, MyInfoSection } from "@/widgets/instructor/my";
 
+export const dynamic = "force-dynamic";
+
 const page = async () => {
   const myInfo = await getMyInfo();
 
