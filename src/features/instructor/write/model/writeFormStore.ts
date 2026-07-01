@@ -69,6 +69,8 @@ interface WriteFormState {
   setFinalDate: (value: Date | null) => void;
   setIsTermsAgreed: (value: boolean) => void;
 
+  // 현재 상태를 외주 생성 요청 포맷으로 변환
+  getOrderRequest: () => WriteOrderRequest;
   // API 제출 후 호출 → 스토어 초기화 + sessionStorage 키 삭제
   clearAfterSubmit: () => void;
 }
@@ -111,37 +113,56 @@ const buildOrderRequest = (state: WriteFormState): WriteOrderRequest => {
     if (result.length > 0) mappedColors = result;
   }
 
+  const files: WriteOrderRequest["files"] = [];
+  const materialKeys = state.materialFiles.map(f => f.key).filter((key): key is string => !!key);
+  if (materialKeys.length > 0) {
+    files.push({
+      fileKind: "MATERIAL",
+      keys: materialKeys,
+      ...(state.materialDescription ? { description: state.materialDescription } : {}),
+    });
+  }
+  const referenceKeys = state.referenceFiles.map(f => f.key).filter((key): key is string => !!key);
+  if (referenceKeys.length > 0) {
+    files.push({
+      fileKind: "REFERENCE",
+      keys: referenceKeys,
+      ...(state.referenceDescription ? { description: state.referenceDescription } : {}),
+    });
+  }
+
   return {
     category: state.selectedCategory ? CATEGORY_API_MAP[state.selectedCategory.item] : "",
     designInfo: {
-      size: state.selectedSize ? SIZE_API_MAP[state.selectedSize] : "",
+      pageSize: state.selectedSize ? SIZE_API_MAP[state.selectedSize] : "",
       concepts: state.selectedKeywords.map(k => KEYWORD_API_MAP[k]),
       ...(state.additionalConcept ? { additionalConcept: state.additionalConcept } : {}),
       colorSelectionMode: state.colorMode === "designer" ? "DESIGNER_DELEGATED" : "USER_SELECTED",
       ...(mappedColors ? { colors: mappedColors } : {}),
     },
-    textbookName: state.basicInfo.교재명,
-    instructorName: state.basicInfo.강사명,
-    subject: state.basicInfo.과목명,
-    requiredPages: state.selectedPages.map(page => ({
-      pageType: PAGE_API_MAP[page],
-      description: state.pageDescriptions[page] || null,
-    })),
-    ...(state.materialDescription ? { materialDescription: state.materialDescription } : {}),
-    ...(state.referenceDescription ? { referenceDescription: state.referenceDescription } : {}),
+    textbook: {
+      textbookName: state.basicInfo.교재명,
+      instructorName: state.basicInfo.강사명,
+      subject: state.basicInfo.과목명,
+      requiredPages: state.selectedPages.map(page => ({
+        pageType: PAGE_API_MAP[page],
+        description: state.pageDescriptions[page] || null,
+      })),
+    },
+    ...(files.length > 0 ? { files } : {}),
     plan: state.selectedPlan?.code ?? "",
-    dates: [
-      {
-        firstDraftDeadline: state.firstDate ? toApiDate(state.firstDate) : "",
-        finalDeadline: state.finalDate ? toApiDate(state.finalDate) : "",
-      },
-    ],
-    term: [{ type: "SETTLEMENT", version: "V1.0", isAgreed: state.isTermsAgreed }],
+    date: {
+      firstDraftDeadline: state.firstDate ? toApiDate(state.firstDate) : "",
+      finalDeadline: state.finalDate ? toApiDate(state.finalDate) : "",
+    },
+    term: { type: "SETTLEMENT", version: "V1.0", isAgreed: state.isTermsAgreed },
   };
 };
 
-export const useWriteFormStore = create<WriteFormState>()(set => ({
+export const useWriteFormStore = create<WriteFormState>()((set, get) => ({
   ...initialState,
+
+  getOrderRequest: () => buildOrderRequest(get()),
 
   setCurrentStep: value => set({ currentStep: value }),
   setSelectedCategory: value => set({ selectedCategory: value }),

@@ -1,6 +1,13 @@
 import type { GetPlansResult, Plan } from "@/features/instructor/write/api/writeTypes";
 import type { CommissionFileTarget } from "@/features/instructor/write/config/write";
-import { api, createApiPath } from "@/shared/api/client";
+import type { WriteOrderRequest } from "@/features/instructor/write/model/write";
+import {
+  api,
+  ApiError,
+  createApiPath,
+  getApiResponseMessage,
+  toApiError,
+} from "@/shared/api/client";
 import type { ApiResponse } from "@/shared/api/commonType";
 import { postFilePresignedUrl, uploadFileToPresignedUrl } from "@/shared/api/file";
 
@@ -11,6 +18,24 @@ export const getPlans = async (): Promise<Plan[]> => {
     .json<ApiResponse<GetPlansResult>>();
 
   return response.result?.plans ?? [];
+};
+
+// 외주 생성(결제) 요청
+export const postCommission = async (body: WriteOrderRequest): Promise<void> => {
+  try {
+    const response = await api
+      .post(createApiPath("/api/v1/instructors/commissions"), { json: body })
+      .json<ApiResponse<unknown>>();
+
+    if (!response.success) {
+      throw new ApiError(getApiResponseMessage(response), {
+        code: response.code,
+        response,
+      });
+    }
+  } catch (error) {
+    throw await toApiError(error);
+  }
 };
 
 // 외주 첨부 파일 업로드 (presigned URL 발급 후 업로드, 반환된 key를 외주 작성 요청에 사용)
