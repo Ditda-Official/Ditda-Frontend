@@ -5,11 +5,18 @@ export const formatDate = (date: Date) => {
   return `${year}년 ${month}월 ${day}일`;
 };
 
-export const getYesterday = () => {
-  const yesterday = new Date();
-  yesterday.setDate(yesterday.getDate() - 1);
-  yesterday.setHours(0, 0, 0, 0);
-  return yesterday;
+export const getFirstAvailableDate = () => {
+  const date = new Date();
+  date.setDate(date.getDate() + 12);
+  date.setHours(0, 0, 0, 0);
+  return date;
+};
+
+export const getMinFirstDate = () => {
+  const date = new Date();
+  date.setDate(date.getDate() + 11);
+  date.setHours(0, 0, 0, 0);
+  return date;
 };
 
 export const getMinFinalDate = (date: Date) => {

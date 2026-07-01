@@ -4,8 +4,9 @@ import { useEffect, useRef, useState } from "react";
 
 import {
   formatDate,
+  getFirstAvailableDate,
   getMinFinalDate,
-  getYesterday,
+  getMinFirstDate,
   useWriteFormStore,
 } from "@/features/instructor/write";
 import DateDropdownBox from "@/shared/ui/dropdown/DateDropdownBox";
@@ -15,7 +16,8 @@ const DeadlineChooseSection = () => {
   const { firstDate, setFirstDate, finalDate, setFinalDate } = useWriteFormStore();
   const [openMenu, setOpenMenu] = useState<"first" | "final" | null>(null);
 
-  const yesterday = getYesterday();
+  const minFirstDate = getMinFirstDate();
+  const firstAvailableDate = getFirstAvailableDate();
 
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -61,9 +63,9 @@ const DeadlineChooseSection = () => {
             <div className="absolute top-full right-0 z-50 mt-1">
               <DateDropdownMenu
                 onConfirm={handleFirstConfirm}
-                minDate={yesterday}
-                invalidMessage={"오늘 이후 날짜를\n선택해주세요"}
-                defaultDate={firstDate ?? undefined}
+                minDate={minFirstDate}
+                invalidMessage={"오늘로부터 최소\n 12일 이후 날짜를\n선택해주세요"}
+                defaultDate={firstDate ?? firstAvailableDate}
               />
             </div>
           )}
