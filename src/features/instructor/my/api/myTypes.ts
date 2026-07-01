@@ -18,3 +18,13 @@ export type CommissionHistoryItem = {
   paidAmount: number | null;
   status: string;
 };
+
+export const PLAN_DISPLAY_MAP: Record<CommissionHistoryItem["plan"], string> = {
+  BASIC: "기본",
+  PLUS: "플러스",
+  MAX: "맥스",
+};
+
+export const CATEGORY_BADGE_MAP: Record<string, string> = {
+  FLYER_TEXTBOOK_COVER_INNER: "교재",
+};
