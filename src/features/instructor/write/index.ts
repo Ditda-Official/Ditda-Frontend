@@ -1,4 +1,4 @@
-export { getPlans } from "./api/write";
+export { getPlans, uploadCommissionFile } from "./api/write";
 export type { Plan } from "./api/writeTypes";
 export * from "./config/write";
 export type { RgbaColor } from "./lib/color";

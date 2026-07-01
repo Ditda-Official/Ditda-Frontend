@@ -4,4 +4,5 @@ export interface UploadedFile {
   fileName: string;
   fileSize: string;
   isUploading: boolean;
+  key?: string;
 }
