@@ -1,14 +1,45 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
+import { postNotifyDeposit } from "@/features/instructor/write/api/write";
 import { useWriteFormStore } from "@/features/instructor/write/model/writeFormStore";
+import { getApiErrorMessage } from "@/shared/api/client";
 import { ArrowLeftIcon, ExclamationMarkCircleIcon } from "@/shared/assets/icons";
 import Button from "@/shared/ui/Button";
+import Toast from "@/shared/ui/Toast";
 
-const Step2 = ({ onBack }: { onBack: () => void }) => {
+const Step2 = ({ onBack, commissionId }: { onBack: () => void; commissionId: number | null }) => {
   const router = useRouter();
   const { selectedPlan } = useWriteFormStore();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [autoHide, setAutoHide] = useState(false);
+  const showError = !!errorMessage && !autoHide;
+
+  useEffect(() => {
+    if (!showError) return;
+    const timeout = setTimeout(() => setAutoHide(true), 2500);
+    return () => clearTimeout(timeout);
+  }, [showError]);
+
+  const handleComplete = async () => {
+    if (isSubmitting || commissionId == null) return;
+
+    setIsSubmitting(true);
+    setAutoHide(false);
+    setErrorMessage(null);
+    try {
+      await postNotifyDeposit(commissionId);
+      router.push("/instructor");
+    } catch (error) {
+      setErrorMessage(await getApiErrorMessage(error));
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="flex h-178.25 flex-col justify-between">
       <div>
@@ -48,9 +79,20 @@ const Step2 = ({ onBack }: { onBack: () => void }) => {
         <p className="text-gray-90 text-body2-m text-center">
           이체를 완료하신 후, 결제 완료 버튼을 눌러주세요
         </p>
-        <Button variant="large_primary" onClick={() => router.push("/instructor")}>
-          결제 완료
-        </Button>
+        <div className="relative">
+          <Toast
+            message={errorMessage ?? ""}
+            show={showError}
+            className="absolute -top-4 left-1/2 w-fit shrink-0 -translate-x-1/2 -translate-y-full whitespace-nowrap"
+          />
+          <Button
+            variant={isSubmitting ? "large_disabled" : "large_primary"}
+            disabled={isSubmitting}
+            onClick={handleComplete}
+          >
+            결제 완료
+          </Button>
+        </div>
       </div>
     </div>
   );

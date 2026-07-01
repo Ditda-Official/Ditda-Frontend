@@ -1,4 +1,8 @@
-import type { GetPlansResult, Plan } from "@/features/instructor/write/api/writeTypes";
+import type {
+  CreateCommissionResult,
+  GetPlansResult,
+  Plan,
+} from "@/features/instructor/write/api/writeTypes";
 import type { CommissionFileTarget } from "@/features/instructor/write/config/write";
 import type { WriteOrderRequest } from "@/features/instructor/write/model/write";
 import {
@@ -21,10 +25,30 @@ export const getPlans = async (): Promise<Plan[]> => {
 };
 
 // 외주 생성(결제) 요청
-export const postCommission = async (body: WriteOrderRequest): Promise<void> => {
+export const postCommission = async (body: WriteOrderRequest): Promise<CreateCommissionResult> => {
   try {
     const response = await api
       .post(createApiPath("/api/v1/instructors/commissions"), { json: body })
+      .json<ApiResponse<CreateCommissionResult>>();
+
+    if (!response.success || !response.result) {
+      throw new ApiError(getApiResponseMessage(response), {
+        code: response.code,
+        response,
+      });
+    }
+
+    return response.result;
+  } catch (error) {
+    throw await toApiError(error);
+  }
+};
+
+// 입금 통보
+export const postNotifyDeposit = async (commissionId: number): Promise<void> => {
+  try {
+    const response = await api
+      .post(createApiPath(`/api/v1/instructors/commissions/${commissionId}/notify-deposit`))
       .json<ApiResponse<unknown>>();
 
     if (!response.success) {

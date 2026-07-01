@@ -13,6 +13,7 @@ const PaymentModalContent = ({ onClose }: { onClose?: () => void }) => {
   const [step, setStep] = useState<1 | 2>(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [commissionId, setCommissionId] = useState<number | null>(null);
   const { basicInfo, getOrderRequest } = useWriteFormStore();
 
   useEffect(() => {
@@ -29,7 +30,8 @@ const PaymentModalContent = ({ onClose }: { onClose?: () => void }) => {
     setIsSubmitting(true);
     setErrorMessage(null);
     try {
-      await postCommission(getOrderRequest());
+      const result = await postCommission(getOrderRequest());
+      setCommissionId(result.commissionId);
       setStep(2);
     } catch (error) {
       setErrorMessage(await getApiErrorMessage(error));
@@ -57,7 +59,7 @@ const PaymentModalContent = ({ onClose }: { onClose?: () => void }) => {
         {step === 1 ? (
           <Step1 onNext={handlePay} isSubmitting={isSubmitting} errorMessage={errorMessage} />
         ) : (
-          <Step2 onBack={() => setStep(1)} />
+          <Step2 onBack={() => setStep(1)} commissionId={commissionId} />
         )}
       </div>
     </div>
