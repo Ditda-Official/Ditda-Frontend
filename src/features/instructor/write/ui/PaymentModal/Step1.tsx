@@ -167,7 +167,7 @@ const Step1 = ({
                 {selectedKeywords.map(k => (
                   <Chip key={k} label={k} disableHover />
                 ))}
-                {additionalConcept.trim() !== "" && (
+                {selectedKeywords.length === 0 && additionalConcept.trim() !== "" && (
                   <p className="text-gray-90 text-body1-sb max-w-40 truncate">
                     {additionalConcept}
                   </p>
