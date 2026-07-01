@@ -21,15 +21,25 @@ const CommissionsHistorySection = () => {
       <h1 className="text-heading1-sb text-black">외주 내역 확인</h1>
       <div className="flex h-66.25 flex-col">
         <CommissionsHeader />
-        {pageItems.map(item => (
-          <CommissionsHistoryRow key={item.commissionId} item={item} />
-        ))}
+        {commissionHistoryData.length === 0 ? (
+          <div className="flex flex-1 items-center justify-center">
+            <p className="text-heading3-m text-gray-60">진행된 외주가 없습니다</p>
+          </div>
+        ) : (
+          <>
+            {pageItems.map(item => (
+              <CommissionsHistoryRow key={item.commissionId} item={item} />
+            ))}
+          </>
+        )}
       </div>
-      <div className="flex flex-row items-center justify-center gap-8">
-        <PrevButton className="size-12 cursor-pointer" onClick={handlePrev} />
-        <PageIndicator total={totalPages} current={current} variant="my" />
-        <NextButton className="size-12 cursor-pointer" onClick={handleNext} />
-      </div>
+      {commissionHistoryData.length > 0 && (
+        <div className="flex flex-row items-center justify-center gap-8">
+          <PrevButton className="size-12 cursor-pointer" onClick={handlePrev} />
+          <PageIndicator total={totalPages} current={current} variant="my" />
+          <NextButton className="size-12 cursor-pointer" onClick={handleNext} />
+        </div>
+      )}
     </div>
   );
 };
