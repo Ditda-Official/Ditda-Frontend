@@ -1,6 +1,6 @@
 import { ProfileCircleIcon } from "@/shared/assets/icons";
 
-const DESIGNER_LEVEL = {
+const designerLEVEL = {
   level: "Lv.3",
   experience: "563/1000",
 };
@@ -24,8 +24,8 @@ const MyInfoSection = ({ name }: MyInfoSectionProps) => {
           <div className="flex items-center gap-2">
             <p className="text-heading2-sb text-white">{name}</p>
             <div className="flex items-center gap-1">
-              <p className="text-heading3-m text-gray-10">{DESIGNER_LEVEL.level}</p>
-              <p className="text-body2-m text-gray-10">({DESIGNER_LEVEL.experience})</p>
+              <p className="text-heading3-m text-gray-10">{designerLEVEL.level}</p>
+              <p className="text-body2-m text-gray-10">({designerLEVEL.experience})</p>
             </div>
           </div>
         </div>
