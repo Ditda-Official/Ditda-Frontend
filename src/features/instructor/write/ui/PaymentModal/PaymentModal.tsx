@@ -2,14 +2,19 @@
 
 import { useEffect, useState } from "react";
 
+import { postCommission } from "@/features/instructor/write/api/write";
 import { useWriteFormStore } from "@/features/instructor/write/model/writeFormStore";
 import Step1 from "@/features/instructor/write/ui/PaymentModal/Step1";
 import Step2 from "@/features/instructor/write/ui/PaymentModal/Step2";
+import { getApiErrorMessage } from "@/shared/api/client";
 import { CloseIcon } from "@/shared/assets/icons";
 
 const PaymentModalContent = ({ onClose }: { onClose?: () => void }) => {
   const [step, setStep] = useState<1 | 2>(1);
-  const { basicInfo } = useWriteFormStore();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [commissionId, setCommissionId] = useState<number | null>(null);
+  const { basicInfo, getOrderRequest } = useWriteFormStore();
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -18,6 +23,22 @@ const PaymentModalContent = ({ onClose }: { onClose?: () => void }) => {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [onClose]);
+
+  const handlePay = async () => {
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
+    setErrorMessage(null);
+    try {
+      const result = await postCommission(getOrderRequest());
+      setCommissionId(result.commissionId);
+      setStep(2);
+    } catch (error) {
+      setErrorMessage(await getApiErrorMessage(error));
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div
@@ -35,7 +56,11 @@ const PaymentModalContent = ({ onClose }: { onClose?: () => void }) => {
           </div>
           <hr className="border-gray-20 border-t" />
         </div>
-        {step === 1 ? <Step1 onNext={() => setStep(2)} /> : <Step2 onBack={() => setStep(1)} />}
+        {step === 1 ? (
+          <Step1 onNext={handlePay} isSubmitting={isSubmitting} errorMessage={errorMessage} />
+        ) : (
+          <Step2 onBack={() => setStep(1)} commissionId={commissionId} />
+        )}
       </div>
     </div>
   );

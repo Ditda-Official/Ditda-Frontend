@@ -64,6 +64,14 @@ export const MAX_CONCEPT_SELECT = 5;
 /* =========================
     STEP2
     ========================= */
+export const COMMISSION_FILE_TARGET = {
+  MATERIAL: "COMMISSION_MATERIAL",
+  REFERENCE: "COMMISSION_REFERENCE",
+} as const;
+
+export type CommissionFileTarget =
+  (typeof COMMISSION_FILE_TARGET)[keyof typeof COMMISSION_FILE_TARGET];
+
 export const BASIC_INFO_FIELDS = [
   { label: "교재명", placeholder: "교재명을 작성해주세요" },
   { label: "강사명", placeholder: "강사명을 작성해주세요" },

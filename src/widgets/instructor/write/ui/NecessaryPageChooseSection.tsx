@@ -65,7 +65,9 @@ const NecessaryPageChooseSection = () => {
           ))}
         </div>
       ) : (
-        <p className="text-gray-60 text-body1-sb py-4">상단에서 필수페이지를 우선 선택해주세요</p>
+        <p className="text-gray-60 text-body1-sb py-4">
+          상단에서 외주 맡길 페이지를 우선 선택해주세요
+        </p>
       )}
     </div>
   );

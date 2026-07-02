@@ -1,17 +1,16 @@
-import { cookies } from "next/headers";
-
+import { getMyInfo } from "@/features/instructor/my/api/my";
 import { CommissionsHistorySection, MyInfoSection } from "@/widgets/instructor/my";
 
+export const dynamic = "force-dynamic";
+
 const page = async () => {
-  const cookieStore = await cookies();
-  const name = cookieStore.get("userName")?.value ?? "";
-  const profileImageUrl = cookieStore.get("userProfileImageUrl")?.value;
+  const myInfo = await getMyInfo();
 
   return (
     <div className="mx-auto flex w-212.75 flex-col items-center pt-15">
       <h1 className="text-title2-sb w-full pb-10 text-left text-black">마이페이지</h1>
       <div className="flex flex-col gap-8">
-        <MyInfoSection name={name} profileImageUrl={profileImageUrl} />
+        {myInfo != null && <MyInfoSection {...myInfo} />}
         <CommissionsHistorySection />
       </div>
     </div>

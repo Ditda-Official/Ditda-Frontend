@@ -10,3 +10,15 @@ export type Plan = {
 export type GetPlansResult = {
   plans: Plan[];
 };
+
+export type CreateCommissionResult = {
+  commissionId: number;
+  title: string;
+  category: string;
+  status: string;
+  applicationDeadline: string;
+  firstDraftDeadline: string;
+  finalDeadline: string;
+  maxRevision: number;
+  createdAt: string;
+};

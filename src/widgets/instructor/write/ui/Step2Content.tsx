@@ -8,13 +8,23 @@ import NecessaryPageChooseSection from "@/widgets/instructor/write/ui/NecessaryP
 import ReferenceSection from "@/widgets/instructor/write/ui/ReferenceSection";
 
 const Step2Content = () => {
-  const { basicInfo, selectedPages, setCurrentStep } = useWriteFormStore();
+  const {
+    basicInfo,
+    selectedPages,
+    materialFiles,
+    materialDescription,
+    referenceFiles,
+    referenceDescription,
+    setCurrentStep,
+  } = useWriteFormStore();
 
   const isAllFilled =
     basicInfo.교재명.trim() !== "" &&
     basicInfo.강사명.trim() !== "" &&
     basicInfo.과목명.trim() !== "" &&
-    selectedPages.length >= 1;
+    selectedPages.length >= 1 &&
+    (materialFiles.length === 0 || materialDescription.trim() !== "") &&
+    (referenceFiles.length === 0 || referenceDescription.trim() !== "");
 
   return (
     <div className="flex flex-col gap-10 pt-15 pb-30">

@@ -2,7 +2,11 @@
 
 import { useState } from "react";
 
-import { useWriteFormStore } from "@/features/instructor/write";
+import {
+  COMMISSION_FILE_TARGET,
+  uploadCommissionFile,
+  useWriteFormStore,
+} from "@/features/instructor/write";
 import { useUploadedFiles } from "@/shared/lib/hooks/useUploadedFiles";
 import { isAllowedFileType, MAX_FILE_SIZE_BYTES } from "@/shared/lib/utils/file";
 import FileDragAndDrop from "@/shared/ui/FileDragAndDrop";
@@ -15,12 +19,14 @@ const MAX_FILE_COUNT = 3;
 const ReferenceSection = () => {
   const { referenceFiles, setReferenceFiles, referenceDescription, setReferenceDescription } =
     useWriteFormStore();
+  const [isInvalidFileModalOpen, setIsInvalidFileModalOpen] = useState(false);
+  const [isFileCountExceededModalOpen, setIsFileCountExceededModalOpen] = useState(false);
   const { uploadedFiles, handleFilesAdded, handleRemove } = useUploadedFiles(
     referenceFiles,
     setReferenceFiles,
+    file => uploadCommissionFile(file, COMMISSION_FILE_TARGET.REFERENCE),
+    () => setIsInvalidFileModalOpen(true),
   );
-  const [isInvalidFileModalOpen, setIsInvalidFileModalOpen] = useState(false);
-  const [isFileCountExceededModalOpen, setIsFileCountExceededModalOpen] = useState(false);
 
   const handleValidatedFilesAdded = (files: File[]) => {
     const validFiles = files.filter(

@@ -86,7 +86,7 @@ const DesignConceptSection = () => {
         >
           <div className="overflow-hidden">
             <TextField
-              placeholder="1번 사진은 선생님 개인 프로필 사진입니다. 저자의 말 페이지에 활용해주세요."
+              placeholder="'매듭'을 시각화하여, 굵기가 다른 선들이 엉켜있다가 하나의 단단한 매듭을 이루는 그래픽을 메인으로 사용해주세요."
               value={additionalConcept}
               onChange={e => setAdditionalConcept(e.target.value)}
             />

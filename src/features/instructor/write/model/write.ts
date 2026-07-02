@@ -6,7 +6,7 @@ export interface WriteOrderColorRequest {
 }
 
 export interface WriteOrderDesignInfoRequest {
-  size: string;
+  pageSize: string;
   concepts: string[];
   additionalConcept?: string;
   colorSelectionMode: "DESIGNER_DELEGATED" | "USER_SELECTED";
@@ -16,6 +16,21 @@ export interface WriteOrderDesignInfoRequest {
 export interface WriteOrderPageRequest {
   pageType: PageType;
   description: string | null;
+}
+
+export interface WriteOrderTextbookRequest {
+  textbookName: string;
+  instructorName: string;
+  subject: string;
+  requiredPages: WriteOrderPageRequest[];
+}
+
+export type CommissionFileKind = "MATERIAL" | "REFERENCE";
+
+export interface WriteOrderFileRequest {
+  fileKind: CommissionFileKind;
+  keys: string[];
+  description?: string;
 }
 
 export interface WriteOrderDateRequest {
@@ -32,13 +47,9 @@ export interface WriteOrderTermRequest {
 export interface WriteOrderRequest {
   category: string;
   designInfo: WriteOrderDesignInfoRequest;
-  textbookName: string;
-  instructorName: string;
-  subject: string;
-  requiredPages: WriteOrderPageRequest[];
-  materialDescription?: string;
-  referenceDescription?: string;
+  textbook: WriteOrderTextbookRequest;
+  files?: WriteOrderFileRequest[];
   plan: string;
-  dates: WriteOrderDateRequest[];
-  term: WriteOrderTermRequest[];
+  date: WriteOrderDateRequest;
+  term: WriteOrderTermRequest;
 }

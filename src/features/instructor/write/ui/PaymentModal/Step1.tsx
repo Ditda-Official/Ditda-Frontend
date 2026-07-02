@@ -109,11 +109,20 @@ const TermsSection = ({
    Step1
 ───────────────────────────────────────────── */
 
-const Step1 = ({ onNext, errorMessage }: { onNext: () => void; errorMessage?: string | null }) => {
+const Step1 = ({
+  onNext,
+  isSubmitting,
+  errorMessage,
+}: {
+  onNext: () => void;
+  isSubmitting?: boolean;
+  errorMessage?: string | null;
+}) => {
   const {
     selectedCategory,
     selectedSize,
     selectedKeywords,
+    additionalConcept,
     colorMode,
     colors,
     selectedPages,
@@ -153,11 +162,16 @@ const Step1 = ({ onNext, errorMessage }: { onNext: () => void; errorMessage?: st
                 ))}
               </InfoRow>
             )}
-            {selectedKeywords.length > 0 && (
+            {(selectedKeywords.length > 0 || additionalConcept.trim() !== "") && (
               <InfoRow label="컨셉">
                 {selectedKeywords.map(k => (
                   <Chip key={k} label={k} disableHover />
                 ))}
+                {selectedKeywords.length === 0 && additionalConcept.trim() !== "" && (
+                  <p className="text-gray-90 text-body1-sb max-w-40 truncate">
+                    {additionalConcept}
+                  </p>
+                )}
               </InfoRow>
             )}
             {colorMode === "designer" && <InfoRow label="컬러" value="디자이너가 지정" />}
@@ -195,8 +209,10 @@ const Step1 = ({ onNext, errorMessage }: { onNext: () => void; errorMessage?: st
             className="absolute -top-4 left-1/2 w-fit shrink-0 -translate-x-1/2 -translate-y-full whitespace-nowrap"
           />
           <Button
-            variant={isTermsAgreed && !showError ? "large_primary" : "large_disabled"}
-            disabled={!isTermsAgreed || showError}
+            variant={
+              isTermsAgreed && !showError && !isSubmitting ? "large_primary" : "large_disabled"
+            }
+            disabled={!isTermsAgreed || showError || isSubmitting}
             onClick={onNext}
           >
             결제하기
