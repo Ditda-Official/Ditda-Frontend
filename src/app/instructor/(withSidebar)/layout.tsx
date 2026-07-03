@@ -12,7 +12,7 @@ const InstructorSidebarLayout = ({ children }: { children: ReactNode }) => {
         <SidebarMenu
           label="진행 중 외주"
           href="/instructor"
-          matchPrefix={["/instructor/revision", "/instructor/choose"]}
+          matchPrefix={["/instructor/revision", "/instructor/choose", "/instructor/detail"]}
         />
         <SidebarMenu label="마이페이지" href="/instructor/my" />
       </Sidebar>
