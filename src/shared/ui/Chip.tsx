@@ -52,7 +52,7 @@ const Chip = ({
         className={cn(
           "rounded-100 border-gray-20 text-body2-m text-gray-70 flex cursor-pointer items-center justify-start border px-3 py-1.5 transition-colors duration-150",
           disabled
-            ? "bg-gray-5 cursor-default"
+            ? "bg-gray-5 cursor-default border-transparent"
             : isSelected
               ? "border-main-main bg-purple-10 text-body2-sb text-main-main"
               : "hover:border-gray-60",

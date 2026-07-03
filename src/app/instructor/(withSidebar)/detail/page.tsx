@@ -4,9 +4,9 @@ import CommissionDetailSection from "@/widgets/instructor/detail/ui/CommissionDe
 
 const page = () => {
   return (
-    <div className="mx-auto w-235">
-      <div className="flex flex-col gap-8">
-        <div className="flex flex-col gap-3">
+    <div className="mx-auto flex h-full w-235 flex-col py-8">
+      <div className="flex min-h-0 flex-1 flex-col gap-8">
+        <div className="flex shrink-0 flex-col gap-3">
           <h1 className="text-title2-sb text-black">수학의 정석 - 한석원</h1>
           <div className="flex flex-row gap-2">
             <ClockIcon className="text-gray-90 size-6" />

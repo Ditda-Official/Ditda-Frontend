@@ -6,7 +6,7 @@ import SidebarMenu from "@/shared/ui/SidebarMenu";
 
 const InstructorSidebarLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="bg-gray-10 flex flex-1 overflow-hidden">
+    <div className="bg-gray-10 flex h-full flex-1 overflow-hidden">
       <Sidebar bottom={<LogoutSidebarMenu />}>
         <SidebarMenu label="새 외주 작성" href="/instructor/write" />
         <SidebarMenu
