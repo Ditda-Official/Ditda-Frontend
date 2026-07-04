@@ -34,7 +34,7 @@ const DesignInfoTab = () => {
         </div>
       </div>
       <div className="flex flex-col">
-        <h3 className="text-gray-70 text-caption1-sb border-gray-30 inline-block w-fit border-b pb-1">
+        <h3 className="text-gray-70 text-body1-sb border-gray-30 inline-block w-fit border-b pb-1">
           추가 요청사항
         </h3>
         <div className="text-gray-80 text-body1-m pt-3 pb-3">이건 이게 좋고요 저</div>
