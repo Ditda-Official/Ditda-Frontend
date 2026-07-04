@@ -1,3 +1,9 @@
+import "swiper/css";
+import "swiper/css/free-mode";
+
+import { FreeMode } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+
 import ImageCard from "@/shared/ui/ImageCard";
 
 const ReferenceTab = () => {
@@ -6,11 +12,19 @@ const ReferenceTab = () => {
       <div className="flex flex-col gap-5">
         <div className="flex flex-col gap-4">
           <p className="text-gray-80 text-heading2-sb">디자인에 사용될 자료</p>
-          <div className="scrollbar-hide flex flex-row gap-8 overflow-x-auto">
+          <Swiper
+            modules={[FreeMode]}
+            freeMode
+            spaceBetween={32}
+            slidesPerView="auto"
+            className="w-full"
+          >
             {Array.from({ length: 5 }, (_, i) => (
-              <ImageCard key={i} label={`자료 ${String(i + 1).padStart(2, "0")}`} />
+              <SwiperSlide key={i} className="w-fit!">
+                <ImageCard label={`자료 ${String(i + 1).padStart(2, "0")}`} />
+              </SwiperSlide>
             ))}
-          </div>
+          </Swiper>
         </div>
         <div className="flex flex-col">
           <h3 className="text-gray-70 text-body1-sb border-gray-30 inline-block w-fit border-b pb-1">
@@ -23,11 +37,19 @@ const ReferenceTab = () => {
       <div className="flex flex-col gap-5">
         <div className="flex flex-col gap-4">
           <p className="text-gray-80 text-heading2-sb">레퍼런스</p>
-          <div className="scrollbar-hide flex flex-row gap-8 overflow-x-auto">
+          <Swiper
+            modules={[FreeMode]}
+            freeMode
+            spaceBetween={32}
+            slidesPerView="auto"
+            className="w-full"
+          >
             {Array.from({ length: 5 }, (_, i) => (
-              <ImageCard key={i} label={`레퍼런스 ${String(i + 1).padStart(2, "0")}`} />
+              <SwiperSlide key={i} className="w-fit!">
+                <ImageCard label={`레퍼런스 ${String(i + 1).padStart(2, "0")}`} />
+              </SwiperSlide>
             ))}
-          </div>
+          </Swiper>
         </div>
         <div className="flex flex-col">
           <h3 className="text-gray-70 text-body1-sb border-gray-30 inline-block w-fit border-b pb-1">
