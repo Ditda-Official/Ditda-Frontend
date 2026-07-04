@@ -1,14 +1,19 @@
+import Link from "next/link";
+
 import { MatchingItem } from "@/features/instructor/home/api/homeTypes";
 import { getDDay } from "@/features/instructor/home/lib/getDDay";
 import { ArrowRightIcon } from "@/shared/assets/icons";
 import Tag from "@/shared/ui/Tag";
 
 const MatchingCommissionsRow = ({ item }: { item: MatchingItem }) => {
-  const { title, applicationDeadline, matching } = item;
+  const { commissionId, title, applicationDeadline, matching } = item;
   const { matched, total } = matching;
 
   return (
-    <div className="border-b-gray-10 hover:bg-gray-5 flex h-15 cursor-pointer items-center border-b py-3 transition-colors duration-150">
+    <Link
+      href={`/instructor/detail/${commissionId}`}
+      className="border-b-gray-10 hover:bg-gray-5 flex h-15 cursor-pointer items-center border-b py-3 transition-colors duration-150"
+    >
       <div className="flex w-full flex-row justify-between">
         <div className="flex flex-row items-center gap-6">
           <Tag variant="black" label={getDDay(applicationDeadline)} />
@@ -21,7 +26,7 @@ const MatchingCommissionsRow = ({ item }: { item: MatchingItem }) => {
           (<span className="text-green-main">{matched}</span>/{total})
         </p>
       </div>
-    </div>
+    </Link>
   );
 };
 

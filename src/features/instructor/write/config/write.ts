@@ -1,5 +1,6 @@
 import React from "react";
 
+import type { PageType } from "@/shared/api/commissionTypes";
 import { OneCircleIcon, ThreeCircleIcon, TwoCircleIcon } from "@/shared/assets/icons";
 
 export type WriteStep = 1 | 2 | 3;
@@ -153,16 +154,15 @@ export const KEYWORD_API_MAP: Record<string, string> = {
   전문적인: "PROFESSIONAL",
 };
 
-export type PageType =
-  | "INSTRUCTOR_PROFILE"
-  | "AUTHORS_NOTE"
-  | "TABLE_OF_CONTENTS"
-  | "UNIT_INTRO"
-  | "CONCEPT"
-  | "EXAMPLE"
-  | "PROBLEM"
-  | "NOTE"
-  | "COVER";
+export const KEYWORD_LABEL_MAP: Record<string, string> = Object.fromEntries(
+  Object.entries(KEYWORD_API_MAP).map(([label, code]) => [code, label]),
+);
+
+export const SIZE_DIMENSIONS_MAP: Record<string, string> = Object.fromEntries(
+  SIZE_OPTIONS.map(({ size, dimensions }) => [size, dimensions]),
+);
+
+export type { PageType };
 
 export const PAGE_API_MAP: Record<string, PageType> = {
   "강사 프로필": "INSTRUCTOR_PROFILE",
@@ -174,6 +174,18 @@ export const PAGE_API_MAP: Record<string, PageType> = {
   "문제 풀이": "PROBLEM",
   노트: "NOTE",
   표지: "COVER",
+};
+
+export const PAGE_TYPE_LABEL_MAP: Record<PageType, string> = {
+  INSTRUCTOR_PROFILE: "강사 프로필",
+  AUTHORS_NOTE: "저자의 말",
+  TABLE_OF_CONTENTS: "목차",
+  UNIT_INTRO: "단원 시작 간지",
+  CONCEPT: "개념 설명",
+  EXAMPLE: "대표 유형",
+  PROBLEM: "문제 풀이",
+  NOTE: "노트",
+  COVER: "표지",
 };
 
 /* =========================

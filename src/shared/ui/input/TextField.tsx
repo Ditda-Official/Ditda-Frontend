@@ -23,6 +23,7 @@ const TextField = ({
   defaultValue = "",
   maxLength = DEFAULT_TEXT_FIELD_MAX_LENGTH,
   onChange,
+  readOnly,
   value,
   variant = "gray",
   ...props
@@ -48,13 +49,18 @@ const TextField = ({
       className={cn(
         "rounded-8 flex w-full flex-col gap-1 px-4 pt-4 pb-3 transition-colors",
         variant === "gray" &&
-          (hasValue ? "bg-gray-10 border border-gray-50" : "bg-gray-10 border border-transparent"),
+          (hasValue && !readOnly
+            ? "bg-gray-10 border border-gray-50"
+            : "bg-gray-10 border border-transparent"),
         variant === "white" &&
-          (hasValue ? "border border-gray-50 bg-white" : "border-gray-40 border bg-white"),
+          (hasValue && !readOnly
+            ? "border border-gray-50 bg-white"
+            : "border-gray-40 border bg-white"),
       )}
     >
       <textarea
         {...props}
+        readOnly={readOnly}
         className={cn(
           "scrollbar-hide text-body2-m text-gray-80 placeholder:text-body2-m placeholder:text-gray-60 h-24.5 w-full resize-none bg-transparent outline-none",
           className,
