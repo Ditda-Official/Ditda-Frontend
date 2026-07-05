@@ -13,3 +13,17 @@ export type CommissionDrafts = {
 };
 
 export type GetCommissionDraftsResult = CommissionDrafts;
+
+export type DraftFile = {
+  fileOrder: number;
+  url: string;
+  watermarkStatus: WatermarkStatus;
+};
+
+export type DraftDetail = {
+  commissionId: number;
+  draftId: number;
+  files: DraftFile[];
+};
+
+export type GetDraftDetailResult = DraftDetail;

@@ -23,7 +23,7 @@ const Thumbnail = ({
         className,
       )}
     >
-      <Image src={src} alt={alt} fill sizes="250px" loading="eager" className="object-cover" />
+      <Image src={src} alt={alt} fill sizes="250px" loading="eager" className="object-contain" />
       <div className="bg-overlay-hover backdrop-blur-hover absolute inset-0 opacity-0 transition-opacity group-hover:opacity-100" />
       <button
         type="button"

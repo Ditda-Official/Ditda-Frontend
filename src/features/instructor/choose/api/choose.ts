@@ -1,6 +1,8 @@
 import type {
   CommissionDrafts,
+  DraftDetail,
   GetCommissionDraftsResult,
+  GetDraftDetailResult,
 } from "@/features/instructor/choose/api/chooseTypes";
 import { api, createApiPath } from "@/shared/api/client";
 import type { ApiResponse } from "@/shared/api/commonType";
@@ -12,6 +14,18 @@ export const getCommissionDrafts = async (
   const response = await api
     .get(createApiPath(`/api/v1/instructors/commissions/${commissionId}/drafts`))
     .json<ApiResponse<GetCommissionDraftsResult>>();
+
+  return response.result ?? null;
+};
+
+// 시안 상세 조회
+export const getDraftDetail = async (
+  commissionId: string | number,
+  draftId: string | number,
+): Promise<DraftDetail | null> => {
+  const response = await api
+    .get(createApiPath(`/api/v1/instructors/commissions/${commissionId}/drafts/${draftId}`))
+    .json<ApiResponse<GetDraftDetailResult>>();
 
   return response.result ?? null;
 };

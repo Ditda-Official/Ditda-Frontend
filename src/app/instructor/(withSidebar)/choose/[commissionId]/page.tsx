@@ -35,6 +35,7 @@ const Page = ({ params }: PageProps) => {
           {commission.title}
         </h1>
         <DraftCheckSection
+          commissionId={commissionId}
           drafts={commission.drafts}
           selectedIndex={selectedIndex}
           onSelect={setSelectedIndex}

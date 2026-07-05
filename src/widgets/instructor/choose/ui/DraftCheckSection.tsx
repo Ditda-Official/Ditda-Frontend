@@ -7,12 +7,18 @@ import { NextButton, PrevButton } from "@/shared/assets/icons";
 import { DRAFT_CARDS_PER_PAGE } from "@/widgets/instructor/choose/config/choose";
 
 interface DraftCheckSectionProps {
+  commissionId: string | number;
   drafts: Draft[];
   selectedIndex: number | null;
   onSelect: (index: number) => void;
 }
 
-const DraftCheckSection = ({ drafts, selectedIndex, onSelect }: DraftCheckSectionProps) => {
+const DraftCheckSection = ({
+  commissionId,
+  drafts,
+  selectedIndex,
+  onSelect,
+}: DraftCheckSectionProps) => {
   const [page, setPage] = useState(0);
   const totalPages = Math.ceil(drafts.length / DRAFT_CARDS_PER_PAGE);
   const visibleDrafts = drafts.slice(
@@ -43,6 +49,7 @@ const DraftCheckSection = ({ drafts, selectedIndex, onSelect }: DraftCheckSectio
             <DraftCard
               key={draft.draftId}
               index={globalIndex}
+              commissionId={commissionId}
               draftId={draft.draftId}
               thumbnailUrl={draft.thumbnailUrl}
               isSelected={selectedIndex === globalIndex}
