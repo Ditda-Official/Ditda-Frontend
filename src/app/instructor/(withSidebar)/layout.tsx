@@ -6,13 +6,13 @@ import SidebarMenu from "@/shared/ui/SidebarMenu";
 
 const InstructorSidebarLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="bg-gray-10 flex flex-1 overflow-hidden">
+    <div className="bg-gray-10 flex h-full flex-1 overflow-hidden">
       <Sidebar bottom={<LogoutSidebarMenu />}>
         <SidebarMenu label="새 외주 작성" href="/instructor/write" />
         <SidebarMenu
           label="진행 중 외주"
           href="/instructor"
-          matchPrefix={["/instructor/revision", "/instructor/choose"]}
+          matchPrefix={["/instructor/revision", "/instructor/choose", "/instructor/detail"]}
         />
         <SidebarMenu label="마이페이지" href="/instructor/my" />
       </Sidebar>

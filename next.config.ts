@@ -8,6 +8,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "ditda-public-bucket.s3.ap-northeast-2.amazonaws.com",
       },
+      {
+        protocol: "https",
+        hostname: "ditda-private-bucket.s3.ap-northeast-2.amazonaws.com",
+      },
     ],
   },
   turbopack: {

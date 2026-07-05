@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import {
   CATEGORY_BADGE_MAP,
   CommissionHistoryItem,
@@ -8,10 +10,13 @@ import { ArrowRightIcon } from "@/shared/assets/icons";
 import Badge from "@/shared/ui/Badge";
 
 const CommissionsHistoryRow = ({ item }: { item: CommissionHistoryItem }) => {
-  const { category, title, createdAt, plan, paidAmount } = item;
+  const { commissionId, category, title, createdAt, plan, paidAmount } = item;
 
   return (
-    <div className="hover:bg-gray-5 border-b-gray-20 flex h-19.25 w-full shrink-0 cursor-pointer items-center justify-between border-b bg-white px-3 py-5 transition-colors duration-150">
+    <Link
+      href={`/instructor/detail/${commissionId}`}
+      className="hover:bg-gray-5 border-b-gray-20 flex h-19.25 w-full shrink-0 cursor-pointer items-center justify-between border-b bg-white px-3 py-5 transition-colors duration-150"
+    >
       <div className="flex flex-row gap-6">
         <Badge variant={CATEGORY_BADGE_MAP[category] ?? "교재"} />
         <div className="text-gray-90 flex flex-row items-center gap-1">
@@ -26,7 +31,7 @@ const CommissionsHistoryRow = ({ item }: { item: CommissionHistoryItem }) => {
           {(paidAmount ?? PLAN_PAID_AMOUNT_MAP[plan]).toLocaleString()}원
         </p>
       </div>
-    </div>
+    </Link>
   );
 };
 
