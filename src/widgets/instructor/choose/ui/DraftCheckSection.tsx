@@ -26,18 +26,16 @@ const DraftCheckSection = ({ drafts, selectedIndex, onSelect }: DraftCheckSectio
       <h2 className="text-gray-70 text-body2-m">
         제출된 시안을 확인하고 가장 마음에 드는 시안을 선택해주세요
       </h2>
-      {totalPages > 1 && (
-        <div className="flex flex-row justify-end gap-4 pb-4">
-          <PrevButton
-            className={`size-12 ${page > 0 ? "cursor-pointer" : "cursor-default opacity-30"}`}
-            onClick={() => setPage(p => Math.max(0, p - 1))}
-          />
-          <NextButton
-            className={`size-12 ${page < totalPages - 1 ? "cursor-pointer" : "cursor-default opacity-30"}`}
-            onClick={() => setPage(p => Math.min(totalPages - 1, p + 1))}
-          />
-        </div>
-      )}
+      <div className="flex flex-row justify-end gap-4 pb-4">
+        <PrevButton
+          className={`size-12 ${page > 0 ? "cursor-pointer" : "cursor-default opacity-30"}`}
+          onClick={() => setPage(p => Math.max(0, p - 1))}
+        />
+        <NextButton
+          className={`size-12 ${page < totalPages - 1 ? "cursor-pointer" : "cursor-default opacity-30"}`}
+          onClick={() => setPage(p => Math.min(totalPages - 1, p + 1))}
+        />
+      </div>
       <div className="grid grid-cols-3 gap-6 pb-8">
         {visibleDrafts.map((draft, i) => {
           const globalIndex = page * DRAFT_CARDS_PER_PAGE + i;
