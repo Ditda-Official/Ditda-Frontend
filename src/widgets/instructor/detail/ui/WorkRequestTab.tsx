@@ -58,7 +58,13 @@ const WorkRequestTab = ({ categoryDetail }: WorkRequestTabProps) => {
                 <p className="text-body1-sb text-gray-80">
                   {PAGE_TYPE_LABEL_MAP[pageType]} <span className="text-gray-70">레이아웃</span>
                 </p>
-                <TextField readOnly maxLength={150} value={description} variant="white" />
+                <TextField
+                  readOnly
+                  maxLength={150}
+                  value={description}
+                  placeholder="요청사항이 없습니다"
+                  variant="white"
+                />
               </div>
             ))}
           </div>

@@ -32,7 +32,7 @@ const ImageCardGallery = ({ urls, labelPrefix, emptyText }: ImageCardGalleryProp
   if (urls.length === 1) {
     return (
       <div className="flex w-full justify-center">
-        <ImageCard label={`${labelPrefix} 01`} />
+        <ImageCard url={urls[0]} label={`${labelPrefix} 01`} />
       </div>
     );
   }
@@ -41,7 +41,7 @@ const ImageCardGallery = ({ urls, labelPrefix, emptyText }: ImageCardGalleryProp
     <Swiper modules={[FreeMode]} freeMode spaceBetween={32} slidesPerView="auto" className="w-full">
       {urls.map((url, i) => (
         <SwiperSlide key={url} className="w-fit!">
-          <ImageCard label={`${labelPrefix} ${String(i + 1).padStart(2, "0")}`} />
+          <ImageCard url={url} label={`${labelPrefix} ${String(i + 1).padStart(2, "0")}`} />
         </SwiperSlide>
       ))}
     </Swiper>
