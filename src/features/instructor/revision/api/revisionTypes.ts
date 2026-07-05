@@ -13,3 +13,14 @@ export type CurrentRevisionDetail = {
 };
 
 export type GetCurrentRevisionDetailResult = CurrentRevisionDetail;
+
+export type RevisionCategoryCode = "LAYOUT" | "TYPOGRAPHY" | "DESIGN" | "COLOR" | "ETC";
+
+export type RevisionCategoryRequest = {
+  category: RevisionCategoryCode;
+  comment: string;
+};
+
+export type CreateRevisionRequestBody = {
+  categories: RevisionCategoryRequest[];
+};

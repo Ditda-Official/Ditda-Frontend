@@ -1,2 +1,8 @@
-export { getCurrentRevisionDetail } from "./api/revision";
-export type { CurrentRevisionDetail, RevisionDraft } from "./api/revisionTypes";
+export { getCurrentRevisionDetail, postRevisionRequest } from "./api/revision";
+export type {
+  CreateRevisionRequestBody,
+  CurrentRevisionDetail,
+  RevisionCategoryCode,
+  RevisionCategoryRequest,
+  RevisionDraft,
+} from "./api/revisionTypes";

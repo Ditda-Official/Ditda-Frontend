@@ -4,11 +4,15 @@ import { notFound, useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import type { CurrentRevisionDetail } from "@/features/instructor/revision";
-import { getCurrentRevisionDetail } from "@/features/instructor/revision";
+import { getCurrentRevisionDetail, postRevisionRequest } from "@/features/instructor/revision";
 import Button from "@/shared/ui/Button";
 import Modal from "@/shared/ui/modal/Modal";
 import { RevisionCategorySection, RevisionCommentSection } from "@/widgets/instructor/revision";
-import { MAX_SELECTABLE_COUNT } from "@/widgets/instructor/revision/config/revision";
+import {
+  MAX_SELECTABLE_COUNT,
+  REVISION_CATEGORY_TO_CODE,
+  type RevisionCategoryLabel,
+} from "@/widgets/instructor/revision/config/revision";
 
 const Page = () => {
   const router = useRouter();
@@ -18,6 +22,7 @@ const Page = () => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [comments, setComments] = useState<Record<string, string>>({});
   const [isFinalizeModalOpen, setIsFinalizeModalOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     getCurrentRevisionDetail(commissionId)
@@ -27,6 +32,7 @@ const Page = () => {
 
   const isFinalizeActive = selectedCategories.length === 0;
   const isSubmitActive =
+    !isSubmitting &&
     selectedCategories.length > 0 &&
     selectedCategories.every(category => (comments[category] ?? "").trim().length > 0);
 
@@ -53,6 +59,23 @@ const Page = () => {
   const handleConfirmFinalize = () => {
     setIsFinalizeModalOpen(false);
     router.push("/instructor");
+  };
+
+  const handleSubmitRevision = async () => {
+    if (!isSubmitActive) return;
+
+    setIsSubmitting(true);
+    try {
+      await postRevisionRequest(commissionId, {
+        categories: selectedCategories.map(category => ({
+          category: REVISION_CATEGORY_TO_CODE[category as RevisionCategoryLabel],
+          comment: comments[category] ?? "",
+        })),
+      });
+      router.push("/instructor");
+    } catch {
+      setIsSubmitting(false);
+    }
   };
 
   if (isLoading) return null;
@@ -91,7 +114,7 @@ const Page = () => {
           <Button
             className="w-fit"
             variant={isSubmitActive ? "medium_primary" : "medium_disabled"}
-            onClick={isSubmitActive ? () => router.push("/instructor") : undefined}
+            onClick={isSubmitActive ? handleSubmitRevision : undefined}
           >
             수정사항 전달하기
           </Button>
