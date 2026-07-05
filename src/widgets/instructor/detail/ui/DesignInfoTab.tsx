@@ -70,24 +70,24 @@ const DesignInfoTab = ({ category, designInfo }: DesignInfoTabProps) => {
       </div>
       <hr className="border-gray-20" />
       <div
-        className={`flex flex-col ${colorSelectionMode === "INSTRUCTOR_SPECIFIED" ? "gap-5" : "gap-2"}`}
+        className={`flex flex-col ${colorSelectionMode === "USER_SELECTED" ? "gap-5" : "gap-2"}`}
       >
         <h3 className="text-gray-70 text-caption1-sb">색상</h3>
-        {colorSelectionMode === "INSTRUCTOR_SPECIFIED" ? (
+        {colorSelectionMode === "USER_SELECTED" ? (
           <div className="flex gap-4 pb-10">
-            {colors.map((hex, index) => (
-              <div key={`${hex}-${index}`} className="flex flex-col gap-5.5">
+            {colors.map(({ role, colorCode }) => (
+              <div key={role} className="flex flex-col gap-5.5">
                 <div
                   className="rounded-8 border-gray-20 relative size-25 bg-(--swatch-color)/10"
-                  style={{ "--swatch-color": hex } as React.CSSProperties}
+                  style={{ "--swatch-color": colorCode } as React.CSSProperties}
                 >
-                  {index === 0 && (
+                  {role === "MAIN" && (
                     <div className="absolute bottom-0 left-1/2 translate-x-[-50%] translate-y-[50%]">
                       <Tag variant="default" label="Main" />
                     </div>
                   )}
                 </div>
-                <span className="text-gray-70 text-body2-m text-center">{hex}</span>
+                <span className="text-gray-70 text-body2-m text-center">{colorCode}</span>
               </div>
             ))}
           </div>

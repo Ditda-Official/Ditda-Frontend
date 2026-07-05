@@ -9,12 +9,17 @@ export type PageType =
   | "NOTE"
   | "COVER";
 
+export type CommissionColor = {
+  role: "MAIN" | "SUB1" | "SUB2";
+  colorCode: string;
+};
+
 export type CommissionDesignInfo = {
   pageSize: string;
   concepts: string[];
   additionalConcept: string | null;
-  colorSelectionMode: "DESIGNER_DELEGATED" | "INSTRUCTOR_SPECIFIED";
-  colors: string[];
+  colorSelectionMode: "DESIGNER_DELEGATED" | "USER_SELECTED";
+  colors: CommissionColor[];
 };
 
 export type CommissionRequiredPage = {
