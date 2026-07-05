@@ -6,6 +6,7 @@ import { use, useEffect, useState } from "react";
 import type { CommissionDrafts } from "@/features/instructor/choose";
 import { getCommissionDrafts } from "@/features/instructor/choose";
 import Button from "@/shared/ui/Button";
+import Modal from "@/shared/ui/modal/Modal";
 import { DraftCheckSection } from "@/widgets/instructor/choose";
 
 interface PageProps {
@@ -18,6 +19,7 @@ const Page = ({ params }: PageProps) => {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [commission, setCommission] = useState<CommissionDrafts | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isChooseModalOpen, setIsChooseModalOpen] = useState(false);
 
   useEffect(() => {
     getCommissionDrafts(commissionId)
@@ -44,10 +46,24 @@ const Page = ({ params }: PageProps) => {
       <Button
         variant={selectedIndex !== null ? "medium_primary" : "medium_disabled"}
         className="w-fit self-end"
-        onClick={selectedIndex !== null ? () => router.push("/instructor") : undefined}
+        onClick={selectedIndex !== null ? () => setIsChooseModalOpen(true) : undefined}
       >
         제출하기
       </Button>
+      <Modal
+        isOpen={isChooseModalOpen}
+        type="double"
+        title="해당 시안으로 선택하시겠습니까?"
+        description={"해당 시안을 선택하면 \n다른 시안으로 변경할 수 없습니다."}
+        confirmLabel="확인"
+        cancelLabel="취소"
+        onConfirm={() => {
+          setIsChooseModalOpen(false);
+          router.push("/instructor");
+        }}
+        onCancel={() => setIsChooseModalOpen(false)}
+        onClose={() => setIsChooseModalOpen(false)}
+      />
     </div>
   );
 };
