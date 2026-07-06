@@ -4,7 +4,7 @@ import { notFound, useRouter } from "next/navigation";
 import { use, useEffect, useState } from "react";
 
 import type { CommissionDrafts } from "@/features/instructor/choose";
-import { getCommissionDrafts } from "@/features/instructor/choose";
+import { getCommissionDrafts, postSelectDraft } from "@/features/instructor/choose";
 import Button from "@/shared/ui/Button";
 import Modal from "@/shared/ui/modal/Modal";
 import { DraftCheckSection } from "@/widgets/instructor/choose";
@@ -20,12 +20,29 @@ const Page = ({ params }: PageProps) => {
   const [commission, setCommission] = useState<CommissionDrafts | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isChooseModalOpen, setIsChooseModalOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     getCommissionDrafts(commissionId)
       .then(setCommission)
       .finally(() => setIsLoading(false));
   }, [commissionId]);
+
+  const handleConfirmSelect = async () => {
+    if (isSubmitting || selectedIndex === null || !commission) return;
+
+    const draftId = commission.drafts[selectedIndex]?.draftId;
+    if (draftId === undefined) return;
+
+    setIsSubmitting(true);
+    try {
+      await postSelectDraft(commissionId, draftId);
+      setIsChooseModalOpen(false);
+      router.push("/instructor");
+    } catch {
+      setIsSubmitting(false);
+    }
+  };
 
   if (isLoading) return null;
   if (!commission) return notFound();
@@ -57,10 +74,7 @@ const Page = ({ params }: PageProps) => {
         description={"해당 시안을 선택하면 \n다른 시안으로 변경할 수 없습니다."}
         confirmLabel="확인"
         cancelLabel="취소"
-        onConfirm={() => {
-          setIsChooseModalOpen(false);
-          router.push("/instructor");
-        }}
+        onConfirm={handleConfirmSelect}
         onCancel={() => setIsChooseModalOpen(false)}
         onClose={() => setIsChooseModalOpen(false)}
       />

@@ -4,7 +4,13 @@ import type {
   GetCommissionDraftsResult,
   GetDraftDetailResult,
 } from "@/features/instructor/choose/api/chooseTypes";
-import { api, createApiPath } from "@/shared/api/client";
+import {
+  api,
+  ApiError,
+  createApiPath,
+  getApiResponseMessage,
+  toApiError,
+} from "@/shared/api/client";
 import type { ApiResponse } from "@/shared/api/commonType";
 
 // 1차 시안 선택
@@ -16,6 +22,29 @@ export const getCommissionDrafts = async (
     .json<ApiResponse<GetCommissionDraftsResult>>();
 
   return response.result ?? null;
+};
+
+// 1차 시안 선택 확정
+export const postSelectDraft = async (
+  commissionId: string | number,
+  draftId: string | number,
+): Promise<void> => {
+  try {
+    const response = await api
+      .post(
+        createApiPath(`/api/v1/instructors/commissions/${commissionId}/drafts/${draftId}/select`),
+      )
+      .json<ApiResponse<unknown>>();
+
+    if (!response.success) {
+      throw new ApiError(getApiResponseMessage(response), {
+        code: response.code,
+        response,
+      });
+    }
+  } catch (error) {
+    throw await toApiError(error);
+  }
 };
 
 // 시안 상세 조회

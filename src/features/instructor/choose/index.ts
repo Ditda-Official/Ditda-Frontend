@@ -1,4 +1,4 @@
-export { getCommissionDrafts, getDraftDetail } from "./api/choose";
+export { getCommissionDrafts, getDraftDetail, postSelectDraft } from "./api/choose";
 export type {
   CommissionDrafts,
   Draft,
