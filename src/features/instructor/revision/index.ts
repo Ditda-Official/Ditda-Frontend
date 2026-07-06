@@ -1,4 +1,4 @@
-export { getCurrentRevisionDetail, postRevisionRequest } from "./api/revision";
+export { getCurrentRevisionDetail, postFinalizeDraft, postRevisionRequest } from "./api/revision";
 export type {
   CreateRevisionRequestBody,
   CurrentRevisionDetail,

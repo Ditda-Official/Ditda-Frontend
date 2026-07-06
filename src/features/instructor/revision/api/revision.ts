@@ -45,3 +45,26 @@ export const postRevisionRequest = async (
     throw await toApiError(error);
   }
 };
+
+// 외주 최종 확정
+export const postFinalizeDraft = async (
+  commissionId: string | number,
+  draftId: string | number,
+): Promise<void> => {
+  try {
+    const response = await api
+      .post(
+        createApiPath(`/api/v1/instructors/commissions/${commissionId}/drafts/${draftId}/finalize`),
+      )
+      .json<ApiResponse<unknown>>();
+
+    if (!response.success) {
+      throw new ApiError(getApiResponseMessage(response), {
+        code: response.code,
+        response,
+      });
+    }
+  } catch (error) {
+    throw await toApiError(error);
+  }
+};

@@ -4,7 +4,11 @@ import { notFound, useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import type { CurrentRevisionDetail } from "@/features/instructor/revision";
-import { getCurrentRevisionDetail, postRevisionRequest } from "@/features/instructor/revision";
+import {
+  getCurrentRevisionDetail,
+  postFinalizeDraft,
+  postRevisionRequest,
+} from "@/features/instructor/revision";
 import Button from "@/shared/ui/Button";
 import Modal from "@/shared/ui/modal/Modal";
 import { RevisionCategorySection, RevisionCommentSection } from "@/widgets/instructor/revision";
@@ -23,6 +27,7 @@ const Page = () => {
   const [comments, setComments] = useState<Record<string, string>>({});
   const [isFinalizeModalOpen, setIsFinalizeModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isFinalizing, setIsFinalizing] = useState(false);
 
   useEffect(() => {
     getCurrentRevisionDetail(commissionId)
@@ -56,9 +61,17 @@ const Page = () => {
     setIsFinalizeModalOpen(false);
   };
 
-  const handleConfirmFinalize = () => {
-    setIsFinalizeModalOpen(false);
-    router.push("/instructor");
+  const handleConfirmFinalize = async () => {
+    if (isFinalizing || !revisionDetail) return;
+
+    setIsFinalizing(true);
+    try {
+      await postFinalizeDraft(commissionId, revisionDetail.draft.draftId);
+      setIsFinalizeModalOpen(false);
+      router.push("/instructor");
+    } catch {
+      setIsFinalizing(false);
+    }
   };
 
   const handleSubmitRevision = async () => {
