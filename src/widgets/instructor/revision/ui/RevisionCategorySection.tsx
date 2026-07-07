@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 
+import { getDraftDetail } from "@/features/instructor/choose";
 import { CheckboxFillIcon, CheckboxWhiteIcon } from "@/shared/assets/icons";
 import { cn } from "@/shared/lib/utils/cn";
 import CommentCard from "@/shared/ui/CommentCard";
@@ -10,25 +11,43 @@ import Thumbnail from "@/shared/ui/Thumbnail";
 import { REVISION_CATEGORIES } from "@/widgets/instructor/revision/config/revision";
 
 interface RevisionCategorySectionProps {
+  commissionId: string | number;
+  draftId: number;
   draftTitle: string;
+  thumbnailUrl?: string;
   designerComment?: string;
   remainingRevisionCount: number;
   maxRevisionCount: number;
   selectedCategories: string[];
   onToggleCategory: (category: string) => void;
-  fileUrls: string[];
 }
 
 const RevisionCategorySection = ({
+  commissionId,
+  draftId,
   draftTitle,
+  thumbnailUrl,
   designerComment,
   remainingRevisionCount,
   maxRevisionCount,
   selectedCategories,
   onToggleCategory,
-  fileUrls,
 }: RevisionCategorySectionProps) => {
   const [isDraftModalOpen, setIsDraftModalOpen] = useState(false);
+  const [draftFileUrls, setDraftFileUrls] = useState<string[]>([]);
+
+  const handleOpenDraftModal = () => {
+    setIsDraftModalOpen(true);
+    getDraftDetail(commissionId, draftId).then(detail => {
+      if (!detail) return;
+      setDraftFileUrls(
+        detail.files
+          .slice()
+          .sort((a, b) => a.fileOrder - b.fileOrder)
+          .map(file => file.url),
+      );
+    });
+  };
 
   const titleSection = (
     <div className="flex flex-col gap-2">
@@ -85,8 +104,9 @@ const RevisionCategorySection = ({
           <div className="flex flex-col">
             <div className="flex flex-row gap-10 py-3">
               <Thumbnail
+                src={thumbnailUrl}
                 className="h-68.25 w-62.5"
-                onDetailClick={() => setIsDraftModalOpen(true)}
+                onDetailClick={handleOpenDraftModal}
               />
               <div className="flex flex-1 flex-col justify-between">
                 {titleSection}
@@ -109,7 +129,7 @@ const RevisionCategorySection = ({
           isOpen={isDraftModalOpen}
           onClose={() => setIsDraftModalOpen(false)}
           title={draftTitle}
-          fileUrls={fileUrls}
+          fileUrls={draftFileUrls}
         />
       </>
     );
@@ -121,7 +141,11 @@ const RevisionCategorySection = ({
         <div className="flex flex-col gap-10.5">
           {titleSection}
           <div className="flex flex-row gap-2">
-            <Thumbnail className="h-63.75 w-62.5" onDetailClick={() => setIsDraftModalOpen(true)} />
+            <Thumbnail
+              src={thumbnailUrl}
+              className="h-63.75 w-62.5"
+              onDetailClick={handleOpenDraftModal}
+            />
             <div className="flex flex-1 flex-col gap-6 p-6">
               <div>
                 <p className="text-gray-90 text-heading3-m pb-2">
@@ -139,7 +163,7 @@ const RevisionCategorySection = ({
         isOpen={isDraftModalOpen}
         onClose={() => setIsDraftModalOpen(false)}
         title={draftTitle}
-        fileUrls={fileUrls}
+        fileUrls={draftFileUrls}
       />
     </>
   );

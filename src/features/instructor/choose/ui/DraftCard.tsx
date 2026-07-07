@@ -1,24 +1,38 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import { draftDetailsData } from "@/features/instructor/choose";
+import { type DraftFile, getDraftDetail } from "@/features/instructor/choose";
 import Button from "@/shared/ui/Button";
 import DraftModal from "@/shared/ui/modal/DraftModal";
 import Thumbnail from "@/shared/ui/Thumbnail";
 
 interface DraftCardProps {
   index: number;
+  commissionId: string | number;
   draftId: number;
   thumbnailUrl: string;
   isSelected: boolean;
   onSelect: (index: number) => void;
 }
 
-const DraftCard = ({ index, draftId, thumbnailUrl, isSelected, onSelect }: DraftCardProps) => {
+const DraftCard = ({
+  index,
+  commissionId,
+  draftId,
+  thumbnailUrl,
+  isSelected,
+  onSelect,
+}: DraftCardProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [files, setFiles] = useState<DraftFile[]>([]);
 
-  const detail = draftDetailsData[draftId];
+  useEffect(() => {
+    if (!isModalOpen) return;
+    getDraftDetail(commissionId, draftId).then(detail => setFiles(detail?.files ?? []));
+  }, [isModalOpen, commissionId, draftId]);
+
+  const fileUrls = [...files].sort((a, b) => a.fileOrder - b.fileOrder).map(file => file.url);
 
   return (
     <>
@@ -41,12 +55,12 @@ const DraftCard = ({ index, draftId, thumbnailUrl, isSelected, onSelect }: Draft
           onDetailClick={() => setIsModalOpen(true)}
         />
       </div>
-      {detail && (
+      {isModalOpen && (
         <DraftModal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
           title={`시안 ${index + 1}`}
-          fileUrls={detail.fileUrls}
+          fileUrls={fileUrls}
         />
       )}
     </>
