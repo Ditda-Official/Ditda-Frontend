@@ -24,7 +24,7 @@ const Page = () => {
         <DescriptionSection />
         <ServiceIntroductionSection onSelect={setInformationType} />
         {informationType && <InformationSection type={informationType} />}
-        <RealitySection />
+        {informationType && <RealitySection key={informationType} type={informationType} />}
         <Footer />
       </div>
     </>

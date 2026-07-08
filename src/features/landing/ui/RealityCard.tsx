@@ -24,8 +24,8 @@ const RealityCard = ({ highlight, title, description, color, active }: RealityCa
       >
         {highlight}
       </span>
-      <span className="text-gray-90 text-heading1-sb pb-4.25">{title}</span>
-      <p className="text-gray-70 text-heading3-m">{description}</p>
+      <span className="text-gray-90 text-heading1-sb pb-4.25 whitespace-nowrap">{title}</span>
+      <p className="text-gray-70 text-heading3-m whitespace-nowrap">{description}</p>
     </div>
   );
 };

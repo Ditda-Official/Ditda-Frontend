@@ -1,4 +1,4 @@
-export { INFORMATION_SECTION_CONTENT, INTERVIEW_QUOTES, REALITY_CARDS } from "./config/landing";
+export { INFORMATION_SECTION_CONTENT, REALITY_SECTION_CONTENT } from "./config/landing";
 export { default as DescriptionSection } from "./ui/DescriptionSection";
 export type { InformationType } from "./ui/InformationSection";
 export { default as InformationSection } from "./ui/InformationSection";
