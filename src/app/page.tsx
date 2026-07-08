@@ -10,6 +10,7 @@ import {
   type InformationType,
   ParadigmSection,
   RealitySection,
+  RewardSection,
   SequenceSection,
   ServiceIntroductionSection,
   TitleSection,
@@ -35,6 +36,7 @@ const Page = () => {
         {informationType && (
           <SequenceSection key={`sequence-${informationType}`} type={informationType} />
         )}
+        <RewardSection />
         <Footer />
       </div>
     </>

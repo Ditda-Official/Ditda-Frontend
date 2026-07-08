@@ -9,6 +9,7 @@ export type { InformationType } from "./ui/InformationSection";
 export { default as InformationSection } from "./ui/InformationSection";
 export { default as ParadigmSection } from "./ui/ParadigmSection";
 export { default as RealitySection } from "./ui/RealitySection";
+export { default as RewardSection } from "./ui/RewardSection";
 export { default as SequenceSection } from "./ui/SequenceSection";
 export { default as ServiceIntroductionSection } from "./ui/ServiceIntroductionSection";
 export { default as TitleSection } from "./ui/TitleSection";
