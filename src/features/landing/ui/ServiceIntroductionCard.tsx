@@ -31,13 +31,15 @@ const CONTENT: Record<
 
 interface ServiceIntroductionCardProps {
   type: ServiceIntroductionCardType;
+  onClick?: () => void;
 }
 
-const ServiceIntroductionCard = ({ type }: ServiceIntroductionCardProps) => {
+const ServiceIntroductionCard = ({ type, onClick }: ServiceIntroductionCardProps) => {
   const { label, description, graphic, backgroundClassName } = CONTENT[type];
 
   return (
     <div
+      onClick={onClick}
       className={cn(
         "rounded-20 relative h-106.25 w-113.5 cursor-pointer overflow-hidden",
         backgroundClassName,

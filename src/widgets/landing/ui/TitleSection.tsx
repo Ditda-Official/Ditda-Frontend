@@ -11,7 +11,7 @@ const TitleSection = () => {
   const router = useRouter();
 
   return (
-    <div className="relative h-159.75 w-full">
+    <div className="relative h-230 w-full">
       <Image src={landingTitle} alt="ditda" fill className="object-cover" priority />
       <div className="absolute inset-0 flex flex-col items-center justify-center">
         <PurpleLogo className="h-6 w-19" />
