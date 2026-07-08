@@ -30,9 +30,13 @@ const CertificatedSection = () => {
         학원, 교재, 홍보물에 특화된 디자이너들이 이미 준비되어 있습니다.
       </p>
       <div className="overflow-hidden">
-        <div className="animate-marquee flex w-max flex-row gap-12">
+        <div className="animate-marquee flex w-max flex-row">
           {Array.from({ length: 2 }).map((_, groupIndex) => (
-            <div key={groupIndex} className="flex flex-row gap-12" aria-hidden={groupIndex === 1}>
+            <div
+              key={groupIndex}
+              className="mr-12 flex flex-row gap-12"
+              aria-hidden={groupIndex === 1}
+            >
               {DRAFT_IMAGES.map((image, index) => (
                 <DesignerDraft key={index} image={image} alt={`디자인 시안 예시 ${index + 1}`} />
               ))}
