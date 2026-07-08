@@ -4,6 +4,7 @@ export { default as PrevButton } from "@/shared/assets/icons/icon_arrow_left_cir
 export { default as ArrowRightIcon } from "@/shared/assets/icons/icon_arrow_right.svg";
 export { default as NextButton } from "@/shared/assets/icons/icon_arrow_right_circle_fill.svg";
 export { default as ArrowUpIcon } from "@/shared/assets/icons/icon_arrow_up.svg";
+export { default as BookIcon } from "@/shared/assets/icons/icon_book.svg";
 export { default as CheckCircleFillIcon } from "@/shared/assets/icons/icon_check_circle_fill.svg";
 export { default as CheckboxGrayIcon } from "@/shared/assets/icons/icon_checkbox_border_gray.svg";
 export { default as CheckboxWhiteIcon } from "@/shared/assets/icons/icon_checkbox_border_white.svg";
