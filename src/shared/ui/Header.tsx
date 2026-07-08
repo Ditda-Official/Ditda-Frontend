@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
 import { EnterIcon, ProfileCircleIcon } from "@/shared/assets/icons";
@@ -13,6 +13,7 @@ import {
   getClientUserRoleFromAccessToken,
   normalizeClientUserRole,
 } from "@/shared/lib/auth/client";
+import Button from "@/shared/ui/Button";
 
 interface AuthState {
   isLoggedIn: boolean;
@@ -38,7 +39,12 @@ const getCookieValue = (name: string) => {
   return decodeURIComponent(cookie.slice(name.length + 1));
 };
 
-const Header = () => {
+interface HeaderProps {
+  variant?: "default" | "landing";
+}
+
+const Header = ({ variant = "default" }: HeaderProps) => {
+  const router = useRouter();
   const [authState, setAuthState] = useState<AuthState>({
     isLoggedIn: false,
     role: null,
@@ -114,6 +120,15 @@ const Header = () => {
           )}
           <span className="text-body2-m text-gray-80 hover:text-gray-90">내 계정</span>
         </Link>
+      ) : variant === "landing" ? (
+        <div className="flex shrink-0 flex-row gap-2 whitespace-nowrap">
+          <Button variant="small_primary" onClick={() => router.push("/login")}>
+            로그인하기
+          </Button>
+          <Button variant="small_secondary" onClick={() => router.push("/signup")}>
+            회원가입하기
+          </Button>
+        </div>
       ) : (
         <div className="flex flex-row gap-8">
           <Link href="/login" className="flex cursor-pointer flex-row items-center gap-1">
