@@ -8,6 +8,7 @@ import {
   DescriptionSection,
   InformationSection,
   type InformationType,
+  ParadigmSection,
   RealitySection,
   SequenceSection,
   ServiceIntroductionSection,
@@ -28,6 +29,7 @@ const Page = () => {
         {informationType && (
           <RealitySection key={`reality-${informationType}`} type={informationType} />
         )}
+        <ParadigmSection />
         {informationType && (
           <SequenceSection key={`sequence-${informationType}`} type={informationType} />
         )}

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import { InterviewIndicator, RealityCard } from "@/features/landing";
+import { DotIndicator, RealityCard } from "@/features/landing";
 import { type InformationType, REALITY_SECTION_CONTENT } from "@/widgets/landing";
 
 const QUOTE_ROTATE_INTERVAL_MS = 3000;
@@ -40,7 +40,7 @@ const RealitySection = ({ type }: RealitySectionProps) => {
             </p>
             <p className="text-gray-60 text-caption1-m">{quotes[quoteIndex].author}</p>
           </div>
-          <InterviewIndicator total={quotes.length} current={quoteIndex} />
+          <DotIndicator total={quotes.length} current={quoteIndex} />
         </div>
       </div>
       <div className="grid grid-cols-2 gap-x-4 gap-y-7">

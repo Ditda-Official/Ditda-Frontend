@@ -1,11 +1,11 @@
 import { cn } from "@/shared/lib/utils/cn";
 
-interface InterviewIndicatorProps {
+interface DotIndicatorProps {
   total: number;
   current: number;
 }
 
-const InterviewIndicator = ({ total, current }: InterviewIndicatorProps) => {
+const DotIndicator = ({ total, current }: DotIndicatorProps) => {
   return (
     <div className="flex items-center justify-center gap-2">
       {Array.from({ length: total }, (_, i) => (
@@ -18,4 +18,4 @@ const InterviewIndicator = ({ total, current }: InterviewIndicatorProps) => {
   );
 };
 
-export default InterviewIndicator;
+export default DotIndicator;
