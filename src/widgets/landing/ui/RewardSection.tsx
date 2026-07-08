@@ -21,11 +21,13 @@ const RewardSection = () => {
                 기본금
               </p>
             </section>
-            <div className="flex flex-col gap-2">
-              <LevelCard level="L1" />
-              <LevelCard level="L2" />
-              <LevelCard level="L3" />
-              <p className="text-gray-70 text-heading3-m text-left">
+            <div className="flex flex-col">
+              <div className="flex flex-col gap-2">
+                <LevelCard level="L1" />
+                <LevelCard level="L2" />
+                <LevelCard level="L3" />
+              </div>
+              <p className="text-gray-70 text-heading3-m mt-3 text-left">
                 *레벨 업 기준은 시안 제출 횟수, 최종 시안으로 선정 횟수입니다
               </p>
             </div>
