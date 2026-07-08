@@ -1,4 +1,5 @@
 export { default as DotIndicator } from "./ui/DotIndicator";
+export { default as ExtraFeeCard } from "./ui/ExtraFeeCard";
 export { default as Footer } from "./ui/Footer";
 export { default as LevelCard } from "./ui/LevelCard";
 export { default as ParadigmCard } from "./ui/ParadigmCard";

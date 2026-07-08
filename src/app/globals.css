@@ -240,3 +240,7 @@
 @utility instructor-card-gradient {
   background: linear-gradient(180deg, #f3edff 0%, #e5d9ff 78.85%, #e3d5ff 100%);
 }
+
+@utility extra-fee-line-gradient {
+  background: linear-gradient(90deg, #fff 0%, #c1a5ff 100%);
+}

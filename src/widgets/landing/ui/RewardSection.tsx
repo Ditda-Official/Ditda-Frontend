@@ -1,4 +1,5 @@
-import { LevelCard } from "@/features/landing";
+import { ExtraFeeCard, LevelCard } from "@/features/landing";
+import { PlusIcon } from "@/shared/assets/icons";
 
 const RewardSection = () => {
   return (
@@ -13,16 +14,35 @@ const RewardSection = () => {
         </h3>
       </div>
       <div className="mx-auto w-296">
-        <div className="flex flex-row gap-2">
-          <section className="bg-purple-5 rounded-8 flex h-89.25 w-fit items-center justify-center px-3">
-            <p className="text-main-dark text-[18px] leading-[140%] font-semibold tracking-[-0.36px]">
-              기본금
-            </p>
-          </section>
-          <div className="flex flex-col gap-2">
-            <LevelCard level="L1" />
-            <LevelCard level="L2" />
-            <LevelCard level="L3" />
+        <div className="flex flex-row items-start gap-3.5">
+          <div className="flex flex-row gap-2">
+            <section className="bg-purple-5 rounded-8 flex h-89.25 w-fit items-center justify-center px-3">
+              <p className="text-main-dark text-[18px] leading-[140%] font-semibold tracking-[-0.36px]">
+                기본금
+              </p>
+            </section>
+            <div className="flex flex-col gap-2">
+              <LevelCard level="L1" />
+              <LevelCard level="L2" />
+              <LevelCard level="L3" />
+              <p className="text-gray-70 text-heading3-m text-left">
+                *레벨 업 기준은 시안 제출 횟수, 최종 시안으로 선정 횟수입니다
+              </p>
+            </div>
+          </div>
+          <PlusIcon className="text-main-main size-8 self-center" />
+          <div className="flex flex-row items-start justify-start gap-2">
+            <section className="bg-purple-5 rounded-8 flex h-89.25 w-fit items-center justify-center px-3">
+              <p className="text-main-dark text-[18px] leading-[140%] font-semibold tracking-[-0.36px]">
+                조건부
+                <br />
+                추가금
+              </p>
+            </section>
+            <div className="flex flex-col gap-2">
+              <ExtraFeeCard type="adoption" />
+              <ExtraFeeCard type="revision" />
+            </div>
           </div>
         </div>
       </div>
