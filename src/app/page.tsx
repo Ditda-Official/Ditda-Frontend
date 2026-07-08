@@ -1,3 +1,4 @@
+import { Footer } from "@/features/landing";
 import Header from "@/shared/ui/Header";
 import { DescriptionSection, ServiceIntroductionSection, TitleSection } from "@/widgets/landing";
 
@@ -9,6 +10,7 @@ const Page = () => {
         <TitleSection />
         <DescriptionSection />
         <ServiceIntroductionSection />
+        <Footer />
       </div>
     </>
   );
