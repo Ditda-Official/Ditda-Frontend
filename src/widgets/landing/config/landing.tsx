@@ -38,6 +38,165 @@ export const INFORMATION_SECTION_CONTENT: Record<InformationType, InformationCon
   },
 };
 
+interface SequenceStepContent {
+  title: string;
+  description: ReactNode;
+}
+
+interface SequenceSectionContent {
+  headline: ReactNode;
+  description: string;
+  steps: SequenceStepContent[];
+}
+
+export const SEQUENCE_SECTION_CONTENT: Record<InformationType, SequenceSectionContent> = {
+  designer: {
+    headline: (
+      <>
+        기본금 보장부터 맞춤형 매칭까지,
+        <br />
+        디자이너 중심의 진행 절차를 확인하세요
+      </>
+    ),
+    description:
+      "내가 원하는 조건의 외주를 직접 선택하세요. 보장된 기본금을 받고 안정적으로 작업하세요.",
+    steps: [
+      {
+        title: "의뢰서 확인",
+        description: (
+          <>
+            카테고리 레이아웃, 컨셉 등이 적힌
+            <br />
+            외주 의뢰서를 확인하고
+            <br />
+            신청하실 수 있습니다.
+          </>
+        ),
+      },
+      {
+        title: "1차 시안 제출",
+        description: (
+          <>
+            디자이너 3~5명이 각각 1차
+            <br />
+            시안을 제출하고, 의뢰인이
+            <br />그 중 한 분을 채택합니다.
+          </>
+        ),
+      },
+      {
+        title: "기본 참여 보상 수령",
+        description: (
+          <>
+            최종 시안으로 채택되지
+            <br />
+            못해도 레벨별 기본 참여 보상이
+            <br />
+            자동 지급됩니다.
+          </>
+        ),
+      },
+      {
+        title: "간편 수정",
+        description: (
+          <>
+            1회 수정 의뢰서에 들어오는
+            <br />
+            최대 2개의 수정 사항만 확인하고
+            <br />
+            수정본을 제출합니다.
+          </>
+        ),
+      },
+      {
+        title: "인센티브 수령",
+        description: (
+          <>
+            최종 수정본 제출 후
+            <br />
+            채택 인센티브와 수정금이
+            <br />
+            추가 지급됩니다.
+          </>
+        ),
+      },
+    ],
+  },
+  instructor: {
+    headline: (
+      <>
+        복잡한 탐색 없이 쉽고 빠른 의뢰서 한 장으로,
+        <br />
+        여러 명의 시안을 한 번에 받아보세요
+      </>
+    ),
+    description:
+      "옵션형으로 간편하게 의뢰서를 완성하세요. 한 번의 의뢰로 여러 명의 디자이너가 제안하는 맞춤형 시안들을 비교하고 선택할 수 있습니다.",
+    steps: [
+      {
+        title: "의뢰서 작성",
+        description: (
+          <>
+            카테고리 레이아웃, 컨셉, 플랜을
+            <br />
+            선택지에서 골라 의뢰서를
+            <br />
+            작성합니다.
+          </>
+        ),
+      },
+      {
+        title: "디자이너 매칭",
+        description: (
+          <>
+            검증된 디자이너 3~5명이
+            <br />
+            의뢰서를 보고 작업을 수락하면,
+            <br />
+            곧바로 시안 제작을 시작합니다.
+          </>
+        ),
+      },
+      {
+        title: "시안 비교 선택",
+        description: (
+          <>
+            한 화면에서 시안을 비교하시고,
+            <br />
+            가장 마음에 드는 시안을
+            <br />
+            채택하시면 됩니다.
+          </>
+        ),
+      },
+      {
+        title: "간편 수정",
+        description: (
+          <>
+            수정할 부분을 선택하면 빠르게
+            <br />
+            디자이너에게 전달되며, 기본 3회
+            <br />
+            무료 수정으로 진행됩니다.
+          </>
+        ),
+      },
+      {
+        title: "최종본 수정",
+        description: (
+          <>
+            디자인 시안을 이용한 교재 제작이
+            <br />
+            용이하도록 png, hwp 형식으로
+            <br />
+            기본 제공해 드립니다.
+          </>
+        ),
+      },
+    ],
+  },
+};
+
 interface RealityCardContent {
   highlight: ReactNode;
   title: string;

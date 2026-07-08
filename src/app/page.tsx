@@ -9,6 +9,7 @@ import {
   InformationSection,
   type InformationType,
   RealitySection,
+  SequenceSection,
   ServiceIntroductionSection,
   TitleSection,
 } from "@/widgets/landing";
@@ -24,7 +25,12 @@ const Page = () => {
         <DescriptionSection />
         <ServiceIntroductionSection onSelect={setInformationType} />
         {informationType && <InformationSection type={informationType} />}
-        {informationType && <RealitySection key={informationType} type={informationType} />}
+        {informationType && (
+          <RealitySection key={`reality-${informationType}`} type={informationType} />
+        )}
+        {informationType && (
+          <SequenceSection key={`sequence-${informationType}`} type={informationType} />
+        )}
         <Footer />
       </div>
     </>
