@@ -38,7 +38,7 @@ const Page = () => {
           <SequenceSection key={`sequence-${informationType}`} type={informationType} />
         )}
         {informationType === "designer" && <RewardSection />}
-        <CertificatedSection />
+        {informationType === "instructor" && <CertificatedSection />}
         <Footer />
       </div>
     </>
