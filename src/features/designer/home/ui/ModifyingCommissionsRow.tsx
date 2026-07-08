@@ -10,6 +10,7 @@ export type ModifyingCommissionItem = {
   commissionId: number;
   title: string;
   finalDeadline: string;
+  remainingRevisionCount: number;
   isSubmitted: boolean;
 };
 
