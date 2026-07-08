@@ -201,12 +201,28 @@
   --radius-10: 10px;
   --radius-12: 12px;
   --radius-14: 14px;
+  --radius-17: 17px;
   --radius-20: 20px;
   --radius-24: 24px;
   --radius-32: 32px;
   --radius-48: 48px;
   --radius-100: 100px;
   --radius-full: 9999px;
+}
+
+@keyframes quote-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@utility animate-quote-in {
+  animation: quote-in 0.5s ease-out;
 }
 
 @utility scrollbar-hide {

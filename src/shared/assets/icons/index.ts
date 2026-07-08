@@ -25,6 +25,7 @@ export { default as FileBoldIcon } from "@/shared/assets/icons/icon_file_bold.sv
 export { default as FileImageIcon } from "@/shared/assets/icons/icon_file_image.svg";
 export { default as FileImageBoldIcon } from "@/shared/assets/icons/icon_file_image_bold.svg";
 export { default as FolderAddIcon } from "@/shared/assets/icons/icon_folder_add.svg";
+export { default as InfinityIcon } from "@/shared/assets/icons/icon_infinity.svg";
 export { default as LoadingIcon } from "@/shared/assets/icons/icon_loading.svg";
 export { default as MatchingOffIcon } from "@/shared/assets/icons/icon_matching_off.svg";
 export { default as MatchingOnIcon } from "@/shared/assets/icons/icon_matching_on.svg";

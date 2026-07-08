@@ -1,5 +1,7 @@
 import { ReactNode } from "react";
 
+import { InfinityIcon } from "@/shared/assets/icons";
+
 export type InformationType = "designer" | "instructor";
 
 interface InformationContent {
@@ -35,3 +37,85 @@ export const INFORMATION_SECTION_CONTENT: Record<InformationType, InformationCon
     rule: "정찰가 40만원, 수정 3회 무료, 학원가 외주에 최적화된 매칭 구조",
   },
 };
+
+interface RealityCardContent {
+  highlight: ReactNode;
+  title: string;
+  description: ReactNode;
+  color: "red" | "purple";
+}
+
+export const REALITY_CARDS: RealityCardContent[] = [
+  {
+    highlight: "0원",
+    title: "공모전 탈락 시",
+    description: (
+      <>
+        공모전 탈락 시 보상 없이
+        <br />
+        마무리되는 작업
+      </>
+    ),
+    color: "red",
+  },
+  {
+    highlight: "94%",
+    title: "포폴 진입 장벽",
+    description: (
+      <>
+        외주 사이트 대다수가
+        <br />
+        포폴 요구
+      </>
+    ),
+    color: "purple",
+  },
+  {
+    highlight: "22%",
+    title: "수수료",
+    description: (
+      <>
+        낮춰서 작성한 금액에 추가
+        <br />
+        수수료 납부
+      </>
+    ),
+    color: "purple",
+  },
+  {
+    highlight: <InfinityIcon className="size-10.5" />,
+    title: "수정횟수",
+    description: (
+      <>
+        요구대로 따라야만 하는
+        <br />
+        수정 갑질
+      </>
+    ),
+    color: "purple",
+  },
+];
+
+interface InterviewQuote {
+  quote: string;
+  author: string;
+}
+
+export const INTERVIEW_QUOTES: InterviewQuote[] = [
+  {
+    quote: "공모전은 리스크가 너무 커요. 떨어지면 무급 노동한 사람이 되니까.",
+    author: "홍익대 시각디자인과 2학년 김OO",
+  },
+  {
+    quote: "포폴 만들려고 들어간 사이트인데, 포폴 없다고 안받아주니까",
+    author: "서울대 디자인학부 3학년 박OO",
+  },
+  {
+    quote: "이제 외주를 좀 받아보고 싶은데, 대체 어디서 해요?",
+    author: "연세대 통합디자인과 4학년 이OO",
+  },
+  {
+    quote: "소속이 없으면 무한으로 요청하는 수정에 대처가 안돼요.",
+    author: "프리랜서 UX/UI 디자이너 성OO",
+  },
+];
