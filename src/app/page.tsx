@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Footer } from "@/features/landing";
 import Header from "@/shared/ui/Header";
 import {
+  CertificatedSection,
   DescriptionSection,
   InformationSection,
   type InformationType,
@@ -37,6 +38,7 @@ const Page = () => {
           <SequenceSection key={`sequence-${informationType}`} type={informationType} />
         )}
         {informationType === "designer" && <RewardSection />}
+        <CertificatedSection />
         <Footer />
       </div>
     </>
