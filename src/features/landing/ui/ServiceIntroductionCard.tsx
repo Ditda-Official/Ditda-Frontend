@@ -41,7 +41,7 @@ const ServiceIntroductionCard = ({ type, onClick }: ServiceIntroductionCardProps
     <div
       onClick={onClick}
       className={cn(
-        "rounded-20 relative h-106.25 w-113.5 cursor-pointer overflow-hidden",
+        "rounded-20 relative h-106.25 w-113.5 cursor-pointer overflow-hidden transition-transform duration-300 hover:scale-105",
         backgroundClassName,
       )}
     >

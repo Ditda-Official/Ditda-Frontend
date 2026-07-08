@@ -12,7 +12,7 @@ const RealityCard = ({ highlight, title, description, color, active }: RealityCa
   return (
     <div
       className={cn(
-        "rounded-17 flex h-43.25 w-62.25 flex-col border px-9.5 py-5.25 transition-all duration-300",
+        "rounded-17 flex h-43.25 w-62.25 flex-col border bg-white px-9.5 py-5.25 transition-all duration-300",
         active ? "border-red-main shadow-lg" : "border-main-bright",
       )}
     >
