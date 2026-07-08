@@ -197,6 +197,123 @@ export const SEQUENCE_SECTION_CONTENT: Record<InformationType, SequenceSectionCo
   },
 };
 
+interface ParadigmCardContent {
+  tag: string;
+  title: string;
+  description: ReactNode;
+}
+
+interface ParadigmSectionContent {
+  headline: ReactNode;
+  description: string;
+  cards: ParadigmCardContent[];
+}
+
+export const PARADIGM_SECTION_CONTENT: Record<InformationType, ParadigmSectionContent> = {
+  designer: {
+    headline: (
+      <>
+        디자이너의 시간과 권리,
+        <br />
+        정당하게 보상합니다
+      </>
+    ),
+    description: "내가 고르는 외주, 미채택도 받는 기본 참여금, 그리고 틀 안의 수정",
+    cards: [
+      {
+        tag: "디자이너 주도 매칭",
+        title: "내가 선택하는 외주",
+        description: (
+          <>
+            매칭 대기 외주 목록에서 작업 의뢰서를 직접 확인하고, 마음에
+            <br />
+            드는 외주만 골라 참여하실 수 있습니다. 선택을 기다리는 게
+            <br />
+            아니라, 디자이너가 외주를 선택하는 구조입니다.
+          </>
+        ),
+      },
+      {
+        tag: "제출만 해도 N만원",
+        title: "무급 노동은 그만",
+        description: (
+          <>
+            공모전처럼 떨어지면 0원이 되는 구조가 아닙니다.
+            <br />
+            시안 제출만 마치셔도 레벨별 기본 참여금이 지급됩니다.
+            <br />
+            채택되시면 추가 인센티브와 수정금까지 별도 지급됩니다.
+          </>
+        ),
+      },
+      {
+        tag: "수정 7회 + 검열된 요청서",
+        title: "무한 수정으로부터 보호",
+        description: (
+          <>
+            최대 수정 횟수 7회와 운영팀의 검열을 거친 수정 요청서로
+            <br />
+            디자이너의 시간과 권리를 보호합니다. 한 회당 최대 2개의
+            <br />
+            수정 사항으로 제한되어 안전합니다.
+          </>
+        ),
+      },
+    ],
+  },
+  instructor: {
+    headline: (
+      <>
+        한 번만 요청하시면
+        <br />
+        3~5개 시안을 받아보실 수 있습니다
+      </>
+    ),
+    description:
+      "타 외주 플랫폼처럼 한 명에게만 디자인을 맡기지 않습니다. 외주를 요청하느라 쓸데없는 시간을 낭비하지도 않습니다.",
+    cards: [
+      {
+        tag: "평균 작성 시간 5분",
+        title: "요청서는 짧게",
+        description: (
+          <>
+            단가나 양식을 찾아볼 필요 없이, 학원가에 맞춰진
+            <br />
+            선택지에서 옵션만 선택하시면 됩니다. 외주 의뢰
+            <br />
+            양식을 새로 익히실 필요도, 빈 칸을 채울 부담도 없습니다.
+          </>
+        ),
+      },
+      {
+        tag: "정찰가 40만원 · 수정 3회 포함",
+        title: "결제는 가볍게",
+        description: (
+          <>
+            기존 외수자 대비 저렴한 금액으로, 기본 수정 3회까지
+            <br />
+            무료로 제공해 선생님 강의 퀄리티를 효율적으로
+            <br />
+            높여드립니다.
+          </>
+        ),
+      },
+      {
+        tag: "3~5개 동시 비교",
+        title: "시안은 많이",
+        description: (
+          <>
+            검증된 디자이너 3~5명이 각기 제출한 시안을
+            <br />한 화면에서 비교하시고, 가장 마음에 드는 디자인을
+            <br />
+            채택하시면 됩니다.
+          </>
+        ),
+      },
+    ],
+  },
+};
+
 interface RealityCardContent {
   highlight: ReactNode;
   title: string;

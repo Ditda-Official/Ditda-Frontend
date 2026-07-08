@@ -29,7 +29,9 @@ const Page = () => {
         {informationType && (
           <RealitySection key={`reality-${informationType}`} type={informationType} />
         )}
-        <ParadigmSection />
+        {informationType && (
+          <ParadigmSection key={`paradigm-${informationType}`} type={informationType} />
+        )}
         {informationType && (
           <SequenceSection key={`sequence-${informationType}`} type={informationType} />
         )}

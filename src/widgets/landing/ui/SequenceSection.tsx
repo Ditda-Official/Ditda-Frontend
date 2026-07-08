@@ -9,7 +9,7 @@ const SequenceSection = ({ type }: SequenceSectionProps) => {
   const steps = content.steps;
 
   return (
-    <div className="flex flex-col gap-24 px-31.5 py-20.5 text-center">
+    <div className="flex flex-col gap-24 bg-[rgba(246,245,252,0.40)] px-31.5 py-20.5 text-center">
       <div>
         <h1 className="text-main-main text-heading2-sb pb-3">이용순서</h1>
         <h2 className="pb-8 text-[32px] leading-[140%] font-semibold tracking-[-0.64px] text-black">
