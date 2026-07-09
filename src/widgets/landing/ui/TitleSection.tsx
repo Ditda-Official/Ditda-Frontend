@@ -11,8 +11,15 @@ const TitleSection = () => {
   const router = useRouter();
 
   return (
-    <div className="relative h-230 w-full">
-      <Image src={landingTitle} alt="ditda" fill sizes="100vw" className="object-cover" priority />
+    <div className="relative aspect-2200/976 w-full">
+      <Image
+        src={landingTitle}
+        alt="ditda"
+        fill
+        sizes="100vw"
+        className="object-contain"
+        priority
+      />
       <div className="absolute inset-0 flex flex-col items-center justify-center">
         <PurpleLogo className="h-6 w-19" />
         <div className="mt-2 text-center text-[52px] leading-[140%] font-semibold tracking-[-1.04px]">
