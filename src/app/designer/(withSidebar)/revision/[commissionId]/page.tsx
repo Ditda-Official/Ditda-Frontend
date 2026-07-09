@@ -1,10 +1,12 @@
 "use client";
 
 import { useParams } from "next/navigation";
+import { useState } from "react";
 
 import { getDDay } from "@/features/designer/home";
 import Button from "@/shared/ui/Button";
 import FileDragAndDrop from "@/shared/ui/FileDragAndDrop";
+import FileUpload from "@/shared/ui/FileUpload";
 import TextField from "@/shared/ui/input/TextField";
 import Tag from "@/shared/ui/Tag";
 import Thumbnail from "@/shared/ui/Thumbnail";
@@ -16,13 +18,26 @@ const formatDate = (date: string) => {
   return `${year}년 ${month}월 ${day}일`;
 };
 
+const formatFileSize = (size: number) => {
+  const sizeInMB = size / (1024 * 1024);
+
+  return `${sizeInMB.toFixed(1)}MB`;
+};
+
 const Page = () => {
   const { commissionId } = useParams<{ commissionId: string }>();
+  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const selectedCommission =
     modifyingCommissionItems.find(item => String(item.commissionId) === commissionId) ??
     modifyingCommissionItems[0];
 
-  const handleFilesAdded = () => {};
+  const handleFilesAdded = (files: File[]) => {
+    setUploadedFiles(prev => [...prev, ...files]);
+  };
+
+  const handleRemoveFile = (fileIndex: number) => {
+    setUploadedFiles(prev => prev.filter((_, index) => index !== fileIndex));
+  };
 
   return (
     <div className="mx-auto flex w-235 flex-col items-center pt-16 pb-19.5">
@@ -80,7 +95,22 @@ const Page = () => {
             <h2 className="text-heading1-sb text-gray-90">수정파일 제출하기</h2>
             <p className="text-body2-m text-gray-70">수정된 파일을 제출해주세요.</p>
           </div>
-          <FileDragAndDrop onFilesAdded={handleFilesAdded} />
+          <div className="flex w-full flex-col gap-7">
+            <FileDragAndDrop onFilesAdded={handleFilesAdded} />
+            {uploadedFiles.length > 0 && (
+              <div className="flex w-full flex-col gap-2">
+                {uploadedFiles.map((file, index) => (
+                  <FileUpload
+                    key={`${file.name}-${file.lastModified}-${index}`}
+                    fileName={file.name}
+                    fileSize={formatFileSize(file.size)}
+                    isUploading={false}
+                    onRemove={() => handleRemoveFile(index)}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
         </section>
 
         <Button type="button" variant="medium_primary" className="w-fit">
