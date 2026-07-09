@@ -26,6 +26,7 @@
     "react-colorful": "^5.7.0",
     "react-dom": "19.2.4",
     "react-hook-form": "^7.80.0",
+    "sharp": "^0.35.3",
     "swiper": "^14.0.1",
     "tailwind-merge": "^3.6.0",
     "zod": "^4.4.3",
