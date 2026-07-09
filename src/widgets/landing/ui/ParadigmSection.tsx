@@ -12,7 +12,7 @@ const ParadigmSection = ({ type }: ParadigmSectionProps) => {
     <div className="flex flex-col gap-10 px-31.5 py-20.5 text-center">
       <div>
         <h1 className="text-heading2-sb text-main-main pb-3">
-          didta가 제공하는 새로운 외주의 패러다임
+          ditda가 제공하는 새로운 외주의 패러다임
         </h1>
         <h2 className="pb-8 text-[32px] leading-[140%] font-semibold tracking-[-0.64px] text-black">
           {content.headline}
