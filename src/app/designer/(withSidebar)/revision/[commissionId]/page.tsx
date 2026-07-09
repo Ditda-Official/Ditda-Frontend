@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { getDDay } from "@/features/designer/home";
@@ -8,6 +8,8 @@ import Button from "@/shared/ui/Button";
 import FileDragAndDrop from "@/shared/ui/FileDragAndDrop";
 import FileUpload from "@/shared/ui/FileUpload";
 import TextField from "@/shared/ui/input/TextField";
+import DraftModal from "@/shared/ui/modal/DraftModal";
+import Modal from "@/shared/ui/modal/Modal";
 import Tag from "@/shared/ui/Tag";
 import Thumbnail from "@/shared/ui/Thumbnail";
 import { modifyingCommissionItems } from "@/widgets/designer/home/ui/ModifyingCommissionsSection";
@@ -25,11 +27,15 @@ const formatFileSize = (size: number) => {
 };
 
 const Page = () => {
+  const router = useRouter();
   const { commissionId } = useParams<{ commissionId: string }>();
+  const [isDraftModalOpen, setIsDraftModalOpen] = useState(false);
+  const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const selectedCommission =
     modifyingCommissionItems.find(item => String(item.commissionId) === commissionId) ??
     modifyingCommissionItems[0];
+  const draftFileUrls = ["/images/thumbnail_mock.jpg"];
 
   const handleFilesAdded = (files: File[]) => {
     setUploadedFiles(prev => [...prev, ...files]);
@@ -37,6 +43,15 @@ const Page = () => {
 
   const handleRemoveFile = (fileIndex: number) => {
     setUploadedFiles(prev => prev.filter((_, index) => index !== fileIndex));
+  };
+
+  const handleCloseSubmitModal = () => {
+    setIsSubmitModalOpen(false);
+  };
+
+  const handleConfirmSubmit = () => {
+    setIsSubmitModalOpen(false);
+    router.push("/designer");
   };
 
   return (
@@ -70,8 +85,11 @@ const Page = () => {
 
           <div className="flex w-full flex-col gap-7">
             <div className="flex w-223 items-start gap-10">
-              <Thumbnail className="h-63.75 w-62.5 shrink-0" />
-              {/* 아래 수정 텍스트는 임시로 넣음 이후 수정 필요 */}
+              <Thumbnail
+                className="h-63.75 w-62.5 shrink-0"
+                onDetailClick={() => setIsDraftModalOpen(true)}
+              />
+              {/* 아래 수정 텍스트는 임시로 넣음 이후 데이터 가져올것 */}
               <div className="bg-purple-5 border-purple-10 rounded-12 flex min-h-37 flex-1 flex-col gap-4 border px-6 py-5">
                 <h2 className="text-body1-sb text-main-main">레이아웃 수정</h2>
                 <p className="text-body2-m text-gray-80">
@@ -113,10 +131,32 @@ const Page = () => {
           </div>
         </section>
 
-        <Button type="button" variant="medium_primary" className="w-fit">
+        <Button
+          type="button"
+          variant="medium_primary"
+          className="w-fit"
+          onClick={() => setIsSubmitModalOpen(true)}
+        >
           제출하기
         </Button>
       </div>
+      <DraftModal
+        isOpen={isDraftModalOpen}
+        onClose={() => setIsDraftModalOpen(false)}
+        title={selectedCommission.title}
+        fileUrls={draftFileUrls}
+      />
+      <Modal
+        isOpen={isSubmitModalOpen}
+        type="double"
+        title="수정 파일을 제출하시겠습니까?"
+        description={"@@@ 경고경고\n경고성 멘트~~"}
+        confirmLabel="확인"
+        cancelLabel="취소?"
+        onConfirm={handleConfirmSubmit}
+        onCancel={handleCloseSubmitModal}
+        onClose={handleCloseSubmitModal}
+      />
     </div>
   );
 };
