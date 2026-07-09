@@ -10,6 +10,7 @@ import {
   InformationSection,
   type InformationType,
   ParadigmSection,
+  PlanSection,
   RealitySection,
   RewardSection,
   SequenceSection,
@@ -39,6 +40,7 @@ const Page = () => {
         )}
         {informationType === "designer" && <RewardSection />}
         {informationType === "instructor" && <CertificatedSection />}
+        {informationType === "instructor" && <PlanSection />}
         <Footer />
       </div>
     </>
