@@ -4,6 +4,8 @@ export { default as PrevButton } from "@/shared/assets/icons/icon_arrow_left_cir
 export { default as ArrowRightIcon } from "@/shared/assets/icons/icon_arrow_right.svg";
 export { default as NextButton } from "@/shared/assets/icons/icon_arrow_right_circle_fill.svg";
 export { default as ArrowUpIcon } from "@/shared/assets/icons/icon_arrow_up.svg";
+export { default as BookIcon } from "@/shared/assets/icons/icon_book.svg";
+export { default as CheckIcon } from "@/shared/assets/icons/icon_check.svg";
 export { default as CheckCircleFillIcon } from "@/shared/assets/icons/icon_check_circle_fill.svg";
 export { default as CheckboxGrayIcon } from "@/shared/assets/icons/icon_checkbox_border_gray.svg";
 export { default as CheckboxWhiteIcon } from "@/shared/assets/icons/icon_checkbox_border_white.svg";
@@ -24,12 +26,14 @@ export { default as FileBoldIcon } from "@/shared/assets/icons/icon_file_bold.sv
 export { default as FileImageIcon } from "@/shared/assets/icons/icon_file_image.svg";
 export { default as FileImageBoldIcon } from "@/shared/assets/icons/icon_file_image_bold.svg";
 export { default as FolderAddIcon } from "@/shared/assets/icons/icon_folder_add.svg";
+export { default as InfinityIcon } from "@/shared/assets/icons/icon_infinity.svg";
 export { default as LoadingIcon } from "@/shared/assets/icons/icon_loading.svg";
 export { default as MatchingOffIcon } from "@/shared/assets/icons/icon_matching_off.svg";
 export { default as MatchingOnIcon } from "@/shared/assets/icons/icon_matching_on.svg";
 export { default as OneCircleIcon } from "@/shared/assets/icons/icon_number_one_circle_fill.svg";
 export { default as ThreeCircleIcon } from "@/shared/assets/icons/icon_number_three_circle_fill.svg";
 export { default as TwoCircleIcon } from "@/shared/assets/icons/icon_number_two_circle_fill.svg";
+export { default as PlusIcon } from "@/shared/assets/icons/icon_plus.svg";
 export { default as ProfileCircleIcon } from "@/shared/assets/icons/icon_profile_circle.svg";
 export { default as ProfileCircleBoldIcon } from "@/shared/assets/icons/icon_profile_circle_bold.svg";
 export { default as SearchIcon } from "@/shared/assets/icons/icon_search.svg";

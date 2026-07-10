@@ -195,18 +195,48 @@
   /* =========================
     Radius Tokens
     ========================= */
+  --radius-2: 2px;
   --radius-4: 4px;
   --radius-7: 7px;
   --radius-8: 8px;
   --radius-10: 10px;
   --radius-12: 12px;
   --radius-14: 14px;
+  --radius-17: 17px;
   --radius-20: 20px;
   --radius-24: 24px;
   --radius-32: 32px;
   --radius-48: 48px;
   --radius-100: 100px;
   --radius-full: 9999px;
+}
+
+@keyframes quote-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@utility animate-quote-in {
+  animation: quote-in 0.5s ease-out;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@utility animate-marquee {
+  animation: marquee 20s linear infinite;
 }
 
 @utility scrollbar-hide {
@@ -218,4 +248,12 @@
 
 @utility notfound-gradient {
   background: linear-gradient(180deg, #fff 0%, #f3edff 100%);
+}
+
+@utility instructor-card-gradient {
+  background: linear-gradient(180deg, #f3edff 0%, #e5d9ff 78.85%, #e3d5ff 100%);
+}
+
+@utility extra-fee-line-gradient {
+  background: linear-gradient(90deg, #fff 0%, #c1a5ff 100%);
 }
