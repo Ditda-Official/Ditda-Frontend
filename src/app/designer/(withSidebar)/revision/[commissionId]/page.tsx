@@ -68,7 +68,7 @@ const Page = () => {
           "제출이 완료되면 파일을 수정하거나 교체할 수 없습니다.\n현재 파일로 제출하시겠습니까?"
         }
         confirmLabel="확인"
-        cancelLabel="취소?"
+        cancelLabel="취소"
         onConfirm={handleConfirmSubmit}
         onCancel={handleCloseSubmitModal}
         onClose={handleCloseSubmitModal}
