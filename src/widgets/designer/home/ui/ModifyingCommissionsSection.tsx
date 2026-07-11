@@ -11,29 +11,33 @@ import PageIndicator from "@/shared/ui/PageIndicator";
 import { MODIFYING_ITEMS_PER_PAGE } from "@/widgets/designer/home/config/home";
 
 //목데이터
-const modifyingCommissionItems: ModifyingCommissionItem[] = [
+export const modifyingCommissionItems: ModifyingCommissionItem[] = [
   {
-    id: 1,
+    commissionId: 1,
     title: "수학의 정석 - 한석원물마마마마마나너나마마마마마마마마나너나마마마",
     finalDeadline: "2026-07-01",
+    remainingRevisionCount: 2,
     isSubmitted: false,
   },
   {
-    id: 2,
+    commissionId: 2,
     title: "수학의 정석 - 한석원몸마마마마나너나마마마",
     finalDeadline: "2026-07-01",
+    remainingRevisionCount: 1,
     isSubmitted: false,
   },
   {
-    id: 3,
+    commissionId: 3,
     title: "수학의 정석 - 한석원",
     finalDeadline: "2026-07-05",
+    remainingRevisionCount: 0,
     isSubmitted: true,
   },
   {
-    id: 4,
+    commissionId: 4,
     title: "해커스톡 왕초보 영어 - 누구해커스톡 왕초보 영어",
     finalDeadline: "2026-07-08",
+    remainingRevisionCount: 3,
     isSubmitted: false,
   },
 ];
@@ -62,7 +66,9 @@ const ModifyingCommissionsSection = () => {
                   <span className="text-heading3-m text-gray-60">수정 중인 외주가 없습니다</span>
                 </div>
               ) : (
-                pageItems.map(item => <ModifyingCommissionsRow key={item.id} item={item} />)
+                pageItems.map(item => (
+                  <ModifyingCommissionsRow key={item.commissionId} item={item} />
+                ))
               )}
             </div>
           </div>
