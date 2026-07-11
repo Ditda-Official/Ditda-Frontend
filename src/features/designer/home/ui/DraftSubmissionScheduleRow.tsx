@@ -1,3 +1,7 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+
 import { getDDay } from "@/features/designer/home/lib/getDDay";
 import { ArrowRightIcon } from "@/shared/assets/icons";
 import Button from "@/shared/ui/Button";
@@ -12,6 +16,8 @@ export type DraftSubmissionScheduleItem = {
 };
 
 const DraftSubmissionScheduleRow = ({ item }: { item: DraftSubmissionScheduleItem }) => {
+  const router = useRouter();
+
   return (
     <div className="border-b-gray-10 flex h-15 items-center border-b py-3">
       <div className="flex w-full items-center justify-between">
@@ -29,7 +35,12 @@ const DraftSubmissionScheduleRow = ({ item }: { item: DraftSubmissionScheduleIte
             <p className="text-body2-sb text-gray-70 w-32">{item.submissionDeadline}</p>
             <p className="text-body2-sb text-gray-70 w-20">{item.maxReward}</p>
           </div>
-          <Button type="button" variant="small_primary" className="w-fit">
+          <Button
+            type="button"
+            variant="small_primary"
+            className="w-fit"
+            onClick={() => router.push(`/designer/submit/${item.id}`)}
+          >
             제출하기
           </Button>
         </div>
