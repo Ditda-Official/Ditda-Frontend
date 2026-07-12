@@ -31,10 +31,14 @@ export type DesignerCommissionDetail = {
 
 interface CommissionDetailSectionProps {
   commission: DesignerCommissionDetail;
+  initialSelectedIndex?: number;
 }
 
-const CommissionDetailSection = ({ commission }: CommissionDetailSectionProps) => {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+const CommissionDetailSection = ({
+  commission,
+  initialSelectedIndex = 0,
+}: CommissionDetailSectionProps) => {
+  const [selectedIndex, setSelectedIndex] = useState(initialSelectedIndex);
 
   return (
     <div className="rounded-12 flex h-168 w-full flex-col overflow-hidden bg-white px-6">
