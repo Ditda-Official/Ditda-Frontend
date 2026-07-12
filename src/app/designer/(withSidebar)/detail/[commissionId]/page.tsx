@@ -14,6 +14,7 @@ import {
 
 interface PageProps {
   params: Promise<{ commissionId: string }>;
+  searchParams: Promise<{ hideActions?: string | string[] }>;
 }
 
 const mockCommissions: DesignerCommissionDetail[] = [
@@ -86,8 +87,12 @@ const DeadlineItem = ({ label, deadline }: { label: string; deadline: string }) 
   );
 };
 
-const Page = ({ params }: PageProps) => {
+const Page = ({ params, searchParams }: PageProps) => {
   const { commissionId } = use(params);
+  const { hideActions } = use(searchParams);
+  const shouldHideActions = Array.isArray(hideActions)
+    ? hideActions.includes("true")
+    : hideActions === "true";
   const commission =
     mockCommissions.find(item => String(item.id) === commissionId) ?? mockCommissions[0];
 
@@ -95,7 +100,7 @@ const Page = ({ params }: PageProps) => {
     <div className="mx-auto flex w-236.25 flex-col gap-4 py-8">
       <div className="flex w-full flex-col gap-9">
         <header className="flex flex-col items-start gap-5">
-          <BackToListButton />
+          {!shouldHideActions && <BackToListButton />}
 
           <div className="flex w-full flex-col items-start gap-3">
             <h1 className="text-title2-sb w-full text-black">{commission.title}</h1>
@@ -113,10 +118,12 @@ const Page = ({ params }: PageProps) => {
         <CommissionDetailSection commission={commission} />
       </div>
 
-      <CommissionParticipationBar
-        basePrice={commission.basePrice}
-        maxReward={commission.maxReward}
-      />
+      {!shouldHideActions && (
+        <CommissionParticipationBar
+          basePrice={commission.basePrice}
+          maxReward={commission.maxReward}
+        />
+      )}
     </div>
   );
 };

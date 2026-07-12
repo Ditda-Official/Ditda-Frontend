@@ -26,7 +26,13 @@ const DraftSubmissionScheduleRow = ({ item }: { item: DraftSubmissionScheduleIte
           <p className="text-body2-m text-gray-70 w-20 truncate">{item.category}</p>
           <div className="flex items-center">
             <p className="text-heading3-m text-gray-80 max-w-80 truncate">{item.title}</p>
-            <ArrowRightIcon className="text-gray-90 size-5 shrink-0 cursor-pointer" />
+            <button
+              type="button"
+              aria-label={`${item.title} 외주 상세 보기`}
+              onClick={() => router.push(`/designer/detail/${item.id}?hideActions=true`)}
+            >
+              <ArrowRightIcon className="text-gray-90 size-5 shrink-0 cursor-pointer" />
+            </button>
           </div>
         </div>
 
