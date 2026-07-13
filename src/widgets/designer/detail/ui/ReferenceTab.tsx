@@ -1,14 +1,8 @@
+import type { CommissionFile } from "@/shared/api/commissionTypes";
 import ImageCard from "@/shared/ui/ImageCard";
 
-type ReferenceInfo = {
-  materialImages: string[];
-  materialInfo: string;
-  referenceImages: string[];
-  referenceInfo: string;
-};
-
 interface ReferenceTabProps {
-  referenceInfo: ReferenceInfo;
+  files: CommissionFile[];
 }
 
 const UnderlineTitle = ({ children }: { children: string }) => {
@@ -33,17 +27,26 @@ const ImageGallery = ({ images, labelPrefix }: { images: string[]; labelPrefix: 
   );
 };
 
-const ReferenceTab = ({ referenceInfo }: ReferenceTabProps) => {
+const ReferenceTab = ({ files }: ReferenceTabProps) => {
+  const materials = files.filter(file => file.fileKind === "MATERIAL");
+  const references = files.filter(file => file.fileKind === "REFERENCE");
+  const materialImages = materials.flatMap(file => file.fileUrls);
+  const referenceImages = references.flatMap(file => file.fileUrls);
+  const materialInfo = materials.map(file => file.description).join("\n");
+  const referenceInfo = references.map(file => file.description).join("\n");
+
   return (
     <div className="flex flex-col items-start gap-7">
       <section className="flex w-full flex-col items-start gap-5">
         <div className="flex w-full flex-col items-start gap-4">
           <h3 className="text-heading2-sb text-gray-80">디자인에 사용될 자료</h3>
-          <ImageGallery images={referenceInfo.materialImages} labelPrefix="자료" />
+          <ImageGallery images={materialImages} labelPrefix="자료" />
         </div>
         <div className="flex w-full flex-col items-start gap-3">
           <UnderlineTitle>자료 정보</UnderlineTitle>
-          <p className="text-body1-m text-gray-80">{referenceInfo.materialInfo}</p>
+          <p className="text-body1-m text-gray-80 whitespace-pre-line">
+            {materialInfo || "작성된 자료 정보가 없습니다"}
+          </p>
         </div>
       </section>
 
@@ -52,11 +55,13 @@ const ReferenceTab = ({ referenceInfo }: ReferenceTabProps) => {
       <section className="flex w-full flex-col items-start gap-5 pb-10">
         <div className="flex w-full flex-col items-start gap-4">
           <h3 className="text-heading2-sb text-gray-80">레퍼런스</h3>
-          <ImageGallery images={referenceInfo.referenceImages} labelPrefix="레퍼런스" />
+          <ImageGallery images={referenceImages} labelPrefix="레퍼런스" />
         </div>
         <div className="flex w-full flex-col items-start gap-3">
           <UnderlineTitle>레퍼런스 참고사항</UnderlineTitle>
-          <p className="text-body1-m text-gray-80">{referenceInfo.referenceInfo}</p>
+          <p className="text-body1-m text-gray-80 whitespace-pre-line">
+            {referenceInfo || "작성된 레퍼런스 참고사항이 없습니다"}
+          </p>
         </div>
       </section>
     </div>

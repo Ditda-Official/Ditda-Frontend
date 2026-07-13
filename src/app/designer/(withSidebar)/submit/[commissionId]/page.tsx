@@ -1,15 +1,16 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
-import { useState } from "react";
+import { notFound, useParams, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
+import { getCommissionDetail } from "@/shared/api/commission";
+import type { CommissionDetail } from "@/shared/api/commissionTypes";
 import { useUploadedFiles } from "@/shared/lib/hooks/useUploadedFiles";
 import Button from "@/shared/ui/Button";
 import FileDragAndDrop from "@/shared/ui/FileDragAndDrop";
 import FileUpload from "@/shared/ui/FileUpload";
 import Modal from "@/shared/ui/modal/Modal";
 import { CommissionDetailSection, CommissionHeader } from "@/widgets/designer/detail";
-import { designerDetailCommissions } from "@/widgets/designer/detail/config/commission";
 
 const MAX_FILE_COUNT = 9;
 type SubmitView = "file" | "detail";
@@ -19,11 +20,32 @@ const Page = () => {
   const router = useRouter();
   const [selectedView, setSelectedView] = useState<SubmitView>("file");
   const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
-  const commission =
-    designerDetailCommissions.find(item => String(item.id) === commissionId) ??
-    designerDetailCommissions[0];
+  const [commission, setCommission] = useState<CommissionDetail | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const { uploadedFiles, handleFilesAdded, handleRemove } = useUploadedFiles();
   const isFileSubmitView = selectedView === "file";
+
+  useEffect(() => {
+    let isMounted = true;
+
+    getCommissionDetail(commissionId)
+      .then(result => {
+        if (isMounted) setCommission(result);
+      })
+      .catch(() => {
+        if (isMounted) setCommission(null);
+      })
+      .finally(() => {
+        if (isMounted) setIsLoading(false);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [commissionId]);
+
+  if (isLoading) return null;
+  if (!commission) return notFound();
 
   const handleLimitedFilesAdded = (files: File[]) => {
     const remainingCount = MAX_FILE_COUNT - uploadedFiles.length;
@@ -47,8 +69,8 @@ const Page = () => {
       <div className="mx-auto flex w-235 flex-col items-end gap-9 pt-16 pb-19.5">
         <CommissionHeader
           title={commission.title}
-          firstDraftDeadline={commission.firstDraftDeadline}
-          finalDeadline={commission.finalDeadline}
+          firstDraftDeadline={commission.dateInfo.firstDraftDeadline}
+          finalDeadline={commission.dateInfo.finalDeadline}
         />
 
         <div className="flex w-full flex-col items-start gap-3">
