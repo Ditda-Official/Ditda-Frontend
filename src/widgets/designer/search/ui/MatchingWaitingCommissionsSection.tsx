@@ -130,7 +130,7 @@ const MatchingWaitingCommissionsSection = () => {
       <section className="flex w-full flex-col items-center gap-6">
         <div className="rounded-12 text-caption1-r text-gray-70 w-full bg-white pt-6">
           <MatchingWaitingHeader />
-          <div className="flex h-[816px] flex-col">
+          <div className="flex h-204 flex-col">
             {pageItems.length === 0 ? (
               <div className="flex h-full items-center justify-center">
                 <span className="text-heading3-m text-gray-60">등록된 외주가 없습니다</span>

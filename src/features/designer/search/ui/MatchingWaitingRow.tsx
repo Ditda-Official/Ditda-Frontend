@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 
-import { getDDay } from "@/features/designer/search/lib/getDDay";
+import { getDDay } from "@/features/designer/home";
 import Button from "@/shared/ui/Button";
 import Tag from "@/shared/ui/Tag";
 
