@@ -130,33 +130,39 @@ const MatchingWaitingCommissionsSection = () => {
       <section className="flex w-full flex-col items-center gap-6">
         <div className="rounded-12 text-caption1-r text-gray-70 w-full bg-white pt-6">
           <MatchingWaitingHeader />
-          <div className="flex flex-col">
-            {pageItems.map(item => (
-              <MatchingWaitingRow key={item.id} item={item} />
-            ))}
+          <div className="flex h-[816px] flex-col">
+            {pageItems.length === 0 ? (
+              <div className="flex h-full items-center justify-center">
+                <span className="text-heading3-m text-gray-60">등록된 외주가 없습니다</span>
+              </div>
+            ) : (
+              pageItems.map(item => <MatchingWaitingRow key={item.id} item={item} />)
+            )}
           </div>
         </div>
-        <div className="flex items-center justify-center gap-8">
-          <button
-            type="button"
-            aria-label="이전 페이지"
-            onClick={handlePrev}
-            disabled={current === 0}
-            className="disabled:cursor-not-allowed disabled:opacity-40"
-          >
-            <PrevButton className="size-12 cursor-pointer" />
-          </button>
-          <PageIndicator total={totalPages} current={current} />
-          <button
-            type="button"
-            aria-label="다음 페이지"
-            onClick={handleNext}
-            disabled={current === totalPages - 1}
-            className="disabled:cursor-not-allowed disabled:opacity-40"
-          >
-            <NextButton className="size-12 cursor-pointer" />
-          </button>
-        </div>
+        {pageItems.length > 0 && (
+          <div className="flex items-center justify-center gap-8">
+            <button
+              type="button"
+              aria-label="이전 페이지"
+              onClick={handlePrev}
+              disabled={current === 0}
+              className="disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              <PrevButton className="size-12 cursor-pointer" />
+            </button>
+            <PageIndicator total={totalPages} current={current} />
+            <button
+              type="button"
+              aria-label="다음 페이지"
+              onClick={handleNext}
+              disabled={current === totalPages - 1}
+              className="disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              <NextButton className="size-12 cursor-pointer" />
+            </button>
+          </div>
+        )}
       </section>
     </div>
   );
