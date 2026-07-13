@@ -1,3 +1,7 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+
 import { ArrowRightIcon } from "@/shared/assets/icons";
 import Badge from "@/shared/ui/Badge";
 
@@ -12,13 +16,21 @@ export type PaymentHistory = {
 const formatPrice = (amount: number) => `${amount.toLocaleString()}원`;
 
 const PaymentHistoryRow = ({ item }: { item: PaymentHistory }) => {
+  const router = useRouter();
+
   return (
     <div className="border-b-gray-20 flex h-19.25 items-center justify-between border-b px-3 py-5">
       <div className="flex items-center gap-6">
         <Badge variant={item.category} />
         <div className="text-gray-90 flex items-center gap-1">
           <p className="text-heading3-m truncate">{item.title}</p>
-          <ArrowRightIcon className="size-6 shrink-0 cursor-pointer" />
+          <button
+            type="button"
+            aria-label={`${item.title} 외주 상세 보기`}
+            onClick={() => router.push(`/designer/detail/${item.id}?hideActions=true`)}
+          >
+            <ArrowRightIcon className="size-6 shrink-0 cursor-pointer" />
+          </button>
         </div>
       </div>
       <div className="flex items-center gap-16">

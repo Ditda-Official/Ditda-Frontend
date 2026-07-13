@@ -1,3 +1,7 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+
 import { getDDay } from "@/features/designer/search/lib/getDDay";
 import Button from "@/shared/ui/Button";
 import Tag from "@/shared/ui/Tag";
@@ -12,6 +16,8 @@ export type MatchingWaitingCommission = {
 };
 
 const MatchingWaitingRow = ({ item }: { item: MatchingWaitingCommission }) => {
+  const router = useRouter();
+
   return (
     <div className="border-b-gray-10 hover:bg-gray-10 flex w-272 cursor-pointer items-center justify-between border-b px-6 py-4 transition-colors duration-150">
       <div className="flex items-center gap-29">
@@ -30,7 +36,12 @@ const MatchingWaitingRow = ({ item }: { item: MatchingWaitingCommission }) => {
         </div>
       </div>
       <div className="flex shrink-0 items-center">
-        <Button type="button" variant="small_secondary" className="w-fit whitespace-nowrap">
+        <Button
+          type="button"
+          variant="small_secondary"
+          className="w-fit whitespace-nowrap"
+          onClick={() => router.push(`/designer/detail/${item.id}`)}
+        >
           확인하기
         </Button>
       </div>
