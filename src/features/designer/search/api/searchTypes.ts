@@ -10,7 +10,7 @@ export type DesignerCommission = {
 };
 
 export type GetDesignerCommissionsResult = {
-  commissions: DesignerCommission[];
+  items: DesignerCommission[];
   page: number;
   size: number;
   totalElements: number;

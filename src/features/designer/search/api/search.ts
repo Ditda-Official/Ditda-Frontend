@@ -6,7 +6,7 @@ const createEmptyDesignerCommissionsResult = (
   page: number,
   size: number,
 ): GetDesignerCommissionsResult => ({
-  commissions: [],
+  items: [],
   page,
   size,
   totalElements: 0,

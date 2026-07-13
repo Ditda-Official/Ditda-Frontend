@@ -23,7 +23,7 @@ const MatchingWaitingCommissionsSection = () => {
       .then(result => {
         if (!isMounted) return;
 
-        setPageItems(result.commissions);
+        setPageItems(result.items);
         setTotalPages(result.totalPages);
         setStatusMessage("등록된 외주가 없습니다");
       })
