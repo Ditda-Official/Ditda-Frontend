@@ -15,6 +15,15 @@ export type ModifyingItem = {
   finalDeadline: string;
 };
 
+export type DesignerAnnouncementType = "AWAITING" | "SELECTED" | "NOT_SELECTED";
+
+export type PresentationWaitingItem = {
+  commissionId: number;
+  title: string;
+  status: DesignerAnnouncementType;
+  applicationDeadline: string;
+};
+
 export const CATEGORY_DISPLAY_MAP: Record<string, string> = {
   FLYER_TEXTBOOK_COVER_INNER: "교재 외지/내지",
 };
@@ -25,4 +34,8 @@ export type GetDraftSubmissionsResult = {
 
 export type GetRevisionsResult = {
   commissions: ModifyingItem[];
+};
+
+export type GetAnnouncementsResult = {
+  commissions: PresentationWaitingItem[];
 };

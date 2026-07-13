@@ -1,7 +1,10 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import {
   CommissionsHeader,
+  getAnnouncements,
   type PresentationWaitingItem,
   PresentationWaitingRow,
 } from "@/features/designer/home";
@@ -10,37 +13,15 @@ import usePagination from "@/shared/lib/hooks/usePagination";
 import PageIndicator from "@/shared/ui/PageIndicator";
 import { MATCHING_ITEMS_PER_PAGE } from "@/widgets/designer/home/config/home";
 
-// 목데이터
-const presentationWaitingItems: PresentationWaitingItem[] = [
-  {
-    id: 3,
-    title: "수학의 정석 - 한석원",
-    announcementDate: "2026-07-01",
-    result: "waiting",
-  },
-  {
-    id: 4,
-    title: "해커스톡 왕초보 영어 - 누구해커스톡 왕초보 영어",
-    announcementDate: "2026-06-20",
-    result: "selected",
-  },
-  {
-    id: 5,
-    title: "수학의 정석 - 한석원ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
-    announcementDate: "2026-06-15",
-    result: "notSelected",
-  },
-  {
-    id: 6,
-    title: "수학의 정석 - 한석원",
-    announcementDate: "2026-07-01",
-    result: "waiting",
-  },
-];
-
 const PresentationWaitingSection = () => {
+  const [items, setItems] = useState<PresentationWaitingItem[]>([]);
+
+  useEffect(() => {
+    getAnnouncements().then(setItems);
+  }, []);
+
   const { current, totalPages, pageItems, handlePrev, handleNext } =
-    usePagination<PresentationWaitingItem>(presentationWaitingItems, MATCHING_ITEMS_PER_PAGE);
+    usePagination<PresentationWaitingItem>(items, MATCHING_ITEMS_PER_PAGE);
 
   return (
     <section className="rounded-12 w-full bg-white px-6 pt-6 pb-4">
@@ -64,7 +45,9 @@ const PresentationWaitingSection = () => {
                   </span>
                 </div>
               ) : (
-                pageItems.map(item => <PresentationWaitingRow key={item.id} item={item} />)
+                pageItems.map(item => (
+                  <PresentationWaitingRow key={item.commissionId} item={item} />
+                ))
               )}
             </div>
           </div>

@@ -1,8 +1,10 @@
 import type {
   DraftSubmissionItem,
+  GetAnnouncementsResult,
   GetDraftSubmissionsResult,
   GetRevisionsResult,
   ModifyingItem,
+  PresentationWaitingItem,
 } from "@/features/designer/home/api/homeTypes";
 import { api, createApiPath } from "@/shared/api/client";
 import type { ApiResponse } from "@/shared/api/commonType";
@@ -21,6 +23,15 @@ export const getRevisions = async (): Promise<ModifyingItem[]> => {
   const response = await api
     .get(createApiPath("/api/v1/designers/dashboards/revisions"))
     .json<ApiResponse<GetRevisionsResult>>();
+
+  return response.result?.commissions ?? [];
+};
+
+// 발표 대기 외주 조회
+export const getAnnouncements = async (): Promise<PresentationWaitingItem[]> => {
+  const response = await api
+    .get(createApiPath("/api/v1/designers/dashboards/announcements"))
+    .json<ApiResponse<GetAnnouncementsResult>>();
 
   return response.result?.commissions ?? [];
 };
