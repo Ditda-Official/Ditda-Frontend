@@ -1,6 +1,8 @@
 import type {
   DraftSubmissionItem,
   GetDraftSubmissionsResult,
+  GetRevisionsResult,
+  ModifyingItem,
 } from "@/features/designer/home/api/homeTypes";
 import { api, createApiPath } from "@/shared/api/client";
 import type { ApiResponse } from "@/shared/api/commonType";
@@ -10,6 +12,15 @@ export const getDraftSubmissions = async (): Promise<DraftSubmissionItem[]> => {
   const response = await api
     .get(createApiPath("/api/v1/designers/dashboards/draft-submissions"))
     .json<ApiResponse<GetDraftSubmissionsResult>>();
+
+  return response.result?.commissions ?? [];
+};
+
+// 수정 중인 외주 조회
+export const getRevisions = async (): Promise<ModifyingItem[]> => {
+  const response = await api
+    .get(createApiPath("/api/v1/designers/dashboards/revisions"))
+    .json<ApiResponse<GetRevisionsResult>>();
 
   return response.result?.commissions ?? [];
 };
