@@ -1,59 +1,27 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import {
   CommissionsHeader,
-  type DraftSubmissionScheduleItem,
+  type DraftSubmissionItem,
   DraftSubmissionScheduleRow,
+  getDraftSubmissions,
 } from "@/features/designer/home";
 import { NextButton, PrevButton } from "@/shared/assets/icons";
 import usePagination from "@/shared/lib/hooks/usePagination";
 import PageIndicator from "@/shared/ui/PageIndicator";
 import { DRAFT_SUBMISSION_ITEMS_PER_PAGE } from "@/widgets/designer/home/config/home";
 
-const draftSubmissionScheduleItems: DraftSubmissionScheduleItem[] = [
-  {
-    id: 1,
-    category: "포스터",
-    title: "해커스톡 왕초보 영어 - 누구누",
-    submissionDeadline: "2026.07.16 11:59pm",
-    maxReward: "400,000원",
-  },
-  {
-    id: 2,
-    category: "교재 외지/내지",
-    title: "해커스톡 왕초보 영어 - 누구누누구누누구누",
-    submissionDeadline: "2026.07.15 11:59pm",
-    maxReward: "400,000원",
-  },
-  {
-    id: 3,
-    category: "명함",
-    title: "해커스톡 왕초보 영어 - 누구누누구누누구누누구누누구누누구누누구누누구누",
-    submissionDeadline: "2026.05.16 11:59pm",
-    maxReward: "400,000원",
-  },
-  {
-    id: 4,
-    category: "포스터",
-    title: "해커스톡 왕초보 영어 - 누구누",
-    submissionDeadline: "2026.07.23 11:59pm",
-    maxReward: "400,000원",
-  },
-  {
-    id: 5,
-    category: "교재 외지/내지",
-    title: "해커스톡 왕초보 영어 - 누구누",
-    submissionDeadline: "2026.07.30 11:59pm",
-    maxReward: "400,000원",
-  },
-];
-
 const DraftSubmissionScheduleSection = () => {
+  const [items, setItems] = useState<DraftSubmissionItem[]>([]);
+
+  useEffect(() => {
+    getDraftSubmissions().then(setItems);
+  }, []);
+
   const { current, totalPages, pageItems, handlePrev, handleNext } =
-    usePagination<DraftSubmissionScheduleItem>(
-      draftSubmissionScheduleItems,
-      DRAFT_SUBMISSION_ITEMS_PER_PAGE,
-    );
+    usePagination<DraftSubmissionItem>(items, DRAFT_SUBMISSION_ITEMS_PER_PAGE);
 
   return (
     <section className="rounded-12 flex h-94.5 w-full flex-col bg-white px-6 pt-6 pb-4">
@@ -83,14 +51,14 @@ const DraftSubmissionScheduleSection = () => {
             </CommissionsHeader>
 
             {pageItems.map(item => (
-              <DraftSubmissionScheduleRow key={item.id} item={item} />
+              <DraftSubmissionScheduleRow key={item.commissionId} item={item} />
             ))}
           </div>
         </div>
 
         {pageItems.length === 0 ? (
           <div className="flex flex-1 items-center justify-center">
-            <span className="text-heading3-m text-gray-60">제출된 시안이 없습니다</span>
+            <span className="text-heading3-m text-gray-60">시안 제출 예정인 외주가 없습니다</span>
           </div>
         ) : (
           <div className="flex items-center justify-between">
