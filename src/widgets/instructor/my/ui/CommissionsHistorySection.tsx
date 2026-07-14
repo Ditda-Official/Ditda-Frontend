@@ -1,20 +1,30 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import type { CommissionHistoryItem } from "@/features/instructor/my";
 import { CommissionsHeader, CommissionsHistoryRow } from "@/features/instructor/my";
 import { NextButton, PrevButton } from "@/shared/assets/icons";
 import PageIndicator from "@/shared/ui/PageIndicator";
 import { getCommissions } from "@/widgets/instructor/my/api/my";
+import type { GetCommissionsResult } from "@/widgets/instructor/my/api/myTypes";
 
 const CommissionsHistorySection = () => {
   const [page, setPage] = useState(0);
   const [items, setItems] = useState<CommissionHistoryItem[]>([]);
   const [totalPages, setTotalPages] = useState(0);
+  const pageCache = useRef(new Map<number, GetCommissionsResult>());
 
   useEffect(() => {
+    const cached = pageCache.current.get(page);
+    if (cached) {
+      setItems(cached.items);
+      setTotalPages(cached.totalPages);
+      return;
+    }
+
     getCommissions(page).then(result => {
+      pageCache.current.set(page, result);
       setItems(result.items);
       setTotalPages(result.totalPages);
     });
