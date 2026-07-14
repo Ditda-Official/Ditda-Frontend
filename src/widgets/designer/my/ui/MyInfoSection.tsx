@@ -34,7 +34,7 @@ const MyInfoSection = ({ name, profileImageUrl, levelInfo, stats }: MyInfoSectio
         </div>
       </div>
       <div className="rounded-b-12 flex items-center bg-white px-16 py-6">
-        <div className="flex w-full items-center justify-between">
+        <div className="flex w-full items-center justify-between whitespace-nowrap">
           <div className="flex items-center px-12">
             <div className="flex items-center gap-14">
               <p className="text-body2-m text-gray-70">수입</p>
