@@ -1,0 +1,1 @@
+export const REVISION_FILE_TARGET = "COMMISSION_DRAFT" as const;

@@ -1,18 +1,13 @@
 "use client";
 
+import type { UploadedFile } from "@/shared/types/file";
 import FileDragAndDrop from "@/shared/ui/FileDragAndDrop";
 import FileUpload from "@/shared/ui/FileUpload";
 
-const formatFileSize = (size: number) => {
-  const sizeInMB = size / (1024 * 1024);
-
-  return `${sizeInMB.toFixed(1)}MB`;
-};
-
 interface RevisionFileSubmitSectionProps {
-  uploadedFiles: File[];
+  uploadedFiles: UploadedFile[];
   onFilesAdded: (files: File[]) => void;
-  onRemoveFile: (fileIndex: number) => void;
+  onRemoveFile: (fileId: string) => void;
 }
 
 const RevisionFileSubmitSection = ({
@@ -30,13 +25,13 @@ const RevisionFileSubmitSection = ({
         <FileDragAndDrop onFilesAdded={onFilesAdded} />
         {uploadedFiles.length > 0 && (
           <div className="flex w-full flex-col gap-2">
-            {uploadedFiles.map((file, index) => (
+            {uploadedFiles.map(file => (
               <FileUpload
-                key={`${file.name}-${file.lastModified}-${index}`}
-                fileName={file.name}
-                fileSize={formatFileSize(file.size)}
-                isUploading={false}
-                onRemove={() => onRemoveFile(index)}
+                key={file.id}
+                fileName={file.fileName}
+                fileSize={file.fileSize}
+                isUploading={file.isUploading}
+                onRemove={() => onRemoveFile(file.id)}
               />
             ))}
           </div>
