@@ -1,6 +1,8 @@
 import { getMyInfo } from "@/features/designer/my/api/my";
 import { MyInfoSection, PaymentHistorySection } from "@/widgets/designer/my";
 
+export const dynamic = "force-dynamic";
+
 const page = async () => {
   const myInfo = await getMyInfo();
 
