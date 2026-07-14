@@ -1,58 +1,30 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import {
   type PaymentHistory,
   PaymentHistoryHeader,
   PaymentHistoryRow,
 } from "@/features/designer/my";
 import { NextButton, PrevButton } from "@/shared/assets/icons";
-import usePagination from "@/shared/lib/hooks/usePagination";
 import PageIndicator from "@/shared/ui/PageIndicator";
-import { PAYMENT_HISTORY_ITEMS_PER_PAGE } from "@/widgets/designer/my/config/my";
-
-const paymentHistories: PaymentHistory[] = [
-  {
-    id: 1,
-    category: "교재",
-    title: "YMB 영어교재 표지디자인 외주",
-    amountType: "기본금",
-    amount: 40000,
-  },
-  {
-    id: 2,
-    category: "교재",
-    title: "YMB 영어교재 표지디자인 외주",
-    amountType: "최종금액",
-    amount: 480000,
-  },
-  {
-    id: 3,
-    category: "교재",
-    title: "YMB 영어교재 표지디자인 외주",
-    amountType: "기본금",
-    amount: 40000,
-  },
-  {
-    id: 4,
-    category: "교재",
-    title: "YMB 영어교재 표지디자인 외주",
-    amountType: "최종금액",
-    amount: 320000,
-  },
-  {
-    id: 5,
-    category: "교재",
-    title: "YMB 영어교재 표지디자인 외주",
-    amountType: "기본금",
-    amount: 50000,
-  },
-];
+import { getSettlements } from "@/widgets/designer/my/api/my";
 
 const PaymentHistorySection = () => {
-  const { current, totalPages, pageItems, handlePrev, handleNext } = usePagination<PaymentHistory>(
-    paymentHistories,
-    PAYMENT_HISTORY_ITEMS_PER_PAGE,
-  );
+  const [page, setPage] = useState(0);
+  const [items, setItems] = useState<PaymentHistory[]>([]);
+  const [totalPages, setTotalPages] = useState(0);
+
+  useEffect(() => {
+    getSettlements(page).then(result => {
+      setItems(result.items);
+      setTotalPages(result.totalPages);
+    });
+  }, [page]);
+
+  const handlePrev = () => setPage(prev => Math.max(0, prev - 1));
+  const handleNext = () => setPage(prev => Math.min(totalPages - 1, prev + 1));
 
   return (
     <section className="rounded-12 flex h-109.25 w-full flex-col gap-6 bg-white p-6">
@@ -61,19 +33,19 @@ const PaymentHistorySection = () => {
         <div className="flex h-66.25 flex-col">
           <PaymentHistoryHeader />
 
-          {pageItems.length === 0 ? (
+          {items.length === 0 ? (
             <div className="flex flex-1 items-center justify-center">
               <p className="text-heading3-m text-gray-60">진행된 외주가 없습니다</p>
             </div>
           ) : (
-            pageItems.map(history => <PaymentHistoryRow key={history.id} item={history} />)
+            items.map(history => <PaymentHistoryRow key={history.commissionId} item={history} />)
           )}
         </div>
 
-        {pageItems.length > 0 && (
+        {totalPages > 0 && (
           <div className="flex items-center justify-center gap-8">
             <PrevButton className="size-12 cursor-pointer" onClick={handlePrev} />
-            <PageIndicator total={totalPages} current={current} variant="my" />
+            <PageIndicator total={totalPages} current={page} variant="my" />
             <NextButton className="size-12 cursor-pointer" onClick={handleNext} />
           </div>
         )}

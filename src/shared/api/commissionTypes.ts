@@ -48,6 +48,11 @@ export type CommissionDateInfo = {
   finalDeadline: string;
 };
 
+export type CommissionPriceInfo = {
+  baseAmount: number;
+  maxAmount: number;
+};
+
 export type CommissionDetail = {
   commissionId: number;
   title: string;
@@ -57,7 +62,8 @@ export type CommissionDetail = {
   categoryDetail: CommissionCategoryDetail;
   files: CommissionFile[];
   dateInfo: CommissionDateInfo;
-  priceInfo: unknown;
+  priceInfo: CommissionPriceInfo | null;
+  applied: boolean | null;
 };
 
 export type GetCommissionDetailResult = CommissionDetail;

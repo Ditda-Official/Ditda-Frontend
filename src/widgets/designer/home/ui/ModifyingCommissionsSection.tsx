@@ -1,50 +1,29 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import {
   CommissionsHeader,
-  type ModifyingCommissionItem,
+  getRevisions,
   ModifyingCommissionsRow,
+  type ModifyingItem,
 } from "@/features/designer/home";
 import { NextButton, PrevButton } from "@/shared/assets/icons";
 import usePagination from "@/shared/lib/hooks/usePagination";
 import PageIndicator from "@/shared/ui/PageIndicator";
 import { MODIFYING_ITEMS_PER_PAGE } from "@/widgets/designer/home/config/home";
 
-//목데이터
-export const modifyingCommissionItems: ModifyingCommissionItem[] = [
-  {
-    commissionId: 1,
-    title: "수학의 정석 - 한석원물마마마마마나너나마마마마마마마마나너나마마마",
-    finalDeadline: "2026-07-01",
-    remainingRevisionCount: 2,
-    isSubmitted: false,
-  },
-  {
-    commissionId: 2,
-    title: "수학의 정석 - 한석원몸마마마마나너나마마마",
-    finalDeadline: "2026-07-01",
-    remainingRevisionCount: 1,
-    isSubmitted: false,
-  },
-  {
-    commissionId: 3,
-    title: "수학의 정석 - 한석원",
-    finalDeadline: "2026-07-05",
-    remainingRevisionCount: 0,
-    isSubmitted: true,
-  },
-  {
-    commissionId: 4,
-    title: "해커스톡 왕초보 영어 - 누구해커스톡 왕초보 영어",
-    finalDeadline: "2026-07-08",
-    remainingRevisionCount: 3,
-    isSubmitted: false,
-  },
-];
-
 const ModifyingCommissionsSection = () => {
-  const { current, totalPages, pageItems, handlePrev, handleNext } =
-    usePagination<ModifyingCommissionItem>(modifyingCommissionItems, MODIFYING_ITEMS_PER_PAGE);
+  const [items, setItems] = useState<ModifyingItem[]>([]);
+
+  useEffect(() => {
+    getRevisions().then(setItems);
+  }, []);
+
+  const { current, totalPages, pageItems, handlePrev, handleNext } = usePagination<ModifyingItem>(
+    items,
+    MODIFYING_ITEMS_PER_PAGE,
+  );
 
   return (
     <section className="rounded-12 w-full bg-white px-6 pt-6 pb-4">

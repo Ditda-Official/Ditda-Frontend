@@ -1,14 +1,16 @@
 "use client";
 
-import { use } from "react";
+import { notFound } from "next/navigation";
+import { use, useEffect, useState } from "react";
 
+import { getCommissionDetail } from "@/shared/api/commission";
+import type { CommissionDetail } from "@/shared/api/commissionTypes";
 import {
   BackToListButton,
   CommissionDetailSection,
   CommissionHeader,
   CommissionParticipationBar,
 } from "@/widgets/designer/detail";
-import { designerDetailCommissions } from "@/widgets/designer/detail/config/commission";
 
 interface PageProps {
   params: Promise<{ commissionId: string }>;
@@ -21,9 +23,32 @@ const Page = ({ params, searchParams }: PageProps) => {
   const shouldHideActions = Array.isArray(hideActions)
     ? hideActions.includes("true")
     : hideActions === "true";
-  const commission =
-    designerDetailCommissions.find(item => String(item.id) === commissionId) ??
-    designerDetailCommissions[0];
+  const [commission, setCommission] = useState<CommissionDetail | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    getCommissionDetail(commissionId)
+      .then(result => {
+        if (isMounted) setCommission(result);
+      })
+      .catch(() => {
+        if (isMounted) setCommission(null);
+      })
+      .finally(() => {
+        if (isMounted) setIsLoading(false);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [commissionId]);
+
+  if (isLoading) return null;
+  if (!commission) return notFound();
+
+  const { dateInfo, priceInfo } = commission;
 
   return (
     <div className="mx-auto flex w-236.25 flex-col gap-4 py-8">
@@ -33,18 +58,21 @@ const Page = ({ params, searchParams }: PageProps) => {
 
           <CommissionHeader
             title={commission.title}
-            firstDraftDeadline={commission.firstDraftDeadline}
-            finalDeadline={commission.finalDeadline}
+            firstDraftDeadline={dateInfo.firstDraftDeadline}
+            finalDeadline={dateInfo.finalDeadline}
           />
         </header>
 
         <CommissionDetailSection commission={commission} />
       </div>
 
-      {!shouldHideActions && (
+      {!shouldHideActions && priceInfo && (
         <CommissionParticipationBar
-          basePrice={commission.basePrice}
-          maxReward={commission.maxReward}
+          key={commission.commissionId}
+          commissionId={commission.commissionId}
+          baseAmount={priceInfo.baseAmount}
+          maxAmount={priceInfo.maxAmount}
+          applied={commission.applied ?? false}
         />
       )}
     </div>
