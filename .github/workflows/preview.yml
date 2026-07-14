@@ -60,7 +60,10 @@ jobs:
                   "${PREVIEW_URL}/designer/search",
                   "${PREVIEW_URL}/designer/my"
                 ],
-                "puppeteerScript": ".github/lighthouse/login.js"
+                "puppeteerScript": ".github/lighthouse/login.js",
+                "puppeteerLaunchOptions": {
+                  "args": ["--no-sandbox", "--disable-setuid-sandbox"]
+                }
               }
             }
           }
@@ -74,7 +77,10 @@ jobs:
                   "${PREVIEW_URL}/instructor/write",
                   "${PREVIEW_URL}/instructor/my"
                 ],
-                "puppeteerScript": ".github/lighthouse/login.js"
+                "puppeteerScript": ".github/lighthouse/login.js",
+                "puppeteerLaunchOptions": {
+                  "args": ["--no-sandbox", "--disable-setuid-sandbox"]
+                }
               }
             }
           }
