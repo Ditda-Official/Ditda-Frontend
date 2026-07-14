@@ -13,6 +13,12 @@ module.exports = async (browser, context) => {
   const page = await browser.newPage();
 
   try {
+    const bypassSecret = process.env.VERCEL_PROTECTION_BYPASS_SECRET;
+    if (bypassSecret) {
+      const bypassUrl = `${origin}/?x-vercel-protection-bypass=${bypassSecret}&x-vercel-set-bypass-cookie=true`;
+      await page.goto(bypassUrl, { waitUntil: "networkidle0" });
+    }
+
     const existingCookies = await page.cookies(origin);
     const alreadyLoggedIn = existingCookies.some(cookie => cookie.name === "accessToken");
 
