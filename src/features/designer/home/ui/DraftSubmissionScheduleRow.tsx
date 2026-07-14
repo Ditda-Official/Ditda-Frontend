@@ -16,7 +16,7 @@ const formatAmount = (amount?: number | null) =>
 
 const DraftSubmissionScheduleRow = ({ item }: { item: DraftSubmissionItem }) => {
   const router = useRouter();
-  const { category, commissionId, maxAmount, submitDeadline, title } = item;
+  const { category, commissionId, isSubmitted, maxAmount, submitDeadline, title } = item;
   const categoryLabel = CATEGORY_DISPLAY_MAP[category] ?? category;
 
   return (
@@ -46,11 +46,13 @@ const DraftSubmissionScheduleRow = ({ item }: { item: DraftSubmissionItem }) => 
           </div>
           <Button
             type="button"
-            variant="small_primary"
+            variant={isSubmitted ? "small_text" : "small_primary"}
             className="w-fit"
-            onClick={() => router.push(`/designer/submit/${commissionId}`)}
+            onClick={
+              isSubmitted ? undefined : () => router.push(`/designer/submit/${commissionId}`)
+            }
           >
-            제출하기
+            {isSubmitted ? "제출완료" : "제출하기"}
           </Button>
         </div>
       </div>
