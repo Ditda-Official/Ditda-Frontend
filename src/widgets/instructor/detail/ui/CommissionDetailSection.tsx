@@ -1,12 +1,15 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useState } from "react";
 
 import type { CommissionDetail } from "@/shared/api/commissionTypes";
 import Menu from "@/shared/ui/Menu";
 import DesignInfoTab from "@/widgets/instructor/detail/ui/DesignInfoTab";
-import ReferenceTab from "@/widgets/instructor/detail/ui/ReferenceTab";
 import WorkRequestTab from "@/widgets/instructor/detail/ui/WorkRequestTab";
+
+// Swiper(+css)는 "자료 및 레퍼런스" 탭을 열 때만 필요하므로 지연 로딩
+const ReferenceTab = dynamic(() => import("@/widgets/instructor/detail/ui/ReferenceTab"));
 
 const MENU_LABELS = ["디자인 정보", "작업 요청사항", "자료 및 레퍼런스"] as const;
 

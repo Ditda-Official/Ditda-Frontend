@@ -1,13 +1,19 @@
 "use client";
 
 import { useState } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 import { CATEGORIES, useWriteFormStore } from "@/features/instructor/write";
 import AccordionMenu from "@/shared/ui/AccordionMenu";
 import Radio from "@/shared/ui/Radio";
 
 const CategorySection = () => {
-  const { selectedCategory, setSelectedCategory } = useWriteFormStore();
+  const { selectedCategory, setSelectedCategory } = useWriteFormStore(
+    useShallow(s => ({
+      selectedCategory: s.selectedCategory,
+      setSelectedCategory: s.setSelectedCategory,
+    })),
+  );
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const handleCategoryClick = (index: number) => {

@@ -1,18 +1,25 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
+import { useShallow } from "zustand/react/shallow";
 
-import {
-  ColorChooseCard,
-  ColorPicker,
-  type RgbaColor,
-  useWriteFormStore,
-} from "@/features/instructor/write";
+import { ColorChooseCard, type RgbaColor, useWriteFormStore } from "@/features/instructor/write";
 import { cn } from "@/shared/lib/utils/cn";
 import Toggle from "@/shared/ui/Toggle";
 
+// react-colorful은 "직접 색상 지정" 모드에서만 필요하므로 지연 로딩
+const ColorPicker = dynamic(() => import("@/features/instructor/write/ui/ColorPicker"));
+
 const ColorChooseSection = () => {
-  const { colorMode, setColorMode, colors, setColors } = useWriteFormStore();
+  const { colorMode, setColorMode, colors, setColors } = useWriteFormStore(
+    useShallow(s => ({
+      colorMode: s.colorMode,
+      setColorMode: s.setColorMode,
+      colors: s.colors,
+      setColors: s.setColors,
+    })),
+  );
   const [activeIndex, setActiveIndex] = useState<number | null>(0);
   const [isFocused, setIsFocused] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 import {
   COMMISSION_FILE_TARGET,
@@ -18,7 +19,14 @@ const MAX_FILE_COUNT = 3;
 
 const ReferenceSection = () => {
   const { referenceFiles, setReferenceFiles, referenceDescription, setReferenceDescription } =
-    useWriteFormStore();
+    useWriteFormStore(
+      useShallow(s => ({
+        referenceFiles: s.referenceFiles,
+        setReferenceFiles: s.setReferenceFiles,
+        referenceDescription: s.referenceDescription,
+        setReferenceDescription: s.setReferenceDescription,
+      })),
+    );
   const [isInvalidFileModalOpen, setIsInvalidFileModalOpen] = useState(false);
   const [isFileCountExceededModalOpen, setIsFileCountExceededModalOpen] = useState(false);
   const { uploadedFiles, handleFilesAdded, handleRemove } = useUploadedFiles(

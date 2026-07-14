@@ -1,12 +1,21 @@
 "use client";
 
+import { useShallow } from "zustand/react/shallow";
+
 import { PAGE_OPTIONS, useWriteFormStore } from "@/features/instructor/write";
 import Chip from "@/shared/ui/Chip";
 import TextField from "@/shared/ui/input/TextField";
 
 const NecessaryPageChooseSection = () => {
   const { selectedPages, setSelectedPages, pageDescriptions, setPageDescription } =
-    useWriteFormStore();
+    useWriteFormStore(
+      useShallow(s => ({
+        selectedPages: s.selectedPages,
+        setSelectedPages: s.setSelectedPages,
+        pageDescriptions: s.pageDescriptions,
+        setPageDescription: s.setPageDescription,
+      })),
+    );
 
   const togglePage = (label: string) => {
     if (selectedPages.includes(label)) {

@@ -1,5 +1,7 @@
 "use client";
 
+import { useShallow } from "zustand/react/shallow";
+
 import {
   PaperSizeCard,
   SIZE_OPTIONS,
@@ -8,7 +10,13 @@ import {
 } from "@/features/instructor/write";
 
 const SizeSection = () => {
-  const { selectedCategory, selectedSize, setSelectedSize } = useWriteFormStore();
+  const { selectedCategory, selectedSize, setSelectedSize } = useWriteFormStore(
+    useShallow(s => ({
+      selectedCategory: s.selectedCategory,
+      selectedSize: s.selectedSize,
+      setSelectedSize: s.setSelectedSize,
+    })),
+  );
 
   const selectedSizeLabel = selectedSize
     ? SIZE_OPTIONS.find(option => option.id === selectedSize)?.size

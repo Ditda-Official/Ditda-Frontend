@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 import {
   CONCEPT_CATEGORIES,
@@ -18,7 +19,14 @@ const LIMIT_TOAST_MESSAGE =
 
 const DesignConceptSection = () => {
   const { selectedKeywords, setSelectedKeywords, additionalConcept, setAdditionalConcept } =
-    useWriteFormStore();
+    useWriteFormStore(
+      useShallow(s => ({
+        selectedKeywords: s.selectedKeywords,
+        setSelectedKeywords: s.setSelectedKeywords,
+        additionalConcept: s.additionalConcept,
+        setAdditionalConcept: s.setAdditionalConcept,
+      })),
+    );
   const [isAdditionalOpen, setIsAdditionalOpen] = useState(false);
   const [showLimitToast, setShowLimitToast] = useState(false);
   const toastTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);

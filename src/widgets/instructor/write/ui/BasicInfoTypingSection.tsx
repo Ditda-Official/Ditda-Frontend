@@ -1,10 +1,14 @@
 "use client";
 
+import { useShallow } from "zustand/react/shallow";
+
 import { BASIC_INFO_FIELDS, type BasicInfo, useWriteFormStore } from "@/features/instructor/write";
 import SmallInput from "@/shared/ui/input/SmallInput";
 
 const BasicInfoTypingSection = () => {
-  const { basicInfo, setBasicInfo } = useWriteFormStore();
+  const { basicInfo, setBasicInfo } = useWriteFormStore(
+    useShallow(s => ({ basicInfo: s.basicInfo, setBasicInfo: s.setBasicInfo })),
+  );
 
   const handleChange = (label: string, value: string) => {
     setBasicInfo({ ...basicInfo, [label]: value } as BasicInfo);

@@ -186,14 +186,35 @@ export const useWriteFormStore = create<WriteFormState>()((set, get) => ({
   setIsTermsAgreed: value => set({ isTermsAgreed: value }),
 
   clearAfterSubmit: () => {
+    cancelPendingPersist();
+    suppressNextPersist = true;
     set(initialState);
     sessionStorage.removeItem(STORAGE_KEY);
   },
 }));
 
-// 상태가 바뀔 때마다 API 포맷으로 sessionStorage에 동기화
-useWriteFormStore.subscribe(state => {
-  if (typeof window !== "undefined") {
-    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(buildOrderRequest(state)));
+// 상태가 바뀔 때마다 API 포맷으로 sessionStorage에 동기화 (매 입력마다 직렬화하지 않도록 디바운스)
+const PERSIST_DEBOUNCE_MS = 300;
+let persistTimeoutId: ReturnType<typeof setTimeout> | undefined;
+let suppressNextPersist = false;
+
+const cancelPendingPersist = () => {
+  if (persistTimeoutId !== undefined) {
+    clearTimeout(persistTimeoutId);
+    persistTimeoutId = undefined;
   }
+};
+
+useWriteFormStore.subscribe(state => {
+  if (typeof window === "undefined") return;
+
+  if (suppressNextPersist) {
+    suppressNextPersist = false;
+    return;
+  }
+
+  cancelPendingPersist();
+  persistTimeoutId = setTimeout(() => {
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(buildOrderRequest(state)));
+  }, PERSIST_DEBOUNCE_MS);
 });

@@ -12,7 +12,7 @@ import Toast from "@/shared/ui/Toast";
 
 const Step2 = ({ onBack, commissionId }: { onBack: () => void; commissionId: number | null }) => {
   const router = useRouter();
-  const { selectedPlan } = useWriteFormStore();
+  const selectedPlan = useWriteFormStore(s => s.selectedPlan);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [autoHide, setAutoHide] = useState(false);
