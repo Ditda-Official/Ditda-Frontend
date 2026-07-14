@@ -35,7 +35,7 @@ module.exports = async (browser, context) => {
       await page.type('input[placeholder="아이디를 입력해주세요"]', username, { delay: 20 });
       await page.type('input[placeholder="비밀번호를 입력해주세요"]', password, { delay: 20 });
 
-      await Promise.all([
+      const [loginResponse] = await Promise.all([
         page.waitForResponse(
           response =>
             response.url().includes("/api/v1/auth/login") && response.request().method() === "POST",
@@ -44,9 +44,22 @@ module.exports = async (browser, context) => {
         page.click('button[type="submit"]'),
       ]);
 
-      await page.waitForFunction(() => document.cookie.includes("accessToken="), {
-        timeout: 10000,
-      });
+      try {
+        await page.waitForFunction(() => document.cookie.includes("accessToken="), {
+          timeout: 10000,
+        });
+      } catch (error) {
+        const status = loginResponse.status();
+        const body = await loginResponse.text().catch(() => "(응답 본문 읽기 실패)");
+        const pageText = await page
+          .evaluate(() => document.body.innerText.slice(0, 300))
+          .catch(() => "(본문 읽기 실패)");
+        console.error("[login.js] 로그인 후 accessToken 쿠키가 생성되지 않음. 진단 정보:");
+        console.error("  로그인 API 응답 status:", status);
+        console.error("  로그인 API 응답 body:", body.slice(0, 800));
+        console.error("  현재 페이지 텍스트:", pageText.replace(/\n+/g, " "));
+        throw error;
+      }
     }
   } finally {
     await page.close();
