@@ -68,6 +68,8 @@ const Page = ({ params, searchParams }: PageProps) => {
 
       {!shouldHideActions && priceInfo && (
         <CommissionParticipationBar
+          key={commission.commissionId}
+          commissionId={commission.commissionId}
           baseAmount={priceInfo.baseAmount}
           maxAmount={priceInfo.maxAmount}
           applied={commission.applied ?? false}
