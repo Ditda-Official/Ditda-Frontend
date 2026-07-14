@@ -1,11 +1,11 @@
 import { DesignerDraft } from "@/features/landing";
-import draftExample1 from "@/shared/assets/images/landing/draft_example_1.jpg";
-import draftExample2 from "@/shared/assets/images/landing/draft_example_2.png";
-import draftExample3 from "@/shared/assets/images/landing/draft_example_3.png";
-import draftExample4 from "@/shared/assets/images/landing/draft_example_4.png";
-import draftExample5 from "@/shared/assets/images/landing/draft_example_5.png";
+import draftExample1 from "@/shared/assets/images/landing/draft_example_1.webp";
+import draftExample2 from "@/shared/assets/images/landing/draft_example_2.webp";
+import draftExample3 from "@/shared/assets/images/landing/draft_example_3.webp";
+import draftExample4 from "@/shared/assets/images/landing/draft_example_4.webp";
+import draftExample5 from "@/shared/assets/images/landing/draft_example_5.webp";
 import draftExample6 from "@/shared/assets/images/landing/draft_example_6.png";
-import draftExample7 from "@/shared/assets/images/landing/draft_example_7.png";
+import draftExample7 from "@/shared/assets/images/landing/draft_example_7.webp";
 
 const DRAFT_IMAGES = [
   draftExample1,
