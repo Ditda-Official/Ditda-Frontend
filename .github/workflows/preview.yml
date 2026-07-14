@@ -12,6 +12,9 @@ jobs:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
+    outputs:
+      preview_url: ${{ steps.deploy.outputs.preview_url }}
+
     steps:
       - uses: actions/checkout@v4
       - name: Install Vercel CLI
@@ -33,6 +36,115 @@ jobs:
         with:
           message: |
             ✅ PREVIEW ${{ steps.deploy.outputs.preview_url }}
+
+  lighthouse:
+    needs: vercel-preview
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Puppeteer (for authenticated designer/instructor runs)
+        run: npm install --no-save puppeteer
+
+      - name: Generate per-role Lighthouse configs
+        env:
+          PREVIEW_URL: ${{ needs.vercel-preview.outputs.preview_url }}
+        run: |
+          cat > designer.lighthouserc.json <<EOF
+          {
+            "ci": {
+              "collect": {
+                "url": [
+                  "${PREVIEW_URL}/designer",
+                  "${PREVIEW_URL}/designer/search",
+                  "${PREVIEW_URL}/designer/my"
+                ],
+                "puppeteerScript": ".github/lighthouse/login.js"
+              }
+            }
+          }
+          EOF
+          cat > instructor.lighthouserc.json <<EOF
+          {
+            "ci": {
+              "collect": {
+                "url": [
+                  "${PREVIEW_URL}/instructor",
+                  "${PREVIEW_URL}/instructor/write",
+                  "${PREVIEW_URL}/instructor/my"
+                ],
+                "puppeteerScript": ".github/lighthouse/login.js"
+              }
+            }
+          }
+          EOF
+
+      - name: Run Lighthouse (landing, public)
+        continue-on-error: true
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          urls: ${{ needs.vercel-preview.outputs.preview_url }}
+          runs: 1
+          uploadArtifacts: true
+          artifactName: lighthouse-public
+          temporaryPublicStorage: true
+
+      - name: Preserve public results
+        if: always()
+        run: |
+          mv .lighthouseci lhci-public || exit 0
+          sed -i "s#/\.lighthouseci/#/lhci-public/#g" lhci-public/manifest.json || true
+
+      - name: Run Lighthouse (designer, authenticated)
+        continue-on-error: true
+        uses: treosh/lighthouse-ci-action@v12
+        env:
+          LHCI_USERNAME: ${{ secrets.LHCI_TEST_DESIGNER_USERNAME }}
+          LHCI_PASSWORD: ${{ secrets.LHCI_TEST_DESIGNER_PASSWORD }}
+        with:
+          configPath: designer.lighthouserc.json
+          runs: 1
+          uploadArtifacts: true
+          artifactName: lighthouse-designer
+          temporaryPublicStorage: true
+
+      - name: Preserve designer results
+        if: always()
+        run: |
+          mv .lighthouseci lhci-designer || exit 0
+          sed -i "s#/\.lighthouseci/#/lhci-designer/#g" lhci-designer/manifest.json || true
+
+      - name: Run Lighthouse (instructor, authenticated)
+        continue-on-error: true
+        uses: treosh/lighthouse-ci-action@v12
+        env:
+          LHCI_USERNAME: ${{ secrets.LHCI_TEST_INSTRUCTOR_USERNAME }}
+          LHCI_PASSWORD: ${{ secrets.LHCI_TEST_INSTRUCTOR_PASSWORD }}
+        with:
+          configPath: instructor.lighthouserc.json
+          runs: 1
+          uploadArtifacts: true
+          artifactName: lighthouse-instructor
+          temporaryPublicStorage: true
+
+      - name: Preserve instructor results
+        if: always()
+        run: |
+          mv .lighthouseci lhci-instructor || exit 0
+          sed -i "s#/\.lighthouseci/#/lhci-instructor/#g" lhci-instructor/manifest.json || true
+
+      - name: Format Lighthouse results
+        id: format
+        if: always()
+        run: node .github/lighthouse/format-results.js
+
+      - name: Comment PR with Lighthouse results
+        if: always()
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          comment_tag: lighthouse
+          message: ${{ steps.format.outputs.comment }}
 
 permissions:
   contents: read
