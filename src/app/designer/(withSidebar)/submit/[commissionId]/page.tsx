@@ -3,27 +3,49 @@
 import { notFound, useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import { MAX_DRAFT_FILE_COUNT, postDraft, uploadDraftFile } from "@/features/designer/submit";
+import { getApiErrorMessage } from "@/shared/api/client";
 import { getCommissionDetail } from "@/shared/api/commission";
 import type { CommissionDetail } from "@/shared/api/commissionTypes";
 import { useUploadedFiles } from "@/shared/lib/hooks/useUploadedFiles";
+import { isAllowedFileType, MAX_FILE_SIZE_BYTES } from "@/shared/lib/utils/file";
 import Button from "@/shared/ui/Button";
 import FileDragAndDrop from "@/shared/ui/FileDragAndDrop";
 import FileUpload from "@/shared/ui/FileUpload";
 import Modal from "@/shared/ui/modal/Modal";
 import { CommissionDetailSection, CommissionHeader } from "@/widgets/designer/detail";
 
-const MAX_FILE_COUNT = 9;
 type SubmitView = "file" | "detail";
+type FeedbackModal = {
+  title: string;
+  description: string;
+};
 
 const Page = () => {
   const { commissionId } = useParams<{ commissionId: string }>();
   const router = useRouter();
   const [selectedView, setSelectedView] = useState<SubmitView>("file");
   const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
+  const [feedbackModal, setFeedbackModal] = useState<FeedbackModal | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [commission, setCommission] = useState<CommissionDetail | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const { uploadedFiles, handleFilesAdded, handleRemove } = useUploadedFiles();
+  const { uploadedFiles, handleFilesAdded, handleRemove } = useUploadedFiles(
+    undefined,
+    undefined,
+    uploadDraftFile,
+    () => {
+      setFeedbackModal({
+        title: "파일 업로드에 실패했습니다",
+        description: "파일 업로드 중 문제가 발생했습니다.\n잠시 후 다시 시도해 주세요.",
+      });
+    },
+  );
   const isFileSubmitView = selectedView === "file";
+  const isSubmitDisabled =
+    uploadedFiles.length === 0 ||
+    uploadedFiles.some(file => file.isUploading || !file.key) ||
+    isSubmitting;
 
   useEffect(() => {
     let isMounted = true;
@@ -47,21 +69,59 @@ const Page = () => {
   if (isLoading) return null;
   if (!commission) return notFound();
 
-  const handleLimitedFilesAdded = (files: File[]) => {
-    const remainingCount = MAX_FILE_COUNT - uploadedFiles.length;
+  const handleValidatedFilesAdded = (files: File[]) => {
+    const validFiles = files.filter(
+      file => isAllowedFileType(file, [".png"]) && file.size <= MAX_FILE_SIZE_BYTES,
+    );
 
-    if (remainingCount <= 0) return;
+    if (validFiles.length < files.length) {
+      setFeedbackModal({
+        title: "업로드할 수 없는 파일이 있습니다",
+        description: "PNG 파일만 업로드할 수 있으며,\n각 파일은 30MB 이하여야 합니다.",
+      });
+    }
 
-    handleFilesAdded(files.slice(0, remainingCount));
+    if (validFiles.length === 0) return;
+
+    if (uploadedFiles.length + validFiles.length > MAX_DRAFT_FILE_COUNT) {
+      setFeedbackModal({
+        title: "업로드 가능 파일 개수를 초과했습니다",
+        description:
+          "시안 파일은 최대 9개까지 업로드할 수 있습니다.\n기존 파일을 삭제한 후 다시 시도해 주세요.",
+      });
+      return;
+    }
+
+    handleFilesAdded(validFiles);
   };
 
   const handleCloseSubmitModal = () => {
     setIsSubmitModalOpen(false);
   };
 
-  const handleConfirmSubmit = () => {
+  const handleConfirmSubmit = async () => {
     setIsSubmitModalOpen(false);
-    router.push("/designer");
+
+    const keys = uploadedFiles
+      .map(file => file.key)
+      .filter((key): key is string => typeof key === "string");
+
+    if (keys.length !== uploadedFiles.length || keys.length === 0) return;
+
+    setIsSubmitting(true);
+
+    try {
+      await postDraft(commissionId, { keys });
+      router.push("/designer");
+    } catch (error) {
+      const message = (await getApiErrorMessage(error)) || "잠시 후 다시 시도해 주세요.";
+
+      setFeedbackModal({
+        title: "시안 제출에 실패했습니다",
+        description: message,
+      });
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -101,7 +161,7 @@ const Page = () => {
               </div>
 
               <div className="flex w-full flex-col items-start gap-7">
-                <FileDragAndDrop onFilesAdded={handleLimitedFilesAdded} />
+                <FileDragAndDrop onFilesAdded={handleValidatedFilesAdded} />
 
                 {uploadedFiles.length > 0 && (
                   <div className="flex w-full flex-col gap-2">
@@ -126,11 +186,12 @@ const Page = () => {
         {isFileSubmitView && (
           <Button
             type="button"
-            variant="medium_primary"
+            variant={isSubmitDisabled ? "medium_disabled" : "medium_primary"}
             className="w-fit"
+            disabled={isSubmitDisabled}
             onClick={() => setIsSubmitModalOpen(true)}
           >
-            제출하기
+            {isSubmitting ? "제출 중" : "제출하기"}
           </Button>
         )}
       </div>
@@ -147,6 +208,15 @@ const Page = () => {
         onConfirm={handleConfirmSubmit}
         onCancel={handleCloseSubmitModal}
         onClose={handleCloseSubmitModal}
+      />
+      <Modal
+        isOpen={feedbackModal !== null}
+        type="single"
+        title={feedbackModal?.title ?? ""}
+        description={feedbackModal?.description}
+        confirmLabel="확인"
+        onConfirm={() => setFeedbackModal(null)}
+        onClose={() => setFeedbackModal(null)}
       />
     </>
   );
