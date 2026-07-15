@@ -38,27 +38,47 @@ jobs:
             ✅ PREVIEW ${{ steps.deploy.outputs.preview_url }}
 
   lighthouse:
-    needs: vercel-preview
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install pnpm
+        run: npm install --global pnpm@10.29.2
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build app
+        run: pnpm build
+        env:
+          NEXT_PUBLIC_API_BASE_URL: https://api.ditda.kr
+
+      - name: Start app on localhost:3000
+        run: |
+          pnpm start &
+          for i in $(seq 1 30); do
+            curl -sf http://localhost:3000/ > /dev/null && break
+            sleep 2
+          done
+
       - name: Install Puppeteer (for authenticated designer/instructor runs)
         run: npm install --no-save puppeteer
 
       - name: Generate per-role Lighthouse configs
-        env:
-          PREVIEW_URL: ${{ needs.vercel-preview.outputs.preview_url }}
         run: |
-          cat > designer.lighthouserc.json <<EOF
+          cat > designer.lighthouserc.json <<'EOF'
           {
             "ci": {
               "collect": {
                 "url": [
-                  "${PREVIEW_URL}/designer",
-                  "${PREVIEW_URL}/designer/search",
-                  "${PREVIEW_URL}/designer/my"
+                  "http://localhost:3000/designer",
+                  "http://localhost:3000/designer/search",
+                  "http://localhost:3000/designer/my"
                 ],
                 "puppeteerScript": ".github/lighthouse/login.js",
                 "puppeteerLaunchOptions": {
@@ -68,14 +88,14 @@ jobs:
             }
           }
           EOF
-          cat > instructor.lighthouserc.json <<EOF
+          cat > instructor.lighthouserc.json <<'EOF'
           {
             "ci": {
               "collect": {
                 "url": [
-                  "${PREVIEW_URL}/instructor",
-                  "${PREVIEW_URL}/instructor/write",
-                  "${PREVIEW_URL}/instructor/my"
+                  "http://localhost:3000/instructor",
+                  "http://localhost:3000/instructor/write",
+                  "http://localhost:3000/instructor/my"
                 ],
                 "puppeteerScript": ".github/lighthouse/login.js",
                 "puppeteerLaunchOptions": {
@@ -90,8 +110,7 @@ jobs:
         continue-on-error: true
         uses: treosh/lighthouse-ci-action@v12
         with:
-          # Vercel Deployment Protection을 우회하기 위해 쿼리파라미터로 bypass secret 전달
-          urls: ${{ needs.vercel-preview.outputs.preview_url }}/?x-vercel-protection-bypass=${{ secrets.VERCEL_PROTECTION_BYPASS_SECRET }}&x-vercel-set-bypass-cookie=true
+          urls: http://localhost:3000/
           runs: 1
           uploadArtifacts: true
           artifactName: lighthouse-public
@@ -109,7 +128,6 @@ jobs:
         env:
           LHCI_USERNAME: ${{ secrets.LHCI_TEST_DESIGNER_USERNAME }}
           LHCI_PASSWORD: ${{ secrets.LHCI_TEST_DESIGNER_PASSWORD }}
-          VERCEL_PROTECTION_BYPASS_SECRET: ${{ secrets.VERCEL_PROTECTION_BYPASS_SECRET }}
         with:
           configPath: designer.lighthouserc.json
           runs: 1
@@ -129,7 +147,6 @@ jobs:
         env:
           LHCI_USERNAME: ${{ secrets.LHCI_TEST_INSTRUCTOR_USERNAME }}
           LHCI_PASSWORD: ${{ secrets.LHCI_TEST_INSTRUCTOR_PASSWORD }}
-          VERCEL_PROTECTION_BYPASS_SECRET: ${{ secrets.VERCEL_PROTECTION_BYPASS_SECRET }}
         with:
           configPath: instructor.lighthouserc.json
           runs: 1

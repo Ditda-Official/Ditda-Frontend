@@ -10,7 +10,7 @@ const fs = require("fs");
 const path = require("path");
 
 const SECTIONS = [
-  { dir: "lhci-public", title: "공개 페이지 (비로그인)" },
+  { dir: "lhci-public", title: "🌐 공개 페이지 (비로그인)" },
   { dir: "lhci-designer", title: "🎨 디자이너 페이지 (테스트 계정)" },
   { dir: "lhci-instructor", title: "🎓 강사 페이지 (테스트 계정)" },
 ];
