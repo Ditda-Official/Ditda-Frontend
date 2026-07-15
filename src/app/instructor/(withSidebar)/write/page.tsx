@@ -1,14 +1,20 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 import { useWriteFormStore } from "@/features/instructor/write";
 import Modal from "@/shared/ui/modal/Modal";
-import { Step1Content, Step2Content, Step3Content } from "@/widgets/instructor/write";
+import { Step1Content } from "@/widgets/instructor/write";
+
+// 2/3단계는 진입 전까지 번들에 포함시키지 않도록 지연 로딩
+const Step2Content = dynamic(() => import("@/widgets/instructor/write/ui/Step2Content"));
+const Step3Content = dynamic(() => import("@/widgets/instructor/write/ui/Step3Content"));
 
 const WritePageContent = () => {
-  const { currentStep } = useWriteFormStore();
+  const currentStep = useWriteFormStore(s => s.currentStep);
 
   useEffect(() => {
     const main = document.querySelector("main");
@@ -23,7 +29,9 @@ const WritePageContent = () => {
 
 const Page = () => {
   const router = useRouter();
-  const { currentStep, setCurrentStep } = useWriteFormStore();
+  const { currentStep, setCurrentStep } = useWriteFormStore(
+    useShallow(s => ({ currentStep: s.currentStep, setCurrentStep: s.setCurrentStep })),
+  );
   const [showLeaveModal, setShowLeaveModal] = useState(false);
   const [pendingHref, setPendingHref] = useState<string | null>(null);
 

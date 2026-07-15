@@ -4,7 +4,7 @@ import { useWriteFormStore } from "@/features/instructor/write/model/writeFormSt
 import ProgressBar from "@/features/instructor/write/ui/ProgressBar";
 
 const StepHeader = () => {
-  const { currentStep } = useWriteFormStore();
+  const currentStep = useWriteFormStore(s => s.currentStep);
 
   return (
     <header className="bg-gray-10 flex w-full justify-between py-4">

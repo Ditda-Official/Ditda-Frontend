@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 import {
   COMMISSION_FILE_TARGET,
@@ -18,7 +19,14 @@ const MAX_FILE_COUNT = 5;
 
 const AttachFileSection = () => {
   const { materialFiles, setMaterialFiles, materialDescription, setMaterialDescription } =
-    useWriteFormStore();
+    useWriteFormStore(
+      useShallow(s => ({
+        materialFiles: s.materialFiles,
+        setMaterialFiles: s.setMaterialFiles,
+        materialDescription: s.materialDescription,
+        setMaterialDescription: s.setMaterialDescription,
+      })),
+    );
   const [isInvalidFileModalOpen, setIsInvalidFileModalOpen] = useState(false);
   const [isFileCountExceededModalOpen, setIsFileCountExceededModalOpen] = useState(false);
   const { uploadedFiles, handleFilesAdded, handleRemove } = useUploadedFiles(

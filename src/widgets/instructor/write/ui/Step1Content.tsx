@@ -1,5 +1,7 @@
 "use client";
 
+import { useShallow } from "zustand/react/shallow";
+
 import { useWriteFormStore } from "@/features/instructor/write";
 import Button from "@/shared/ui/Button";
 import CategorySection from "@/widgets/instructor/write/ui/CategorySection";
@@ -16,7 +18,17 @@ const Step1Content = () => {
     colorMode,
     colors,
     setCurrentStep,
-  } = useWriteFormStore();
+  } = useWriteFormStore(
+    useShallow(s => ({
+      selectedCategory: s.selectedCategory,
+      selectedSize: s.selectedSize,
+      selectedKeywords: s.selectedKeywords,
+      additionalConcept: s.additionalConcept,
+      colorMode: s.colorMode,
+      colors: s.colors,
+      setCurrentStep: s.setCurrentStep,
+    })),
+  );
 
   const isColorReady = colorMode === "designer" || colors.every(c => c !== null);
   const isConceptReady = selectedKeywords.length >= 1 || additionalConcept.trim().length > 0;

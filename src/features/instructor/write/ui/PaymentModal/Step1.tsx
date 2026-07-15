@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 import {
   PLAN_LABEL_MAP,
@@ -131,7 +132,22 @@ const Step1 = ({
     finalDate,
     isTermsAgreed,
     setIsTermsAgreed,
-  } = useWriteFormStore();
+  } = useWriteFormStore(
+    useShallow(s => ({
+      selectedCategory: s.selectedCategory,
+      selectedSize: s.selectedSize,
+      selectedKeywords: s.selectedKeywords,
+      additionalConcept: s.additionalConcept,
+      colorMode: s.colorMode,
+      colors: s.colors,
+      selectedPages: s.selectedPages,
+      selectedPlan: s.selectedPlan,
+      firstDate: s.firstDate,
+      finalDate: s.finalDate,
+      isTermsAgreed: s.isTermsAgreed,
+      setIsTermsAgreed: s.setIsTermsAgreed,
+    })),
+  );
 
   const [prevErrorMessage, setPrevErrorMessage] = useState(errorMessage);
   const [autoHide, setAutoHide] = useState(false);

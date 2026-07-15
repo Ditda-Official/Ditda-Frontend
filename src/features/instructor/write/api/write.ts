@@ -15,13 +15,22 @@ import {
 import type { ApiResponse } from "@/shared/api/commonType";
 import { postFilePresignedUrl, uploadFileToPresignedUrl } from "@/shared/api/file";
 
-// 플랜 조회
-export const getPlans = async (): Promise<Plan[]> => {
-  const response = await api
-    .get(createApiPath("/api/v1/instructors/commissions/plans"))
-    .json<ApiResponse<GetPlansResult>>();
+// 플랜 조회 (가격표는 세션 중 바뀌지 않으므로 최초 1회만 요청하고 재사용)
+let plansRequest: Promise<Plan[]> | null = null;
 
-  return response.result?.plans ?? [];
+export const getPlans = (): Promise<Plan[]> => {
+  if (!plansRequest) {
+    plansRequest = api
+      .get(createApiPath("/api/v1/instructors/commissions/plans"))
+      .json<ApiResponse<GetPlansResult>>()
+      .then(response => response.result?.plans ?? [])
+      .catch(error => {
+        plansRequest = null;
+        throw error;
+      });
+  }
+
+  return plansRequest;
 };
 
 // 외주 생성(결제) 요청

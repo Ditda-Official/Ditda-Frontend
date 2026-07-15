@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 import {
   getPlans,
@@ -10,7 +11,9 @@ import {
 } from "@/features/instructor/write";
 
 const PlanChooseSection = () => {
-  const { selectedPlan, setSelectedPlan } = useWriteFormStore();
+  const { selectedPlan, setSelectedPlan } = useWriteFormStore(
+    useShallow(s => ({ selectedPlan: s.selectedPlan, setSelectedPlan: s.setSelectedPlan })),
+  );
   const [plans, setPlans] = useState<Plan[]>([]);
 
   useEffect(() => {

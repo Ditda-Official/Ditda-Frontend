@@ -1,5 +1,7 @@
 "use client";
 
+import { useShallow } from "zustand/react/shallow";
+
 import { useWriteFormStore } from "@/features/instructor/write";
 import Button from "@/shared/ui/Button";
 import AttachFileSection from "@/widgets/instructor/write/ui/AttachFileSection";
@@ -16,7 +18,17 @@ const Step2Content = () => {
     referenceFiles,
     referenceDescription,
     setCurrentStep,
-  } = useWriteFormStore();
+  } = useWriteFormStore(
+    useShallow(s => ({
+      basicInfo: s.basicInfo,
+      selectedPages: s.selectedPages,
+      materialFiles: s.materialFiles,
+      materialDescription: s.materialDescription,
+      referenceFiles: s.referenceFiles,
+      referenceDescription: s.referenceDescription,
+      setCurrentStep: s.setCurrentStep,
+    })),
+  );
 
   const isAllFilled =
     basicInfo.교재명.trim() !== "" &&

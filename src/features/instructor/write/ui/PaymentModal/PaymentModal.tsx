@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 import { postCommission } from "@/features/instructor/write/api/write";
 import { useWriteFormStore } from "@/features/instructor/write/model/writeFormStore";
@@ -14,7 +15,9 @@ const PaymentModalContent = ({ onClose }: { onClose?: () => void }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [commissionId, setCommissionId] = useState<number | null>(null);
-  const { basicInfo, getOrderRequest } = useWriteFormStore();
+  const { basicInfo, getOrderRequest } = useWriteFormStore(
+    useShallow(s => ({ basicInfo: s.basicInfo, getOrderRequest: s.getOrderRequest })),
+  );
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 import {
   formatDate,
@@ -13,7 +14,14 @@ import DateDropdownBox from "@/shared/ui/dropdown/DateDropdownBox";
 import DateDropdownMenu from "@/shared/ui/dropdown/DateDropdownMenu";
 
 const DeadlineChooseSection = () => {
-  const { firstDate, setFirstDate, finalDate, setFinalDate } = useWriteFormStore();
+  const { firstDate, setFirstDate, finalDate, setFinalDate } = useWriteFormStore(
+    useShallow(s => ({
+      firstDate: s.firstDate,
+      setFirstDate: s.setFirstDate,
+      finalDate: s.finalDate,
+      setFinalDate: s.setFinalDate,
+    })),
+  );
   const [openMenu, setOpenMenu] = useState<"first" | "final" | null>(null);
 
   const minFirstDate = getMinFirstDate();

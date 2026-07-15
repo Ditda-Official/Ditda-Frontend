@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-import landingTitle from "@/shared/assets/images/landing/landing_title.png";
+import landingTitle from "@/shared/assets/images/landing/landing_title.webp";
 import { PurpleLogo } from "@/shared/assets/logos";
 import Button from "@/shared/ui/Button";
 
