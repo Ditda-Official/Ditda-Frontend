@@ -67,7 +67,10 @@ jobs:
           done
 
       - name: Install Puppeteer (for authenticated designer/instructor runs)
-        run: npm install --no-save puppeteer
+        # node_modules is already pnpm-managed from the earlier install step;
+        # `npm install` there corrupts it (npm error: Cannot read properties of null
+        # (reading 'matches')), so use pnpm here too.
+        run: pnpm add --save-dev puppeteer
 
       - name: Generate per-role Lighthouse configs
         run: |
