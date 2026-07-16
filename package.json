@@ -9,7 +9,9 @@
     "start": "next start",
     "lint": "eslint . --ext .js,.ts,.tsx --fix",
     "prepare": "husky install",
-    "prettier": "prettier --write ."
+    "prettier": "prettier --write .",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
   },
   "lint-staged": {
     "*.{ts,tsx,js,json,css,md}": [
@@ -33,6 +35,7 @@
     "zustand": "^5.0.13"
   },
   "devDependencies": {
+    "@playwright/test": "^1.61.1",
     "@svgr/webpack": "^8.1.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
