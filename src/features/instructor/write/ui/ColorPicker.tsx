@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { RgbaColorPicker } from "react-colorful";
 
 import type { RgbaColor } from "@/features/instructor/write/lib/color";
@@ -16,6 +16,19 @@ const inputBase =
 
 const ColorPicker = ({ value, onChange }: ColorPickerProps) => {
   const [internal, setInternal] = useState<RgbaColor>({ r: 0, g: 0, b: 0, a: 100 });
+  // react-colorful은 color prop이 외부에서 바뀌면(예: 다른 카드로 전환) 내부 HSV
+  // 변환을 다시 계산하면서 실제 포인터 조작 없이도 onChange를 스스로 여러 번 호출한다.
+  // 이 자동 보정 호출까지 커밋하면 사용자가 고르지 않은 카드에 값이 채워지므로,
+  // 그라디언트/슬라이더를 실제로 누르고 있는 동안에만 onChange를 반영한다.
+  const isPointerDownRef = useRef(false);
+
+  useEffect(() => {
+    const handlePointerUp = () => {
+      isPointerDownRef.current = false;
+    };
+    document.addEventListener("pointerup", handlePointerUp);
+    return () => document.removeEventListener("pointerup", handlePointerUp);
+  }, []);
 
   const color = value ?? internal;
   const setColor = (next: RgbaColor) => {
@@ -42,11 +55,20 @@ const ColorPicker = ({ value, onChange }: ColorPickerProps) => {
 
   return (
     <div className="rounded-12 border-gray-30 flex w-79.25 flex-col gap-3 border p-4">
-      <RgbaColorPicker
-        className="h-60! w-full!"
-        color={{ ...color, a: color.a / 100 }}
-        onChange={c => setColor({ ...c, a: Math.round(c.a * 100) })}
-      />
+      <div
+        onPointerDownCapture={() => {
+          isPointerDownRef.current = true;
+        }}
+      >
+        <RgbaColorPicker
+          className="h-60! w-full!"
+          color={{ ...color, a: color.a / 100 }}
+          onChange={c => {
+            if (!isPointerDownRef.current) return;
+            setColor({ ...c, a: Math.round(c.a * 100) });
+          }}
+        />
+      </div>
       <div className="flex gap-1.5">
         {/* Hex */}
         <div className="flex min-w-0 flex-[1.5] flex-col items-center gap-1">

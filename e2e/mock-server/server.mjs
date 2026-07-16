@@ -1,10 +1,9 @@
 import { createServer } from "node:http";
 
 // SSR(서버 컴포넌트)와 브라우저 양쪽에서 오는 API 요청을 한 곳에서 스텁하기 위한 로컬 목 서버.
-// playwright.config.ts가 NEXT_PUBLIC_API_BASE_URL을 이 서버 주소로 덮어써 실행하므로,
-// `serverApi`(Node 프로세스에서 fetch)와 `api`(브라우저에서 fetch) 요청이 모두 여기로 온다.
 const PORT = 4010;
 const routes = new Map();
+const callCounts = new Map();
 
 const routeKey = (method, path) => `${method.toUpperCase()} ${path}`;
 
@@ -31,6 +30,8 @@ const send = (res, origin, status, body) => {
   res.end(JSON.stringify(body));
 };
 
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
 const server = createServer(async (req, res) => {
   const origin = req.headers.origin ?? "*";
 
@@ -54,19 +55,29 @@ const server = createServer(async (req, res) => {
   }
 
   if (url.pathname === "/__mock__/route" && req.method === "POST") {
-    const { method, path, status, body } = await readJsonBody(req);
-    routes.set(routeKey(method, path), { status, body });
+    const { method, path, status, body, delayMs } = await readJsonBody(req);
+    routes.set(routeKey(method, path), { status, body, delayMs });
+    callCounts.set(routeKey(method, path), 0);
     send(res, origin, 200, { ok: true });
+    return;
+  }
+
+  if (url.pathname === "/__mock__/calls" && req.method === "GET") {
+    const method = url.searchParams.get("method") ?? "GET";
+    const path = url.searchParams.get("path") ?? "";
+    send(res, origin, 200, { count: callCounts.get(routeKey(method, path)) ?? 0 });
     return;
   }
 
   if (url.pathname === "/__mock__/reset" && req.method === "POST") {
     routes.clear();
+    callCounts.clear();
     send(res, origin, 200, { ok: true });
     return;
   }
 
-  const fixture = routes.get(routeKey(req.method, url.pathname));
+  const key = routeKey(req.method, url.pathname);
+  const fixture = routes.get(key);
 
   if (!fixture) {
     send(res, origin, 404, {
@@ -79,6 +90,10 @@ const server = createServer(async (req, res) => {
     });
     return;
   }
+
+  callCounts.set(key, (callCounts.get(key) ?? 0) + 1);
+
+  if (fixture.delayMs) await sleep(fixture.delayMs);
 
   send(res, origin, fixture.status, fixture.body);
 });
