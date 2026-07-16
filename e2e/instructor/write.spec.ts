@@ -1,5 +1,6 @@
 import { expect, test } from "../fixtures/auth";
 import { getCallCount, mockApi, mockApiError } from "../utils/mockApi";
+import { mockEmptyHomeDashboards } from "./home.helpers";
 import {
   agreeToTerms,
   clickNext,
@@ -246,6 +247,7 @@ test.describe("결제 완료 후 입금 통보", () => {
       },
     });
     await mockApi(NOTIFY_DEPOSIT_PATH(123), { method: "POST", result: null });
+    await mockEmptyHomeDashboards();
 
     const modal = page.locator(PAYMENT_MODAL_SELECTOR);
     await agreeToTerms(page);

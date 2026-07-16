@@ -7,6 +7,7 @@ import {
   mockDrafts,
   SELECT_DRAFT_PATH,
 } from "./choose.helpers";
+import { mockEmptyHomeDashboards } from "./home.helpers";
 
 const COMMISSION_ID = "501";
 
@@ -66,6 +67,7 @@ test.describe("매칭 후 1차 시안 선택 — /instructor/choose/[commissionI
     });
 
     test("확인을 누르면 postSelectDraft 호출 후 /instructor로 이동한다", async ({ page }) => {
+      await mockEmptyHomeDashboards();
       await mockApi(SELECT_DRAFT_PATH(COMMISSION_ID, 22), { method: "POST", result: null });
 
       await page.getByRole("button", { name: "제출하기" }).click();
@@ -77,6 +79,7 @@ test.describe("매칭 후 1차 시안 선택 — /instructor/choose/[commissionI
     });
 
     test("postSelectDraft 실패 시 모달이 닫히지 않고 재시도할 수 있다", async ({ page }) => {
+      await mockEmptyHomeDashboards();
       await mockApiError(SELECT_DRAFT_PATH(COMMISSION_ID, 22), { method: "POST" });
 
       await page.getByRole("button", { name: "제출하기" }).click();
