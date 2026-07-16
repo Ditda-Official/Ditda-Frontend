@@ -1,8 +1,10 @@
 import path from "node:path";
 
+import svgr from "vite-plugin-svgr";
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
+  plugins: [svgr({ include: "**/*.svg", svgrOptions: { dimensions: false } })],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

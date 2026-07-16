@@ -60,6 +60,7 @@
     "prettier-plugin-tailwindcss": "^0.8.0",
     "tailwindcss": "^4",
     "typescript": "^5",
+    "vite-plugin-svgr": "^5.2.0",
     "vitest": "^4.1.10"
   }
 }
