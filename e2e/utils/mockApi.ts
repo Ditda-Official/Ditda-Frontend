@@ -65,3 +65,15 @@ export const mockApiError = (
 export const resetMocks = async () => {
   await fetch(`${MOCK_SERVER_URL}/__mock__/reset`, { method: "POST" });
 };
+
+// 실제로 그 경로/메서드로 마지막에 보낸 요청 바디를 확인 (요청 페이로드 검증용)
+export const getLastRequestBody = async <T = unknown>(
+  path: string,
+  method: HttpMethod = "POST",
+): Promise<T | null> => {
+  const response = await fetch(
+    `${MOCK_SERVER_URL}/__mock__/last-body?method=${method}&path=${encodeURIComponent(path)}`,
+  );
+  const { body } = (await response.json()) as { body: T | null };
+  return body;
+};

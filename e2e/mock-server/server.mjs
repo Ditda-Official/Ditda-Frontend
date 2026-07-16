@@ -4,6 +4,7 @@ import { createServer } from "node:http";
 const PORT = 4010;
 const routes = new Map();
 const callCounts = new Map();
+const lastRequestBodies = new Map();
 
 const routeKey = (method, path) => `${method.toUpperCase()} ${path}`;
 
@@ -72,12 +73,28 @@ const server = createServer(async (req, res) => {
   if (url.pathname === "/__mock__/reset" && req.method === "POST") {
     routes.clear();
     callCounts.clear();
+    lastRequestBodies.clear();
     send(res, origin, 200, { ok: true });
+    return;
+  }
+
+  if (url.pathname === "/__mock__/last-body" && req.method === "GET") {
+    const method = url.searchParams.get("method") ?? "GET";
+    const path = url.searchParams.get("path") ?? "";
+    send(res, origin, 200, { body: lastRequestBodies.get(routeKey(method, path)) ?? null });
     return;
   }
 
   const key = routeKey(req.method, url.pathname);
   const fixture = routes.get(key);
+
+  // 등록된 fixture가 있든 없든, 테스트가 나중에 검증할 수 있도록 실제로 보낸
+  // 요청 바디를 저장해둔다(예: 수정 요청 시 category 코드 매핑 검증).
+  try {
+    lastRequestBodies.set(key, await readJsonBody(req));
+  } catch {
+    lastRequestBodies.set(key, null);
+  }
 
   if (!fixture) {
     send(res, origin, 404, {
