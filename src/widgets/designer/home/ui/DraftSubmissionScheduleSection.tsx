@@ -1,25 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
 import {
   CommissionsHeader,
   type DraftSubmissionItem,
   DraftSubmissionScheduleRow,
-  getDraftSubmissions,
 } from "@/features/designer/home";
 import { NextButton, PrevButton } from "@/shared/assets/icons";
 import usePagination from "@/shared/lib/hooks/usePagination";
 import PageIndicator from "@/shared/ui/PageIndicator";
 import { DRAFT_SUBMISSION_ITEMS_PER_PAGE } from "@/widgets/designer/home/config/home";
 
-const DraftSubmissionScheduleSection = () => {
-  const [items, setItems] = useState<DraftSubmissionItem[]>([]);
-
-  useEffect(() => {
-    getDraftSubmissions().then(setItems);
-  }, []);
-
+const DraftSubmissionScheduleSection = ({ items }: { items: DraftSubmissionItem[] }) => {
   const { current, totalPages, pageItems, handlePrev, handleNext } =
     usePagination<DraftSubmissionItem>(items, DRAFT_SUBMISSION_ITEMS_PER_PAGE);
 

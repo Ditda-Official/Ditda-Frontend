@@ -1,10 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
 import {
   CommissionsHeader,
-  getAnnouncements,
   type PresentationWaitingItem,
   PresentationWaitingRow,
 } from "@/features/designer/home";
@@ -13,13 +10,7 @@ import usePagination from "@/shared/lib/hooks/usePagination";
 import PageIndicator from "@/shared/ui/PageIndicator";
 import { MATCHING_ITEMS_PER_PAGE } from "@/widgets/designer/home/config/home";
 
-const PresentationWaitingSection = () => {
-  const [items, setItems] = useState<PresentationWaitingItem[]>([]);
-
-  useEffect(() => {
-    getAnnouncements().then(setItems);
-  }, []);
-
+const PresentationWaitingSection = ({ items }: { items: PresentationWaitingItem[] }) => {
   const { current, totalPages, pageItems, handlePrev, handleNext } =
     usePagination<PresentationWaitingItem>(items, MATCHING_ITEMS_PER_PAGE);
 

@@ -1,3 +1,5 @@
+import "server-only";
+
 import type {
   DraftSubmissionItem,
   GetAnnouncementsResult,
@@ -6,13 +8,13 @@ import type {
   ModifyingItem,
   PresentationWaitingItem,
 } from "@/features/designer/home/api/homeTypes";
-import { api, createApiPath } from "@/shared/api/client";
 import type { ApiResponse } from "@/shared/api/commonType";
+import { serverApi } from "@/shared/api/server";
 
 // 시안 제출 예정 외주 조회
 export const getDraftSubmissions = async (): Promise<DraftSubmissionItem[]> => {
-  const response = await api
-    .get(createApiPath("/api/v1/designers/dashboards/draft-submissions"))
+  const response = await serverApi
+    .get("/api/v1/designers/dashboards/draft-submissions", { cache: "no-store" })
     .json<ApiResponse<GetDraftSubmissionsResult>>();
 
   return response.result?.commissions ?? [];
@@ -20,8 +22,8 @@ export const getDraftSubmissions = async (): Promise<DraftSubmissionItem[]> => {
 
 // 수정 중인 외주 조회
 export const getRevisions = async (): Promise<ModifyingItem[]> => {
-  const response = await api
-    .get(createApiPath("/api/v1/designers/dashboards/revisions"))
+  const response = await serverApi
+    .get("/api/v1/designers/dashboards/revisions", { cache: "no-store" })
     .json<ApiResponse<GetRevisionsResult>>();
 
   return response.result?.commissions ?? [];
@@ -29,8 +31,8 @@ export const getRevisions = async (): Promise<ModifyingItem[]> => {
 
 // 발표 대기 외주 조회
 export const getAnnouncements = async (): Promise<PresentationWaitingItem[]> => {
-  const response = await api
-    .get(createApiPath("/api/v1/designers/dashboards/announcements"))
+  const response = await serverApi
+    .get("/api/v1/designers/dashboards/announcements", { cache: "no-store" })
     .json<ApiResponse<GetAnnouncementsResult>>();
 
   return response.result?.commissions ?? [];
