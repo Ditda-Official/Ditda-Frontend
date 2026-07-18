@@ -1,10 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
 import {
   CommissionsHeader,
-  getRevisions,
   ModifyingCommissionsRow,
   type ModifyingItem,
 } from "@/features/designer/home";
@@ -13,13 +10,7 @@ import usePagination from "@/shared/lib/hooks/usePagination";
 import PageIndicator from "@/shared/ui/PageIndicator";
 import { MODIFYING_ITEMS_PER_PAGE } from "@/widgets/designer/home/config/home";
 
-const ModifyingCommissionsSection = () => {
-  const [items, setItems] = useState<ModifyingItem[]>([]);
-
-  useEffect(() => {
-    getRevisions().then(setItems);
-  }, []);
-
+const ModifyingCommissionsSection = ({ items }: { items: ModifyingItem[] }) => {
   const { current, totalPages, pageItems, handlePrev, handleNext } = usePagination<ModifyingItem>(
     items,
     MODIFYING_ITEMS_PER_PAGE,
