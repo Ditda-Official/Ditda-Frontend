@@ -50,7 +50,7 @@ const Page = () => {
             </form>
 
             <div className="flex flex-col items-center gap-3">
-              <p className="text-body1-m text-gray-60">Ditda가 처음이신가요?</p>
+              <p className="text-body1-m text-gray-60">ditda가 처음이신가요?</p>
               <Link
                 className="text-heading3-sb text-gray-70 cursor-pointer underline"
                 href="/signup"
