@@ -55,7 +55,7 @@ const TermsSection = ({
   return (
     <div className="flex flex-col gap-2">
       <h2 className="text-gray-90 text-body2-m">약관동의</h2>
-      <div className="bg-gray-20 rounded-10 flex flex-col gap-2.5 px-5 py-4">
+      <div className="bg-gray-10 rounded-10 flex flex-col gap-2.5 px-5 py-4">
         <p className="text-gray-90 text-body2-r">결제·환불 정책</p>
         <div className="flex flex-col">
           <div className="flex flex-row items-center gap-2">

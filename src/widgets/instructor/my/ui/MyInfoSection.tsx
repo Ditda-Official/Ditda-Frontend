@@ -7,7 +7,7 @@ type MyInfoSectionProps = MyInfo;
 
 const MyInfoSection = ({ name, profileImageUrl, stats }: MyInfoSectionProps) => {
   return (
-    <div className="w-212.75">
+    <div className="w-275">
       <div className="flex flex-row items-center gap-4 rounded-t-xl bg-purple-50 px-6 py-5">
         {profileImageUrl != null ? (
           <Image

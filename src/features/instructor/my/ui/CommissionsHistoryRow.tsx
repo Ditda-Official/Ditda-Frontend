@@ -25,9 +25,9 @@ const CommissionsHistoryRow = ({ item }: { item: CommissionHistoryItem }) => {
         </div>
       </div>
       <div className="flex flex-row items-center gap-16">
-        <p className="text-gray-70 text-heading2-m w-25">{createdAt.replaceAll("-", ".")}</p>
-        <p className="text-gray-70 text-heading2-m w-14">{PLAN_DISPLAY_MAP[plan]}</p>
-        <p className="text-gray-90 text-heading3-m w-25">
+        <p className="text-gray-70 text-heading3-m w-25">{createdAt.replaceAll("-", ".")}</p>
+        <p className="text-gray-70 text-heading3-m w-14">{PLAN_DISPLAY_MAP[plan]}</p>
+        <p className="text-gray-90 text-heading2-m w-25">
           {(paidAmount ?? PLAN_PAID_AMOUNT_MAP[plan]).toLocaleString()}원
         </p>
       </div>

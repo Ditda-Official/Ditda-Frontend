@@ -72,7 +72,7 @@ const ReferenceTab = ({ files }: ReferenceTabProps) => {
           <h3 className="text-gray-70 text-body1-sb border-gray-30 inline-block w-fit border-b pb-1">
             자료 정보
           </h3>
-          <div className="text-gray-80 text-body1-m pt-3 pb-3 whitespace-pre-line">
+          <div className="text-gray-60 text-body1-m pt-3 pb-3 whitespace-pre-line">
             {materialDescription || "작성된 자료 정보가 없습니다"}
           </div>
         </div>
@@ -91,7 +91,7 @@ const ReferenceTab = ({ files }: ReferenceTabProps) => {
           <h3 className="text-gray-70 text-body1-sb border-gray-30 inline-block w-fit border-b pb-1">
             레퍼런스 참고사항
           </h3>
-          <div className="text-gray-80 text-body1-m pt-3 pb-13 whitespace-pre-line">
+          <div className="text-gray-60 text-body1-m pt-3 pb-13 whitespace-pre-line">
             {referenceDescription || "작성된 레퍼런스 참고사항이 없습니다"}
           </div>
         </div>
