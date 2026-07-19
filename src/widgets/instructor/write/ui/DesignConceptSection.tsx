@@ -77,14 +77,16 @@ const DesignConceptSection = () => {
       </div>
       <ConceptResult selectedKeywords={selectedKeywords} onRemove={handleRemove} />
       <div className="border-t-gray-20 flex flex-col gap-2 border-t pt-3 pb-1">
-        <div className="flex flex-row items-center gap-1">
+        <div
+          className="flex cursor-pointer flex-row items-center gap-1"
+          onClick={() => setIsAdditionalOpen(prev => !prev)}
+        >
           <ExclamationMarkCircleIcon className="text-blue-main size-5 shrink-0" />
           <p className="text-gray-70 text-body1-sb">
             원하는 컨셉이 없거나 추가로 반영할 내용이 있다면 직접 입력할 수 있어요
           </p>
           <ArrowDownIcon
-            className={`text-gray-70 size-6 cursor-pointer transition-transform ${isAdditionalOpen ? "rotate-180" : ""}`}
-            onClick={() => setIsAdditionalOpen(prev => !prev)}
+            className={`text-gray-70 size-6 transition-transform ${isAdditionalOpen ? "rotate-180" : ""}`}
           />
         </div>
         <div
@@ -94,7 +96,7 @@ const DesignConceptSection = () => {
         >
           <div className="overflow-hidden">
             <TextField
-              placeholder="'매듭'을 시각화하여, 굵기가 다른 선들이 엉켜있다가 하나의 단단한 매듭을 이루는 그래픽을 메인으로 사용해주세요."
+              placeholder="ex) '매듭'을 시각화하여, 굵기가 다른 선들이 엉켜있다가 하나의 단단한 매듭을 이루는 그래픽을 메인으로 사용해주세요."
               value={additionalConcept}
               onChange={e => setAdditionalConcept(e.target.value)}
             />

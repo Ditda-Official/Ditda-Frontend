@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useShallow } from "zustand/react/shallow";
 
 import { CATEGORIES, useWriteFormStore } from "@/features/instructor/write";
@@ -15,14 +15,26 @@ const CategorySection = () => {
     })),
   );
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [isFocused, setIsFocused] = useState(true);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (sectionRef.current && !sectionRef.current.contains(e.target as Node)) {
+        setIsFocused(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const handleCategoryClick = (index: number) => {
     if (CATEGORIES[index].items.length === 0) return;
+    setIsFocused(true);
     if (openIndex === index) {
       setOpenIndex(null);
     } else {
       setOpenIndex(index);
-      if (selectedCategory?.categoryIndex !== index) setSelectedCategory(null);
     }
   };
 
@@ -32,7 +44,9 @@ const CategorySection = () => {
 
   return (
     <div
-      className={`rounded-12 focus-within:border-gray-40 flex flex-col gap-8 border bg-white px-6 pt-6 ${openIndex !== null ? "border-gray-40 pb-6" : "border-transparent pb-0"}`}
+      ref={sectionRef}
+      onClick={() => setIsFocused(true)}
+      className={`rounded-12 flex flex-col gap-8 border bg-white px-6 pt-6 ${isFocused ? "border-gray-40" : "border-transparent"} ${openIndex !== null ? "pb-6" : "pb-0"}`}
     >
       <div>
         <div className="flex flex-row items-center justify-between pb-2">

@@ -15,7 +15,7 @@ export const LEVEL_CONTENT: Record<
       { text: "서비스에 가입한", highlight: true },
       { text: "디자이너라면 누구든!", highlight: false },
     ],
-    price: "30,000원",
+    price: "40,000원",
   },
   L2: {
     label: "활동 이력 축적 디자이너",
@@ -26,7 +26,7 @@ export const LEVEL_CONTENT: Record<
       { text: "채택 1회", highlight: true },
       { text: "이상", highlight: false },
     ],
-    price: "40,000원",
+    price: "50,000원",
   },
   L3: {
     label: "실력•신뢰 검증 디자이너",
@@ -34,6 +34,6 @@ export const LEVEL_CONTENT: Record<
       { text: "채택률•만족도", highlight: true },
       { text: "기준 달성", highlight: false },
     ],
-    price: "50,000원",
+    price: "60,000원",
   },
 };

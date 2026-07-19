@@ -22,10 +22,13 @@ const SidebarMenu = ({ label, href, matchPrefix, disabled = false, onClick }: Si
   const isSelected = href ? pathname === href || prefixes.some(p => pathname.startsWith(p)) : false;
   const isActive = isSelected || isHovered;
   const icons = SIDEBAR_ICON_MAP[label];
+  const isLogout = label === "로그아웃";
 
   const content = (
     <div
-      className={`flex flex-row items-center gap-2 ${isSelected ? "text-gray-90" : "text-gray-80"}`}
+      className={`flex flex-row items-center gap-2 ${
+        isSelected ? "text-gray-90" : isLogout && !isActive ? "text-gray-70" : "text-gray-80"
+      }`}
     >
       {icons &&
         (isActive ? <icons.boldIcon className="size-4.5" /> : <icons.icon className="size-4.5" />)}

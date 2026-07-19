@@ -16,7 +16,10 @@ const DraftSubmissionStatusRow = ({ item }: { item: DraftSubmissionItem }) => {
   const router = useRouter();
 
   return (
-    <div className="border-b-gray-10 hover:bg-gray-5 flex h-15 cursor-pointer items-center border-b py-3 transition-colors duration-150">
+    <div
+      className="[&:hover:not(:has(button:hover))]:bg-gray-5 border-b-gray-10 flex h-15 cursor-pointer items-center border-b py-3 transition-colors duration-150"
+      onClick={() => router.push(`/instructor/detail/${commissionId}`)}
+    >
       <div className="flex w-full flex-row justify-between">
         <div className="flex flex-row items-center gap-6">
           <Tag variant="default" label={getDDay(firstDraftDeadline)} />
@@ -36,15 +39,18 @@ const DraftSubmissionStatusRow = ({ item }: { item: DraftSubmissionItem }) => {
                 <MatchingOffIcon key={i} className="size-8" />
               ))}
             </div>
-            <p className="text-heading3-sb text-gray-60">
-              (<span className="text-main-main">{submitted}</span>/{total})
+            <p className="text-heading3-m text-gray-60">
+              (<span className="text-heading3-sb text-main-main">{submitted}</span>/{total})
             </p>
           </div>
           {isViewable ? (
             <Button
               variant="small_primary"
               className="w-fit"
-              onClick={() => router.push(`/instructor/choose/${commissionId}`)}
+              onClick={e => {
+                e.stopPropagation();
+                router.push(`/instructor/choose/${commissionId}`);
+              }}
             >
               확인하기
             </Button>

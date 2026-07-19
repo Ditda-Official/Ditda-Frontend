@@ -19,10 +19,8 @@ const Toggle = <T extends string>({ options, value, onChange }: ToggleProps<T>) 
             type="button"
             onClick={() => onChange(option.value)}
             className={cn(
-              "rounded-8 -m-px cursor-pointer border px-3 py-2 transition-colors duration-150 outline-none",
-              isActive
-                ? "border-main-main text-main-dark bg-white"
-                : "text-gray-60 border-transparent",
+              "rounded-8 cursor-pointer px-3 py-2 ring-1 transition-colors duration-150 outline-none ring-inset",
+              isActive ? "ring-main-main text-main-dark bg-white" : "text-gray-60 ring-transparent",
             )}
           >
             <span className={isActive ? "text-body2-sb" : "text-body2-m"}>{option.label}</span>
