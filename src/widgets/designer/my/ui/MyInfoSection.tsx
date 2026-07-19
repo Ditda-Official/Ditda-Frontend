@@ -49,7 +49,7 @@ const MyInfoSection = ({ name, profileImageUrl, levelInfo, stats }: MyInfoSectio
           <div className="border-gray-30 self-stretch border-l" />
           <div className="flex items-center justify-center gap-14 px-20.5">
             <p className="text-body2-m text-gray-70">당첨률</p>
-            <p className="text-heading3-sb text-gray-80">{stats.winRate}%</p>
+            <p className="text-heading3-sb text-gray-80">{stats.winRate.toFixed(1)}%</p>
           </div>
         </div>
       </div>
