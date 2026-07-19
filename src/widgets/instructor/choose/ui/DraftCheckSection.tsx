@@ -34,11 +34,11 @@ const DraftCheckSection = ({
       </h2>
       <div className="flex flex-row justify-end gap-4 pb-4">
         <PrevButton
-          className={`size-12 ${page > 0 ? "cursor-pointer" : "cursor-default opacity-30"}`}
+          className={`hover:fill-gray-5 size-12 transition-colors ${page > 0 ? "cursor-pointer" : "cursor-default opacity-30"}`}
           onClick={() => setPage(p => Math.max(0, p - 1))}
         />
         <NextButton
-          className={`size-12 ${page < totalPages - 1 ? "cursor-pointer" : "cursor-default opacity-30"}`}
+          className={`hover:fill-gray-5 size-12 transition-colors ${page < totalPages - 1 ? "cursor-pointer" : "cursor-default opacity-30"}`}
           onClick={() => setPage(p => Math.min(totalPages - 1, p + 1))}
         />
       </div>

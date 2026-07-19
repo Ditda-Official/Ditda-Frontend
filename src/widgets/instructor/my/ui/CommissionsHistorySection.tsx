@@ -52,9 +52,15 @@ const CommissionsHistorySection = () => {
       </div>
       {totalPages > 0 && (
         <div className="flex flex-row items-center justify-center gap-8">
-          <PrevButton className="size-12 cursor-pointer" onClick={handlePrev} />
+          <PrevButton
+            className="hover:fill-gray-5 size-12 cursor-pointer transition-colors"
+            onClick={handlePrev}
+          />
           <PageIndicator total={totalPages} current={page} variant="my" />
-          <NextButton className="size-12 cursor-pointer" onClick={handleNext} />
+          <NextButton
+            className="hover:fill-gray-5 size-12 cursor-pointer transition-colors"
+            onClick={handleNext}
+          />
         </div>
       )}
     </div>

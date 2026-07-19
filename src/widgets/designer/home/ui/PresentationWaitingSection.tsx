@@ -45,9 +45,15 @@ const PresentationWaitingSection = ({ items }: { items: PresentationWaitingItem[
 
           {pageItems.length > 0 && (
             <div className="flex items-center justify-between">
-              <PrevButton className="size-12 cursor-pointer" onClick={handlePrev} />
+              <PrevButton
+                className="hover:fill-gray-5 size-12 cursor-pointer transition-colors"
+                onClick={handlePrev}
+              />
               <PageIndicator total={totalPages} current={current} />
-              <NextButton className="size-12 cursor-pointer" onClick={handleNext} />
+              <NextButton
+                className="hover:fill-gray-5 size-12 cursor-pointer transition-colors"
+                onClick={handleNext}
+              />
             </div>
           )}
         </div>

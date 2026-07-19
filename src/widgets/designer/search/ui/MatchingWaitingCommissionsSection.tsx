@@ -70,7 +70,7 @@ const MatchingWaitingCommissionsSection = () => {
               disabled={current === 0}
               className="disabled:cursor-not-allowed disabled:opacity-40"
             >
-              <PrevButton className="size-12 cursor-pointer" />
+              <PrevButton className="hover:fill-gray-5 size-12 cursor-pointer transition-colors" />
             </button>
             <PageIndicator total={totalPages} current={current} />
             <button
@@ -80,7 +80,7 @@ const MatchingWaitingCommissionsSection = () => {
               disabled={current === totalPages - 1}
               className="disabled:cursor-not-allowed disabled:opacity-40"
             >
-              <NextButton className="size-12 cursor-pointer" />
+              <NextButton className="hover:fill-gray-5 size-12 cursor-pointer transition-colors" />
             </button>
           </div>
         )}
