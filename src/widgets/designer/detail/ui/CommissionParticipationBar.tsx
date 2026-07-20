@@ -12,9 +12,33 @@ interface CommissionParticipationBarProps {
   baseAmount: number;
   maxAmount: number;
   applied: boolean;
+  applicationDeadline: string;
 }
 
 const formatAmount = (amount: number) => `${amount.toLocaleString("ko-KR")}원`;
+
+const isCancellationLockPeriod = (applicationDeadline: string) => {
+  const [year, month, day] = applicationDeadline.split("-").map(Number);
+
+  if (!year || !month || !day) return false;
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const cancellationLockDate = new Date(year, month - 1, day);
+
+  if (
+    cancellationLockDate.getFullYear() !== year ||
+    cancellationLockDate.getMonth() !== month - 1 ||
+    cancellationLockDate.getDate() !== day
+  ) {
+    return false;
+  }
+
+  cancellationLockDate.setDate(cancellationLockDate.getDate() - 4);
+
+  return today >= cancellationLockDate;
+};
 
 const RewardItem = ({ label, amount }: { label: string; amount: string }) => {
   return (
@@ -30,11 +54,13 @@ const CommissionParticipationBar = ({
   baseAmount,
   maxAmount,
   applied,
+  applicationDeadline,
 }: CommissionParticipationBarProps) => {
   const router = useRouter();
   const [isApplied, setIsApplied] = useState(applied);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isParticipationModalOpen, setIsParticipationModalOpen] = useState(false);
+  const isCancellationDisabled = isApplied && isCancellationLockPeriod(applicationDeadline);
 
   const handleParticipationClick = async () => {
     if (isSubmitting) return;
@@ -86,9 +112,9 @@ const CommissionParticipationBar = ({
         </div>
         <Button
           type="button"
-          variant={isSubmitting ? "medium_disabled" : "medium_primary"}
+          variant={isSubmitting || isCancellationDisabled ? "medium_disabled" : "medium_primary"}
           className="w-60"
-          disabled={isSubmitting}
+          disabled={isSubmitting || isCancellationDisabled}
           onClick={handleParticipationClick}
         >
           {isSubmitting ? "처리 중" : isApplied ? "취소하기" : "참여하기"}
@@ -99,7 +125,9 @@ const CommissionParticipationBar = ({
         isOpen={isParticipationModalOpen}
         type="double"
         title="해당 외주에 참여하시겠습니까?"
-        description={"외주에 참여하시겠습니까?\n참여 취소는 현재외주-외주정보에서 가능합니다."}
+        description={
+          "참여 취소는 현재외주-외주정보에서 가능합니다.\n참여 취소는 참여 마감일 5일 전까지 가능합니다."
+        }
         confirmLabel="확인"
         cancelLabel="취소"
         onConfirm={handleConfirmParticipation}

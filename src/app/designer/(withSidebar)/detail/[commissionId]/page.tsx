@@ -73,6 +73,7 @@ const Page = ({ params, searchParams }: PageProps) => {
           baseAmount={priceInfo.baseAmount}
           maxAmount={priceInfo.maxAmount}
           applied={commission.applied ?? false}
+          applicationDeadline={dateInfo.applicationDeadline}
         />
       )}
     </div>
