@@ -34,7 +34,7 @@ const DesignInfoTab = ({ category, designInfo }: DesignInfoTabProps) => {
         </p>
       </div>
       <div className="flex flex-col gap-5">
-        <h3 className="text-gray-70 text-caption1-sb">디자인 컨셉</h3>
+        <h3 className="text-gray-80 text-heading3-sb">디자인 컨셉</h3>
         <div className="flex flex-row gap-12">
           {CONCEPT_CATEGORIES.map(({ title, keywords }) => (
             <div key={title} className="flex flex-col gap-4 bg-white">
