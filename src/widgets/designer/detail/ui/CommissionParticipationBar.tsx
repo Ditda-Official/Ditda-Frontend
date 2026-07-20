@@ -1,9 +1,11 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { postApplyCommission, postCancelCommission } from "@/features/designer/detail";
 import Button from "@/shared/ui/Button";
+import Modal from "@/shared/ui/modal/Modal";
 
 interface CommissionParticipationBarProps {
   commissionId: number;
@@ -29,45 +31,82 @@ const CommissionParticipationBar = ({
   maxAmount,
   applied,
 }: CommissionParticipationBarProps) => {
+  const router = useRouter();
   const [isApplied, setIsApplied] = useState(applied);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isParticipationModalOpen, setIsParticipationModalOpen] = useState(false);
 
-  const handleParticipation = async () => {
+  const handleParticipationClick = async () => {
     if (isSubmitting) return;
+
+    if (!isApplied) {
+      setIsParticipationModalOpen(true);
+      return;
+    }
 
     setIsSubmitting(true);
 
     try {
-      if (isApplied) {
-        await postCancelCommission(commissionId);
-      } else {
-        await postApplyCommission(commissionId);
-      }
-
-      setIsApplied(current => !current);
+      await postCancelCommission(commissionId);
+      setIsApplied(false);
     } catch {
-      // 요청 실패 시 기존 참여 상태를 유지합니다.
+      // 요청 실패 시 기존 참여 상태를 유지
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  const handleConfirmParticipation = async () => {
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
+
+    try {
+      await postApplyCommission(commissionId);
+      setIsApplied(true);
+      setIsParticipationModalOpen(false);
+      router.push("/designer/search");
+    } catch {
+      // 요청 실패 시 모달을 유지해 다시 시도
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleCloseParticipationModal = () => {
+    if (!isSubmitting) setIsParticipationModalOpen(false);
+  };
+
   return (
-    <div className="border-gray-70 bg-gray-80 shadow-banner rounded-8 flex w-full items-center justify-between border py-2 pr-3 pl-6">
-      <div className="flex items-center gap-6">
-        <RewardItem label="기본금" amount={formatAmount(baseAmount)} />
-        <RewardItem label="최대 수령액" amount={formatAmount(maxAmount)} />
+    <>
+      <div className="border-gray-70 bg-gray-80 shadow-banner rounded-8 flex w-full items-center justify-between border py-2 pr-3 pl-6">
+        <div className="flex items-center gap-6">
+          <RewardItem label="기본금" amount={formatAmount(baseAmount)} />
+          <RewardItem label="최대 수령액" amount={formatAmount(maxAmount)} />
+        </div>
+        <Button
+          type="button"
+          variant={isSubmitting ? "medium_disabled" : "medium_primary"}
+          className="w-60"
+          disabled={isSubmitting}
+          onClick={handleParticipationClick}
+        >
+          {isSubmitting ? "처리 중" : isApplied ? "취소하기" : "참여하기"}
+        </Button>
       </div>
-      <Button
-        type="button"
-        variant={isSubmitting ? "medium_disabled" : "medium_primary"}
-        className="w-60"
-        disabled={isSubmitting}
-        onClick={handleParticipation}
-      >
-        {isSubmitting ? "처리 중" : isApplied ? "취소하기" : "참여하기"}
-      </Button>
-    </div>
+
+      <Modal
+        isOpen={isParticipationModalOpen}
+        type="double"
+        title="해당 외주에 참여하시겠습니까?"
+        description={"외주에 참여하시겠습니까?\n참여 취소는 현재외주-외주정보에서 가능합니다."}
+        confirmLabel="확인"
+        cancelLabel="취소"
+        onConfirm={handleConfirmParticipation}
+        onCancel={handleCloseParticipationModal}
+        onClose={handleCloseParticipationModal}
+      />
+    </>
   );
 };
 
