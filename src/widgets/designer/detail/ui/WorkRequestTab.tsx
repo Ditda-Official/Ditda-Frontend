@@ -14,7 +14,7 @@ const WorkRequestTab = ({ categoryDetail }: WorkRequestTabProps) => {
   return (
     <div className="flex flex-col gap-7">
       <div className="flex flex-col gap-5">
-        <h3 className="text-gray-70 text-caption1-sb">기본정보</h3>
+        <h3 className="text-gray-90 text-heading2-sb">기본정보</h3>
         <div className="flex flex-col gap-3">
           <div className="flex flex-row gap-10">
             <p className="text-gray-70 text-body1-sb">교재명</p>
