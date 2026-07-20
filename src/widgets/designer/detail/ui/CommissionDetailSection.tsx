@@ -3,7 +3,6 @@
 import { useState } from "react";
 
 import type { CommissionDetail } from "@/shared/api/commissionTypes";
-import { cn } from "@/shared/lib/utils/cn";
 import Menu from "@/shared/ui/Menu";
 import DesignInfoTab from "@/widgets/designer/detail/ui/DesignInfoTab";
 import ReferenceTab from "@/widgets/designer/detail/ui/ReferenceTab";
@@ -14,23 +13,16 @@ const MENU_LABELS = ["디자인 정보", "작업 요청사항", "자료 및 레�
 interface CommissionDetailSectionProps {
   commission: CommissionDetail;
   initialSelectedIndex?: number;
-  fillAvailableHeight?: boolean;
 }
 
 const CommissionDetailSection = ({
   commission,
   initialSelectedIndex = 0,
-  fillAvailableHeight = false,
 }: CommissionDetailSectionProps) => {
   const [selectedIndex, setSelectedIndex] = useState(initialSelectedIndex);
 
   return (
-    <div
-      className={cn(
-        "rounded-12 flex w-full flex-col overflow-hidden bg-white px-6",
-        fillAvailableHeight ? "min-h-0 flex-1" : "h-168",
-      )}
-    >
+    <div className="rounded-12 flex min-h-0 w-full flex-1 flex-col overflow-hidden bg-white px-6">
       <div className="border-gray-40 flex shrink-0 gap-4 border-b pt-2">
         {MENU_LABELS.map((label, index) => (
           <Menu
