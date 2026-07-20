@@ -30,7 +30,6 @@ const Page = () => {
                   value={form.username}
                 />
                 <InputField
-                  errorMessage={form.errorMessage}
                   label="비밀번호"
                   onChange={form.handlePasswordChange}
                   placeholder="비밀번호를 입력해주세요"
@@ -40,13 +39,18 @@ const Page = () => {
                 />
               </div>
 
-              <Button
-                disabled={!form.isLoginEnabled}
-                variant={form.isLoginEnabled ? "large_primary" : "large_disabled"}
-                type="submit"
-              >
-                {form.isSubmitting ? "로그인 중" : "로그인하기"}
-              </Button>
+              <div className="flex w-full flex-col items-center gap-2">
+                <Button
+                  disabled={!form.isLoginEnabled}
+                  variant={form.isLoginEnabled ? "large_primary" : "large_disabled"}
+                  type="submit"
+                >
+                  {form.isSubmitting ? "로그인 중" : "로그인하기"}
+                </Button>
+                {form.errorMessage != null && (
+                  <p className="text-caption1-m text-red-main text-center">{form.errorMessage}</p>
+                )}
+              </div>
             </form>
 
             <div className="flex flex-col items-center gap-3">
