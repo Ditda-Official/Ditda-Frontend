@@ -5,6 +5,7 @@ import { use, useEffect, useState } from "react";
 
 import { getCommissionDetail } from "@/shared/api/commission";
 import type { CommissionDetail } from "@/shared/api/commissionTypes";
+import { cn } from "@/shared/lib/utils/cn";
 import {
   BackToListButton,
   CommissionDetailSection,
@@ -51,8 +52,8 @@ const Page = ({ params, searchParams }: PageProps) => {
   const { dateInfo, priceInfo } = commission;
 
   return (
-    <div className="mx-auto flex w-236.25 flex-col gap-4 py-8">
-      <div className="flex w-full flex-col gap-9">
+    <div className={cn("mx-auto flex w-236.25 flex-col gap-4 py-8", shouldHideActions && "h-full")}>
+      <div className={cn("flex w-full flex-col gap-9", shouldHideActions && "min-h-0 flex-1")}>
         <header className="flex flex-col items-start gap-5">
           {!shouldHideActions && <BackToListButton />}
 
@@ -63,7 +64,7 @@ const Page = ({ params, searchParams }: PageProps) => {
           />
         </header>
 
-        <CommissionDetailSection commission={commission} />
+        <CommissionDetailSection commission={commission} fillAvailableHeight={shouldHideActions} />
       </div>
 
       {!shouldHideActions && priceInfo && (
