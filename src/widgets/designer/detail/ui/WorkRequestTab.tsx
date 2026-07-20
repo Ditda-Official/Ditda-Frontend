@@ -17,16 +17,16 @@ const WorkRequestTab = ({ categoryDetail }: WorkRequestTabProps) => {
         <h3 className="text-gray-70 text-caption1-sb">기본정보</h3>
         <div className="flex flex-col gap-3">
           <div className="flex flex-row gap-10">
-            <p className="text-gray-70 text-heading3-sb">교재명</p>
-            <p className="text-gray-80 text-heading3-sb">{textbookName}</p>
+            <p className="text-gray-70 text-body1-sb">교재명</p>
+            <p className="text-gray-80 text-body1-sb">{textbookName}</p>
           </div>
           <div className="flex flex-row gap-10">
-            <p className="text-gray-70 text-heading3-sb">강사명</p>
-            <p className="text-gray-80 text-heading3-sb">{instructorName}</p>
+            <p className="text-gray-70 text-body1-sb">강사명</p>
+            <p className="text-gray-80 text-body1-sb">{instructorName}</p>
           </div>
           <div className="flex flex-row gap-10">
-            <p className="text-gray-70 text-heading3-sb">과목명</p>
-            <p className="text-gray-80 text-heading3-sb">{subject}</p>
+            <p className="text-gray-70 text-body1-sb">과목명</p>
+            <p className="text-gray-80 text-body1-sb">{subject}</p>
           </div>
         </div>
       </div>
