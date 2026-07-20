@@ -69,9 +69,9 @@ const InputField = ({
       <div className="flex flex-col gap-1">
         <div
           className={cn(
-            "rounded-8 border-gray-30 flex w-full items-center justify-between border bg-white p-4 transition-colors",
+            "rounded-8 flex w-full items-center justify-between border border-transparent bg-white p-4 transition-colors",
             "focus-within:border-purple-30",
-            hasError && "border-red-main focus-within:border-red-main",
+            hasError && "focus-within:border-red-main",
             disabled && "bg-gray-10 text-gray-50",
           )}
         >
