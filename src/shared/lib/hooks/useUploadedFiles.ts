@@ -4,12 +4,16 @@ import { formatFileSize } from "@/shared/lib/utils/file";
 import { UploadedFile } from "@/shared/types/file";
 
 type UploadFile = (file: File) => Promise<string>;
+type UseUploadedFilesOptions = {
+  simulateUpload?: boolean;
+};
 
 export const useUploadedFiles = (
   externalFiles?: UploadedFile[],
   setExternalFiles?: (files: UploadedFile[]) => void,
   uploadFile?: UploadFile,
   onUploadError?: (file: File) => void,
+  { simulateUpload = true }: UseUploadedFilesOptions = {},
 ) => {
   const [localFiles, setLocalFiles] = useState<UploadedFile[]>([]);
   const externalFilesRef = useRef(externalFiles);
@@ -33,7 +37,7 @@ export const useUploadedFiles = (
       file,
       fileName: file.name,
       fileSize: formatFileSize(file.size),
-      isUploading: true,
+      isUploading: uploadFile != null || simulateUpload,
     }));
 
     setFiles(prev => [...prev, ...newEntries]);
@@ -53,6 +57,8 @@ export const useUploadedFiles = (
 
         return;
       }
+
+      if (!simulateUpload) return;
 
       // 임시 업로드 시뮬레이션 (실제 API 연동 시 교체)
       setTimeout(() => {

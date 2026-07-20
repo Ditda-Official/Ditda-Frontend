@@ -17,7 +17,6 @@ type AccountStepProps = {
   progressIcon: ReactNode;
   nextButtonText: string;
   role: SignupRole;
-  initialData?: SignupAccountData;
   profileData?: SignupProfileData;
   onPrev: () => void;
   onNext: (data: SignupAccountData) => void;
@@ -27,12 +26,11 @@ const AccountStep = ({
   progressIcon,
   nextButtonText,
   role,
-  initialData,
   profileData,
   onPrev,
   onNext,
 }: AccountStepProps) => {
-  const form = useSignupStep2Form(initialData);
+  const form = useSignupStep2Form();
 
   const handleNext = async () => {
     const accountData = await form.validateAndGetAccountData();

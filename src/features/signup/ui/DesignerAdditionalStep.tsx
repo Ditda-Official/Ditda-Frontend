@@ -1,8 +1,10 @@
 "use client";
 
 import { type ChangeEvent, type ReactNode, useState } from "react";
+import { useShallow } from "zustand/react/shallow";
 
-import type { BankCode, BankOption } from "@/features/signup/config/signup";
+import type { BankOption } from "@/features/signup/config/signup";
+import { useSignupFormStore } from "@/features/signup/model/signupFormStore";
 import {
   type SignupDesignerAdditionalData,
   signupDesignerAdditionalSchema,
@@ -16,7 +18,6 @@ import InputField from "@/shared/ui/input/InputField";
 
 type DesignerAdditionalStepProps = {
   progressIcon: ReactNode;
-  initialData?: SignupDesignerAdditionalData;
   onPrev: () => void;
   onSubmit: (data: SignupDesignerAdditionalData) => Promise<void>;
 };
@@ -32,29 +33,47 @@ const isPortfolioFile = (file: File) => {
 
 const DesignerAdditionalStep = ({
   progressIcon,
-  initialData,
   onPrev,
   onSubmit,
 }: DesignerAdditionalStepProps) => {
-  const [selectedBank, setSelectedBank] = useState<BankCode | null>(initialData?.bankCode ?? null);
-  const [accountNumber, setAccountNumber] = useState(initialData?.accountNumber ?? "");
-  const [accountHolder, setAccountHolder] = useState(initialData?.accountHolder ?? "");
-  const { uploadedFiles, handleFilesAdded, handleRemove } = useUploadedFiles();
+  const {
+    designerDraft,
+    setDesignerAccountHolder,
+    setDesignerAccountNumber,
+    setDesignerBankCode,
+    setDesignerPortfolioFiles,
+  } = useSignupFormStore(
+    useShallow(state => ({
+      designerDraft: state.designerDraft,
+      setDesignerAccountHolder: state.setDesignerAccountHolder,
+      setDesignerAccountNumber: state.setDesignerAccountNumber,
+      setDesignerBankCode: state.setDesignerBankCode,
+      setDesignerPortfolioFiles: state.setDesignerPortfolioFiles,
+    })),
+  );
+  const { accountHolder, accountNumber, bankCode, portfolioFiles } = designerDraft;
+  const { uploadedFiles, handleFilesAdded, handleRemove } = useUploadedFiles(
+    portfolioFiles,
+    setDesignerPortfolioFiles,
+    undefined,
+    undefined,
+    { simulateUpload: false },
+  );
   const [submitErrorMessage, setSubmitErrorMessage] = useState<string>();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const isSubmitEnabled =
-    selectedBank != null &&
+    bankCode != null &&
     accountNumber.trim().length > 0 &&
     accountHolder.trim().length > 0 &&
     !isSubmitting;
 
   const handleBankChange = (bank: BankOption) => {
-    setSelectedBank(bank.code);
+    setDesignerBankCode(bank.code);
   };
 
   const handleAccountNumberChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setAccountNumber(event.target.value.replace(/\D/g, ""));
+    setDesignerAccountNumber(event.target.value.replace(/\D/g, ""));
   };
 
   const handlePortfolioFilesAdded = (files: File[]) => {
@@ -67,7 +86,7 @@ const DesignerAdditionalStep = ({
 
   const handleSubmit = async () => {
     const parsedData = signupDesignerAdditionalSchema.safeParse({
-      bankCode: selectedBank,
+      bankCode,
       accountNumber: accountNumber.trim(),
       accountHolder: accountHolder.trim(),
       portfolioFiles: uploadedFiles.map(({ file }) => file),
@@ -102,7 +121,7 @@ const DesignerAdditionalStep = ({
             <div className="flex w-full flex-col gap-5">
               <div className="flex w-full flex-col gap-2">
                 <p className="text-body2-r text-gray-70">은행 선택</p>
-                <BankDropdown value={selectedBank} onChange={handleBankChange} />
+                <BankDropdown value={bankCode} onChange={handleBankChange} />
               </div>
 
               <InputField
@@ -110,15 +129,15 @@ const DesignerAdditionalStep = ({
                 placeholder="계좌번호를 입력해주세요"
                 value={accountNumber}
                 onChange={handleAccountNumberChange}
-                onClear={() => setAccountNumber("")}
+                onClear={() => setDesignerAccountNumber("")}
               />
 
               <InputField
                 label="예금주"
                 placeholder="예금주를 입력해주세요"
                 value={accountHolder}
-                onChange={event => setAccountHolder(event.target.value)}
-                onClear={() => setAccountHolder("")}
+                onChange={event => setDesignerAccountHolder(event.target.value)}
+                onClear={() => setDesignerAccountHolder("")}
               />
 
               <div className="flex w-full flex-col gap-2">

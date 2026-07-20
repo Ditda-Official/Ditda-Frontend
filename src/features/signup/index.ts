@@ -2,6 +2,7 @@ export { postSignupDesigner } from "./api/signup";
 export * from "./config/signup";
 export * from "./config/signupFunnel";
 export * from "./model/signup";
+export { useSignupFormStore } from "./model/signupFormStore";
 export type {
   SignupAccountData,
   SignupDesignerAdditionalData,
