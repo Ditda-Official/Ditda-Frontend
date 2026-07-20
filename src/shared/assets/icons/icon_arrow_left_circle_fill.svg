@@ -1,6 +1,6 @@
-<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect x="47.5" y="47.5" width="47" height="47" rx="23.5" transform="rotate(-180 47.5 47.5)" fill="white"/>
-<rect x="47.5" y="47.5" width="47" height="47" rx="23.5" transform="rotate(-180 47.5 47.5)" stroke="#E9EDEF"/>
+<svg width="48" height="48" viewBox="0 0 48 48" fill="white" xmlns="http://www.w3.org/2000/svg">
+<rect x="47.5" y="47.5" width="47" height="47" rx="23.5" transform="rotate(-180 47.5 47.5)"/>
+<rect x="47.5" y="47.5" width="47" height="47" rx="23.5" transform="rotate(-180 47.5 47.5)" fill="none" stroke="#E9EDEF"/>
 <g clip-path="url(#clip0_1668_16667)">
 <path d="M26 19L21 24L26 29" stroke="#222222" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </g>

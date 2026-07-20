@@ -17,7 +17,7 @@ const MatchingWaitingRow = ({ item }: { item: DesignerCommission }) => {
   const router = useRouter();
 
   return (
-    <div className="border-b-gray-10 hover:bg-gray-10 flex w-272 cursor-pointer items-center justify-between border-b px-6 py-4 transition-colors duration-150">
+    <div className="border-b-gray-10 hover:bg-gray-10 rounded-8 flex w-full cursor-pointer items-center justify-between border-b px-6 py-4 transition-colors duration-150">
       <div className="flex items-center gap-29">
         <div className="flex items-center gap-8">
           <Tag variant="gray" label={getDDay(item.applicationDeadline)} />

@@ -51,8 +51,8 @@ const Page = ({ params, searchParams }: PageProps) => {
   const { dateInfo, priceInfo } = commission;
 
   return (
-    <div className="mx-auto flex w-236.25 flex-col gap-4 py-8">
-      <div className="flex w-full flex-col gap-9">
+    <div className="mx-auto flex h-full w-236.25 flex-col gap-4 py-8">
+      <div className="flex min-h-0 w-full flex-1 flex-col gap-9">
         <header className="flex flex-col items-start gap-5">
           {!shouldHideActions && <BackToListButton />}
 
@@ -73,6 +73,7 @@ const Page = ({ params, searchParams }: PageProps) => {
           baseAmount={priceInfo.baseAmount}
           maxAmount={priceInfo.maxAmount}
           applied={commission.applied ?? false}
+          applicationDeadline={dateInfo.applicationDeadline}
         />
       )}
     </div>

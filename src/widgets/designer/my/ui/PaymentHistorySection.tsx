@@ -44,9 +44,23 @@ const PaymentHistorySection = () => {
 
         {totalPages > 0 && (
           <div className="flex items-center justify-center gap-8">
-            <PrevButton className="size-12 cursor-pointer" onClick={handlePrev} />
+            <button
+              type="button"
+              onClick={handlePrev}
+              disabled={page === 0}
+              className="cursor-pointer disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              <PrevButton className="hover:fill-gray-5 size-12 transition-colors" />
+            </button>
             <PageIndicator total={totalPages} current={page} variant="my" />
-            <NextButton className="size-12 cursor-pointer" onClick={handleNext} />
+            <button
+              type="button"
+              onClick={handleNext}
+              disabled={page === totalPages - 1}
+              className="cursor-pointer disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              <NextButton className="hover:fill-gray-5 size-12 transition-colors" />
+            </button>
           </div>
         )}
       </div>

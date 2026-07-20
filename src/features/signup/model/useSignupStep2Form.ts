@@ -21,6 +21,7 @@ import {
   SIGNUP_PASSWORD_CONFIRM_FORMAT_ERROR_MESSAGE,
   SIGNUP_PASSWORD_ERROR_MESSAGE,
 } from "@/features/signup/config/signup";
+import { useSignupFormStore } from "@/features/signup/model/signupFormStore";
 import {
   SignupAccountData,
   SignupAccountFormValues,
@@ -48,7 +49,13 @@ const toSignupAccountData = ({
   username,
 });
 
-export const useSignupStep2Form = (initialValues?: Partial<SignupAccountData>) => {
+export const useSignupStep2Form = () => {
+  const initialValues = useSignupFormStore.getState().accountDraft;
+  const verifiedEmail = useSignupFormStore(state => state.verifiedEmail);
+  const verifiedUsername = useSignupFormStore(state => state.verifiedUsername);
+  const setAccountField = useSignupFormStore(state => state.setAccountField);
+  const setVerifiedEmail = useSignupFormStore(state => state.setVerifiedEmail);
+  const setVerifiedUsername = useSignupFormStore(state => state.setVerifiedUsername);
   const {
     control,
     formState: { errors, isValid },
@@ -57,21 +64,29 @@ export const useSignupStep2Form = (initialValues?: Partial<SignupAccountData>) =
     trigger,
   } = useForm<SignupAccountFormValues>({
     defaultValues: {
-      email: initialValues?.email ?? "",
-      password: initialValues?.password ?? "",
-      passwordConfirm: initialValues?.password ?? "",
-      username: initialValues?.username ?? "",
-      verificationCode: "",
+      email: initialValues.email,
+      password: initialValues.password,
+      passwordConfirm: initialValues.passwordConfirm,
+      username: initialValues.username,
+      verificationCode: initialValues.verificationCode,
     },
     mode: "onChange",
     resolver: zodResolver(signupAccountSchema),
   });
 
   const values = useWatch({ control }) as SignupAccountFormValues;
-  const [userIdCheckStatus, setUserIdCheckStatus] = useState<SignupUserIdCheckStatus>("idle");
+  const [userIdCheckStatus, setUserIdCheckStatus] = useState<SignupUserIdCheckStatus>(() =>
+    verifiedUsername === initialValues.username && initialValues.username !== ""
+      ? "available"
+      : "idle",
+  );
   const [verificationTimer, setVerificationTimer] = useState(0);
   const [emailVerificationStatus, setEmailVerificationStatus] =
-    useState<SignupEmailVerificationStatus>("idle");
+    useState<SignupEmailVerificationStatus>(() =>
+      verifiedEmail === initialValues.email.trim() && initialValues.email.trim() !== ""
+        ? "verified"
+        : "idle",
+    );
   const [emailRequestErrorMessage, setEmailRequestErrorMessage] = useState<string>();
   const [verificationCodeErrorMessage, setVerificationCodeErrorMessage] = useState<string>();
   const [userIdCheckErrorMessage, setUserIdCheckErrorMessage] = useState<string>();
@@ -79,8 +94,8 @@ export const useSignupStep2Form = (initialValues?: Partial<SignupAccountData>) =
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const isVerificationTimerActive = verificationTimer > 0;
-  const isEmailVerified = emailVerificationStatus === "verified";
-  const isUserIdAvailable = userIdCheckStatus === "available";
+  const isEmailVerified = values.email.trim() !== "" && verifiedEmail === values.email.trim();
+  const isUserIdAvailable = values.username !== "" && verifiedUsername === values.username;
   const isUserIdLengthValid =
     values.username.length >= SIGNUP_MIN_ID_LENGTH &&
     values.username.length <= SIGNUP_MAX_ID_LENGTH;
@@ -112,6 +127,7 @@ export const useSignupStep2Form = (initialValues?: Partial<SignupAccountData>) =
 
   const resetEmailVerification = () => {
     setValue("verificationCode", "", { shouldDirty: true, shouldValidate: true });
+    setAccountField("verificationCode", "");
     setVerificationTimer(0);
     setEmailVerificationStatus("idle");
     setEmailRequestErrorMessage(undefined);
@@ -119,10 +135,12 @@ export const useSignupStep2Form = (initialValues?: Partial<SignupAccountData>) =
   };
 
   const handleUserIdChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setValue("username", formatSignupUserId(event.target.value), {
+    const username = formatSignupUserId(event.target.value);
+    setValue("username", username, {
       shouldDirty: true,
       shouldValidate: true,
     });
+    setAccountField("username", username);
     setUserIdCheckStatus("idle");
     setUserIdCheckErrorMessage(undefined);
   };
@@ -130,12 +148,19 @@ export const useSignupStep2Form = (initialValues?: Partial<SignupAccountData>) =
   const handleUserIdCheck = async () => {
     if (!isUserIdLengthValid || userIdCheckStatus === "checking") return;
 
+    const username = getValues("username");
     setUserIdCheckStatus("checking");
 
     try {
-      await postCheckSignupUsername(values.username);
+      await postCheckSignupUsername(username);
+
+      if (getValues("username") !== username) return;
+
+      setVerifiedUsername(username);
       setUserIdCheckStatus("available");
     } catch (error) {
+      if (getValues("username") !== username) return;
+
       if (error instanceof ApiError && (error.status === 409 || error.code === "REQ_409_01")) {
         setUserIdCheckStatus("duplicated");
         return;
@@ -150,6 +175,7 @@ export const useSignupStep2Form = (initialValues?: Partial<SignupAccountData>) =
 
   const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValue("password", event.target.value, { shouldDirty: true, shouldValidate: true });
+    setAccountField("password", event.target.value);
 
     if (values.passwordConfirm.length > 0) {
       void trigger("passwordConfirm");
@@ -158,26 +184,35 @@ export const useSignupStep2Form = (initialValues?: Partial<SignupAccountData>) =
 
   const handlePasswordConfirmChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValue("passwordConfirm", event.target.value, { shouldDirty: true, shouldValidate: true });
+    setAccountField("passwordConfirm", event.target.value);
   };
 
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValue("email", event.target.value, { shouldDirty: true, shouldValidate: true });
+    setAccountField("email", event.target.value);
     resetEmailVerification();
   };
 
   const handleEmailVerificationRequest = async () => {
     if (!isEmailFormatValid || emailVerificationStatus === "sending") return;
 
+    const email = getValues("email").trim();
     setEmailVerificationStatus("sending");
     setEmailRequestErrorMessage(undefined);
     setVerificationCodeErrorMessage(undefined);
 
     try {
-      await postSignupEmailVerification(values.email.trim());
+      await postSignupEmailVerification(email);
+
+      if (getValues("email").trim() !== email) return;
+
       setValue("verificationCode", "", { shouldDirty: true, shouldValidate: true });
+      setAccountField("verificationCode", "");
       setEmailVerificationStatus("sent");
       setVerificationTimer(SIGNUP_EMAIL_VERIFICATION_LIMIT_SECONDS);
     } catch (error) {
+      if (getValues("email").trim() !== email) return;
+
       setEmailVerificationStatus("idle");
       setEmailRequestErrorMessage(
         error instanceof Error ? error.message : "인증번호 요청에 실패했습니다",
@@ -190,6 +225,7 @@ export const useSignupStep2Form = (initialValues?: Partial<SignupAccountData>) =
       shouldDirty: true,
       shouldValidate: true,
     });
+    setAccountField("verificationCode", event.target.value);
     setVerificationCodeErrorMessage(undefined);
 
     if (emailVerificationStatus === "verified") {
@@ -207,17 +243,29 @@ export const useSignupStep2Form = (initialValues?: Partial<SignupAccountData>) =
       return;
     }
 
+    const email = getValues("email").trim();
+    const code = getValues("verificationCode").trim();
     setEmailVerificationStatus("verifying");
     setVerificationCodeErrorMessage(undefined);
 
     try {
       await postVerifySignupEmail({
-        code: values.verificationCode.trim(),
-        email: values.email.trim(),
+        code,
+        email,
       });
+
+      if (getValues("email").trim() !== email || getValues("verificationCode").trim() !== code) {
+        return;
+      }
+
+      setVerifiedEmail(email);
       setEmailVerificationStatus("verified");
       setVerificationTimer(0);
     } catch (error) {
+      if (getValues("email").trim() !== email || getValues("verificationCode").trim() !== code) {
+        return;
+      }
+
       setEmailVerificationStatus("sent");
       setVerificationCodeErrorMessage(
         error instanceof Error ? error.message : SIGNUP_EMAIL_VERIFICATION_CODE_ERROR_MESSAGE,
@@ -227,12 +275,14 @@ export const useSignupStep2Form = (initialValues?: Partial<SignupAccountData>) =
 
   const clearUserId = () => {
     setValue("username", "", { shouldDirty: true, shouldValidate: true });
+    setAccountField("username", "");
     setUserIdCheckStatus("idle");
     setUserIdCheckErrorMessage(undefined);
   };
 
   const clearEmail = () => {
     setValue("email", "", { shouldDirty: true, shouldValidate: true });
+    setAccountField("email", "");
     resetEmailVerification();
   };
 

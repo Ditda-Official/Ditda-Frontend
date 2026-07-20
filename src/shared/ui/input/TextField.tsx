@@ -34,7 +34,6 @@ const TextField = ({
   );
   const isControlled = value != null;
   const textValue = (isControlled ? value : uncontrolledValue).slice(0, characterLimit);
-  const hasValue = textValue.length > 0;
 
   const handleChange: ChangeEventHandler<HTMLTextAreaElement> = event => {
     if (!isControlled) {
@@ -47,15 +46,11 @@ const TextField = ({
   return (
     <div
       className={cn(
-        "rounded-8 flex w-full flex-col gap-1 px-4 pt-4 pb-3 transition-colors",
-        variant === "gray" &&
-          (hasValue && !readOnly
-            ? "bg-gray-10 border border-gray-50"
-            : "bg-gray-10 border border-transparent"),
-        variant === "white" &&
-          (hasValue && !readOnly
-            ? "border border-gray-50 bg-white"
-            : "border-gray-40 border bg-white"),
+        "rounded-8 flex w-full flex-col gap-1 border border-transparent px-4 pt-4 pb-3 transition-colors",
+        variant === "gray" && "bg-gray-10",
+        variant === "white" && "bg-white",
+        readOnly && variant === "white" && "border-gray-40",
+        !readOnly && "focus-within:border-gray-50",
       )}
     >
       <textarea

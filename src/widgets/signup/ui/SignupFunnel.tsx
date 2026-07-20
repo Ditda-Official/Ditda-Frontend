@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   AccountStep,
@@ -19,6 +19,7 @@ import {
   type SignupRole,
   TermsProfileStep,
   UserTypeStep,
+  useSignupFormStore,
 } from "@/features/signup";
 import {
   getClientUserHomePath,
@@ -32,14 +33,17 @@ const SignupFunnel = () => {
   const [currentStep, setCurrentStep] = useState<SignupFunnelStep>(SIGNUP_INITIAL_STEP);
   const [profileData, setProfileData] = useState<SignupProfileData>();
   const [accountData, setAccountData] = useState<SignupAccountData>();
-  const [designerAdditionalData, setDesignerAdditionalData] =
-    useState<SignupDesignerAdditionalData>();
+  const resetSignupForm = useSignupFormStore(state => state.resetSignupForm);
+
+  useEffect(() => {
+    return () => resetSignupForm();
+  }, [resetSignupForm]);
 
   const handleRoleNext = (role: SignupRole) => {
+    resetSignupForm();
     setSelectedRole(role);
     setProfileData(undefined);
     setAccountData(undefined);
-    setDesignerAdditionalData(undefined);
     setCurrentStep(SIGNUP_STEPS_BY_ROLE[role][0]);
   };
 
@@ -79,6 +83,11 @@ const SignupFunnel = () => {
 
   const handleAccountNext = (data: SignupAccountData) => {
     setAccountData(data);
+
+    if (selectedRole === "instructor") {
+      resetSignupForm();
+    }
+
     moveNext();
   };
 
@@ -86,8 +95,6 @@ const SignupFunnel = () => {
     if (profileData == null || accountData == null) {
       throw new Error("회원가입 정보를 확인할 수 없습니다");
     }
-
-    setDesignerAdditionalData(data);
 
     const result = await postSignupDesigner({
       profile: profileData,
@@ -101,6 +108,7 @@ const SignupFunnel = () => {
     }
 
     setClientAuth({ accessToken: result.accessToken, role: userRole });
+    resetSignupForm();
     router.push(getClientUserHomePath(userRole));
   };
 
@@ -139,7 +147,6 @@ const SignupFunnel = () => {
           progressIcon={<SignupProgressIcon currentStep={2} totalSteps={3} />}
           nextButtonText="다음"
           role={selectedRole}
-          initialData={accountData}
           profileData={profileData}
           onPrev={movePrev}
           onNext={handleAccountNext}
@@ -152,7 +159,6 @@ const SignupFunnel = () => {
         progressIcon={<SignupProgressIcon currentStep={2} totalSteps={2} />}
         nextButtonText="가입하기"
         role={selectedRole}
-        initialData={accountData}
         profileData={profileData}
         onPrev={movePrev}
         onNext={handleAccountNext}
@@ -163,7 +169,6 @@ const SignupFunnel = () => {
   return (
     <DesignerAdditionalStep
       progressIcon={<SignupProgressIcon currentStep={3} totalSteps={3} />}
-      initialData={designerAdditionalData}
       onPrev={movePrev}
       onSubmit={handleDesignerSubmit}
     />

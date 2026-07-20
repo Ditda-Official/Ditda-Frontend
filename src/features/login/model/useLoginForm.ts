@@ -6,6 +6,7 @@ import { type ChangeEvent, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 
 import { postLogin } from "@/features/login/api/login";
+import { getLoginErrorMessage } from "@/features/login/model/loginError";
 import { loginFormSchema, type LoginFormValues } from "@/features/login/model/loginSchemas";
 import {
   getClientUserHomePath,
@@ -67,7 +68,7 @@ export const useLoginForm = () => {
       });
       router.push(getClientUserHomePath(userRole));
     } catch (error) {
-      setErrorMessage(error instanceof Error ? error.message : "요청 처리 중 문제가 발생했습니다");
+      setErrorMessage(getLoginErrorMessage(error));
     } finally {
       setIsSubmitting(false);
     }

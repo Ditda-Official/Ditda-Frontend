@@ -22,7 +22,7 @@ const CommissionDetailSection = ({
   const [selectedIndex, setSelectedIndex] = useState(initialSelectedIndex);
 
   return (
-    <div className="rounded-12 flex h-168 w-full flex-col overflow-hidden bg-white px-6">
+    <div className="rounded-12 flex min-h-0 w-full flex-1 flex-col overflow-hidden bg-white px-6">
       <div className="border-gray-40 flex shrink-0 gap-4 border-b pt-2">
         {MENU_LABELS.map((label, index) => (
           <Menu

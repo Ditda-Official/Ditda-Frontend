@@ -33,14 +33,22 @@ const DraftCheckSection = ({
         제출된 시안을 확인하고 가장 마음에 드는 시안을 선택해주세요
       </h2>
       <div className="flex flex-row justify-end gap-4 pb-4">
-        <PrevButton
-          className={`size-12 ${page > 0 ? "cursor-pointer" : "cursor-default opacity-30"}`}
+        <button
+          type="button"
           onClick={() => setPage(p => Math.max(0, p - 1))}
-        />
-        <NextButton
-          className={`size-12 ${page < totalPages - 1 ? "cursor-pointer" : "cursor-default opacity-30"}`}
+          disabled={page === 0}
+          className="cursor-pointer disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          <PrevButton className="hover:fill-gray-5 size-12 transition-colors" />
+        </button>
+        <button
+          type="button"
           onClick={() => setPage(p => Math.min(totalPages - 1, p + 1))}
-        />
+          disabled={page === totalPages - 1}
+          className="cursor-pointer disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          <NextButton className="hover:fill-gray-5 size-12 transition-colors" />
+        </button>
       </div>
       <div className="grid grid-cols-3 gap-6 pb-8">
         {visibleDrafts.map((draft, i) => {
