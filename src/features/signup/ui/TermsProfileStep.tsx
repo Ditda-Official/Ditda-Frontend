@@ -190,7 +190,7 @@ const TermsProfileStep = ({
                           onClick={() => toggleTerm(id)}
                         >
                           <CheckIcon isChecked={checkedTerms[id]} />
-                          <span className="text-heading3-m text-gray-90">{label}</span>
+                          <span className="text-body2-m text-gray-90">{label}</span>
                         </button>
 
                         <button
