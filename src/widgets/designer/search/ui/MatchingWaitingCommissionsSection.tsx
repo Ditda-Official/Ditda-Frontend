@@ -65,22 +65,20 @@ const MatchingWaitingCommissionsSection = () => {
           <div className="flex items-center justify-center gap-8">
             <button
               type="button"
-              aria-label="이전 페이지"
               onClick={handlePrev}
               disabled={current === 0}
-              className="disabled:cursor-not-allowed disabled:opacity-40"
+              className="cursor-pointer disabled:cursor-not-allowed disabled:opacity-40"
             >
-              <PrevButton className="hover:fill-gray-5 size-12 cursor-pointer transition-colors" />
+              <PrevButton className="hover:fill-gray-5 size-12 transition-colors" />
             </button>
             <PageIndicator total={totalPages} current={current} />
             <button
               type="button"
-              aria-label="다음 페이지"
               onClick={handleNext}
               disabled={current === totalPages - 1}
-              className="disabled:cursor-not-allowed disabled:opacity-40"
+              className="cursor-pointer disabled:cursor-not-allowed disabled:opacity-40"
             >
-              <NextButton className="hover:fill-gray-5 size-12 cursor-pointer transition-colors" />
+              <NextButton className="hover:fill-gray-5 size-12 transition-colors" />
             </button>
           </div>
         )}

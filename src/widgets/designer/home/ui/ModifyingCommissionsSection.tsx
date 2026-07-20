@@ -45,15 +45,23 @@ const ModifyingCommissionsSection = ({ items }: { items: ModifyingItem[] }) => {
 
           {pageItems.length > 0 && (
             <div className="flex items-center justify-between">
-              <PrevButton
-                className="hover:fill-gray-5 size-12 cursor-pointer transition-colors"
+              <button
+                type="button"
                 onClick={handlePrev}
-              />
+                disabled={current === 0}
+                className="cursor-pointer disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                <PrevButton className="hover:fill-gray-5 size-12 transition-colors" />
+              </button>
               <PageIndicator total={totalPages} current={current} />
-              <NextButton
-                className="hover:fill-gray-5 size-12 cursor-pointer transition-colors"
+              <button
+                type="button"
                 onClick={handleNext}
-              />
+                disabled={current === totalPages - 1}
+                className="cursor-pointer disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                <NextButton className="hover:fill-gray-5 size-12 transition-colors" />
+              </button>
             </div>
           )}
         </div>
