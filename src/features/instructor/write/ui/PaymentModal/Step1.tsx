@@ -3,6 +3,7 @@ import { useShallow } from "zustand/react/shallow";
 
 import {
   PLAN_LABEL_MAP,
+  SIZE_DIMENSIONS_MAP,
   SIZE_DISPLAY_MAP,
   TERMS_CONTENT,
 } from "@/features/instructor/write/config/write";
@@ -169,7 +170,12 @@ const Step1 = ({
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-5">
             {selectedCategory && <InfoRow label="카테고리" value={selectedCategory.item} />}
-            {selectedSize && <InfoRow label="사이즈" value={SIZE_DISPLAY_MAP[selectedSize]} />}
+            {selectedSize && (
+              <InfoRow
+                label="사이즈"
+                value={`${SIZE_DISPLAY_MAP[selectedSize]} ${SIZE_DIMENSIONS_MAP[SIZE_DISPLAY_MAP[selectedSize]] ?? ""}`.trim()}
+              />
+            )}
             {selectedPlan && <InfoRow label="플랜" value={PLAN_LABEL_MAP[selectedPlan.code]} />}
             {selectedPages.length > 0 && (
               <InfoRow label="페이지">

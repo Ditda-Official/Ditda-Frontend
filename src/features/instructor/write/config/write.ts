@@ -126,7 +126,7 @@ export const SIZE_API_MAP: Record<string, string> = {
 
 export const SIZE_DISPLAY_MAP: Record<string, string> = {
   a4: "A4",
-  국배판: "KUKBAE",
+  국배판: "국배판",
   b5: "B5",
   a5: "A5",
 };

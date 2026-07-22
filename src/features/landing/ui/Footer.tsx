@@ -27,7 +27,7 @@ const Footer = () => {
             </p>
           </div>
         </div>
-        <div className="flex w-61.5 shrink-0 flex-col gap-1 whitespace-nowrap">
+        <div className="flex w-61.5 shrink-0 flex-col gap-2 whitespace-nowrap">
           <p className="text-gray-40 text-body2-m">서비스 소개서</p>
           <Button
             variant="medium_secondary"
