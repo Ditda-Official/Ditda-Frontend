@@ -2,6 +2,7 @@ import {
   CONCEPT_CATEGORIES,
   KEYWORD_API_MAP,
   SIZE_DIMENSIONS_MAP,
+  SIZE_DISPLAY_MAP,
 } from "@/features/designer/detail";
 import { CATEGORY_DISPLAY_MAP } from "@/features/designer/home";
 import type { CommissionDesignInfo } from "@/shared/api/commissionTypes";
@@ -29,7 +30,7 @@ const DesignInfoTab = ({ category, designInfo }: DesignInfoTabProps) => {
       <div className="flex flex-col gap-2">
         <h3 className="text-gray-70 text-caption1-sb">사이즈</h3>
         <p className="text-gray-80 text-heading3-sb">
-          {pageSize}
+          {SIZE_DISPLAY_MAP[pageSize] ?? pageSize}
           {dimensions ? ` ${dimensions}` : ""}
         </p>
       </div>

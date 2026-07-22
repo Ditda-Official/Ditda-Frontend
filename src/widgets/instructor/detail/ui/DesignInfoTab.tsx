@@ -2,7 +2,8 @@ import { CATEGORY_DISPLAY_MAP } from "@/features/instructor/home";
 import {
   CONCEPT_CATEGORIES,
   KEYWORD_API_MAP,
-  SIZE_DIMENSIONS_MAP,
+  SIZE_API_MAP,
+  SIZE_OPTIONS,
 } from "@/features/instructor/write";
 import type { CommissionDesignInfo } from "@/shared/api/commissionTypes";
 import Chip from "@/shared/ui/Chip";
@@ -15,7 +16,9 @@ interface DesignInfoTabProps {
 
 const DesignInfoTab = ({ category, designInfo }: DesignInfoTabProps) => {
   const { pageSize, concepts, additionalConcept, colorSelectionMode, colors } = designInfo;
-  const dimensions = SIZE_DIMENSIONS_MAP[pageSize];
+  const sizeOption = SIZE_OPTIONS.find(option => SIZE_API_MAP[option.id] === pageSize);
+  const sizeLabel = sizeOption?.size ?? pageSize;
+  const dimensions = sizeOption?.dimensions;
 
   return (
     <div className="flex flex-col gap-7">
@@ -29,7 +32,7 @@ const DesignInfoTab = ({ category, designInfo }: DesignInfoTabProps) => {
       <div className="flex flex-col gap-2">
         <h3 className="text-gray-70 text-caption1-sb">사이즈</h3>
         <p className="text-gray-80 text-heading3-sb">
-          {pageSize}
+          {sizeLabel}
           {dimensions ? ` ${dimensions}` : ""}
         </p>
       </div>
