@@ -10,7 +10,16 @@ const config: StorybookConfig = {
     "@storybook/addon-docs",
     "@storybook/addon-mcp",
   ],
-  framework: "@storybook/nextjs-vite",
+  framework: {
+    name: "@storybook/nextjs-vite",
+    options: {
+      // 프로젝트에서 .svg는 next/image가 아닌 SVGR 컴포넌트로만 사용하므로,
+      // nextjs-vite의 기본 next/image 목킹 대상에서 .svg를 제외해 vite-plugin-svgr와 충돌하지 않게 한다.
+      image: {
+        excludeFiles: [/\.svg$/],
+      },
+    },
+  },
   staticDirs: ["../public"],
   async viteFinal(viteConfig) {
     viteConfig.plugins ??= [];

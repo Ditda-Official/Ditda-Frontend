@@ -11,6 +11,12 @@ const preview: Preview = {
     ),
   ],
   parameters: {
+    layout: "centered",
+    // 프로젝트가 App Router만 사용하므로 next/navigation 훅(useRouter 등)이
+    // AppRouterContext 없이도 동작하도록 전역으로 활성화한다.
+    nextjs: {
+      appDirectory: true,
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,
