@@ -57,7 +57,7 @@ const DraftModal = ({ isOpen, onClose, title, fileUrls }: DraftModalProps) => {
           {fileUrls.map((fileUrl, index) => (
             <div
               key={`${fileUrl}-${index}`}
-              className="rounded-12 relative h-128.25 w-86.25 shrink-0 overflow-hidden select-none"
+              className="rounded-12 bg-gray-10 relative h-128.25 w-86.25 shrink-0 overflow-hidden select-none"
               onContextMenu={e => e.preventDefault()}
             >
               <Image
@@ -66,7 +66,7 @@ const DraftModal = ({ isOpen, onClose, title, fileUrls }: DraftModalProps) => {
                 fill
                 sizes="345px"
                 draggable={false}
-                className="pointer-events-none object-cover"
+                className="pointer-events-none object-contain"
               />
             </div>
           ))}
