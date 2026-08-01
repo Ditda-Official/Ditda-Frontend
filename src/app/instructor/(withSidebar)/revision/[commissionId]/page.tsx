@@ -106,7 +106,9 @@ const Page = () => {
           draftTitle={revisionDetail.title}
           thumbnailUrl={revisionDetail.draft.thumbnailUrl}
           designerComment={revisionDetail.draft.designerComment}
-          remainingRevisionCount={revisionDetail.currentRevisionCount}
+          remainingRevisionCount={
+            revisionDetail.maxRevisionCount - revisionDetail.currentRevisionCount
+          }
           maxRevisionCount={revisionDetail.maxRevisionCount}
           selectedCategories={selectedCategories}
           onToggleCategory={handleToggleCategory}
